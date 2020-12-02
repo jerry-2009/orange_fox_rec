@@ -18,11 +18,7 @@ import com.fordownloads.orangefox.R;
 
 public class ScriptsFragment extends Fragment {
 
-    private ScriptsViewModel scriptsViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(App.getContext(), R.color.fox_status_solid_bg));
         return inflater.inflate(R.layout.fragment_scripts, container, false);
     }
 }

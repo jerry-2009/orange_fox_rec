@@ -5,19 +5,19 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_install">
 
-    <fragment
+    <custom_fragment
         android:id="@+id/nav_install"
         android:name="com.fordownloads.orangefox.ui.install.InstallFragment"
         android:label="@string/bnav_install"
         tools:layout="@layout/fragment_install" />
 
-    <fragment
+    <custom_fragment
         android:id="@+id/nav_scripts"
         android:name="com.fordownloads.orangefox.ui.scripts.ScriptsFragment"
         android:label="@string/bnav_scripts"
         tools:layout="@layout/fragment_scripts" />
 
-    <fragment
+    <custom_fragment
         android:id="@+id/nav_settings"
         android:name="com.fordownloads.orangefox.ui.settings.SettingsFragment"
         android:label="@string/bnav_settings"

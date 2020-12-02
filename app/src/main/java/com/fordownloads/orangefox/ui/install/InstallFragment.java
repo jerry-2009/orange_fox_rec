@@ -1,7 +1,5 @@
 package com.fordownloads.orangefox.ui.install;
 
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +18,9 @@ import org.json.JSONException;
 
 public class InstallFragment extends Fragment {
 
-    private InstallViewModel installViewModel;
-
     TextView _ofTitle;
     Button _installButton;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(App.getContext(), R.color.fox_accent));
         View rootView = inflater.inflate(R.layout.fragment_install, container, false);
 
         _ofTitle = rootView.findViewById(R.id.ofTitle);

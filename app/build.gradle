@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.mindorks.android:prdownloader:0.6.0'
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
+    implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
+
     implementation 'androidx.core:core-ktx:1.1.0-alpha04'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'com.google.android.material:material:1.1.0'

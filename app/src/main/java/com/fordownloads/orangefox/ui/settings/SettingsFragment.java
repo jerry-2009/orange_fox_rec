@@ -17,12 +17,7 @@ import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 
 public class SettingsFragment extends Fragment {
-
-    private SettingsViewModel settingsViewModel;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(App.getContext(), R.color.fox_status_solid_bg));
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 }
