@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_install"
+        android:icon="@drawable/ic_round_save_alt_24"
+        android:title="@string/bnav_install" />
+
+    <item
+        android:id="@+id/nav_scripts"
+        android:icon="@drawable/ic_outline_receipt_long_24"
+        android:title="@string/bnav_scripts" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/bnav_settings" />
+
+</menu>

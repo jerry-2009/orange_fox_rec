@@ -16,18 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OrangeFox">
         <activity
-            android:name=".DeviceActivity"
-            android:label="@string/title_activity_device"
-            android:theme="@style/Theme.OrangeFox.NoActionBar"></activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.OrangeFox.NoActionBar">
+            android:name=".MainNav"
+            android:label="@string/title_activity_main_nav">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter></activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.OrangeFox.NoActionBar">
         </activity>
     </application>
 

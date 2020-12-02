@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_install">
+
+    <fragment
+        android:id="@+id/nav_install"
+        android:name="com.fordownloads.orangefox.ui.install.InstallFragment"
+        android:label="@string/bnav_install"
+        tools:layout="@layout/fragment_install" />
+
+    <fragment
+        android:id="@+id/nav_scripts"
+        android:name="com.fordownloads.orangefox.ui.scripts.ScriptsFragment"
+        android:label="@string/bnav_scripts"
+        tools:layout="@layout/fragment_scripts" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.fordownloads.orangefox.ui.settings.SettingsFragment"
+        android:label="@string/bnav_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
