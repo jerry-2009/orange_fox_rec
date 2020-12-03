@@ -17,6 +17,7 @@
     <string name="rel_stable">Stable</string>
     <string name="rel_beta">Beta</string>
     <string name="rel_installthis">Install This Release</string>
+    <string name="rel_info">Info</string>
 
     <string name="rel_install">Install</string>
     <string name="rel_changes">Changelog</string>

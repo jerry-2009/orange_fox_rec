@@ -35,7 +35,7 @@ public class InstallFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ReleaseActivity.class);
-                intent.putExtra("apiCall", "device/x00t/releases/last");
+                intent.putExtra("apiCall", "releases/5f2081a094a8ed5b894cae9f");
                 startActivity(intent);
             }
         });

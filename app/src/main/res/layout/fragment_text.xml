@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.scripts.ScriptsFragment">
 
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
+    <TextView
+        android:id="@+id/multiTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:ems="10"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="monospace"
         android:gravity="top"
-        android:inputType="textMultiLine" />
+        android:textIsSelectable="true"
+        android:textSize="12sp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
