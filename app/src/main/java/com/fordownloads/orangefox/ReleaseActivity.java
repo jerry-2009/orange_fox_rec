@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.fordownloads.orangefox.App.setDataAdapterInfo;
+
 public class ReleaseActivity extends AppCompatActivity {
     public static String apiCall = null;
     List<ItemRel> items = new ArrayList<>();
@@ -83,6 +85,9 @@ public class ReleaseActivity extends AppCompatActivity {
                 public void run() {
                     FragmentPagerItems.Creator pageList = FragmentPagerItems.with(App.getContext());
 
+                    DataAdapterRel adapter = new DataAdapterRel(App.getContext(), items);
+                    setDataAdapterInfo(adapter); //см. App.java
+
                     pageList.add(R.string.rel_info, RelInfoFragment.class);
 
                     try {
@@ -108,9 +113,9 @@ public class ReleaseActivity extends AppCompatActivity {
 
                     SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
                     viewPagerTab.setViewPager(viewPager);
-                    DataAdapterRel adapter = new DataAdapterRel(App.getContext(), items);
 
-                    ((RecyclerView)findViewById(R.id.releaseRecycler)).setAdapter(adapter);
+
+
                     findViewById(R.id.spinner).setVisibility(View.GONE);
                 }});
         } catch (JSONException e) {
