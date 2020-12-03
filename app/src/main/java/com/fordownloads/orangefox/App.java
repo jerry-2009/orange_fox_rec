@@ -2,6 +2,7 @@ package com.fordownloads.orangefox;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 
 import androidx.core.content.ContextCompat;

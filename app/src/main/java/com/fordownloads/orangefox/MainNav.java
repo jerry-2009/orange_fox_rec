@@ -42,6 +42,7 @@ public class MainNav extends AppCompatActivity {
         bn.setDefaultBackgroundColor(App.col(R.color.fox_title_solid_bg));
         bn.setAccentColor(App.col(R.color.fox_accent));
         bn.setInactiveColor(App.col(R.color.google_gray));
+        /*bn.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE_FORCE);*/
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE

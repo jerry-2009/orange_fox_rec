@@ -2,6 +2,19 @@
     <string name="app_name">OrangeFox</string>
     <string name="title_activity_main_nav">OrangeFox</string>
 
+    <string name="rel_activity">Release</string>
+
+    <string name="rel_size">File Size</string>
+    <string name="rel_vers">Version</string>
+    <string name="rel_type">Build Type</string>
+    <string name="rel_name">File Name</string>
+    <string name="rel_date">Date</string>
+
+    <string name="rel_install">Install</string>
+    <string name="rel_changes">Changelog</string>
+    <string name="rel_notes">Build Notes</string>
+    <string name="rel_bugs">Bugs</string>
+
     <string name="bnav_install">Install</string>
     <string name="bnav_scripts">Scripts</string>
     <string name="bnav_settings">Settings</string>

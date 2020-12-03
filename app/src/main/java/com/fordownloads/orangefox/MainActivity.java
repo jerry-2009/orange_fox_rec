@@ -40,17 +40,7 @@ import com.topjohnwu.superuser.Shell;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.fordownloads.orangefox.api;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            JSONArray devices = new JSONArray(apiRequest("device"));
+            JSONArray devices = new JSONArray(api.request("device"));
             for (int i=0; i < devices.length(); i++)
             {
                     JSONObject device = devices.getJSONObject(i);
@@ -156,21 +146,6 @@ public class MainActivity extends AppCompatActivity {
         return Shell.su(cmd).exec().isSuccess();
     }
 
-    public String apiRequest(String reqUrl) {
-        try {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("https://api.orangefox.download/v2/" + reqUrl)
-                    .build();
-            Response response = client.newCall(request).execute();
-            return response.body().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "[]";
-    }
-
     public void downloadFile() throws JSONException {
         View rootView = findViewById(android.R.id.content).getRootView();
 /*
@@ -185,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }*/
 
-        JSONObject release = new JSONObject(apiRequest("device/"+ guessCodename +"/releases/last"));
+        JSONObject release = new JSONObject(api.request("device/"+ guessCodename +"/releases/last"));
 
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override

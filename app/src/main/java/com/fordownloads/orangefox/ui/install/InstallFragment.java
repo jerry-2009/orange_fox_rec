@@ -1,36 +1,42 @@
 package com.fordownloads.orangefox.ui.install;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.ReleaseActivity;
 
 import org.json.JSONException;
 
 public class InstallFragment extends Fragment {
-
     TextView _ofTitle;
-    Button _installButton;
+    Button _installButton, _releaseInfo;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_install, container, false);
 
         _ofTitle = rootView.findViewById(R.id.ofTitle);
         _installButton = rootView.findViewById(R.id.installButton);
+        _releaseInfo = rootView.findViewById(R.id.releaseInfo);
 
-
-        _installButton.setOnClickListener(new View.OnClickListener() {
+        _releaseInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _ofTitle.setText("Test");
+                Intent intent = new Intent(getActivity(), ReleaseActivity.class);
+                intent.putExtra("apiCall", "device/x00t/releases/last");
+                startActivity(intent);
             }
         });
 
