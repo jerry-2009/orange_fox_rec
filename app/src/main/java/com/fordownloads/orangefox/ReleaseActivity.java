@@ -6,21 +6,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fordownloads.orangefox.ui.recycler.DataAdapterRel;
 import com.fordownloads.orangefox.ui.recycler.ItemRel;
 import com.fordownloads.orangefox.ui.recycler.RelInfoFragment;
 import com.fordownloads.orangefox.ui.recycler.RelTextFragment;
-import com.fordownloads.orangefox.ui.scripts.ScriptsFragment;
 import com.fordownloads.orangefox.ui.tools;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -83,52 +79,50 @@ public class ReleaseActivity extends AppCompatActivity {
             items.add(new ItemRel (getString(R.string.rel_size), release.getString("size_human"), R.drawable.ic_outline_sd_card_24));
             items.add(new ItemRel ("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    FragmentPagerItems.Creator pageList = FragmentPagerItems.with(App.getContext());
+            runOnUiThread(() -> {
+                FragmentPagerItems.Creator pageList = FragmentPagerItems.with(App.getContext());
 
-                    DataAdapterRel adapter = new DataAdapterRel(App.getContext(), items);
-                    setDataAdapterInfo(adapter); //см. App.java
+                DataAdapterRel adapter = new DataAdapterRel(App.getContext(), items);
+                setDataAdapterInfo(adapter); //см. App.java
 
-                    pageList.add(R.string.rel_info, RelInfoFragment.class);
+                pageList.add(R.string.rel_info, RelInfoFragment.class);
 
-                    try {
-                        if (release.has("changelog"))
-                            pageList.add(R.string.rel_changes, RelTextFragment.class,
-                                    RelTextFragment.arguments(release.getString("changelog")));
-                        if (release.has("notes"))
-                            pageList.add(R.string.rel_notes, RelTextFragment.class,
-                                    RelTextFragment.arguments(release.getString("notes")));
-                        if (release.has("bugs"))
-                                pageList.add(R.string.rel_bugs, RelTextFragment.class,
-                                        RelTextFragment.arguments(release.getString("bugs")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    if (release.has("changelog"))
+                        pageList.add(R.string.rel_changes, RelTextFragment.class,
+                                RelTextFragment.arguments(release.getString("changelog")));
+                    if (release.has("notes"))
+                        pageList.add(R.string.rel_notes, RelTextFragment.class,
+                                RelTextFragment.arguments(release.getString("notes")));
+                    if (release.has("bugs"))
+                            pageList.add(R.string.rel_bugs, RelTextFragment.class,
+                                    RelTextFragment.arguments(release.getString("bugs")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
-                    FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
-                            getSupportFragmentManager(), pageList.create());
+                FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
+                        getSupportFragmentManager(), pageList.create());
 
-                    ViewPager viewPager = findViewById(R.id.viewpager);
-                    viewPager.setAdapter(fragAdapter);
+                ViewPager viewPager = findViewById(R.id.viewpager);
+                viewPager.setAdapter(fragAdapter);
 
-                    SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
-                    viewPagerTab.setViewPager(viewPager);
+                SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
+                viewPagerTab.setViewPager(viewPager);
 
 
-                    FrameLayout loadingView = findViewById(R.id.loadingLayout);
-                    loadingView.animate()
-                            .alpha(0f)
-                            .setDuration(200)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    loadingView.setVisibility(View.GONE);
-                                }
-                            });
-                }});
+                FrameLayout loadingView = findViewById(R.id.loadingLayout);
+                loadingView.animate()
+                        .alpha(0f)
+                        .setDuration(200)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                loadingView.setVisibility(View.GONE);
+                            }
+                        });
+            });
         } catch (JSONException e) {
             e.printStackTrace();
             runOnUiThread(() -> tools.dialogFinish((Activity)App.getContext(), R.string.err_json));

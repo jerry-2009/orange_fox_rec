@@ -1,8 +1,5 @@
 package com.fordownloads.orangefox;
 
-import android.os.Handler;
-import android.os.HandlerThread;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +10,7 @@ import okhttp3.Response;
 
 public class api {
     public static Map<String, Object> request(String reqUrl) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         try {
             OkHttpClient client = new OkHttpClient();

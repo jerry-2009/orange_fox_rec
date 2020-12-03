@@ -2,15 +2,8 @@ package com.fordownloads.orangefox;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
-
 import androidx.core.content.ContextCompat;
-
 import com.fordownloads.orangefox.ui.recycler.DataAdapterRel;
-import com.fordownloads.orangefox.ui.recycler.ItemRel;
-
-import java.util.List;
 
 public class App extends Application {
 

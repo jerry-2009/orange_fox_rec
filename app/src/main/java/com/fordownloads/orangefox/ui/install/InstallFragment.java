@@ -6,19 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.ReleaseActivity;
-
-import org.json.JSONException;
 
 public class InstallFragment extends Fragment {
     TextView _ofTitle;
@@ -31,13 +23,10 @@ public class InstallFragment extends Fragment {
         _installButton = rootView.findViewById(R.id.installButton);
         _releaseInfo = rootView.findViewById(R.id.releaseInfo);
 
-        _releaseInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ReleaseActivity.class);
-                intent.putExtra("apiCall", "releases/5f2081a094a8ed5b894cae9f");
-                startActivity(intent);
-            }
+        _releaseInfo.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), ReleaseActivity.class);
+            intent.putExtra("apiCall", "releases/5f2081a094a8ed5b894cae9f");
+            startActivity(intent);
         });
 
         return rootView;

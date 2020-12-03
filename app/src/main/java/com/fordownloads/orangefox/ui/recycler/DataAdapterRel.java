@@ -6,24 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.fordownloads.orangefox.R;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class DataAdapterRel extends RecyclerView.Adapter<DataAdapterRel.ViewHolder> {
 
-    private LayoutInflater inflater;
-    private List<ItemRel> items;
+    private final LayoutInflater inflater;
+    private final List<ItemRel> items;
 
     public DataAdapterRel(Context context, List<ItemRel> items) {
         this.items = items;
         this.inflater = LayoutInflater.from(context);
     }
+    @NotNull
     @Override
-    public DataAdapterRel.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DataAdapterRel.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.list_release, parent, false);
         return new ViewHolder(view);
@@ -42,14 +41,14 @@ public class DataAdapterRel extends RecyclerView.Adapter<DataAdapterRel.ViewHold
         return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView iconView;
         final TextView titleView, subtitleView;
         ViewHolder(View view){
             super(view);
-            iconView = (ImageView)view.findViewById(R.id.icon);
-            titleView = (TextView) view.findViewById(R.id.title);
-            subtitleView = (TextView) view.findViewById(R.id.subtitle);
+            iconView = view.findViewById(R.id.icon);
+            titleView = view.findViewById(R.id.title);
+            subtitleView = view.findViewById(R.id.subtitle);
         }
     }
 }

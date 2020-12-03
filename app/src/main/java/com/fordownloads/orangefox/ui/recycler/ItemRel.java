@@ -1,10 +1,9 @@
 package com.fordownloads.orangefox.ui.recycler;
 
 public class ItemRel {
-
-        private String title;
-        private String subtitle;
-        private int icon;
+        private final String title;
+        private final String subtitle;
+        private final int icon;
 
         public ItemRel(String title, String subtitle, int icon){
             this.title = title;
@@ -15,24 +14,10 @@ public class ItemRel {
         public String getTitle() {
             return this.title;
         }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
         public String getSubtitle() {
-            return this.subtitle;
-        }
-
-        public void setSubtitle(String subtitle) {
-            this.subtitle = subtitle;
-        }
-
+                return this.subtitle;
+            }
         public int getIcon() {
-            return this.icon;
-        }
-
-        public void setIcon(int icon) {
-            this.icon = icon;
-        }
+                return this.icon;
+            }
 }

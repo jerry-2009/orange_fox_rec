@@ -1,46 +1,29 @@
 package com.fordownloads.orangefox;
 
-import android.Manifest;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-
-import com.downloader.Error;
-import com.downloader.OnCancelListener;
-import com.downloader.OnDownloadListener;
-import com.downloader.OnPauseListener;
-import com.downloader.OnProgressListener;
-import com.downloader.OnStartOrResumeListener;
-import com.downloader.PRDownloader;
-import com.downloader.PRDownloaderConfig;
-import com.downloader.Progress;
-import com.downloader.httpclient.DefaultHttpClient;
-import com.downloader.httpclient.HttpClient;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.os.Environment;
 import android.os.StrictMode;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.downloader.Error;
+import com.downloader.OnDownloadListener;
+import com.downloader.PRDownloader;
+import com.downloader.PRDownloaderConfig;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.topjohnwu.superuser.Shell;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.fordownloads.orangefox.api;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     String appDir = "";
-    String updateZip = "OFupdate.zip";
     int progrTest = 0;
 
 
@@ -119,26 +101,20 @@ public class MainActivity extends AppCompatActivity {
         PRDownloader.initialize(getApplicationContext(), config);
 
         /* Add click listeners */
-        _download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    downloadFile();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        _download.setOnClickListener(view -> {
+            try {
+                downloadFile();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         });
 
-        _test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progrTest += 10;
-                _progressText.setText(progrTest + "%");
-                _progressBar.setProgress(progrTest);
-                _progressLayout.setVisibility(View.VISIBLE);
+        _test.setOnClickListener(view -> {
+            progrTest += 10;
+            _progressText.setText(progrTest + "%");
+            _progressBar.setProgress(progrTest);
+            _progressLayout.setVisibility(View.VISIBLE);
 
-            }
         });
     }
 
@@ -162,48 +138,42 @@ public class MainActivity extends AppCompatActivity {
 
         JSONObject release = new JSONObject(api.request("device/"+ guessCodename +"/releases/last"));
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == DialogInterface.BUTTON_NEGATIVE)
-                    return;
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            if (which == DialogInterface.BUTTON_NEGATIVE)
+                return;
 
-                _progressLayout.setVisibility(View.VISIBLE);
-                _download.setVisibility(View.GONE);
-                String downloadUrl = null;
-                String sizeHuman = "";
-                try {
-                    downloadUrl = release.getString("url");
-                    sizeHuman = release.getString("size_human");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String finalSizeHuman = sizeHuman;
-                int downloadId = PRDownloader.download(downloadUrl, appDir, "OFupdate.zip")
-                        .build()
-                        .setOnProgressListener(new OnProgressListener() {
-                            @Override
-                            public void onProgress(Progress progress) {
-                                _progressBar.setMax((int)progress.totalBytes);
-                                _progressText.setText(progress.currentBytes / 1048576  + "MB of " + finalSizeHuman);
-                                _progressBar.setProgress((int)progress.currentBytes);
-                            }
-                        })
-                        .start(new OnDownloadListener() {
-                            @Override
-                            public void onDownloadComplete() {
-                                su("cp \"" + appDir + "/OFupdate.zip\" /sdcard/OFupdate.zip && echo \"install /sdcard/OFupdate.zip\" > /cache/recovery/openrecoveryscript && reboot recovery");
-                                _progressLayout.setVisibility(View.GONE);
-                                _download.setVisibility(View.VISIBLE);
-                            }
-
-                            @Override
-                            public void onError(Error error) {
-                                Snackbar.make(rootView, "Download error", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
-                            }
-                        });
+            _progressLayout.setVisibility(View.VISIBLE);
+            _download.setVisibility(View.GONE);
+            String downloadUrl = null;
+            String sizeHuman = "";
+            try {
+                downloadUrl = release.getString("url");
+                sizeHuman = release.getString("size_human");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+            String finalSizeHuman = sizeHuman;
+            int downloadId = PRDownloader.download(downloadUrl, appDir, "OFupdate.zip")
+                    .build()
+                    .setOnProgressListener(progress -> {
+                        _progressBar.setMax((int)progress.totalBytes);
+                        _progressText.setText(progress.currentBytes / 1048576  + "MB of " + finalSizeHuman);
+                        _progressBar.setProgress((int)progress.currentBytes);
+                    })
+                    .start(new OnDownloadListener() {
+                        @Override
+                        public void onDownloadComplete() {
+                            su("cp \"" + appDir + "/OFupdate.zip\" /sdcard/OFupdate.zip && echo \"install /sdcard/OFupdate.zip\" > /cache/recovery/openrecoveryscript && reboot recovery");
+                            _progressLayout.setVisibility(View.GONE);
+                            _download.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onError(Error error) {
+                            Snackbar.make(rootView, "Download error", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                    });
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

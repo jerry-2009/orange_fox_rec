@@ -18,10 +18,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.OrangeFox.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.OrangeFox.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
-
     <style name="Theme.OrangeFox.Card">
         <item name="cardBackgroundColor">@color/fox_card</item>
         <item name="cardCornerRadius">8dp</item>
