@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ReleaseActivity">
-
-    <ProgressBar
-        android:id="@+id/spinner"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,18 +14,64 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/appToolbar"
+            style="@style/ToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            style="@style/ToolbarStyle"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextAppearance="@style/Toolbar.TitleText" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/releaseRecycler"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layoutManager="LinearLayoutManager" />
+            android:layout_height="52dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="6dp">
+
+                <com.ogaclejapan.smarttablayout.SmartTabLayout
+                    android:id="@+id/viewpagertab"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/fox_title_solid_bg"
+                    android:clipToPadding="false"
+                    android:paddingStart="54dp"
+                    android:paddingEnd="4dp"
+                    app:stl_defaultTabTextColor="@color/white"
+                    app:stl_defaultTabTextHorizontalPadding="18dp"
+                    app:stl_dividerColor="@android:color/transparent"
+                    app:stl_dividerThickness="0dp"
+                    app:stl_indicatorColor="@color/fox_card"
+                    app:stl_indicatorCornerRadius="18dp"
+                    app:stl_indicatorGravity="center"
+                    app:stl_indicatorInterpolation="smart"
+                    app:stl_indicatorThickness="36dp"
+                    app:stl_underlineColor="@android:color/transparent"
+                    app:stl_underlineThickness="0dp" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/installButton2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/rel_installthis"
+        android:textColor="@color/fox_background"
+        app:icon="@drawable/ic_round_save_alt_24"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp"
+        app:iconTint="@color/fox_background" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

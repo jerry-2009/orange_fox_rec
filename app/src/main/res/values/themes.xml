@@ -23,7 +23,7 @@
     <style name="Theme.OrangeFox.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="Theme.OrangeFox.Card">
-        <item name="cardBackgroundColor">#FF242528</item>
+        <item name="cardBackgroundColor">@color/fox_card</item>
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">4dp</item>
         <item name="contentPadding">16dp</item>
@@ -50,6 +50,6 @@
     <style name="ToolbarStyle">
         <item name="android:theme">@style/ToolbarTheme</item>
         <item name="android:background">@color/fox_title_solid_bg</item>
-        <item name="android:elevation">6dp</item>
+        <item name="android:elevation">0dp</item>
     </style>
 </resources>

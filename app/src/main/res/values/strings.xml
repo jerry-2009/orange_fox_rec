@@ -16,6 +16,7 @@
     <string name="rel_date">Date</string>
     <string name="rel_stable">Stable</string>
     <string name="rel_beta">Beta</string>
+    <string name="rel_installthis">Install This Release</string>
 
     <string name="rel_install">Install</string>
     <string name="rel_changes">Changelog</string>
@@ -25,4 +26,6 @@
     <string name="bnav_install">Install</string>
     <string name="bnav_scripts">Scripts</string>
     <string name="bnav_settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
