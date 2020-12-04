@@ -18,6 +18,7 @@ import com.fordownloads.orangefox.ui.recycler.ItemRel;
 import com.fordownloads.orangefox.ui.recycler.RelInfoFragment;
 import com.fordownloads.orangefox.ui.recycler.RelTextFragment;
 import com.fordownloads.orangefox.ui.tools;
+import com.gw.swipeback.SwipeBackLayout;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -39,6 +40,22 @@ public class ReleaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
+
+/*
+            SwipeBackLayout mSwipeBackLayout = (SwipeBackLayout) findViewById(R.id.swipeBackLayout);
+            mSwipeBackLayout.setSwipeBackListener(new SwipeBackLayout.OnSwipeBackListener() {
+                @Override
+                public void onViewPositionChanged(View mView, float swipeBackFraction, float SWIPE_BACK_FACTOR) {
+
+                }
+
+                @Override
+                public void onViewSwipeFinished(View mView, boolean isEnd) {
+
+                }
+            });*/
+
+
         App.setContext(this);
 
         Intent intent = getIntent();

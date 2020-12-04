@@ -20,7 +20,7 @@
             android:name=".ReleaseActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/rel_activity"
-            android:theme="@style/Theme.OrangeFox.Activity">
+            android:theme="@style/Theme.AppCompat.Translucent">
         </activity>
 
         <activity

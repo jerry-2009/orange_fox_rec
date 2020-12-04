@@ -31,11 +31,36 @@
         <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
     </style>
 
+    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">#00000000</item> <!-- Or any transparency or color you need -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Window</item>
+        <item name="colorPrimary">@color/fox_accent</item>
+        <item name="colorPrimaryVariant">@color/fox_bright</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/fox_accent</item>
+        <item name="colorSecondaryVariant">@color/fox_accent</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:navigationBarColor">@color/fox_status_solid_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
+    </style>
+
+    <!-- Animations for a non-full-screen window or activity. -->
+    <style name="Animation.Window" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom</item>
+        <item name="android:windowExitAnimation">@anim/bottom</item>
+    </style>
+
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/fox_accent</item>
         <item name="actionMenuTextColor">@color/fox_accent</item>
         <item name="colorAccent">@color/fox_accent</item>
         <item name="colorControlHighlight">@color/fox_accent</item>
+        <item name="android:background">@drawable/rounded_top</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
