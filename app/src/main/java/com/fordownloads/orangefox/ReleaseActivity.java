@@ -53,18 +53,23 @@ public class ReleaseActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        findViewById(R.id.installThis).setOnClickListener(view -> {
-            if (release != null)
-                setResult(Activity.RESULT_OK, new Intent().putExtra("release", release.toString()));
-            finish();
-        });
+        switch (intent.getByteExtra("type", (byte) 0)) {
+            case 0:
+                findViewById(R.id.installThis).setOnClickListener(view -> {
+                    if (release != null)
+                        setResult(Activity.RESULT_OK, new Intent().putExtra("release", release.toString()));
+                    finish();
+                });
+                findViewById(R.id.installBtnLayout).setVisibility(View.VISIBLE);
 
-        if (intent.hasExtra("isJSON")) {
-            releaseJSON = true;
-            _loadingView.setVisibility(View.GONE);
-            getAllReleaseInfo();
-        } else {
-            new Thread(this::getAllReleaseInfo).start();
+                if (intent.hasExtra("isJSON")) {
+                    releaseJSON = true;
+                    _loadingView.setVisibility(View.GONE);
+                    getAllReleaseInfo();
+                } else {
+                    new Thread(this::getAllReleaseInfo).start();
+                }
+                break;
         }
     }
 

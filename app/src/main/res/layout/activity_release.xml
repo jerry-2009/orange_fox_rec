@@ -8,17 +8,19 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/installBtnLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="bottom"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_anchorGravity="bottom">
 
         <Button
             android:id="@+id/installThis"
+            style="@style/ThemeButtonInstall"
             android:layout_width="match_parent"
-            android:text="@string/rel_installthis"
-            style="@style/Theme.OrangeFox.Install" />
+            android:text="@string/rel_installthis" />
     </LinearLayout>
 
     <LinearLayout
@@ -28,11 +30,11 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/appToolbar"
-            style="@style/Theme.OrangeFox.Toolbar.Style"
+            style="@style/ThemeToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextAppearance="@style/Theme.OrangeFox.Toolbar.Text" />
+            app:titleTextAppearance="@style/ThemeToolbarText" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +56,7 @@
                     android:defaultFocusHighlightEnabled="false"
                     android:paddingStart="54dp"
                     android:paddingEnd="8dp"
-                    android:theme="@style/Theme.OrangeFox.Tabs"
+                    android:theme="@style/ThemeTabs"
                     app:stl_defaultTabTextColor="@color/white"
                     app:stl_defaultTabTextHorizontalPadding="18dp"
                     app:stl_dividerColor="@android:color/transparent"

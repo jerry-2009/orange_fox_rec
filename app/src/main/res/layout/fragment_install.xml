@@ -7,23 +7,17 @@
     android:background="@color/fox_bright"
     android:fitsSystemWindows="true"
     tools:context=".ui.install.InstallFragment">
-
-    <Button
-        android:id="@+id/installButton"
+    <Button android:id="@+id/installButton"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
-        style="@style/Theme.OrangeFox.Install"
-        android:text="Install R11.0_2 Stable" />
-
-    <ImageView
-        android:id="@+id/imageView3"
+        style="@style/ThemeButtonInstall"
+        android:text="Install R11.0_2 Stable"/>
+    <ImageView android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/fox_main_gradient" />
-
-    <TextView
-        android:id="@+id/ofTitle"
+        android:src="@drawable/fox_main_gradient"/>
+    <TextView android:id="@+id/ofTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -32,77 +26,154 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
-        android:textSize="24sp" />
-
-    <ScrollView
-        android:layout_width="match_parent"
+        android:textSize="24sp"/>
+    <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_anchor="@+id/imageView3"
         app:layout_anchorGravity="center">
-
-        <LinearLayout
-            android:id="@+id/layoutCards"
+        <LinearLayout android:id="@+id/layoutCards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:paddingBottom="72dp"
             android:showDividers="middle|end">
-
-            <androidx.cardview.widget.CardView
-                style="@style/Theme.OrangeFox.Card"
+            <androidx.cardview.widget.CardView style="@style/ThemeCard"
                 android:layout_width="match_parent"
-                android:layout_height="216dp"
-                android:layout_marginTop="72dp" >
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Device\nModel: ASUS etc...\nCodename: x00t"
-                    android:textSize="18sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                style="@style/Theme.OrangeFox.Card"
-                android:layout_width="match_parent"
-                android:layout_height="216dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right|top"
+                    android:layout_margin="8dp"
+                    android:tint="@color/google_gray"
+                    android:src="@drawable/ic_device" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:divider="@drawable/divider"
-                    android:showDividers="middle"
-                    android:orientation="horizontal"
-                    android:layout_gravity="bottom|center|right|center_horizontal">
-                    <Button
-                        android:id="@+id/otherReleases"
-                        style="@style/Theme.OrangeFox.Button.Outline"
-                        android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/rel_more"
-                        app:icon="@drawable/ic_widget" />
-                    <Button
-                        android:id="@+id/releaseInfo"
-                        style="@style/Theme.OrangeFox.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/rel_button"
-                        app:icon="@drawable/ic_outline_info_24" />
+                        android:orientation="vertical">
+                        <TextView
+                            style="@style/ThemeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="8dp"
+                            android:text="@string/dev_info" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                style="@style/ThemeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Device:\nCodename:\nSelected:\nSec. Patch:"
+                                android:textColor="@color/google_gray" />
+                            <TextView
+                                android:id="@+id/devInfo"
+                                style="@style/ThemeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:paddingStart="16dp"
+                                android:text="Asus Zenfone Max Pro M1\nX00T\nx00t\n2020-10-05" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Theme.OrangeFox.Title"
-                    android:text="TextView" />
             </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView style="@style/ThemeCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="right|top"
+                    android:layout_margin="8dp"
+                    android:tint="@color/google_gray"
+                    android:src="@drawable/ic_outline_new_releases_24" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:paddingTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/ThemeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="8dp"
+                            android:text="@string/rel_current" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/ThemeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date:\nVersion:\nType:\nSize:"
+                                android:textColor="@color/google_gray" />
+
+                            <TextView
+                                android:id="@+id/relAllInfo"
+                                style="@style/ThemeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:paddingStart="16dp"
+                                android:text="05.12.20\nR11.0_1\nStable\n44MB" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@drawable/divider"
+                        android:orientation="horizontal"
+                        android:paddingTop="16dp"
+                        android:showDividers="middle">
+
+                        <Button
+                            android:id="@+id/otherReleases"
+                            style="@style/ThemeButtonOutline"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/fox_card"
+                            android:text="@string/rel_more"
+                            app:icon="@drawable/ic_widget" />
+
+                        <Button
+                            android:id="@+id/releaseInfo"
+                            style="@style/ThemeButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/rel_button"
+                            app:icon="@drawable/ic_outline_info_24" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
