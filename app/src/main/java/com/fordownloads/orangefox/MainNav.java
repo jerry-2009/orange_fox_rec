@@ -1,10 +1,12 @@
 package com.fordownloads.orangefox;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -31,6 +33,9 @@ public class MainNav extends AppCompatActivity {
         bn.setDefaultBackgroundColor(App.col(R.color.fox_title_solid_bg));
         bn.setAccentColor(App.col(R.color.fox_accent));
         bn.setInactiveColor(App.col(R.color.google_gray));
+
+        bn.setTitleTypeface(ResourcesCompat.getFont(getApplicationContext(), R.font.euclid_flex));
+        bn.setTitleTextSizeInSp(14, 12);
         /*bn.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE_FORCE);*/
 
         getWindow().getDecorView().setSystemUiVisibility(

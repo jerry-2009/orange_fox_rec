@@ -32,8 +32,11 @@ import java.util.Map;
 import static com.fordownloads.orangefox.App.setDataAdapterInfo;
 
 public class ReleaseActivity extends AppCompatActivity {
-    public static String releaseId = null;
+    public static JSONObject release = null;
+    public static String releaseIntent = null;
+    public static boolean releaseJSON = false;
     List<ItemRel> items = new ArrayList<>();
+    FrameLayout _loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,8 @@ public class ReleaseActivity extends AppCompatActivity {
         App.setContext(this);
 
         Intent intent = getIntent();
-        releaseId = intent.getStringExtra("releaseId");
+        releaseIntent = intent.getStringExtra("release");
+        _loadingView = findViewById(R.id.loadingLayout);
 
         Toolbar myToolbar = findViewById(R.id.appToolbar);
         setSupportActionBar(myToolbar);
@@ -50,36 +54,46 @@ public class ReleaseActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.installThis).setOnClickListener(view -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("releaseId", releaseId);
-            setResult(Activity.RESULT_OK, resultIntent);
+            if (release != null)
+                setResult(Activity.RESULT_OK, new Intent().putExtra("release", release.toString()));
             finish();
         });
 
-        new Thread(this::getAllReleaseInfo).start();
+        if (intent.hasExtra("isJSON")) {
+            releaseJSON = true;
+            _loadingView.setVisibility(View.GONE);
+            getAllReleaseInfo();
+        } else {
+            new Thread(this::getAllReleaseInfo).start();
+        }
     }
 
     private void getAllReleaseInfo() {
         try {
-            Map<String, Object> response = api.request("releases/" + releaseId);
+            if (releaseJSON) {
+                release = new JSONObject(releaseIntent);
+            } else {
+                Map<String, Object> response = api.request("releases/" + releaseIntent);
 
-            if (!(boolean)response.get("success")) {
-                int code = (int)response.get("code");
-                switch (code){
-                    case 404:
-                    case 500:
-                        runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel));
-                        break;
-                    case 0:
-                        runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet));
-                        break;
-                    default:
-                        runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code)));
-                        break;
+                if (!(boolean) response.get("success")) {
+                    int code = (int) response.get("code");
+                    switch (code) {
+                        case 404:
+                        case 500:
+                            runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel));
+                            break;
+                        case 0:
+                            runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet));
+                            break;
+                        default:
+                            runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code)));
+                            break;
+                    }
+                    return;
                 }
-                return;
+                release = new JSONObject((String)response.get("response"));
             }
-            JSONObject release = new JSONObject((String)response.get("response"));
+
             String buildType = release.getString("build_type");
             switch(buildType){
                 case "stable":
@@ -129,17 +143,16 @@ public class ReleaseActivity extends AppCompatActivity {
                 SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
                 viewPagerTab.setViewPager(viewPager);
 
-
-                FrameLayout loadingView = findViewById(R.id.loadingLayout);
-                loadingView.animate()
-                        .alpha(0f)
-                        .setDuration(200)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                loadingView.setVisibility(View.GONE);
-                            }
-                        });
+                if(!releaseJSON)
+                    _loadingView.animate()
+                            .alpha(0f)
+                            .setDuration(200)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    _loadingView.setVisibility(View.GONE);
+                                }
+                            });
             });
         } catch (JSONException e) {
             e.printStackTrace();

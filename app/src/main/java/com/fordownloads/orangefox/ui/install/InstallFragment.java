@@ -30,7 +30,8 @@ public class InstallFragment extends Fragment {
 
         _releaseInfo.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), ReleaseActivity.class);
-            intent.putExtra("releaseId", "5f2081a094a8ed5b894cae9fs");
+            intent.putExtra("release", "{\"_id\":\"5f2081a094a8ed5b894cae9f\",\"bugs\":\"* Aroma Gapps not working\",\"build_type\":\"stable\",\"changelog\":\"* Fixed critical bug with mounting system on Android Pie\\r\\n* Bug fixes and improvements when working with files\",\"codename\":\"x00t\",\"date\":\"Tue, 28 Jul 2020 19:50:03 GMT\",\"file_name\":\"OrangeFox-R11.0_1-Stable-X00T.zip\",\"md5\":\"f69c18140d164c5ef936eeb0f4be91fb\",\"notes\":\"This build will decrypt all ROMs starting from April (maybe later) to July. Tested on Android 10 and 9 ROMs.\\r\\nThanks to @SaurabhCharde for his device tree\",\"size_bytes\":46464080,\"size_human\":\"44MB\",\"unixtime\":1595965803,\"url\":\"https://files.orangefox.tech/OrangeFox-Stable/x00t/OrangeFox-R11.0_1-Stable-X00T.zip\",\"version\":\"R11.0_1\"}");
+            intent.putExtra("isJSON", true);
             startActivityForResult(intent, 200);
         });
 
@@ -41,7 +42,7 @@ public class InstallFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             Toast.makeText(getActivity().getApplicationContext(), "releaseId" +
-                    data.getStringExtra("releaseId"),
+                    data.getStringExtra("release"),
                     Toast.LENGTH_LONG).show();
         }
     }
