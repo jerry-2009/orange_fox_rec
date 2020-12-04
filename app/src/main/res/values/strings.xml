@@ -5,7 +5,9 @@
     <string name="close">Close</string>
     <string name="err_title">Error</string>
     <string name="err_json">Can\'t parse json.</string>
-    <string name="err_response">Server returned wrong response. Check Internet connection and try again.</string>
+    <string name="err_response">Server returned wrong response: %1$d.</string>
+    <string name="err_no_rel">Release not found.</string>
+    <string name="err_no_internet">Not internet connection.\nCheck Internet connection and try again.</string>
 
     <string name="rel_activity">Release Info</string>
 

@@ -24,6 +24,7 @@ public class api {
             map.put("response", response.body().string());
         } catch (IOException e) {
             e.printStackTrace();
+            map.put("code", 0);
             map.put("success", false);
         }
 

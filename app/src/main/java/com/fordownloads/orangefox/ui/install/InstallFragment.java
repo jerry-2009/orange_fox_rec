@@ -7,10 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.ReleaseActivity;
+
+import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
     TextView _ofTitle;
@@ -25,10 +30,19 @@ public class InstallFragment extends Fragment {
 
         _releaseInfo.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), ReleaseActivity.class);
-            intent.putExtra("apiCall", "releases/5f2081a094a8ed5b894cae9f");
-            startActivity(intent);
+            intent.putExtra("releaseId", "5f2081a094a8ed5b894cae9fs");
+            startActivityForResult(intent, 200);
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
+            Toast.makeText(getActivity().getApplicationContext(), "releaseId" +
+                    data.getStringExtra("releaseId"),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -15,17 +15,10 @@
         app:layout_anchorGravity="bottom">
 
         <Button
-            android:id="@+id/installButton2"
+            android:id="@+id/installThis"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="12dp"
             android:text="@string/rel_installthis"
-            android:textColor="@color/fox_background"
-            app:icon="@drawable/ic_round_save_alt_24"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp"
-            app:iconTint="@color/fox_background" />
+            style="@style/Theme.OrangeFox.Install" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,11 +28,11 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/appToolbar"
-            style="@style/ToolbarStyle"
+            style="@style/Theme.OrangeFox.Toolbar.Style"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextAppearance="@style/Toolbar.TitleText" />
+            app:titleTextAppearance="@style/Theme.OrangeFox.Toolbar.Text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +47,6 @@
 
                 <com.ogaclejapan.smarttablayout.SmartTabLayout
                     android:id="@+id/viewpagertab"
-                    style="@style/TabsTransparent"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@color/fox_title_solid_bg"
@@ -62,7 +54,7 @@
                     android:defaultFocusHighlightEnabled="false"
                     android:paddingStart="54dp"
                     android:paddingEnd="8dp"
-                    android:theme="@style/TabsTransparent"
+                    android:theme="@style/Theme.OrangeFox.Tabs"
                     app:stl_defaultTabTextColor="@color/white"
                     app:stl_defaultTabTextHorizontalPadding="18dp"
                     app:stl_dividerColor="@android:color/transparent"
@@ -91,6 +83,7 @@
         android:layout_height="match_parent"
         android:background="@color/fox_status_solid_bg"
         android:orientation="vertical"
+        android:clickable="true"
         android:weightSum="5">
 
         <ProgressBar

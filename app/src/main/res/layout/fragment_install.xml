@@ -11,10 +11,8 @@
     <Button
         android:id="@+id/installButton"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
+        style="@style/Theme.OrangeFox.Install"
         android:text="Install R11.0_2 Stable" />
 
     <ImageView

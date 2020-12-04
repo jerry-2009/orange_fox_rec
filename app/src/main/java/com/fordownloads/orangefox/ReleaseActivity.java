@@ -32,7 +32,7 @@ import java.util.Map;
 import static com.fordownloads.orangefox.App.setDataAdapterInfo;
 
 public class ReleaseActivity extends AppCompatActivity {
-    public static String apiCall = null;
+    public static String releaseId = null;
     List<ItemRel> items = new ArrayList<>();
 
     @Override
@@ -42,23 +42,41 @@ public class ReleaseActivity extends AppCompatActivity {
         App.setContext(this);
 
         Intent intent = getIntent();
-        apiCall = intent.getStringExtra("apiCall");
+        releaseId = intent.getStringExtra("releaseId");
 
         Toolbar myToolbar = findViewById(R.id.appToolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        findViewById(R.id.installThis).setOnClickListener(view -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("releaseId", releaseId);
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        });
 
         new Thread(this::getAllReleaseInfo).start();
     }
 
     private void getAllReleaseInfo() {
         try {
-            Map<String, Object> response = api.request(apiCall);
+            Map<String, Object> response = api.request("releases/" + releaseId);
 
             if (!(boolean)response.get("success")) {
-                runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_response));
+                int code = (int)response.get("code");
+                switch (code){
+                    case 404:
+                    case 500:
+                        runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel));
+                        break;
+                    case 0:
+                        runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet));
+                        break;
+                    default:
+                        runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code)));
+                        break;
+                }
                 return;
             }
             JSONObject release = new JSONObject((String)response.get("response"));
