@@ -16,12 +16,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.fordownloads.orangefox.ui.recycler.DataAdapterRel;
 import com.fordownloads.orangefox.ui.recycler.ItemRel;
 import com.fordownloads.orangefox.ui.recycler.RelInfoFragment;
+import com.fordownloads.orangefox.ui.recycler.RelListFragment;
 import com.fordownloads.orangefox.ui.recycler.RelTextFragment;
-import com.fordownloads.orangefox.ui.tools;
+import com.fordownloads.orangefox.ui.Tools;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +33,7 @@ import java.util.Map;
 
 import static com.fordownloads.orangefox.App.setDataAdapterInfo;
 
-public class ReleaseActivity extends AppCompatActivity {
+public class RecyclerActivity extends AppCompatActivity {
     public static JSONObject release = null;
     public static String releaseIntent = null;
     public static boolean releaseJSON = false;
@@ -53,8 +55,8 @@ public class ReleaseActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        switch (intent.getByteExtra("type", (byte) 0)) {
-            case 0:
+        switch (intent.getIntExtra("type", 0)) {
+            case 0: //release info
                 findViewById(R.id.installThis).setOnClickListener(view -> {
                     if (release != null)
                         setResult(Activity.RESULT_OK, new Intent().putExtra("release", release.toString()));
@@ -70,6 +72,11 @@ public class ReleaseActivity extends AppCompatActivity {
                     new Thread(this::getAllReleaseInfo).start();
                 }
                 break;
+            case 1: //release list
+                new Thread(this::getReleases).start();
+                break;
+            case 2: //device selection
+                break;
         }
     }
 
@@ -78,20 +85,20 @@ public class ReleaseActivity extends AppCompatActivity {
             if (releaseJSON) {
                 release = new JSONObject(releaseIntent);
             } else {
-                Map<String, Object> response = api.request("releases/" + releaseIntent);
+                Map<String, Object> response = API.request("releases/" + releaseIntent);
 
                 if (!(boolean) response.get("success")) {
                     int code = (int) response.get("code");
                     switch (code) {
                         case 404:
                         case 500:
-                            runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel));
+                            runOnUiThread(() -> Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel));
                             break;
                         case 0:
-                            runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet));
+                            runOnUiThread(() -> Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet));
                             break;
                         default:
-                            runOnUiThread(() -> tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code)));
+                            runOnUiThread(() -> Tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code)));
                             break;
                     }
                     return;
@@ -161,7 +168,82 @@ public class ReleaseActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> tools.dialogFinish((Activity)App.getContext(), R.string.err_json));
+            runOnUiThread(() -> Tools.dialogFinish((Activity)App.getContext(), R.string.err_json));
+        }
+    }
+
+    private void errorHandler(Map<String, Object> response){
+        if (!(boolean) response.get("success")) {
+            int code = (int) response.get("code");
+            switch (code) {
+                case 404:
+                case 500:
+                    Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel);
+                    break;
+                case 0:
+                    Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet);
+                    break;
+                default:
+                    Tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code));
+                    break;
+            }
+        }
+    }
+
+    private List<ItemRel> addReleaseItems(String name, JSONObject node) throws JSONException {
+        List<ItemRel> array = new ArrayList<>();
+        JSONArray arrayRel = node.getJSONArray(name);
+        for (int i = 0; i < arrayRel.length(); i++) {
+            JSONObject release = arrayRel.getJSONObject(i);
+            array.add(new ItemRel(release.getString("version"), release.getString("date"), R.drawable.ic_device));
+        }
+        return array;
+    }
+
+    private void getReleases() {
+        try {
+            Map<String, Object> response = API.request("device/" + releaseIntent + "/releases");
+            runOnUiThread(() -> errorHandler(response));
+            JSONObject releases = new JSONObject((String)response.get("response"));
+
+            FragmentPagerItems.Creator pageList = FragmentPagerItems.with(App.getContext());
+
+            if (releases.has("stable")) {
+                pageList.add(R.string.rel_stable, RelListFragment.class,
+                        RelListFragment.arguments("stable"));
+                App.setDataAdapterStable(new DataAdapterRel(App.getContext(), addReleaseItems("stable", releases)));
+            }
+
+            if (releases.has("beta")) {
+                pageList.add(R.string.rel_beta, RelListFragment.class,
+                        RelListFragment.arguments("beta"));
+                App.setDataAdapterBeta(new DataAdapterRel(App.getContext(), addReleaseItems("beta", releases)));
+            }
+
+
+            runOnUiThread(() -> {
+                FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
+                        getSupportFragmentManager(), pageList.create());
+
+                ViewPager viewPager = findViewById(R.id.viewpager);
+                viewPager.setAdapter(fragAdapter);
+
+                SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
+                viewPagerTab.setViewPager(viewPager);
+
+                _loadingView.animate()
+                        .alpha(0f)
+                        .setDuration(200)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                _loadingView.setVisibility(View.GONE);
+                            }
+                        });
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            runOnUiThread(() -> Tools.dialogFinish((Activity)App.getContext(), R.string.err_json));
         }
     }
 

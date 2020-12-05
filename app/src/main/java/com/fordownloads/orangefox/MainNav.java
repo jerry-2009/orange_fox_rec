@@ -1,7 +1,6 @@
 package com.fordownloads.orangefox;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,9 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.fordownloads.orangefox.ui.install.InstallFragment;
-import com.fordownloads.orangefox.ui.scripts.ScriptsFragment;
-import com.fordownloads.orangefox.ui.settings.SettingsFragment;
+import com.fordownloads.orangefox.ui.nav.InstallFragment;
+import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
+import com.fordownloads.orangefox.ui.nav.SettingsFragment;
 
 public class MainNav extends AppCompatActivity {
 

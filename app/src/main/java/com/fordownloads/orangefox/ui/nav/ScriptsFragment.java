@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.scripts;
+package com.fordownloads.orangefox.ui.nav;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

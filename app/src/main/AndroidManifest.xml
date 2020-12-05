@@ -17,7 +17,7 @@
         android:theme="@style/Theme.OrangeFox">
 
         <activity
-            android:name=".ReleaseActivity"
+            android:name=".RecyclerActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/rel_activity"
             android:theme="@style/Theme.OrangeFox.Activity">

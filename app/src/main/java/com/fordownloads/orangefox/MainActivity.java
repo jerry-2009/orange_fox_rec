@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            JSONArray devices = new JSONArray(api.request("device"));
+            JSONArray devices = new JSONArray(API.request("device"));
             for (int i=0; i < devices.length(); i++)
             {
                     JSONObject device = devices.getJSONObject(i);
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }*/
 
-        JSONObject release = new JSONObject(api.request("device/"+ guessCodename +"/releases/last"));
+        JSONObject release = new JSONObject(API.request("device/"+ guessCodename +"/releases/last"));
 
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
             if (which == DialogInterface.BUTTON_NEGATIVE)

@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class api {
+public class API {
     public static Map<String, Object> request(String reqUrl) {
         Map<String, Object> map = new HashMap<>();
 

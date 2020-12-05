@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/fox_bright"
     android:fitsSystemWindows="true"
-    tools:context=".ui.install.InstallFragment">
+    tools:context=".ui.nav.InstallFragment">
     <Button android:id="@+id/installButton"
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
@@ -154,7 +154,7 @@
                         android:showDividers="middle">
 
                         <Button
-                            android:id="@+id/otherReleases"
+                            android:id="@+id/oldReleases"
                             style="@style/ThemeButtonOutline"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
