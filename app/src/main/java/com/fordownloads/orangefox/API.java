@@ -30,6 +30,4 @@ public class API {
 
         return map;
     }
-
-
 }

@@ -8,14 +8,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OrangeFox">
-
         <activity
             android:name=".RecyclerActivity"
             android:configChanges="orientation|screenSize"
@@ -24,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".MainNav"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_main_nav">
             <intent-filter>
@@ -32,11 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.OrangeFox"></activity>
     </application>
 
 </manifest>

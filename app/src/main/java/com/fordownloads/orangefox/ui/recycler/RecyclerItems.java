@@ -1,11 +1,11 @@
 package com.fordownloads.orangefox.ui.recycler;
 
-public class ItemRel {
+public class RecyclerItems {
         private final String title;
         private final String subtitle;
         private final int icon;
 
-        public ItemRel(String title, String subtitle, int icon){
+        public RecyclerItems(String title, String subtitle, int icon) {
             this.title = title;
             this.subtitle = subtitle;
             this.icon = icon;

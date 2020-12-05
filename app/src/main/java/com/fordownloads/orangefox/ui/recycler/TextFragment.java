@@ -11,29 +11,19 @@ import com.fordownloads.orangefox.R;
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler;
 import org.jetbrains.annotations.NotNull;
 
-public class RelTextFragment extends Fragment {
-    private static final String KEY_PARAM = "key_param";
-
+public class TextFragment extends Fragment {
     public static Bundle arguments(String param) {
-        return new Bundler()
-                .putString(KEY_PARAM, param)
-                .get();
+        return new Bundler().putString("text", param).get();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_text, container, false);
     }
 
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        String param = getArguments().getString(KEY_PARAM);
-
-        TextView pageText = view.findViewById(R.id.multiTextView);
-        pageText.setText(param);
-
+        ((TextView)view.findViewById(R.id.multiTextView)).setText(getArguments().getString("text"));
     }
 }

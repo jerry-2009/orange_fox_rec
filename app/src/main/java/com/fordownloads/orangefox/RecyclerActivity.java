@@ -3,6 +3,7 @@ package com.fordownloads.orangefox;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import com.fordownloads.orangefox.ui.recycler.DataAdapterRel;
-import com.fordownloads.orangefox.ui.recycler.ItemRel;
-import com.fordownloads.orangefox.ui.recycler.RelInfoFragment;
-import com.fordownloads.orangefox.ui.recycler.RelListFragment;
-import com.fordownloads.orangefox.ui.recycler.RelTextFragment;
+import com.fordownloads.orangefox.ui.recycler.AdapterStorage;
+import com.fordownloads.orangefox.ui.recycler.RecyclerAdapter;
+import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
+import com.fordownloads.orangefox.ui.recycler.RecyclerFragment;
+import com.fordownloads.orangefox.ui.recycler.TextFragment;
 import com.fordownloads.orangefox.ui.Tools;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -27,24 +28,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.fordownloads.orangefox.App.setDataAdapterInfo;
-
-public class RecyclerActivity extends AppCompatActivity {
-    public static JSONObject release = null;
+public class RecyclerActivity extends AppCompatActivity  implements Serializable {
     public static String releaseIntent = null;
     public static boolean releaseJSON = false;
-    List<ItemRel> items = new ArrayList<>();
+    List<RecyclerItems> items = new ArrayList<>();
     FrameLayout _loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
-        App.setContext(this);
 
         Intent intent = getIntent();
         releaseIntent = intent.getStringExtra("release");
@@ -57,13 +55,6 @@ public class RecyclerActivity extends AppCompatActivity {
 
         switch (intent.getIntExtra("type", 0)) {
             case 0: //release info
-                findViewById(R.id.installThis).setOnClickListener(view -> {
-                    if (release != null)
-                        setResult(Activity.RESULT_OK, new Intent().putExtra("release", release.toString()));
-                    finish();
-                });
-                findViewById(R.id.installBtnLayout).setVisibility(View.VISIBLE);
-
                 if (intent.hasExtra("isJSON")) {
                     releaseJSON = true;
                     _loadingView.setVisibility(View.GONE);
@@ -81,28 +72,14 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     private void getAllReleaseInfo() {
+        JSONObject release;
         try {
+
             if (releaseJSON) {
                 release = new JSONObject(releaseIntent);
             } else {
                 Map<String, Object> response = API.request("releases/" + releaseIntent);
-
-                if (!(boolean) response.get("success")) {
-                    int code = (int) response.get("code");
-                    switch (code) {
-                        case 404:
-                        case 500:
-                            runOnUiThread(() -> Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel));
-                            break;
-                        case 0:
-                            runOnUiThread(() -> Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet));
-                            break;
-                        default:
-                            runOnUiThread(() -> Tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code)));
-                            break;
-                    }
-                    return;
-                }
+                runOnUiThread(() -> errorHandler(response));
                 release = new JSONObject((String)response.get("response"));
             }
 
@@ -116,31 +93,35 @@ public class RecyclerActivity extends AppCompatActivity {
                     break;
             }
 
-            items.add(new ItemRel (getString(R.string.rel_type), buildType, R.drawable.ic_outline_build_24));
-            items.add(new ItemRel (getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));
-            items.add(new ItemRel (getString(R.string.rel_name), release.getString("file_name"), R.drawable.ic_outline_archive_24));
-            items.add(new ItemRel (getString(R.string.rel_date), release.getString("date"), R.drawable.ic_outline_today_24));
-            items.add(new ItemRel (getString(R.string.rel_size), release.getString("size_human"), R.drawable.ic_outline_sd_card_24));
-            items.add(new ItemRel ("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
+            items.add(new RecyclerItems(getString(R.string.rel_type), buildType, R.drawable.ic_outline_build_24));
+            items.add(new RecyclerItems(getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));
+            items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("file_name"), R.drawable.ic_outline_archive_24));
+            items.add(new RecyclerItems(getString(R.string.rel_date), release.getString("date"), R.drawable.ic_outline_today_24));
+            items.add(new RecyclerItems(getString(R.string.rel_size), release.getString("size_human"), R.drawable.ic_outline_sd_card_24));
+            items.add(new RecyclerItems("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
 
+            final JSONObject finalRelease = release;
             runOnUiThread(() -> {
-                FragmentPagerItems.Creator pageList = FragmentPagerItems.with(App.getContext());
+                findViewById(R.id.installThis).setOnClickListener(view -> {
+                    setResult(Activity.RESULT_OK, new Intent().putExtra("release", finalRelease.toString()));
+                    finish();
+                });
 
-                DataAdapterRel adapter = new DataAdapterRel(App.getContext(), items);
-                setDataAdapterInfo(adapter); //см. App.java
+                findViewById(R.id.installBtnLayout).setVisibility(View.VISIBLE);
 
-                pageList.add(R.string.rel_info, RelInfoFragment.class);
+                FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
+                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items))));
 
                 try {
-                    if (release.has("changelog"))
-                        pageList.add(R.string.rel_changes, RelTextFragment.class,
-                                RelTextFragment.arguments(release.getString("changelog")));
-                    if (release.has("notes"))
-                        pageList.add(R.string.rel_notes, RelTextFragment.class,
-                                RelTextFragment.arguments(release.getString("notes")));
-                    if (release.has("bugs"))
-                            pageList.add(R.string.rel_bugs, RelTextFragment.class,
-                                    RelTextFragment.arguments(release.getString("bugs")));
+                    if (finalRelease.has("changelog"))
+                        pageList.add(R.string.rel_changes, TextFragment.class,
+                                TextFragment.arguments(finalRelease.getString("changelog")));
+                    if (finalRelease.has("notes"))
+                        pageList.add(R.string.rel_notes, TextFragment.class,
+                                TextFragment.arguments(finalRelease.getString("notes")));
+                    if (finalRelease.has("bugs"))
+                            pageList.add(R.string.rel_bugs, TextFragment.class,
+                                    TextFragment.arguments(finalRelease.getString("bugs")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -168,7 +149,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Tools.dialogFinish((Activity)App.getContext(), R.string.err_json));
+            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
         }
     }
 
@@ -178,24 +159,24 @@ public class RecyclerActivity extends AppCompatActivity {
             switch (code) {
                 case 404:
                 case 500:
-                    Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_rel);
+                    Tools.dialogFinish(this, R.string.err_no_rel);
                     break;
                 case 0:
-                    Tools.dialogFinish((Activity) App.getContext(), R.string.err_no_internet);
+                    Tools.dialogFinish(this, R.string.err_no_internet);
                     break;
                 default:
-                    Tools.dialogFinish((Activity) App.getContext(), getString(R.string.err_response, code));
+                    Tools.dialogFinish(this, getString(R.string.err_response, code));
                     break;
             }
         }
     }
 
-    private List<ItemRel> addReleaseItems(String name, JSONObject node) throws JSONException {
-        List<ItemRel> array = new ArrayList<>();
+    private List<RecyclerItems> addReleaseItems(String name, JSONObject node) throws JSONException {
+        List<RecyclerItems> array = new ArrayList<>();
         JSONArray arrayRel = node.getJSONArray(name);
         for (int i = 0; i < arrayRel.length(); i++) {
             JSONObject release = arrayRel.getJSONObject(i);
-            array.add(new ItemRel(release.getString("version"), release.getString("date"), R.drawable.ic_device));
+            array.add(new RecyclerItems(release.getString("version"), release.getString("date"), R.drawable.ic_device));
         }
         return array;
     }
@@ -204,22 +185,18 @@ public class RecyclerActivity extends AppCompatActivity {
         try {
             Map<String, Object> response = API.request("device/" + releaseIntent + "/releases");
             runOnUiThread(() -> errorHandler(response));
+
+            if(!(boolean)response.get("success"))
+                return;
+
             JSONObject releases = new JSONObject((String)response.get("response"));
 
-            FragmentPagerItems.Creator pageList = FragmentPagerItems.with(App.getContext());
+            FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
 
-            if (releases.has("stable")) {
-                pageList.add(R.string.rel_stable, RelListFragment.class,
-                        RelListFragment.arguments("stable"));
-                App.setDataAdapterStable(new DataAdapterRel(App.getContext(), addReleaseItems("stable", releases)));
-            }
-
-            if (releases.has("beta")) {
-                pageList.add(R.string.rel_beta, RelListFragment.class,
-                        RelListFragment.arguments("beta"));
-                App.setDataAdapterBeta(new DataAdapterRel(App.getContext(), addReleaseItems("beta", releases)));
-            }
-
+            if (releases.has("stable"))
+                pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, addReleaseItems("stable", releases)))));
+            if (releases.has("beta"))
+                pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, addReleaseItems("beta", releases)))));
 
             runOnUiThread(() -> {
                 FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
@@ -243,7 +220,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Tools.dialogFinish((Activity)App.getContext(), R.string.err_json));
+            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
         }
     }
 
