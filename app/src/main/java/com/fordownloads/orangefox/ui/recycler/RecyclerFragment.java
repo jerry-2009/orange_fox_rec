@@ -19,7 +19,7 @@ public class RecyclerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        adapter = ((AdapterStorage)getArguments().getParcelable("adapter")).getAdapter();
+        adapter = new RecyclerAdapter(getActivity(), ((AdapterStorage)getArguments().getParcelable("adapter")).getList());
         return inflater.inflate(R.layout.fragment_rel_info, container, false);
     }
 

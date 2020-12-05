@@ -1,18 +1,17 @@
 package com.fordownloads.orangefox.ui.recycler;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
-import java.io.Serializable;
+import com.fordownloads.orangefox.R;
 
-public class AdapterStorage implements Parcelable, Serializable {
-    RecyclerAdapter adapter;
-    public AdapterStorage(RecyclerAdapter adapter) { this.adapter = adapter; }
-    public RecyclerAdapter getAdapter() { return adapter; }
+import java.util.List;
 
-    protected AdapterStorage(Parcel in) {
-        //adapter = (RecyclerAdapter) in.readValue(RecyclerAdapter.class.getClassLoader());
-        //adapter = ((AdapterSerial)in.readValue(RecyclerAdapter.class.getClassLoader())).getAdapter();
-    }
+public class AdapterStorage implements Parcelable {
+    List<RecyclerItems> list;
+    public AdapterStorage(List<RecyclerItems> list) { this.list = list; }
+    public List<RecyclerItems> getList() { return list; }
+    protected AdapterStorage(Parcel in) {}
 
     @Override
     public int describeContents() {
@@ -21,8 +20,7 @@ public class AdapterStorage implements Parcelable, Serializable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        //dest.writeValue(adapter);
-        //dest.writeSerializable(new AdapterSerial(adapter));
+        dest.writeList(list);
     }
 
     public static final Parcelable.Creator<AdapterStorage> CREATOR = new Parcelable.Creator<AdapterStorage>() {

@@ -42,6 +42,12 @@ public class RecyclerActivity extends AppCompatActivity {
     FrameLayout _loadingView;
 
     @Override
+    protected void onResume() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
@@ -112,7 +118,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 findViewById(R.id.installBtnLayout).setVisibility(View.VISIBLE);
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
-                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items))));
+                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(items)));
 
                 try {
                     if (finalRelease.has("changelog"))
@@ -196,9 +202,9 @@ public class RecyclerActivity extends AppCompatActivity {
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
 
             if (releases.has("stable"))
-                pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, addReleaseItems("stable", releases)))));
+                pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(addReleaseItems("stable", releases))));
             if (releases.has("beta"))
-                pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, addReleaseItems("beta", releases)))));
+                pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(addReleaseItems("beta", releases))));
 
             runOnUiThread(() -> {
                 FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
