@@ -3,11 +3,8 @@ package com.fordownloads.orangefox;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -15,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fordownloads.orangefox.ui.recycler.AdapterStorage;
@@ -31,7 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -73,19 +70,17 @@ public class RecyclerActivity extends AppCompatActivity {
         ab.setTitle(intent.getIntExtra("title", R.string.app_name));
 
         switch (intent.getIntExtra("type", 0)) {
-            case 0: //release info
-                if (intent.hasExtra("isJSON")) {
-                    releaseJSON = true;
-                    _loadingView.setVisibility(View.GONE);
-                    getAllReleaseInfo();
-                } else {
-                    new Thread(this::getAllReleaseInfo).start();
-                }
+            case 0: //release info (URL)
+                releaseJSON = false;
+                new Thread(this::getAllReleaseInfo).start();
                 break;
-            case 1: //release list
+            case 1: //release info (JSON)
+                releaseJSON = true;
+                _loadingView.setVisibility(View.GONE);
+                getAllReleaseInfo();
+                break;
+            case 2: //release list
                 new Thread(this::getReleases).start();
-                break;
-            case 2: //device selection
                 break;
         }
     }
@@ -129,7 +124,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 findViewById(R.id.installBtnLayout).setVisibility(View.VISIBLE);
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
-                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items))));
+                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, null))));
 
                 try {
                     if (finalRelease.has("changelog"))
@@ -195,9 +190,28 @@ public class RecyclerActivity extends AppCompatActivity {
         JSONArray arrayRel = node.getJSONArray(name);
         for (int i = 0; i < arrayRel.length(); i++) {
             JSONObject release = arrayRel.getJSONObject(i);
-            array.add(new RecyclerItems(release.getString("version"), release.getString("date"), R.drawable.ic_outline_archive_24));
+            array.add(new RecyclerItems(release.getString("version"), release.getString("date"), R.drawable.ic_outline_archive_24, release.getString("_id")));
         }
         return array;
+    }
+
+    private void selectRelease(final View view, List<RecyclerItems> list) {
+        int itemPosition = ((RecyclerView)findViewById(R.id.releaseRecycler)).getChildLayoutPosition(view);
+        RecyclerItems item = list.get(itemPosition);
+        Intent intent = new Intent(this, RecyclerActivity.class);
+        intent.putExtra("release", list.get(itemPosition).getId());
+        intent.putExtra("type", 0);
+        intent.putExtra("title", R.string.rel_activity);
+        startActivityForResult(intent, 201);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 201 && resultCode == RESULT_OK && data != null) {
+            setResult(Activity.RESULT_OK, new Intent().putExtra("release", data.getStringExtra("release")));
+            finish();
+        }
     }
 
     private void getReleases() {
@@ -212,10 +226,18 @@ public class RecyclerActivity extends AppCompatActivity {
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
 
-            if (releases.has("stable"))
-                pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, addReleaseItems("stable", releases)))));
-            if (releases.has("beta"))
-                pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, addReleaseItems("beta", releases)))));
+            if (releases.has("stable")) {
+                List<RecyclerItems> list = addReleaseItems("stable", releases);
+                pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
+                        new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
+                ))));
+            }
+            if (releases.has("beta")) {
+                List<RecyclerItems> list = addReleaseItems("beta", releases);
+                pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
+                        new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
+                ))));
+            }
 
             runOnUiThread(() -> {
                 FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(

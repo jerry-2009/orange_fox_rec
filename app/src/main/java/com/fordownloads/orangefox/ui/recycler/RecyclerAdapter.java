@@ -3,6 +3,7 @@ package com.fordownloads.orangefox.ui.recycler;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,16 +16,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private final LayoutInflater inflater;
     private final List<RecyclerItems> items;
+    private final OnClickListener listener;
 
-    public RecyclerAdapter(Context context, List<RecyclerItems> items) {
+    public RecyclerAdapter(Context context, List<RecyclerItems> items, OnClickListener listener) {
         this.items = items;
+        this.listener = listener;
         this.inflater = LayoutInflater.from(context);
     }
     @NotNull
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
-
         View view = inflater.inflate(R.layout.list_release, parent, false);
+        if (listener != null)
+            view.setOnClickListener(listener);
         return new ViewHolder(view);
     }
 
