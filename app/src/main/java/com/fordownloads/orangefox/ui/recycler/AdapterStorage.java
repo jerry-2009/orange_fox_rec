@@ -9,10 +9,7 @@ public class AdapterStorage implements Parcelable, Serializable {
     public AdapterStorage(RecyclerAdapter adapter) { this.adapter = adapter; }
     public RecyclerAdapter getAdapter() { return adapter; }
 
-    protected AdapterStorage(Parcel in) {
-        //adapter = (RecyclerAdapter) in.readValue(RecyclerAdapter.class.getClassLoader());
-        //adapter = ((AdapterSerial)in.readValue(RecyclerAdapter.class.getClassLoader())).getAdapter();
-    }
+    protected AdapterStorage(Parcel in) { }
 
     @Override
     public int describeContents() {
@@ -20,10 +17,7 @@ public class AdapterStorage implements Parcelable, Serializable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        //dest.writeValue(adapter);
-        //dest.writeSerializable(new AdapterSerial(adapter));
-    }
+    public void writeToParcel(Parcel dest, int flags) { }
 
     public static final Parcelable.Creator<AdapterStorage> CREATOR = new Parcelable.Creator<AdapterStorage>() {
         @Override

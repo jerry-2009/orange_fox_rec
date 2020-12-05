@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">OrangeFox</string>
-    <string name="title_activity_main_nav">OrangeFox</string>
 
     <string name="close">Close</string>
     <string name="err_title">Error</string>
@@ -8,6 +7,8 @@
     <string name="err_response">Server returned wrong response code: %1$d.</string>
     <string name="err_no_rel">Sorry, but we can\'t find this release.</string>
     <string name="err_no_internet">Looks like your device isn\'t connected to the internet.\nCheck Internet connection and try again.</string>
+
+    <string name="rels_activity">Releases</string>
 
     <string name="rel_activity">Release Info</string>
     <string name="rel_button">More Info</string>
@@ -34,6 +35,4 @@
     <string name="bnav_install">Install</string>
     <string name="bnav_scripts">Scripts</string>
     <string name="bnav_settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,11 +43,26 @@ public class RecyclerActivity extends AppCompatActivity {
     FrameLayout _loadingView;
 
     @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putBoolean("isRestarted", true);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
 
         Intent intent = getIntent();
+
+        // Т.к. я заебался и не знаю, как сохранить RecyclerView, то просто уничтожаем активити и создаем новую
+        // recreate() все равно сохраняет состояние, поэтому исп. это:
+        if (savedInstanceState != null && savedInstanceState.getBoolean("isRestarted")) {
+            overridePendingTransition(0, 0);
+            finish();
+            startActivity(intent);
+        }
+
         releaseIntent = intent.getStringExtra("release");
         _loadingView = findViewById(R.id.loadingLayout);
 
@@ -54,6 +70,7 @@ public class RecyclerActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(intent.getIntExtra("title", R.string.app_name));
 
         switch (intent.getIntExtra("type", 0)) {
             case 0: //release info
@@ -178,7 +195,7 @@ public class RecyclerActivity extends AppCompatActivity {
         JSONArray arrayRel = node.getJSONArray(name);
         for (int i = 0; i < arrayRel.length(); i++) {
             JSONObject release = arrayRel.getJSONObject(i);
-            array.add(new RecyclerItems(release.getString("version"), release.getString("date"), R.drawable.ic_device));
+            array.add(new RecyclerItems(release.getString("version"), release.getString("date"), R.drawable.ic_outline_archive_24));
         }
         return array;
     }
