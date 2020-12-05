@@ -19,12 +19,12 @@ public class RecyclerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        adapter = ((AdapterStorage)getArguments().getSerializable("adapter")).getAdapter();
+        adapter = ((AdapterStorage)getArguments().getParcelable("adapter")).getAdapter();
         return inflater.inflate(R.layout.fragment_rel_info, container, false);
     }
 
     public static Bundle arguments(AdapterStorage param) {
-        return new Bundler().putSerializable("adapter", param).get();
+        return new Bundler().putParcelable("adapter", param).get();
     }
 
     @Override

@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class RecyclerActivity extends AppCompatActivity  implements Serializable {
+public class RecyclerActivity extends AppCompatActivity {
     public static String releaseIntent = null;
     public static boolean releaseJSON = false;
     List<RecyclerItems> items = new ArrayList<>();
