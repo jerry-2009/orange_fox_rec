@@ -1,12 +1,10 @@
 package com.fordownloads.orangefox.ui.nav;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
 
@@ -55,6 +52,13 @@ public class InstallFragment extends Fragment {
 
         rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
 
+
+        rootView.findViewById(R.id.installButton).setOnClickListener((View view)-> {
+            Activity act = getActivity();
+            ((AHBottomNavigation)act.findViewById(R.id.bottom_navigation)).hideBottomNavigation(true);
+            view.setVisibility(View.GONE);
+            ((LinearLayout)act.findViewById(R.id.cards)).setVisibility(View.GONE);
+        });
         return rootView;
     }
 

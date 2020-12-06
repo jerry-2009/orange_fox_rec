@@ -1,13 +1,9 @@
 package com.fordownloads.orangefox;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -47,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_install, R.drawable.ic_round_save_alt_24, R.color.fox_accent));
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_scripts, R.drawable.ic_outline_receipt_long_24, R.color.fox_accent));
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_settings, R.drawable.ic_settings, R.color.fox_accent));
+
+        bn.setBehaviorTranslationEnabled(false);
+        bn.setUseElevation(true);
 
         bn.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.fox_title_solid_bg));
         bn.setAccentColor(ContextCompat.getColor(this, R.color.fox_accent));
