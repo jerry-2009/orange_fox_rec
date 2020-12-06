@@ -53,7 +53,7 @@ public class InstallFragment extends Fragment {
         rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
 
 
-        rootView.findViewById(R.id.installButton).setOnClickListener((View view)-> {
+        _installButton.setOnClickListener((View view)-> {
             Activity act = getActivity();
             ((AHBottomNavigation)act.findViewById(R.id.bottom_navigation)).hideBottomNavigation(true);
             view.setVisibility(View.GONE);

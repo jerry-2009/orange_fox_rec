@@ -121,7 +121,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     finish();
                 });
 
-                findViewById(R.id.installBtnLayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.installThis).setVisibility(View.VISIBLE);
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
                 pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, null))));

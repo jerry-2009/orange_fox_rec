@@ -8,16 +8,21 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.nav.InstallFragment">
 
-    <Button android:id="@+id/installButton"
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        style="@style/ThemeButtonInstall"
-        android:text="Install R11.0_2 Stable"/>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/installButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|center"
+        android:text="Install R11.0_1 Stable"
+        style="@style/ThemeButtonInstall"/>
+
     <ImageView android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/fox_main_gradient"/>
+
     <TextView android:id="@+id/ofTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +47,7 @@
             android:layout_marginTop="72dp"
             android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:paddingBottom="128dp"
+            android:paddingBottom="150dp"
             android:showDividers="beginning|middle|end">
 
             <androidx.cardview.widget.CardView
