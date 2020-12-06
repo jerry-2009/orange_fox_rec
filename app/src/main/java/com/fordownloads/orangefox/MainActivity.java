@@ -1,13 +1,16 @@
 package com.fordownloads.orangefox;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -19,24 +22,8 @@ import com.fordownloads.orangefox.ui.nav.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
     @Override
-    protected void onSaveInstanceState(Bundle state) {
-        super.onSaveInstanceState(state);
-        state.putBoolean("isRestarted", true);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null && savedInstanceState.getBoolean("isRestarted")) {
-            Intent intent = getIntent();
-            overridePendingTransition(0, 0);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            finish();
-            overridePendingTransition(0, 0);
-            startActivity(intent);
-        }
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main_nav);
 
         AHBottomNavigation bn = findViewById(R.id.bottom_navigation);
@@ -60,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_frame, new InstallFragment(), "install").commit();
+        if (getSupportFragmentManager().findFragmentByTag("install") == null)
+            getSupportFragmentManager().beginTransaction().add(R.id.nav_frame, new InstallFragment(), "install").commit();
 
         bn.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected)

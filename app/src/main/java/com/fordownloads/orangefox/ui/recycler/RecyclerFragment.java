@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RecyclerFragment extends Fragment {
     private RecyclerAdapter adapter;
+    private RecyclerView _recycler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,6 +31,14 @@ public class RecyclerFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((RecyclerView)view.findViewById(R.id.releaseRecycler)).setAdapter(adapter);
+        _recycler = view.findViewById(R.id.releaseRecycler);
+        _recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (_recycler != null) //prevent mem leak
+            _recycler.setAdapter(null);
+        super.onDestroyView();
     }
 }
