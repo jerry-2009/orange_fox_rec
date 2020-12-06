@@ -52,11 +52,12 @@
     </style>
 
     <style name="ThemeButtonInstall" parent="ThemeButton">
-        <item name="android:layout_height">56dp</item>
-        <item name="android:layout_marginHorizontal">16dp</item>
-        <item name="android:layout_marginVertical">12dp</item>
-        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
         <item name="icon">@drawable/ic_round_save_alt_24</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
     </style>
 
     <style name="ThemeButton">

@@ -11,6 +11,5 @@
             android:id="@+id/releaseRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layoutManager="LinearLayoutManager" />
+            app:layoutManager="LinearLayoutManager"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

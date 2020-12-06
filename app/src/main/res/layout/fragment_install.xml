@@ -27,21 +27,23 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
         android:textSize="24sp"/>
+
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_anchor="@+id/imageView3"
         app:layout_anchorGravity="center">
-        <LinearLayout android:id="@+id/layoutCards"
+        <LinearLayout android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/divider"
             android:orientation="vertical"
-            android:paddingBottom="72dp"
-            android:showDividers="middle|end">
-            <androidx.cardview.widget.CardView style="@style/ThemeCard"
+            android:paddingBottom="128dp"
+            android:layout_marginTop="72dp"
+            android:showDividers="beginning|middle|end">
+            <androidx.cardview.widget.CardView id="@+id/cardInfo" style="@style/ThemeCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="72dp">
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -90,9 +92,10 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView style="@style/ThemeCard"
+            <androidx.cardview.widget.CardView id="@+id/cardRelease" style="@style/ThemeCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="32dp"

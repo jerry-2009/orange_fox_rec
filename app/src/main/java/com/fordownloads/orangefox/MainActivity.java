@@ -1,9 +1,13 @@
 package com.fordownloads.orangefox;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -18,7 +22,7 @@ import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
 import com.fordownloads.orangefox.ui.nav.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-@Override
+    @Override
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
         state.putBoolean("isRestarted", true);

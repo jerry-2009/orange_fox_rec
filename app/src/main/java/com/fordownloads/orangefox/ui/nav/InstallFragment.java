@@ -1,15 +1,23 @@
 package com.fordownloads.orangefox.ui.nav;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.fordownloads.orangefox.R;
@@ -45,6 +53,8 @@ public class InstallFragment extends Fragment {
             startActivityForResult(intent, 200);
         });
 
+        rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
+
         return rootView;
     }
 
@@ -55,5 +65,23 @@ public class InstallFragment extends Fragment {
                     data.getStringExtra("release"),
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        rotateUI(getActivity().findViewById(R.id.cards), config);
+    }
+
+    private void rotateUI(LinearLayout cards, Configuration config) {
+        if (cards == null) return;
+
+        Point size = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE && (float)(size.x / size.y) > 1.6)
+            cards.setOrientation(LinearLayout.HORIZONTAL);
+        else if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
+            cards.setOrientation(LinearLayout.VERTICAL);
     }
 }
