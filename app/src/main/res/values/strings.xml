@@ -31,6 +31,26 @@
     <string name="rel_bugs">Bugs</string>
 
     <string name="dev_info">Device Info</string>
+    <string name="dev_model">Model</string>
+    <string name="dev_code">Codename</string>
+    <string name="dev_maintainer">Maintainer</string>
+    <string name="dev_status">Status</string>
+    <string name="dev_maintained">Maintained</string>
+    <string name="dev_maintained_wod">Maintained without having device on hands</string>
+    <string name="dev_unmaintained">Unmaintained</string>
+    <string name="dev_patch">Sec.Patch</string>
+
+    <string name="guess_top">Your device is...</string>
+    <string name="guess_bottom">Looks like we support this device officially!\nIs that your device?</string>
+    <string name="guess_fail">...and we don\'t support it.</string>
+    <string name="guess_correct">Yes, that\'s correct</string>
+    <string name="guess_wrong">No, it\'s mistake</string>
+
+    <string name="sel_activity">Select Another Device</string>
+
+    <!-- API v3
+    <string name="dev_contact">Contact Maintainer</string>
+        API v3 -->
 
     <string name="bnav_install">Install</string>
     <string name="bnav_scripts">Scripts</string>

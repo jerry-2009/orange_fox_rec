@@ -85,10 +85,21 @@
         <item name="android:singleLine">true</item>
         <item name="android:fontFamily">@font/euclid_flex</item>
     </style>
+
     <style name="ThemeText">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <style name="ThemeTextGray" parent="ThemeText">
+        <item name="android:textColor">@color/google_gray</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <style name="ThemeTextBold" parent="ThemeText">
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="ThemeDialogButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
@@ -116,5 +127,13 @@
         <item name="android:bottomBright">@color/fox_card</item>
         <item name="android:bottomMedium">@color/fox_card</item>
         <item name="android:centerMedium">@color/fox_card</item>
+    </style>
+
+    <style name="ThemeBottomSheet" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ThemeBottomSheetStyle</item>
+    </style>
+
+    <style name="ThemeBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

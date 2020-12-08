@@ -3,6 +3,7 @@ package com.fordownloads.orangefox;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -93,7 +94,9 @@ public class RecyclerActivity extends AppCompatActivity {
                 release = new JSONObject(releaseIntent);
             } else {
                 Map<String, Object> response = API.request("releases/" + releaseIntent);
-                runOnUiThread(() -> errorHandler(response));
+                runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
+                if(!(boolean)response.get("success"))
+                    return;
                 release = new JSONObject((String)response.get("response"));
             }
 
@@ -167,24 +170,6 @@ public class RecyclerActivity extends AppCompatActivity {
         }
     }
 
-    private void errorHandler(Map<String, Object> response){
-        if (!(boolean) response.get("success")) {
-            int code = (int) response.get("code");
-            switch (code) {
-                case 404:
-                case 500:
-                    Tools.dialogFinish(this, R.string.err_no_rel);
-                    break;
-                case 0:
-                    Tools.dialogFinish(this, R.string.err_no_internet);
-                    break;
-                default:
-                    Tools.dialogFinish(this, getString(R.string.err_response, code));
-                    break;
-            }
-        }
-    }
-
     private List<RecyclerItems> addReleaseItems(String name, JSONObject node) throws JSONException {
         List<RecyclerItems> array = new ArrayList<>();
         JSONArray arrayRel = node.getJSONArray(name);
@@ -217,7 +202,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private void getReleases() {
         try {
             Map<String, Object> response = API.request("device/" + releaseIntent + "/releases");
-            runOnUiThread(() -> errorHandler(response));
+            runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
 
             if(!(boolean)response.get("success"))
                 return;

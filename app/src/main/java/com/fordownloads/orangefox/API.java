@@ -1,5 +1,9 @@
 package com.fordownloads.orangefox;
 
+import android.app.Activity;
+
+import com.fordownloads.orangefox.ui.Tools;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,5 +33,23 @@ public class API {
         }
 
         return map;
+    }
+
+    public static void errorHandler(Activity context, Map<String, Object> response, int customErr){
+        if (!(boolean) response.get("success")) {
+            int code = (int) response.get("code");
+            switch (code) {
+                case 404:
+                case 500:
+                    Tools.dialogFinish(context, customErr);
+                    break;
+                case 0:
+                    Tools.dialogFinish(context, R.string.err_no_internet);
+                    break;
+                default:
+                    Tools.dialogFinish(context, context.getString(R.string.err_response, code));
+                    break;
+            }
+        }
     }
 }

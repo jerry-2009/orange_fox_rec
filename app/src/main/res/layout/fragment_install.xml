@@ -85,27 +85,41 @@
                             android:paddingBottom="8dp"
                             android:text="@string/dev_info" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/ThemeText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Device:\nCodename:\nSelected:\nSec. Patch:"
-                                android:textColor="@color/google_gray" />
-
-                            <TextView
-                                android:id="@+id/devInfo"
-                                style="@style/ThemeText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:paddingStart="16dp"
-                                android:text="Asus Zenfone Max Pro M1\nX00T\nx00t\n2020-10-05" />
-                        </LinearLayout>
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:shrinkColumns="all">
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/dev_model" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devModel"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/dev_code" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devCode"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/dev_maintainer" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devMaintainer"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/dev_status" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devStatus"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/dev_patch" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devPatch"
+                                    android:text="..." />
+                            </TableRow>
+                        </TableLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -145,27 +159,35 @@
                             android:paddingBottom="8dp"
                             android:text="@string/rel_current" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/ThemeText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Date:\nVersion:\nType:\nSize:"
-                                android:textColor="@color/google_gray" />
-
-                            <TextView
-                                android:id="@+id/relAllInfo"
-                                style="@style/ThemeText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:paddingStart="16dp"
-                                android:text="05.12.20\nR11.0_1\nStable\n44MB" />
-                        </LinearLayout>
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:shrinkColumns="all">
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/rel_vers" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relVers"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/rel_type" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relType"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/rel_date" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relDate"
+                                    android:text="..." />
+                            </TableRow>
+                            <TableRow>
+                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+                                    android:text="@string/rel_size" />
+                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relSize"
+                                    android:text="..." />
+                            </TableRow>
+                        </TableLayout>
                     </LinearLayout>
 
                     <LinearLayout
