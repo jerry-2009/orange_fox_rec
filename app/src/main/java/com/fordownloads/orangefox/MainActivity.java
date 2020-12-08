@@ -31,93 +31,13 @@ import org.json.JSONObject;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_nav);
-
-        prefs = getPreferences(Context.MODE_PRIVATE);
-        if (prefs.contains(pref.DEVICE)) {
-
-        } else {
-            findDevice();
-        }
-
         /*prepareDevice();*/
         prepareBottomNav();
-        showDeviceDialog("x00t", false);
-    }
-
-    private void prepareDevice() {
-
-        if (prefs.contains(pref.CACHE_DEVICE)) {
-
-        } else {
-
-        }
-        if (prefs.contains(pref.CACHE_RELEASE)) {
-
-        } else {
-
-        }
-    }
-
-    protected void showDeviceDialog(String device, boolean fail) {
-        BottomSheetDialog devDialog = new BottomSheetDialog(this, R.style.ThemeBottomSheet);
-        View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, null);
-        devDialog.setContentView(sheetView);
-        devDialog.setDismissWithAnimation(true);
-
-        devDialog.setCancelable(false);
-        devDialog.setCanceledOnTouchOutside(false);
-
-        Button gSelect = sheetView.findViewById(R.id.guessSelect);
-        Button gRight = sheetView.findViewById(R.id.guessRight);
-        Button gWrong = sheetView.findViewById(R.id.guessWrong);
-        TextView gCode = sheetView.findViewById(R.id.guessDeviceCode);
-        TextView gBottom = sheetView.findViewById(R.id.guessBottomText);
-
-        gCode.setText(device.toUpperCase());
-
-        if (fail) {
-            gRight.setVisibility(View.GONE);
-            gWrong.setVisibility(View.GONE);
-            gBottom.setText(R.string.guess_fail);
-        } else
-            gSelect.setVisibility(View.GONE);
-
-        gRight.setOnClickListener(v -> {
-            devDialog.dismiss();
-        });
-
-        devDialog.show();
-    }
-
-    protected JSONObject findDevice() {
-        String chk1 = Build.VERSION.CODENAME.toLowerCase();
-        String chk2 = Build.DEVICE.toLowerCase();
-        String chk3 = Build.MODEL.toLowerCase();
-        String chk4 = Build.PRODUCT.toLowerCase();
-
-        try {
-            Map<String, Object> response = API.request("device");
-            runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
-            if(!(boolean)response.get("success"))
-                return null;
-            JSONArray devices = new JSONArray(response);
-            for (int i = 0; i < devices.length(); i++)
-            {
-                JSONObject device = devices.getJSONObject(i);
-                String dbDev = device.getString("codename").toLowerCase();
-                if (dbDev.contains(chk1) || dbDev.contains(chk2) || dbDev.contains(chk3) || dbDev.contains(chk4))
-                    return device;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     protected void prepareBottomNav() {
