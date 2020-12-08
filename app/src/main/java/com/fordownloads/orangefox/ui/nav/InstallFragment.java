@@ -215,7 +215,6 @@ public class InstallFragment extends Fragment {
     }
 
     protected JSONObject findDevice() {
-        String chk1 = Build.VERSION.CODENAME.toLowerCase();
         String chk2 = Build.DEVICE.toLowerCase();
         String chk3 = Build.MODEL.toLowerCase();
         String chk4 = Build.PRODUCT.toLowerCase();
@@ -229,7 +228,7 @@ public class InstallFragment extends Fragment {
             {
                 JSONObject device = devices.getJSONObject(i);
                 String dbDev = device.getString("codename").toLowerCase();
-                if (dbDev.contains(chk1) || dbDev.contains(chk2) || dbDev.contains(chk3) || dbDev.contains(chk4))
+                if (dbDev.contains(chk2) || dbDev.contains(chk3) || dbDev.contains(chk4))
                     return device;
             }
         } catch (JSONException e) {
