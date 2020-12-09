@@ -36,9 +36,8 @@
                 style="@style/ThemeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="lupa"
                 android:textAlignment="center"
-                android:textSize="40sp" />
+                android:textSize="32sp" />
 
             <TextView
                 android:id="@+id/guessBottomText"

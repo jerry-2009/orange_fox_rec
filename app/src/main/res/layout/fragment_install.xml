@@ -49,6 +49,7 @@
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:paddingBottom="150dp"
+            android:animateLayoutChanges="true"
             android:showDividers="beginning|middle|end">
 
             <androidx.cardview.widget.CardView
@@ -66,7 +67,8 @@
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp">
+                    android:paddingTop="4dp"
+                    android:paddingBottom="2dp">
 
                     <ImageView
                         android:id="@+id/cardErrorIcon"
@@ -358,6 +360,7 @@
                         android:divider="@drawable/divider"
                         android:orientation="horizontal"
                         android:paddingTop="16dp"
+                        android:paddingBottom="2dp"
                         android:showDividers="middle">
 
                         <Button

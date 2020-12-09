@@ -31,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +83,9 @@ public class RecyclerActivity extends AppCompatActivity {
                 break;
             case 2: //release list
                 new Thread(this::getReleases).start();
+                break;
+            case 3: //device list
+                new Thread(this::getDevices).start();
                 break;
         }
     }
@@ -190,6 +194,12 @@ public class RecyclerActivity extends AppCompatActivity {
         startActivityForResult(intent, 201);
     }
 
+    private void selectDevice(final View view, List<RecyclerItems> list) {
+        int itemPosition = ((RecyclerView)findViewById(R.id.releaseRecycler)).getChildLayoutPosition(view);
+        setResult(Activity.RESULT_OK, new Intent().putExtra("codename", list.get(itemPosition).getSubtitle()));
+        finish();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -211,13 +221,13 @@ public class RecyclerActivity extends AppCompatActivity {
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
 
-            if (releases.has("stable")) {
+            if (releases.getJSONArray("stable").length() != 0) {
                 List<RecyclerItems> list = addReleaseItems("stable", releases);
                 pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
                         new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
                 ))));
             }
-            if (releases.has("beta")) {
+            if (releases.getJSONArray("beta").length() != 0) {
                 List<RecyclerItems> list = addReleaseItems("beta", releases);
                 pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
                         new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
@@ -233,6 +243,53 @@ public class RecyclerActivity extends AppCompatActivity {
 
                 SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
                 viewPagerTab.setViewPager(viewPager);
+
+                _loadingView.animate()
+                        .alpha(0f)
+                        .setDuration(200)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                _loadingView.setVisibility(View.GONE);
+                            }
+                        });
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
+        }
+    }
+
+    private void getDevices() {
+        try {
+            Map<String, Object> response = API.request("device");
+            runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_device));
+
+            if(!(boolean)response.get("success"))
+                return;
+
+            JSONArray devices = new JSONArray((String)response.get("response"));
+
+            FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
+            List<RecyclerItems> array = new ArrayList<>();
+
+            for (int i = 0; i < devices.length(); i++) {
+                JSONObject device = devices.getJSONObject(i);
+                array.add(new RecyclerItems(device.getString("fullname"), device.getString("codename"), R.drawable.ic_device));
+            }
+
+            pageList.add("dev", RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
+                    new RecyclerAdapter(this, array, (final View view) -> selectDevice(view, array)
+                    ))));
+
+            runOnUiThread(() -> {
+                FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
+                        getSupportFragmentManager(), pageList.create());
+
+                ((ViewPager)findViewById(R.id.viewpager)).setAdapter(fragAdapter);
+
+                findViewById(R.id.viewpagerlayout).setVisibility(View.GONE);
+                getSupportActionBar().setElevation(12);
 
                 _loadingView.animate()
                         .alpha(0f)

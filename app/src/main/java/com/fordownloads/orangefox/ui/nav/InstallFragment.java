@@ -23,7 +23,6 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.facebook.shimmer.Shimmer;
 import com.fordownloads.orangefox.API;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
@@ -96,8 +95,6 @@ public class InstallFragment extends Fragment {
 
         _btnRefresh.setOnClickListener(view -> {
             _cardError.setVisibility(View.GONE);
-            _cardInfo.setVisibility(View.VISIBLE);
-            _cardRelease.setVisibility(View.VISIBLE);
             _shimmer.setVisibility(View.VISIBLE);
             prepareDevice();
         });
@@ -115,6 +112,12 @@ public class InstallFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "releaseId" +
                     data.getStringExtra("release"),
                     Toast.LENGTH_LONG).show();
+        }
+        else if (requestCode == 202) {
+            if (resultCode == RESULT_OK && data != null)
+                new Thread(() -> setDevice(data.getStringExtra("codename"), true)).start();
+            else
+                errorCard(404, R.string.err_no_device);
         }
     }
 
@@ -140,7 +143,7 @@ public class InstallFragment extends Fragment {
         if (prefs.contains(pref.DEVICE) && prefs.contains(pref.DEVICE_CODE))
             new Thread(() -> parseRelease(null)).start();
         else
-            new Thread(this::setDevice).start();
+            new Thread(() -> setDevice(null, false)).start();
     }
 
     private void parseRelease(BottomSheetDialog dialog) {
@@ -213,8 +216,9 @@ public class InstallFragment extends Fragment {
         if (dialog != null) dialog.dismiss();
     }
 
-    private void setDevice() {
-        String codename = findDevice();
+    private void setDevice(String codename, boolean skipDialog) {
+        if (codename == null)
+            codename = findDevice();
         if (codename == "no_internet_error")
             return;
         if (codename == null) {
@@ -223,10 +227,14 @@ public class InstallFragment extends Fragment {
         }
         Map<String, Object> response = API.request("device/" + codename);
         if (!(boolean) response.get("success")) {
-            errorCard((int)response.get("code"), R.string.err_no_device);
+            errorCard((int) response.get("code"), R.string.err_no_device);
             return;
         }
-        showDeviceDialog(codename, false, (String)response.get("response"));
+        if (skipDialog){
+            prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
+            new Thread(() -> parseRelease(null)).start();
+        } else
+            showDeviceDialog(codename, false, (String)response.get("response"));
     }
 
     protected void showDeviceDialog(String device, boolean fail, String cache) {
@@ -255,6 +263,14 @@ public class InstallFragment extends Fragment {
             } else
                 gSelect.setVisibility(View.GONE);
 
+            View.OnClickListener onSelectDevice = v -> {
+                devDialog.dismiss();
+                Intent intent = new Intent(getContext(), RecyclerActivity.class);
+                intent.putExtra("type", 3);
+                intent.putExtra("title", R.string.dev_activity);
+                startActivityForResult(intent, 202);
+            };
+
             gRight.setOnClickListener(v -> {
                 gRight.setVisibility(View.GONE);
                 gWrong.setVisibility(View.GONE);
@@ -262,6 +278,8 @@ public class InstallFragment extends Fragment {
                 prefs.edit().putString(pref.DEVICE, cache).putString(pref.DEVICE_CODE, device).apply();
                 new Thread(() -> parseRelease(devDialog)).start();
             });
+            gWrong.setOnClickListener(onSelectDevice);
+            gSelect.setOnClickListener(onSelectDevice);
 
             devDialog.show();
         });
