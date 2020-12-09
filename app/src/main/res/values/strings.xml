@@ -6,7 +6,11 @@
     <string name="err_json">Can\'t parse json.</string>
     <string name="err_response">Server returned wrong response code: %1$d.</string>
     <string name="err_no_rel">Sorry, but we can\'t find this release.</string>
+    <string name="err_no_device">Sorry, but we can\'t find this device.</string>
     <string name="err_no_internet">Looks like your device isn\'t connected to the internet.\nCheck Internet connection and try again.</string>
+    <string name="err_no_internet_short">Check Internet connection and try again.</string>
+
+    <string name="install_latest">Install %1$s %2$s</string>
 
     <string name="rels_activity">Releases</string>
 
@@ -40,7 +44,11 @@
     <string name="dev_unmaintained">Unmaintained</string>
     <string name="dev_patch">Sec.Patch</string>
 
-    <string name="guess_top">Your device is...</string>
+    <string name="err_card_no_internet">No internet connection</string>
+    <string name="err_card_error">Error</string>
+    <string name="err_card_try_again">Try Again</string>
+
+    <string name="guess_top">Your device is</string>
     <string name="guess_bottom">Looks like we support this device officially!\nIs that your device?</string>
     <string name="guess_fail">...and we don\'t support it.</string>
     <string name="guess_correct">Yes, that\'s correct</string>

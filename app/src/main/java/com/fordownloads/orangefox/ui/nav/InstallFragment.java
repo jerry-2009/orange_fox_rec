@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -28,6 +30,7 @@ import com.fordownloads.orangefox.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,10 +41,14 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
-    TextView _ofTitle;
-    Button _installButton, _releaseInfo, _oldReleases;
+    TextView _ofTitle, _cardErrorText, _cardErrorTitle;
+    Button _releaseInfo, _oldReleases, _btnRefresh;
     SharedPreferences prefs;
+    ExtendedFloatingActionButton _installButton;
     View rootView;
+    CardView _cardError, _cardInfo, _cardRelease;
+    ImageView _cardErrorIcon;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
@@ -51,10 +58,21 @@ public class InstallFragment extends Fragment {
         _installButton = rootView.findViewById(R.id.installButton);
         _releaseInfo = rootView.findViewById(R.id.releaseInfo);
         _oldReleases = rootView.findViewById(R.id.oldReleases);
+        _btnRefresh = rootView.findViewById(R.id.btnRefresh);
+
+        _cardError = rootView.findViewById(R.id.cardError);
+        _cardInfo = rootView.findViewById(R.id.cardInfo);
+        _cardRelease = rootView.findViewById(R.id.cardRelease);
+
+        _cardErrorIcon = rootView.findViewById(R.id.cardErrorIcon);
+        _cardErrorText = rootView.findViewById(R.id.cardErrorText);
+        _cardErrorTitle = rootView.findViewById(R.id.cardErrorTitle);
+
+        _installButton.hide();
 
         _releaseInfo.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), RecyclerActivity.class);
-            intent.putExtra("release", prefs.getString(pref.CACHE_RELEASE, "err"));
+            intent.putExtra("release", prefs.getString(pref.CACHE_RELEASE, "no_cache_release"));
             intent.putExtra("type", 1);
             intent.putExtra("title", R.string.rel_activity);
             startActivityForResult(intent, 200);
@@ -62,17 +80,24 @@ public class InstallFragment extends Fragment {
 
         _oldReleases.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), RecyclerActivity.class);
-            intent.putExtra("release", prefs.getString(pref.DEVICE_CODE, "err"));
+            intent.putExtra("release", prefs.getString(pref.DEVICE_CODE, "no_device_code"));
             intent.putExtra("type", 2);
             intent.putExtra("title", R.string.rels_activity);
             startActivityForResult(intent, 200);
         });
 
-        _installButton.setOnClickListener((View view)-> {
+        _installButton.setOnClickListener(view -> {
             Activity act = getActivity();
             ((AHBottomNavigation)act.findViewById(R.id.bottom_navigation)).hideBottomNavigation(true);
             view.setVisibility(View.GONE);
-            ((LinearLayout)act.findViewById(R.id.cards)).setVisibility(View.GONE);
+            act.findViewById(R.id.cards).setVisibility(View.GONE);
+        });
+
+        _btnRefresh.setOnClickListener(view -> {
+            _cardError.setVisibility(View.GONE);
+            _cardInfo.setVisibility(View.VISIBLE);
+            _cardRelease.setVisibility(View.VISIBLE);
+            prepareDevice();
         });
 
         rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
@@ -117,25 +142,27 @@ public class InstallFragment extends Fragment {
     }
 
     private void parseRelease(BottomSheetDialog dialog) {
-        Log.i("OFOFOF", "parseRel");
         try {
             JSONObject release;
             if (prefs.contains(pref.CACHE_RELEASE)) {
                 release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
             } else {
                 Map<String, Object> response = API.request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
-                if (!(boolean) response.get("success"))
+                if (!(boolean) response.get("success")) {
+                    if (dialog != null) dialog.dismiss();
+                    errorCard(R.string.err_card_error, R.string.err_no_rel, false);
                     return;
+                }
                 release = new JSONObject((String) response.get("response"));
             }
 
-            String buildType = release.getString("build_type");
-            switch (buildType) {
+            int buildType = R.string.err_title;
+            switch (release.getString("build_type")) {
                 case "stable":
-                    buildType = getString(R.string.rel_stable);
+                    buildType = R.string.rel_stable;
                     break;
                 case "beta":
-                    buildType = getString(R.string.rel_beta);
+                    buildType = R.string.rel_beta;
                     break;
             }
 
@@ -145,35 +172,63 @@ public class InstallFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.relSize)).setText(release.getString("size_human"));
 
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
+
+
+            int maintainStatus = R.string.err_title;
+            switch (device.getInt("maintained")) {
+                case 1:
+                    maintainStatus = R.string.dev_maintained;
+                    break;
+                case 2:
+                    maintainStatus = R.string.dev_maintained_wod;
+                    break;
+                case 3:
+                    maintainStatus = R.string.dev_unmaintained;
+                    break;
+            }
+
             ((TextView) rootView.findViewById(R.id.devCode)).setText(device.getString("codename"));
-            ((TextView) rootView.findViewById(R.id.devModel)).setText(device.getString("fullname"));/*
-            ((TextView) rootView.findViewById(R.id.devStatus)).setText(device.getInt("maintained"));
-            ((TextView) rootView.findViewById(R.id.devStatus)).setText(device.getJSONObject("maintainer").getString("name"));*/
+            ((TextView) rootView.findViewById(R.id.devModel)).setText(device.getString("fullname"));
+            ((TextView) rootView.findViewById(R.id.devStatus)).setText(maintainStatus);
+            ((TextView) rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
             ((TextView) rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
-            Log.i("OFOFOF", "eba");
+
+            _installButton.setText(getString(R.string.install_latest, release.getString("version"), getString(buildType)));
+            getActivity().runOnUiThread(() -> _installButton.show());
 
             if (!prefs.contains(pref.CACHE_RELEASE))
                 prefs.edit().putString(pref.CACHE_RELEASE, release.toString()).apply();
-
-            if (dialog != null)
-                dialog.dismiss();
         } catch (JSONException e) {
             e.printStackTrace();
+            errorCard(R.string.err_card_error, R.string.err_json, false);
         }
+
+        if (dialog != null) dialog.dismiss();
     }
 
     private void setDevice() {
         try {
-            JSONObject response = findDevice();
-            if (response == null) {
-                showDeviceDialog(Build.VERSION.CODENAME, true);
+            String codename = findDevice();
+            if (codename == null) {
+                showDeviceDialog(Build.DEVICE, true);
                 return;
             }
-            prefs.edit().putString(pref.DEVICE, response.toString()).putString(pref.DEVICE_CODE, response.getString("codename")).apply();
-            showDeviceDialog(response.getString("codename"), false);
+            if (codename == "no_internet_error") {
+                errorCard(R.string.err_card_no_internet, R.string.err_no_internet_short, true);
+                return;
+            }
+            Map<String, Object> response = API.request("device/" + codename);
+            if (!(boolean) response.get("success")) {
+                errorCard(R.string.err_card_error, R.string.err_no_device, false);
+                return;
+            }
+            JSONObject device = new JSONObject((String)response.get("response"));
+            prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
+            showDeviceDialog(codename, false);
+
         } catch (JSONException e) {
             e.printStackTrace();
-            showDeviceDialog(Build.VERSION.CODENAME, true);
+            errorCard(R.string.err_card_error, R.string.err_json, false);
         }
     }
 
@@ -214,7 +269,7 @@ public class InstallFragment extends Fragment {
         });
     }
 
-    protected JSONObject findDevice() {
+    protected String findDevice() {
         String chk2 = Build.DEVICE.toLowerCase();
         String chk3 = Build.MODEL.toLowerCase();
         String chk4 = Build.PRODUCT.toLowerCase();
@@ -222,18 +277,31 @@ public class InstallFragment extends Fragment {
         try {
             Map<String, Object> response = API.request("device");
             if(!(boolean)response.get("success"))
-                return null;
+                return "no_internet_error";
             JSONArray devices = new JSONArray((String)response.get("response"));
             for (int i = 0; i < devices.length(); i++)
             {
                 JSONObject device = devices.getJSONObject(i);
                 String dbDev = device.getString("codename").toLowerCase();
                 if (dbDev.contains(chk2) || dbDev.contains(chk3) || dbDev.contains(chk4))
-                    return device;
+                    return device.getString("codename");
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            errorCard(R.string.err_card_error, R.string.err_json, false);
         }
         return null;
+    }
+
+    protected void errorCard(int title, int text, boolean isInternet) {
+        getActivity().runOnUiThread(() -> {
+            _cardErrorTitle.setText(title);
+            _cardErrorText.setText(text);
+            _cardErrorIcon.setImageResource(isInternet ? R.drawable.ic_round_public_off_24 : R.drawable.ic_round_warning_24);
+
+            _cardError.setVisibility(View.VISIBLE);
+            _cardInfo.setVisibility(View.GONE);
+            _cardRelease.setVisibility(View.GONE);
+        });
     }
 }

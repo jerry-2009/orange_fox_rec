@@ -38,6 +38,7 @@
         android:id="@+id/scrollCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         app:layout_anchorGravity="center">
 
         <LinearLayout
@@ -51,6 +52,64 @@
             android:showDividers="beginning|middle|end">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardError"
+                style="@style/ThemeCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:id="@+id/cardErrorIcon"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_round_public_off_24"
+                        android:tint="@color/google_gray" />
+
+                    <TextView
+                        android:id="@+id/cardErrorTitle"
+                        style="@style/ThemeTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/err_card_no_internet"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/cardErrorText"
+                        style="@style/ThemeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/err_no_internet"
+                        android:textAlignment="center" />
+
+                    <Button
+                        android:id="@+id/btnRefresh"
+                        style="@style/ThemeButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/err_card_try_again"
+                        app:icon="@drawable/ic_round_refresh_24" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardInfo"
                 style="@style/ThemeCard"
                 id="@+id/cardInfo"
                 android:layout_width="match_parent"
@@ -89,34 +148,74 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:shrinkColumns="all">
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/dev_model" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devModel"
+
+                                <TextView
+                                    android:id="@+id/devModel"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/dev_code" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devCode"
+
+                                <TextView
+                                    android:id="@+id/devCode"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/dev_maintainer" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devMaintainer"
+
+                                <TextView
+                                    android:id="@+id/devMaintainer"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/dev_status" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devStatus"
+
+                                <TextView
+                                    android:id="@+id/devStatus"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/dev_patch" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/devPatch"
+
+                                <TextView
+                                    android:id="@+id/devPatch"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
                         </TableLayout>
@@ -125,6 +224,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardRelease"
                 style="@style/ThemeCard"
                 id="@+id/cardRelease"
                 android:layout_width="match_parent"
@@ -163,28 +263,60 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:shrinkColumns="all">
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/rel_vers" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relVers"
+
+                                <TextView
+                                    android:id="@+id/relVers"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/rel_type" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relType"
+
+                                <TextView
+                                    android:id="@+id/relType"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/rel_date" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relDate"
+
+                                <TextView
+                                    android:id="@+id/relDate"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
+
                             <TableRow>
-                                <TextView style="@style/ThemeTextGray" android:layout_weight="0"
+
+                                <TextView
+                                    style="@style/ThemeTextGray"
+                                    android:layout_weight="0"
                                     android:text="@string/rel_size" />
-                                <TextView style="@style/ThemeTextBold" android:layout_weight="1" android:id="@+id/relSize"
+
+                                <TextView
+                                    android:id="@+id/relSize"
+                                    style="@style/ThemeTextBold"
+                                    android:layout_weight="1"
                                     android:text="..." />
                             </TableRow>
                         </TableLayout>
