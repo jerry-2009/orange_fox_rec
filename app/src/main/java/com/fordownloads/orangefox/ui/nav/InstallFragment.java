@@ -209,6 +209,7 @@ public class InstallFragment extends Fragment {
                 _cardInfo.setVisibility(View.VISIBLE);
                 _cardRelease.setVisibility(View.VISIBLE);
                 _installButton.show();
+                ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
             });
 
             if (!prefs.contains(pref.CACHE_RELEASE))
@@ -217,7 +218,6 @@ public class InstallFragment extends Fragment {
             e.printStackTrace();
             errorCard(1000, 0);
         }
-
         if (dialog != null) dialog.dismiss();
     }
 
