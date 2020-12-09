@@ -28,6 +28,7 @@ import com.fordownloads.orangefox.API;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
+import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -150,7 +151,7 @@ public class InstallFragment extends Fragment {
                 Map<String, Object> response = API.request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
                 if (!(boolean) response.get("success")) {
                     if (dialog != null) dialog.dismiss();
-                    errorCard(R.string.err_card_error, R.string.err_no_rel, false);
+                    errorCard((int)response.get("code"), R.string.err_no_rel);
                     return;
                 }
                 release = new JSONObject((String) response.get("response"));
@@ -200,7 +201,7 @@ public class InstallFragment extends Fragment {
                 prefs.edit().putString(pref.CACHE_RELEASE, release.toString()).apply();
         } catch (JSONException e) {
             e.printStackTrace();
-            errorCard(R.string.err_card_error, R.string.err_json, false);
+            errorCard(1000, 0);
         }
 
         if (dialog != null) dialog.dismiss();
@@ -209,17 +210,15 @@ public class InstallFragment extends Fragment {
     private void setDevice() {
         try {
             String codename = findDevice();
+            if (codename == "no_internet_error")
+                return;
             if (codename == null) {
                 showDeviceDialog(Build.DEVICE, true);
                 return;
             }
-            if (codename == "no_internet_error") {
-                errorCard(R.string.err_card_no_internet, R.string.err_no_internet_short, true);
-                return;
-            }
             Map<String, Object> response = API.request("device/" + codename);
             if (!(boolean) response.get("success")) {
-                errorCard(R.string.err_card_error, R.string.err_no_device, false);
+                errorCard((int)response.get("code"), R.string.err_no_device);
                 return;
             }
             JSONObject device = new JSONObject((String)response.get("response"));
@@ -228,7 +227,7 @@ public class InstallFragment extends Fragment {
 
         } catch (JSONException e) {
             e.printStackTrace();
-            errorCard(R.string.err_card_error, R.string.err_json, false);
+            errorCard(1000, 0);
         }
     }
 
@@ -276,8 +275,10 @@ public class InstallFragment extends Fragment {
 
         try {
             Map<String, Object> response = API.request("device");
-            if(!(boolean)response.get("success"))
+            if(!(boolean)response.get("success")) {
+                errorCard((int)response.get("code"), R.string.err_no_device);
                 return "no_internet_error";
+            }
             JSONArray devices = new JSONArray((String)response.get("response"));
             for (int i = 0; i < devices.length(); i++)
             {
@@ -288,14 +289,33 @@ public class InstallFragment extends Fragment {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            errorCard(R.string.err_card_error, R.string.err_json, false);
+            errorCard(1000, 0);
         }
         return null;
     }
 
-    protected void errorCard(int title, int text, boolean isInternet) {
+    protected void errorCard(int errorCode, int customErr) {
+        String text;
+        switch (errorCode) {
+            case 404:
+            case 500:
+                text = getString(customErr);
+                break;
+            case 0:
+                text = getString(R.string.err_no_internet_short);
+                break;
+            case 1000:
+                text = getString(R.string.err_json);
+                break;
+            default:
+                text = getString(R.string.err_response, errorCode);
+                break;
+        }
+
+        boolean isInternet = errorCode == 0;
+
         getActivity().runOnUiThread(() -> {
-            _cardErrorTitle.setText(title);
+            _cardErrorTitle.setText(isInternet ? R.string.err_card_no_internet : R.string.err_card_error);
             _cardErrorText.setText(text);
             _cardErrorIcon.setImageResource(isInternet ? R.drawable.ic_round_public_off_24 : R.drawable.ic_round_warning_24);
 
