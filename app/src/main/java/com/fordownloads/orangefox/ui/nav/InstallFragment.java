@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +23,11 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.facebook.shimmer.Shimmer;
 import com.fordownloads.orangefox.API;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
-import com.fordownloads.orangefox.ui.Tools;
-import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -49,6 +47,7 @@ public class InstallFragment extends Fragment {
     View rootView;
     CardView _cardError, _cardInfo, _cardRelease;
     ImageView _cardErrorIcon;
+    View _shimmer;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +67,7 @@ public class InstallFragment extends Fragment {
         _cardErrorIcon = rootView.findViewById(R.id.cardErrorIcon);
         _cardErrorText = rootView.findViewById(R.id.cardErrorText);
         _cardErrorTitle = rootView.findViewById(R.id.cardErrorTitle);
+        _shimmer = rootView.findViewById(R.id.shimmer);
 
         _installButton.hide();
 
@@ -98,6 +98,7 @@ public class InstallFragment extends Fragment {
             _cardError.setVisibility(View.GONE);
             _cardInfo.setVisibility(View.VISIBLE);
             _cardRelease.setVisibility(View.VISIBLE);
+            _shimmer.setVisibility(View.VISIBLE);
             prepareDevice();
         });
 
@@ -195,7 +196,12 @@ public class InstallFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
             _installButton.setText(getString(R.string.install_latest, release.getString("version"), getString(buildType)));
-            getActivity().runOnUiThread(() -> _installButton.show());
+            getActivity().runOnUiThread(() -> {
+                _shimmer.setVisibility(View.GONE);
+                _cardInfo.setVisibility(View.VISIBLE);
+                _cardRelease.setVisibility(View.VISIBLE);
+                _installButton.show();
+            });
 
             if (!prefs.contains(pref.CACHE_RELEASE))
                 prefs.edit().putString(pref.CACHE_RELEASE, release.toString()).apply();
@@ -208,30 +214,22 @@ public class InstallFragment extends Fragment {
     }
 
     private void setDevice() {
-        try {
-            String codename = findDevice();
-            if (codename == "no_internet_error")
-                return;
-            if (codename == null) {
-                showDeviceDialog(Build.DEVICE, true);
-                return;
-            }
-            Map<String, Object> response = API.request("device/" + codename);
-            if (!(boolean) response.get("success")) {
-                errorCard((int)response.get("code"), R.string.err_no_device);
-                return;
-            }
-            JSONObject device = new JSONObject((String)response.get("response"));
-            prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
-            showDeviceDialog(codename, false);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            errorCard(1000, 0);
+        String codename = findDevice();
+        if (codename == "no_internet_error")
+            return;
+        if (codename == null) {
+            showDeviceDialog(Build.DEVICE, true, null);
+            return;
         }
+        Map<String, Object> response = API.request("device/" + codename);
+        if (!(boolean) response.get("success")) {
+            errorCard((int)response.get("code"), R.string.err_no_device);
+            return;
+        }
+        showDeviceDialog(codename, false, (String)response.get("response"));
     }
 
-    protected void showDeviceDialog(String device, boolean fail) {
+    protected void showDeviceDialog(String device, boolean fail, String cache) {
         getActivity().runOnUiThread(() -> {
             BottomSheetDialog devDialog = new BottomSheetDialog(getActivity(), R.style.ThemeBottomSheet);
             View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, null);
@@ -261,6 +259,7 @@ public class InstallFragment extends Fragment {
                 gRight.setVisibility(View.GONE);
                 gWrong.setVisibility(View.GONE);
                 gProgress.setVisibility(View.VISIBLE);
+                prefs.edit().putString(pref.DEVICE, cache).putString(pref.DEVICE_CODE, device).apply();
                 new Thread(() -> parseRelease(devDialog)).start();
             });
 
@@ -322,6 +321,7 @@ public class InstallFragment extends Fragment {
             _cardError.setVisibility(View.VISIBLE);
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
+            _shimmer.setVisibility(View.GONE);
         });
     }
 }

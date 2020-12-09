@@ -27,6 +27,14 @@
         <item name="android:layout_marginHorizontal">8dp</item>
     </style>
 
+    <style name="ThemeShimmer">
+        <item name="shimmer_highlight_color">@color/fox_card_shimmer</item>
+        <item name="shimmer_base_color">@color/fox_card</item>
+        <item name="shimmer_base_alpha">0.8</item>
+        <item name="shimmer_highlight_alpha">0.5</item>
+        <item name="shimmer_colored">true</item>
+    </style>
+
     <style name="ThemeToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/fox_accent</item>
         <item name="actionMenuTextColor">@color/fox_accent</item>
