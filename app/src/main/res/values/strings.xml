@@ -6,9 +6,11 @@
     <string name="err_json">Can\'t parse json</string>
     <string name="err_response">Server returned wrong response code: %1$d</string>
     <string name="err_no_rel">Sorry, we can\'t find this release</string>
+    <string name="err_no_rels">Sorry, we can\'t find releases for this device</string>
     <string name="err_no_device">Device not found</string>
     <string name="err_no_internet">Looks like your device isn\'t connected to the internet.\nCheck Internet connection and try again</string>
     <string name="err_no_internet_short">Check Internet connection and try again</string>
+    <string name="err_dev_not_selected">You didn\'t selected your device</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
 

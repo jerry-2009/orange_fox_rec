@@ -28,6 +28,7 @@ import com.fordownloads.orangefox.Install;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
+import com.fordownloads.orangefox.vars;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -120,7 +121,7 @@ public class InstallFragment extends Fragment {
             if (resultCode == RESULT_OK && data != null)
                 new Thread(() -> setDevice(data.getStringExtra("codename"), true)).start();
             else
-                errorCard(404, R.string.err_no_device);
+                errorCard(404, R.string.err_dev_not_selected);
         }
     }
 
@@ -158,7 +159,8 @@ public class InstallFragment extends Fragment {
                 Map<String, Object> response = API.request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
                 if (!(boolean) response.get("success")) {
                     if (dialog != null) dialog.dismiss();
-                    errorCard((int)response.get("code"), R.string.err_no_rel);
+                    errorCard((int)response.get("code"), R.string.err_no_rels);
+                    prefs.edit().remove(pref.DEVICE).remove(pref.DEVICE_CODE).apply();
                     return;
                 }
                 release = new JSONObject((String) response.get("response"));
@@ -246,9 +248,9 @@ public class InstallFragment extends Fragment {
             View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, null);
             devDialog.setContentView(sheetView);
             devDialog.setDismissWithAnimation(true);
-
+            /*
             devDialog.setCancelable(false);
-            devDialog.setCanceledOnTouchOutside(false);
+            devDialog.setCanceledOnTouchOutside(false);*/
 
             Button gSelect = sheetView.findViewById(R.id.guessSelect);
             Button gRight = sheetView.findViewById(R.id.btnInstall);
@@ -267,6 +269,7 @@ public class InstallFragment extends Fragment {
                 gSelect.setVisibility(View.GONE);
 
             View.OnClickListener onSelectDevice = v -> {
+                devDialog.setOnDismissListener(null);
                 devDialog.dismiss();
                 Intent intent = new Intent(getContext(), RecyclerActivity.class);
                 intent.putExtra("type", 3);
@@ -275,6 +278,7 @@ public class InstallFragment extends Fragment {
             };
 
             gRight.setOnClickListener(v -> {
+                devDialog.setOnDismissListener(null);
                 gRight.setVisibility(View.GONE);
                 gWrong.setVisibility(View.GONE);
                 gProgress.setVisibility(View.VISIBLE);
@@ -284,7 +288,22 @@ public class InstallFragment extends Fragment {
             gWrong.setOnClickListener(onSelectDevice);
             gSelect.setOnClickListener(onSelectDevice);
 
+            devDialog.setOnDismissListener(v -> {
+                errorCard(404, R.string.err_dev_not_selected);
+            });
+
+            Point size = new Point();
+            getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+
+            sheetView.setY(size.y);
             devDialog.show();
+
+            sheetView.animate()
+                    .setInterpolator(vars.intr)
+                    .setDuration(600)
+                    .setStartDelay(200)
+                    .setStartDelay(100)
+                    .translationY(0);
         });
     }
 

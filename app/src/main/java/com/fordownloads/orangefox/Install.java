@@ -13,7 +13,6 @@ import androidx.core.view.animation.PathInterpolatorCompat;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class Install {
-    public static final android.view.animation.Interpolator interp = PathInterpolatorCompat.create(0.16f, 1, 0.3f, 1);
 
     public static void dialog(Activity activity) {
         BottomSheetDialog dialog = new BottomSheetDialog(activity, R.style.ThemeBottomSheet);
@@ -32,15 +31,15 @@ public class Install {
         sheetView.findViewById(R.id.btnDownload).setOnClickListener(v -> {
 
         });
-        Display display = activity.getWindowManager().getDefaultDisplay();
+
         Point size = new Point();
-        display.getSize(size);
+        activity.getWindowManager().getDefaultDisplay().getSize(size);
 
         sheetView.setY(size.y);
         dialog.show();
 
         sheetView.animate()
-                .setInterpolator(interp)
+                .setInterpolator(vars.intr)
                 .setDuration(600)
                 .setStartDelay(200)
                 .setStartDelay(100)
