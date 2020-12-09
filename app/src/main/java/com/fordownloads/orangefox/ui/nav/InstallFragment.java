@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.fordownloads.orangefox.API;
+import com.fordownloads.orangefox.Install;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
@@ -87,10 +88,12 @@ public class InstallFragment extends Fragment {
         });
 
         _installButton.setOnClickListener(view -> {
+            Install.dialog(getActivity());
+            /*
             Activity act = getActivity();
             ((AHBottomNavigation)act.findViewById(R.id.bottom_navigation)).hideBottomNavigation(true);
             view.setVisibility(View.GONE);
-            act.findViewById(R.id.cards).setVisibility(View.GONE);
+            act.findViewById(R.id.cards).setVisibility(View.GONE);*/
         });
 
         _btnRefresh.setOnClickListener(view -> {
@@ -248,8 +251,8 @@ public class InstallFragment extends Fragment {
             devDialog.setCanceledOnTouchOutside(false);
 
             Button gSelect = sheetView.findViewById(R.id.guessSelect);
-            Button gRight = sheetView.findViewById(R.id.guessRight);
-            Button gWrong = sheetView.findViewById(R.id.guessWrong);
+            Button gRight = sheetView.findViewById(R.id.btnInstall);
+            Button gWrong = sheetView.findViewById(R.id.btnCancel);
             TextView gCode = sheetView.findViewById(R.id.guessDeviceCode);
             TextView gBottom = sheetView.findViewById(R.id.guessBottomText);
             ProgressBar gProgress = sheetView.findViewById(R.id.setupProgress);
