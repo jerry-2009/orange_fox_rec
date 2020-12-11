@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.downloader.PRDownloader;
+import com.downloader.PRDownloaderConfig;
 import com.fordownloads.orangefox.ui.nav.InstallFragment;
 import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
 import com.fordownloads.orangefox.ui.nav.SettingsFragment;
@@ -28,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_nav);
+
+        PRDownloaderConfig config = PRDownloaderConfig.newBuilder()
+                .setDatabaseEnabled(true)
+                .setReadTimeout(30_000)
+                .setConnectTimeout(30_000)
+                .build();
+        PRDownloader.initialize(getApplicationContext(), config);
+
         prepareBottomNav();
     }
 

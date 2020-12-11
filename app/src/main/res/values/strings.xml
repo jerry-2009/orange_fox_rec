@@ -65,6 +65,10 @@
     <string name="inst_install">Download and install</string>
     <string name="inst_download">Only download</string>
     <string name="inst_cancel">Cancel</string>
+    <string name="inst_progress">%dMB of %dMB</string>
+    <string name="inst_installing">Your phone will be rebooted after 5 seconds...</string>
+    <string name="inst_down_err">Download error</string>
+    <string name="inst_downloaded">Downloaded to %1$s</string>
 
     <string name="pm_title">Missing Permissions</string>
     <string name="pm_subtitle">Grant these permissions to OrangeFox App. They need for saving and installing ZIP.\nYou can skip root permission if you don\'t have root.</string>

@@ -199,8 +199,7 @@ public class InstallFragment extends Fragment {
 
             _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
 
-            //_installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url));
-            _installButton.setOnClickListener(view -> Install.permissions(getActivity()));
+            _installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url));
             getActivity().runOnUiThread(() -> {
                 _cardError.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);
