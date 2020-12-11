@@ -1,14 +1,8 @@
 package com.fordownloads.orangefox;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -21,16 +15,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.fordownloads.orangefox.ui.nav.InstallFragment;
 import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
 import com.fordownloads.orangefox.ui.nav.SettingsFragment;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Map;
+import com.topjohnwu.superuser.Shell;
 
 public class MainActivity extends AppCompatActivity {
+    static {
+        Shell.setDefaultBuilder(Shell.Builder.create()
+                .setFlags(Shell.FLAG_REDIRECT_STDERR)
+                .setTimeout(10));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

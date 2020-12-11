@@ -66,9 +66,10 @@
     <string name="inst_download">Only download</string>
     <string name="inst_cancel">Cancel</string>
 
-    <!-- API v3
-    <string name="dev_contact">Contact Maintainer</string>
-        API v3 -->
+    <string name="pm_title">Missing Permissions</string>
+    <string name="pm_subtitle">Grant these permissions to OrangeFox App. They need for saving and installing ZIP.\nYou can skip root permission if you don\'t have root.</string>
+    <string name="pm_root">Root access</string>
+    <string name="pm_storage">Storage</string>
 
     <string name="bnav_install">Install</string>
     <string name="bnav_scripts">Scripts</string>

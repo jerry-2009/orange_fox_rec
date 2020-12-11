@@ -88,15 +88,6 @@ public class InstallFragment extends Fragment {
             startActivityForResult(intent, 200);
         });
 
-        _installButton.setOnClickListener(view -> {
-            Install.dialog(getActivity());
-            /*
-            Activity act = getActivity();
-            ((AHBottomNavigation)act.findViewById(R.id.bottom_navigation)).hideBottomNavigation(true);
-            view.setVisibility(View.GONE);
-            act.findViewById(R.id.cards).setVisibility(View.GONE);*/
-        });
-
         _btnRefresh.setOnClickListener(view -> {
             _cardError.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
@@ -113,9 +104,7 @@ public class InstallFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
-            Toast.makeText(getActivity().getApplicationContext(), "releaseId" +
-                    data.getStringExtra("release"),
-                    Toast.LENGTH_LONG).show();
+            Install.dialog(getActivity(), data.getStringExtra("ver"), data.getStringExtra("type"), data.getStringExtra("url"));
         }
         else if (requestCode == 202) {
             if (resultCode == RESULT_OK && data != null)
@@ -176,13 +165,18 @@ public class InstallFragment extends Fragment {
                     break;
             }
 
-            ((TextView) rootView.findViewById(R.id.relType)).setText(buildType);
-            ((TextView) rootView.findViewById(R.id.relVers)).setText(release.getString("version"));
-            ((TextView) rootView.findViewById(R.id.relDate)).setText(release.getString("date"));
-            ((TextView) rootView.findViewById(R.id.relSize)).setText(release.getString("size_human"));
+            //why i need do this
+            final String version = release.getString("version");
+            final String url = release.getString("url");
+            final String stringBuildType = getString(buildType);
+            //
+
+            ((TextView)rootView.findViewById(R.id.relType)).setText(stringBuildType);
+            ((TextView)rootView.findViewById(R.id.relVers)).setText(version);
+            ((TextView)rootView.findViewById(R.id.relDate)).setText(release.getString("date"));
+            ((TextView)rootView.findViewById(R.id.relSize)).setText(release.getString("size_human"));
 
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
-
 
             int maintainStatus = R.string.err_title;
             switch (device.getInt("maintained")) {
@@ -197,13 +191,16 @@ public class InstallFragment extends Fragment {
                     break;
             }
 
-            ((TextView) rootView.findViewById(R.id.devCode)).setText(device.getString("codename"));
-            ((TextView) rootView.findViewById(R.id.devModel)).setText(device.getString("fullname"));
-            ((TextView) rootView.findViewById(R.id.devStatus)).setText(maintainStatus);
-            ((TextView) rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
-            ((TextView) rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
+            ((TextView)rootView.findViewById(R.id.devCode)).setText(device.getString("codename"));
+            ((TextView)rootView.findViewById(R.id.devModel)).setText(device.getString("fullname"));
+            ((TextView)rootView.findViewById(R.id.devStatus)).setText(maintainStatus);
+            ((TextView)rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
+            ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
-            _installButton.setText(getString(R.string.install_latest, release.getString("version"), getString(buildType)));
+            _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
+
+            //_installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url));
+            _installButton.setOnClickListener(view -> Install.permissions(getActivity()));
             getActivity().runOnUiThread(() -> {
                 _cardError.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);

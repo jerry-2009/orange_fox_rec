@@ -106,27 +106,32 @@ public class RecyclerActivity extends AppCompatActivity {
                 release = new JSONObject((String)response.get("response"));
             }
 
-            String buildType = release.getString("build_type");
-            switch(buildType){
+            int buildType = R.string.err_title;
+            switch (release.getString("build_type")) {
                 case "stable":
-                    buildType = getString(R.string.rel_stable);
+                    buildType = R.string.rel_stable;
                     break;
                 case "beta":
-                    buildType = getString(R.string.rel_beta);
+                    buildType = R.string.rel_beta;
                     break;
             }
 
-            items.add(new RecyclerItems(getString(R.string.rel_type), buildType, R.drawable.ic_outline_build_24));
+            final String version = release.getString("version");
+            final String url = release.getString("url");
+            final String stringBuildType = getString(buildType);
+
+            items.add(new RecyclerItems(getString(R.string.rel_type), stringBuildType, R.drawable.ic_outline_build_24));
             items.add(new RecyclerItems(getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));
             items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("file_name"), R.drawable.ic_outline_archive_24));
             items.add(new RecyclerItems(getString(R.string.rel_date), release.getString("date"), R.drawable.ic_outline_today_24));
             items.add(new RecyclerItems(getString(R.string.rel_size), release.getString("size_human"), R.drawable.ic_outline_sd_card_24));
             items.add(new RecyclerItems("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
 
-            final JSONObject finalRelease = release;
             runOnUiThread(() -> {
                 findViewById(R.id.installThis).setOnClickListener(view -> {
-                    setResult(Activity.RESULT_OK, new Intent().putExtra("release", finalRelease.toString()));
+                    setResult(Activity.RESULT_OK, new Intent().putExtra("ver", version)
+                            .putExtra("type", stringBuildType)
+                            .putExtra("url", url));
                     finish();
                 });
 
@@ -134,15 +139,15 @@ public class RecyclerActivity extends AppCompatActivity {
                 pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, null))));
 
                 try {
-                    if (finalRelease.has("changelog"))
+                    if (release.has("changelog"))
                         pageList.add(R.string.rel_changes, TextFragment.class,
-                                TextFragment.arguments(finalRelease.getString("changelog")));
-                    if (finalRelease.has("notes"))
+                                TextFragment.arguments(release.getString("changelog")));
+                    if (release.has("notes"))
                         pageList.add(R.string.rel_notes, TextFragment.class,
-                                TextFragment.arguments(finalRelease.getString("notes")));
-                    if (finalRelease.has("bugs"))
+                                TextFragment.arguments(release.getString("notes")));
+                    if (release.has("bugs"))
                             pageList.add(R.string.rel_bugs, TextFragment.class,
-                                    TextFragment.arguments(finalRelease.getString("bugs")));
+                                    TextFragment.arguments(release.getString("bugs")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -207,7 +212,7 @@ public class RecyclerActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 201 && resultCode == RESULT_OK && data != null) {
-            setResult(Activity.RESULT_OK, new Intent().putExtra("release", data.getStringExtra("release")));
+            setResult(Activity.RESULT_OK, data);
             finish();
         }
     }

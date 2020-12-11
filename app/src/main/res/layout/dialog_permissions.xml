@@ -30,14 +30,14 @@
                 android:layout_marginBottom="16dp"
                 android:layout_gravity="center"
                 android:src="@drawable/drag"/>
+
             <TextView
                 style="@style/ThemeTitle"
-                android:id="@+id/installTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="false"
-                tools:text="Install R11.0_005 Stable"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:text="@string/pm_title" />
 
             <TextView
                 style="@style/ThemeText"
@@ -45,34 +45,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/inst_warn"
+                android:text="@string/pm_subtitle"
                 android:textAlignment="center" />
 
-            <Button
-                android:id="@+id/btnInstall"
-                style="@style/ThemeButton"
+            <CheckBox
+                android:id="@+id/checkStorage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/inst_install"
-                app:icon="@drawable/ic_round_system_update_24" />
+                android:layout_height="36dp"
+                android:text="@string/pm_storage" />
 
-            <Button
-                android:id="@+id/btnDownload"
-                style="@style/ThemeButtonOutline"
+            <CheckBox
+                android:id="@+id/checkRoot"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/inst_download"
-                android:backgroundTint="@color/fox_card"
-                app:icon="@drawable/ic_round_save_alt_24" />
+                android:layout_height="36dp"
+                android:text="@string/pm_root" />
 
-            <Button
-                android:id="@+id/btnCancel"
-                style="@style/ThemeButtonOutline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/fox_card"
-                android:text="@string/inst_cancel"
-                app:icon="@drawable/ic_round_close_24" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

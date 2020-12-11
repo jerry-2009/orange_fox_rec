@@ -14,6 +14,18 @@
         <item name="alertDialogTheme">@style/ThemeDialog</item>
     </style>
 
+    <style name="ThemeInstall" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/fox_background</item>
+    </style>
+
     <style name="Theme.OrangeFox.Activity">
         <item name="android:statusBarColor">@color/fox_status_solid_bg</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
