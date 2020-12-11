@@ -205,11 +205,11 @@ public class InstallFragment extends Fragment {
 
             _installButton.setText(getString(R.string.install_latest, release.getString("version"), getString(buildType)));
             getActivity().runOnUiThread(() -> {
+                _cardError.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);
                 _cardInfo.setVisibility(View.VISIBLE);
                 _cardRelease.setVisibility(View.VISIBLE);
                 _installButton.show();
-                ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
             });
 
             if (!prefs.contains(pref.CACHE_RELEASE))
@@ -244,6 +244,7 @@ public class InstallFragment extends Fragment {
 
     protected void showDeviceDialog(String device, boolean fail, String cache) {
         getActivity().runOnUiThread(() -> {
+            ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
             BottomSheetDialog devDialog = new BottomSheetDialog(getActivity(), R.style.ThemeBottomSheet);
             View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, null);
             devDialog.setContentView(sheetView);

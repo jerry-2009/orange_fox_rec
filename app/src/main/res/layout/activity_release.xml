@@ -90,7 +90,7 @@
         android:layout_margin="24dp"
         android:layout_gravity="bottom|end"
         android:text="@string/rel_installthis"
-        android:visibility="gone"
+        android:visibility="invisible"
         style="@style/ThemeButtonInstall"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -22,6 +22,8 @@ import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.fordownloads.orangefox.ui.recycler.RecyclerFragment;
 import com.fordownloads.orangefox.ui.recycler.TextFragment;
 import com.fordownloads.orangefox.ui.Tools;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -40,6 +42,7 @@ public class RecyclerActivity extends AppCompatActivity {
     public static boolean releaseJSON = false;
     List<RecyclerItems> items = new ArrayList<>();
     FrameLayout _loadingView;
+    ExtendedFloatingActionButton _fab;
 
     @Override
     protected void onSaveInstanceState(Bundle state) {
@@ -54,8 +57,6 @@ public class RecyclerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        // Т.к. я заебался и не знаю, как сохранить RecyclerView, то просто уничтожаем активити и создаем новую
-        // recreate() все равно сохраняет состояние, поэтому исп. это:
         if (savedInstanceState != null && savedInstanceState.getBoolean("isRestarted")) {
             overridePendingTransition(0, 0);
             finish();
@@ -64,6 +65,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         releaseIntent = intent.getStringExtra("release");
         _loadingView = findViewById(R.id.loadingLayout);
+        _fab = findViewById(R.id.installThis);
 
         Toolbar myToolbar = findViewById(R.id.appToolbar);
         setSupportActionBar(myToolbar);
@@ -128,8 +130,6 @@ public class RecyclerActivity extends AppCompatActivity {
                     finish();
                 });
 
-                findViewById(R.id.installThis).setVisibility(View.VISIBLE);
-
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
                 pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, null))));
 
@@ -157,7 +157,9 @@ public class RecyclerActivity extends AppCompatActivity {
                 SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
                 viewPagerTab.setViewPager(viewPager);
 
-                if(!releaseJSON)
+                if(releaseJSON)
+                    _fab.show();
+                else
                     _loadingView.animate()
                             .alpha(0f)
                             .setDuration(200)
@@ -165,6 +167,7 @@ public class RecyclerActivity extends AppCompatActivity {
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
                                     _loadingView.setVisibility(View.GONE);
+                                    _fab.show();
                                 }
                             });
             });
