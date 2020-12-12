@@ -61,17 +61,15 @@ public class InstallActivity extends AppCompatActivity {
         ProgressBar _progressBar = findViewById(R.id.progressBar);
         TextView _progressText = findViewById(R.id.progressText);
 
-        _progressBar.setIndeterminate(false);
-
         if (vars.updateZip.exists())
             vars.updateZip.delete();
 
         PRDownloader.download(url, vars.updateZip.getAbsolutePath(), "OFupdate.zip")
                 .build()
+                .setOnStartOrResumeListener(() -> _progressBar.setIndeterminate(false))
                 .setOnProgressListener(progress -> {
-                    _progressBar.setMax((int)progress.totalBytes);
                     _progressText.setText(getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576));
-                    _progressBar.setProgress((int)progress.currentBytes);
+                    _progressBar.setProgress((int)(progress.currentBytes * 100 / progress.totalBytes));
                 })
                 .start(new OnDownloadListener() {
                     @Override

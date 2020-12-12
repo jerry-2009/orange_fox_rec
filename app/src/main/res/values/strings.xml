@@ -11,6 +11,10 @@
     <string name="err_no_internet">Looks like your device isn\'t connected to the internet.\nCheck Internet connection and try again</string>
     <string name="err_no_internet_short">Check Internet connection and try again</string>
     <string name="err_dev_not_selected">You didn\'t selected your device</string>
+    <string name="err_no_pm_storage">Storage permissions not granted</string>
+    <string name="setup">Grant</string>
+    <string name="err_no_pm_root">You didn\'t granted root permission.\nGrant root permission using Magisk Manager</string>
+    <string name="help_android11_pm">Tap \"OrangeFox\", then tap \"Allow access to manage all files\"</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
 

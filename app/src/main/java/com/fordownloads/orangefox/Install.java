@@ -1,28 +1,21 @@
 package com.fordownloads.orangefox;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Interpolator;
 import android.graphics.Point;
 import android.os.Build;
-import android.view.Display;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.animation.PathInterpolatorCompat;
 
+import com.fordownloads.orangefox.ui.Tools;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.topjohnwu.superuser.Shell;
 
-import static com.topjohnwu.superuser.internal.Utils.getContext;
 
 public class Install {
 
@@ -35,39 +28,24 @@ public class Install {
         sheetView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         ((TextView)sheetView.findViewById(R.id.installTitle)).setText(activity.getString(R.string.install_latest, ver, type));
 
-        sheetView.findViewById(R.id.btnInstall).setOnClickListener(v -> {
-            if (Shell.rootAccess()) {
+        View.OnClickListener proceed = v -> {
+            if (v.getId() == R.id.btnDownload || Shell.rootAccess())
                 if (hasStoragePM(activity)) {
                     dialog.dismiss();
                     Intent intent = new Intent(activity, InstallActivity.class);
                     intent.putExtra("url", url);
-                    intent.putExtra("install", true);
+                    intent.putExtra("install", v.getId() == R.id.btnInstall);
                     activity.startActivity(intent);
                 } else {
-                    Toast.makeText(activity, "Grant storage access and press button again", Toast.LENGTH_SHORT).show();
-                    requestPM(activity);
+                    Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_storage)
+                            .setAction(R.string.setup, view -> requestPM(activity)).show();
                 }
-            } else {
-                Toast.makeText(activity, "Grant root access and press button again", Toast.LENGTH_SHORT).show();
-            }
-        });
+            else
+                Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_root).show();
+        };
 
-        sheetView.findViewById(R.id.btnDownload).setOnClickListener(v -> {
-            if (Shell.rootAccess()) {
-                if (hasStoragePM(activity)) {
-                    dialog.dismiss();
-                    Intent intent = new Intent(activity, InstallActivity.class);
-                    intent.putExtra("url", url);
-                    intent.putExtra("install", false);
-                    activity.startActivity(intent);
-                } else {
-                    Toast.makeText(activity, "Grant storage access and press button again", Toast.LENGTH_SHORT).show();
-                    requestPM(activity);
-                }
-            } else {
-                Toast.makeText(activity, "Grant Root Access and press button again", Toast.LENGTH_SHORT).show();
-            }
-        });
+        sheetView.findViewById(R.id.btnInstall).setOnClickListener(proceed);
+        sheetView.findViewById(R.id.btnDownload).setOnClickListener(proceed);
 
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
@@ -92,8 +70,9 @@ public class Install {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
         } else {
-            activity.startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+            activity.startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
+            Toast.makeText(activity, R.string.help_android11_pm, Toast.LENGTH_LONG).show();
         }
     }
 }
