@@ -81,5 +81,7 @@
 
     <string name="bnav_install">Install</string>
     <string name="bnav_scripts">Scripts</string>
-    <string name="bnav_settings">Settings</string>
+    <string name="bnav_logs">Logs</string>
+    <string name="bnav_backups">Backups</string>
+    <string name="settings">Settings</string>
 </resources>

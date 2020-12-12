@@ -15,8 +15,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
 import com.fordownloads.orangefox.ui.nav.InstallFragment;
+import com.fordownloads.orangefox.ui.nav.LogsFragment;
 import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
-import com.fordownloads.orangefox.ui.nav.SettingsFragment;
+import com.fordownloads.orangefox.ui.nav.BackupsFragment;
 import com.topjohnwu.superuser.Shell;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigation bn = findViewById(R.id.bottom_navigation);
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_install, R.drawable.ic_round_save_alt_24, R.color.fox_accent));
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_scripts, R.drawable.ic_outline_receipt_long_24, R.color.fox_accent));
-        bn.addItem(new AHBottomNavigationItem(R.string.bnav_settings, R.drawable.ic_settings, R.color.fox_accent));
+        bn.addItem(new AHBottomNavigationItem(R.string.bnav_backups, R.drawable.ic_outline_cloud_download_24, R.color.fox_accent));
+        bn.addItem(new AHBottomNavigationItem(R.string.bnav_logs, R.drawable.ic_commit, R.color.fox_accent));
 
         bn.setBehaviorTranslationEnabled(false);
         bn.setUseElevation(true);
@@ -72,12 +74,22 @@ public class MainActivity extends AppCompatActivity {
             tsa.setCustomAnimations(R.anim.slide_in, R.anim.slide_in);
 
             switch (position) {
-                case 2:
-                    if(fm.findFragmentByTag("settings") != null) tsa.show(fm.findFragmentByTag("settings")).commit();
-                    else tsa.add(R.id.nav_frame, new SettingsFragment(), "settings").commit();
+                case 3:
+                    if(fm.findFragmentByTag("logs") != null) tsa.show(fm.findFragmentByTag("logs")).commit();
+                    else tsa.add(R.id.nav_frame, new LogsFragment(), "logs").commit();
 
                     if(fm.findFragmentByTag("scripts") != null) fm.beginTransaction().hide(fm.findFragmentByTag("scripts")).commit();
                     if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
+                    if(fm.findFragmentByTag("backups") != null) fm.beginTransaction().hide(fm.findFragmentByTag("backups")).commit();
+
+                    break;
+                case 2:
+                    if(fm.findFragmentByTag("backups") != null) tsa.show(fm.findFragmentByTag("backups")).commit();
+                    else tsa.add(R.id.nav_frame, new BackupsFragment(), "backups").commit();
+
+                    if(fm.findFragmentByTag("scripts") != null) fm.beginTransaction().hide(fm.findFragmentByTag("scripts")).commit();
+                    if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
+                    if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
 
                     break;
                 case 1:
@@ -85,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     else tsa.add (R.id.nav_frame, new ScriptsFragment(), "scripts").commit();
 
                     if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
-                    if(fm.findFragmentByTag("settings") != null) fm.beginTransaction().hide(fm.findFragmentByTag("settings")).commit();
+                    if(fm.findFragmentByTag("backups") != null) fm.beginTransaction().hide(fm.findFragmentByTag("backups")).commit();
+                    if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
 
                     break;
                 default:
@@ -93,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
                     else tsa.add (R.id.nav_frame, new InstallFragment(), "install").commit();
 
                     if(fm.findFragmentByTag("scripts") != null) fm.beginTransaction().hide(fm.findFragmentByTag("scripts")).commit();
-                    if(fm.findFragmentByTag("settings") != null) fm.beginTransaction().hide(fm.findFragmentByTag("settings")).commit();
+                    if(fm.findFragmentByTag("backups") != null) fm.beginTransaction().hide(fm.findFragmentByTag("backups")).commit();
+                    if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
 
                     break;
             }
