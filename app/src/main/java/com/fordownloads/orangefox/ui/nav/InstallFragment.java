@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.fordownloads.orangefox.API;
@@ -49,6 +50,7 @@ public class InstallFragment extends Fragment {
     CardView _cardError, _cardInfo, _cardRelease;
     ImageView _cardErrorIcon;
     View _shimmer;
+    SwipeRefreshLayout _refreshLayout;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,12 +93,24 @@ public class InstallFragment extends Fragment {
         _btnRefresh.setOnClickListener(view -> {
             _cardError.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
-            prepareDevice();
+            prepareDevice(false);
         });
+
+        _refreshLayout = rootView.findViewById(R.id.refreshLayout);
+        _refreshLayout.setOnRefreshListener(() -> {
+            _cardError.setVisibility(View.GONE);
+            _cardInfo.setVisibility(View.GONE);
+            _cardRelease.setVisibility(View.GONE);
+            _shimmer.setVisibility(View.VISIBLE);
+            new Thread(() -> prepareDevice( true)).start();
+        });
+        _refreshLayout.setEnabled(false);
+        _refreshLayout.setColorSchemeResources(R.color.fox_accent);
+        _refreshLayout.setProgressViewOffset(true, 64, 288);
 
         rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
 
-        prepareDevice();
+        prepareDevice(false);
 
         return rootView;
     }
@@ -108,7 +122,7 @@ public class InstallFragment extends Fragment {
         }
         else if (requestCode == 202) {
             if (resultCode == RESULT_OK && data != null)
-                new Thread(() -> setDevice(data.getStringExtra("codename"), true)).start();
+                new Thread(() -> setDevice(data.getStringExtra("codename"), true, false)).start();
             else
                 errorCard(404, R.string.err_dev_not_selected);
         }
@@ -132,24 +146,25 @@ public class InstallFragment extends Fragment {
             cards.setOrientation(LinearLayout.VERTICAL);
     }
 
-    private void prepareDevice() {
+    private void prepareDevice(boolean force) {
         if (prefs.contains(pref.DEVICE) && prefs.contains(pref.DEVICE_CODE))
-            new Thread(() -> parseRelease(null)).start();
+            new Thread(() -> parseRelease(null, force)).start();
         else
-            new Thread(() -> setDevice(null, false)).start();
+            new Thread(() -> setDevice(null, false, force)).start();
     }
 
-    private void parseRelease(BottomSheetDialog dialog) {
+    private void parseRelease(BottomSheetDialog dialog, boolean force) {
         try {
             JSONObject release;
-            if (prefs.contains(pref.CACHE_RELEASE)) {
+            if (prefs.contains(pref.CACHE_RELEASE) && !force) {
                 release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
             } else {
                 Map<String, Object> response = API.request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
                 if (!(boolean) response.get("success")) {
                     if (dialog != null) dialog.dismiss();
                     errorCard((int)response.get("code"), R.string.err_no_rels);
-                    prefs.edit().remove(pref.DEVICE).remove(pref.DEVICE_CODE).apply();
+                    if ((int)response.get("code") == 404 || (int)response.get("code") == 500)
+                        prefs.edit().remove(pref.DEVICE).remove(pref.DEVICE_CODE).apply();
                     return;
                 }
                 release = new JSONObject((String) response.get("response"));
@@ -197,15 +212,16 @@ public class InstallFragment extends Fragment {
             ((TextView)rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
             ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
-            _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
-
             _installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url));
             getActivity().runOnUiThread(() -> {
+                _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
                 _cardError.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);
                 _cardInfo.setVisibility(View.VISIBLE);
                 _cardRelease.setVisibility(View.VISIBLE);
                 _installButton.show();
+                _refreshLayout.setEnabled(true);
+                _refreshLayout.setRefreshing(false);
             });
 
             if (!prefs.contains(pref.CACHE_RELEASE))
@@ -217,7 +233,7 @@ public class InstallFragment extends Fragment {
         if (dialog != null) dialog.dismiss();
     }
 
-    private void setDevice(String codename, boolean skipDialog) {
+    private void setDevice(String codename, boolean skipDialog, boolean force) {
         if (codename == null)
             codename = findDevice();
         if (codename == "no_internet_error")
@@ -233,7 +249,7 @@ public class InstallFragment extends Fragment {
         }
         if (skipDialog){
             prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
-            new Thread(() -> parseRelease(null)).start();
+            new Thread(() -> parseRelease(null, false)).start();
         } else
             showDeviceDialog(codename, false, (String)response.get("response"));
     }
@@ -280,7 +296,7 @@ public class InstallFragment extends Fragment {
                 gWrong.setVisibility(View.GONE);
                 gProgress.setVisibility(View.VISIBLE);
                 prefs.edit().putString(pref.DEVICE, cache).putString(pref.DEVICE_CODE, device).apply();
-                new Thread(() -> parseRelease(devDialog)).start();
+                new Thread(() -> parseRelease(devDialog, false)).start();
             });
             gWrong.setOnClickListener(onSelectDevice);
             gSelect.setOnClickListener(onSelectDevice);
@@ -359,6 +375,8 @@ public class InstallFragment extends Fragment {
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.GONE);
+            _refreshLayout.setRefreshing(false);
+            _refreshLayout.setEnabled(true);
         });
     }
 }
