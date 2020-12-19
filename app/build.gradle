@@ -1,7 +1,11 @@
 plugins {
     id 'com.android.application'
 }
-
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+}
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
