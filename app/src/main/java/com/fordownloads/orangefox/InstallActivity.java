@@ -17,7 +17,9 @@ import androidx.core.app.NotificationManagerCompat;
 import com.downloader.Error;
 import com.downloader.OnCancelListener;
 import com.downloader.OnDownloadListener;
+import com.downloader.OnProgressListener;
 import com.downloader.PRDownloader;
+import com.downloader.Progress;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.topjohnwu.superuser.Shell;
 
@@ -50,11 +52,7 @@ public class InstallActivity extends AppCompatActivity {
         install = intent.getBooleanExtra("install", false);
         _cancel = findViewById(R.id.cancelInstallation);
 
-        _cancel.setOnClickListener(v -> {
-            PRDownloader.cancelAll();
-            NotificationManagerCompat.from(this).cancel(vars.NOTIFY_DOWNLOAD_FG);
-            finish();
-        });
+        _cancel.setOnClickListener(v -> PRDownloader.cancelAll());
 
         beginDownload();
     }
@@ -89,70 +87,79 @@ public class InstallActivity extends AppCompatActivity {
         if (vars.updateZip.exists())
             vars.updateZip.delete();
 
-            PRDownloader.download(url, vars.updateZip.getAbsolutePath(), "OFupdate.zip")
-                    .build()
-                    .setOnStartOrResumeListener(() -> _progressBar.setIndeterminate(false))
-                    .setOnProgressListener(progress -> {
-                        int currPercent = (int) (progress.currentBytes * 100 / progress.totalBytes);
-                        String status = getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576);
-                        _progressText.setText(status);
-                        _progressBar.setProgress(currPercent);
+        PRDownloader.download(url, vars.updateZip.getAbsolutePath(), "OFupdate.zip")
+                .build()
+                .setOnStartOrResumeListener(() -> _progressBar.setIndeterminate(false))
+                .setOnProgressListener(new OnProgressListener() {
+                    byte currPercent = 0, lastPercent = -1, skipMB = 0;
 
-                        notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify
-                                .setProgress(100, currPercent, false)
-                                .setContentText(status)
-                                .build());
-                    })
-                    .setOnCancelListener(() -> {
-                        Toast.makeText(this, "Finally Cancelled", Toast.LENGTH_SHORT).show();
-                        NotificationManagerCompat.from(getApplicationContext()).cancel(vars.NOTIFY_DOWNLOAD_FG);
-                        finish();
-                    })
-                    .start(new OnDownloadListener() {
-                        @Override
-                        public void onDownloadComplete() {
-                            _progressBar.setIndeterminate(true);
-                            _cancel.hide();
-
-                            if (install) {
-                                new Thread(() -> {
-                                    try {
-                                        Thread.sleep(5000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                    Shell.su("echo \"install /sdcard/Fox/OFupdate.zip\" > /cache/recovery/openrecoveryscript && reboot recovery").exec();
-                                }).start();
-
-                                _progressText.setText(R.string.inst_installing);
-
-                                notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.notif_download_complete))
-                                        .setProgress(0, 0, true)
+                    @Override
+                    public void onProgress(Progress progress) {
+                        currPercent = (byte) (progress.currentBytes * 100 / progress.totalBytes);
+                        if (lastPercent != currPercent) { // update progress every MB
+                            String status = getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576);
+                            _progressText.setText(status);
+                            _progressBar.setProgress(currPercent);
+                            if (skipMB++ > 4) { // update notification every 2MB, because too frequent updates may hang up app
+                                notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify
+                                        .setProgress(100, currPercent, false)
+                                        .setContentText(status)
                                         .build());
-                            } else {
-                                _progressText.setText(getString(R.string.inst_downloaded, vars.updateZip + "/OFUpdate.zip"));
-
-                                notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify.setSmallIcon(R.drawable.ic_round_check_24)
-                                        .setContentTitle(getString(R.string.notif_download_complete))
-                                        .setContentText(getString(R.string.inst_downloaded, vars.updateZip + "/OFUpdate.zip"))
-                                        .build());
-
-                                closeActivity();
+                                skipMB = 0;
                             }
+                            lastPercent = currPercent;
                         }
+                    }
+                })
+                .setOnCancelListener(() -> {
+                    NotificationManagerCompat.from(getApplicationContext()).cancel(vars.NOTIFY_DOWNLOAD_FG);
+                    finish();
+                })
+                .start(new OnDownloadListener() {
+                    @Override
+                    public void onDownloadComplete() {
+                        _progressBar.setIndeterminate(true);
+                        _cancel.hide();
 
-                        @Override
-                        public void onError(Error error) {
-                            _progressText.setText(R.string.inst_down_err);
+                        if (install) {
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Shell.su("echo \"install /sdcard/Fox/OFupdate.zip\" > /cache/recovery/openrecoveryscript && reboot recovery").exec();
+                            }).start();
 
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_ERROR, completeNotify.setSmallIcon(R.drawable.ic_round_warning_24)
-                                    .setContentTitle(getString(R.string.notif_download_failed))
-                                    .setContentText(getString(R.string.err_check_pm_inernet))
+                            _progressText.setText(R.string.inst_installing);
+
+                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.notif_download_complete))
+                                    .setProgress(0, 0, true)
+                                    .build());
+                        } else {
+                            _progressText.setText(getString(R.string.inst_downloaded, vars.updateZip + "/OFUpdate.zip"));
+
+                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify.setSmallIcon(R.drawable.ic_round_check_24)
+                                    .setContentTitle(getString(R.string.notif_download_complete))
+                                    .setContentText(getString(R.string.inst_downloaded, vars.updateZip + "/OFUpdate.zip"))
                                     .build());
 
                             closeActivity();
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        _progressText.setText(R.string.inst_down_err);
+
+                        notifyMan.notify(vars.NOTIFY_DOWNLOAD_ERROR, completeNotify.setSmallIcon(R.drawable.ic_round_warning_24)
+                                .setContentTitle(getString(R.string.notif_download_failed))
+                                .setContentText(getString(R.string.err_check_pm_inernet))
+                                .build());
+
+                        closeActivity();
+                    }
+                });
     }
 
     @Override
