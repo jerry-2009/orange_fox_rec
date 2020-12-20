@@ -13,6 +13,14 @@ public class ActionReceiver extends BroadcastReceiver {
             case 0:
                 PRDownloader.cancelAll();
                 break;
+            case 1:
+                Intent retryIntent = new Intent(context, InstallActivity.class)
+                    .putExtra("url", intent.getStringExtra("url"))
+                    .putExtra("version",  intent.getStringExtra("version"))
+                    .putExtra("md5",  intent.getStringExtra("md5"))
+                    .putExtra("install", intent.getStringExtra("install"));
+                context.startActivity(retryIntent);
+                break;
         }
     }
 }

@@ -11,6 +11,7 @@ public class vars {
     public static final File updateZip = new File(Environment.getExternalStorageDirectory(), "Fox");
     public static final String CHANNEL_UPDATE = "CHANNEL_UPDATE";
     public static final String CHANNEL_DOWNLOAD = "CHANNEL_DOWNLOAD";
+    public static final String CHANNEL_DOWNLOAD_STATUS = "CHANNEL_DOWNLOAD_STATUS";
     public static final int NOTIFY_NEW_UPD = 1000;
     public static final int NOTIFY_DOWNLOAD_BG = 2000;
     public static final int NOTIFY_DOWNLOAD_FG = 3000;

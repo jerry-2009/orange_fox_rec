@@ -18,6 +18,7 @@
         android:theme="@style/Theme.OrangeFox">
         <activity
             android:name=".InstallActivity"
+            android:launchMode="singleTop"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:label="@string/app_name"
             android:theme="@style/ThemeInstall" />
@@ -28,6 +29,7 @@
             android:theme="@style/Theme.OrangeFox.Activity" />
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:label="@string/app_name">
             <intent-filter>

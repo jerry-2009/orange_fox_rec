@@ -15,7 +15,11 @@
     <string name="err_check_pm_inernet">Check storage permission or internet connection</string>
     <string name="setup">Grant</string>
     <string name="err_no_pm_root">You didn\'t granted root permission.\nGrant root permission using Magisk Manager</string>
+    <string name="err_md5_wrong">Release that you downloaded has been corrupted. Please, redownload release again.</string>
+    <string name="err_md5_wrong_short">Release is corrupted!\nPlease, redownload it.</string>
     <string name="help_android11_pm">Tap \"OrangeFox\", then tap \"Allow access to manage all files\"</string>
+
+    <string name="err_no_apps_to_open">Can\'t find apps that can open ZIP file</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
 
@@ -89,10 +93,16 @@
     <string name="notif_ch_update">Update Notifications</string>
     <string name="notif_ch_update_desc">Notifications about new releases that found in background</string>
     <string name="notif_ch_download">Download Progress</string>
+    <string name="notif_ch_download_status">Download Result</string>
     <string name="notif_ch_download_desc">Shows download progress of release that downloads in app</string>
+    <string name="notif_ch_download_status_desc">Shows download result</string>
 
-    <string name="notif_download_complete">Download Complete</string>
-    <string name="notif_download_failed">Download Failed</string>
-    <string name="notif_downloading">Downloading release...</string>
+    <string name="notif_download_complete">Download of %1$s Finished</string>
+    <string name="notif_download_failed">Download of %1$s Failed</string>
+    <string name="notif_downloading">Downloading %1$s...</string>
     <string name="preparing">Preparing...</string>
+    <string name="notif_rebooting">Rebooting...</string>
+    <string name="retry">Retry</string>
+
+    <string name="md5_check">Checking MD5...</string>
 </resources>

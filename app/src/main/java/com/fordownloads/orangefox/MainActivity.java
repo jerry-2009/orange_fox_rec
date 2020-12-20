@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +24,21 @@ import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
 import com.fordownloads.orangefox.ui.nav.BackupsFragment;
 import com.topjohnwu.superuser.Shell;
 
+import java.lang.reflect.Method;
+
 public class MainActivity extends AppCompatActivity {
     static {
         Shell.setDefaultBuilder(Shell.Builder.create()
                 .setFlags(Shell.FLAG_REDIRECT_STDERR)
                 .setTimeout(10));
+
+        //this allows opening files in external storage
+        //Какого хуя блять мое приложение не может открывать файлы просто указывая путь к файлу блять???
+        //ГУГЛ ИДИ НАХУЙ, КАКИЕ ЕБАНАТЫ ЭТО ПРИДУМАЛИ? ЗАЧЕМ МНЕ СОЗДАВАТЬ ПРОВАЙДЕРЫ, КОТОРЫЕ ОТКРЫВАЮТ
+        //ФАЙЛ ВО !!!ВНУТРЕННЕМ!!! ХРАНИЛИЩЕ???
+        try {
+            StrictMode.class.getMethod("disableDeathOnFileUriExposure").invoke(null);
+        } catch (Exception ignored) {}
     }
 
     @Override
@@ -57,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
 
             channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD, getString(R.string.notif_ch_download), NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(getString(R.string.notif_ch_download_desc));
+            notifyMan.createNotificationChannel(channel);
+
+            channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD_STATUS, getString(R.string.notif_ch_download_status), NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(getString(R.string.notif_ch_download_status_desc));
             notifyMan.createNotificationChannel(channel);
         }
     }

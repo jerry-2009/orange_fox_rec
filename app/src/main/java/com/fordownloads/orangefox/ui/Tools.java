@@ -10,6 +10,9 @@ import androidx.core.content.ContextCompat;
 import com.fordownloads.orangefox.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Tools {
     public static void dialogFinish(Activity getActivity, int msg) {
         dialogFinish(getActivity, getActivity.getString(msg));
@@ -28,5 +31,27 @@ public class Tools {
                 .setTextColor(ContextCompat.getColor(activity, R.color.white))
                 .setDuration(8000)
                 .setAnchorView(view);
+    }
+
+    public static String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

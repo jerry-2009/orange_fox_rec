@@ -118,7 +118,7 @@ public class InstallFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
-            Install.dialog(getActivity(), data.getStringExtra("ver"), data.getStringExtra("type"), data.getStringExtra("url"));
+            Install.dialog(getActivity(), data.getStringExtra("ver"), data.getStringExtra("type"), data.getStringExtra("url"), data.getStringExtra("md5"));
         }
         else if (requestCode == 202) {
             if (resultCode == RESULT_OK && data != null)
@@ -184,6 +184,7 @@ public class InstallFragment extends Fragment {
             final String version = release.getString("version");
             final String url = release.getString("url");
             final String stringBuildType = getString(buildType);
+            final String md5 = release.getString("md5");
             //
 
             ((TextView)rootView.findViewById(R.id.relType)).setText(stringBuildType);
@@ -212,7 +213,7 @@ public class InstallFragment extends Fragment {
             ((TextView)rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
             ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
-            _installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url));
+            _installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url, md5));
             getActivity().runOnUiThread(() -> {
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
                 _cardError.setVisibility(View.GONE);

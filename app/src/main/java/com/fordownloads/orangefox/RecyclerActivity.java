@@ -116,6 +116,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     break;
             }
 
+            final String md5 = release.getString("md5");
             final String version = release.getString("version");
             final String url = release.getString("url");
             final String stringBuildType = getString(buildType);
@@ -131,6 +132,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 findViewById(R.id.installThis).setOnClickListener(view -> {
                     setResult(Activity.RESULT_OK, new Intent().putExtra("ver", version)
                             .putExtra("type", stringBuildType)
+                            .putExtra("md5", md5)
                             .putExtra("url", url));
                     finish();
                 });

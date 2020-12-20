@@ -19,7 +19,7 @@ import com.topjohnwu.superuser.Shell;
 
 public class Install {
 
-    public static void dialog(Activity activity, String ver, String type, String url) {
+    public static void dialog(Activity activity, String ver, String type, String url, String md5) {
         BottomSheetDialog dialog = new BottomSheetDialog(activity, R.style.ThemeBottomSheet);
 
         View sheetView = activity.getLayoutInflater().inflate(R.layout.dialog_install, null);
@@ -32,9 +32,11 @@ public class Install {
             if (v.getId() == R.id.btnDownload || Shell.rootAccess())
                 if (hasStoragePM(activity)) {
                     dialog.dismiss();
-                    Intent intent = new Intent(activity, InstallActivity.class);
-                    intent.putExtra("url", url);
-                    intent.putExtra("install", v.getId() == R.id.btnInstall);
+                    Intent intent = new Intent(activity, InstallActivity.class)
+                        .putExtra("md5", md5)
+                        .putExtra("url", url)
+                        .putExtra("version", ver)
+                        .putExtra("install", v.getId() == R.id.btnInstall);
                     activity.startActivity(intent);
                 } else {
                     Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_storage)
