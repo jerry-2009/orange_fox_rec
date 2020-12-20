@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notifyMan = getSystemService(NotificationManager.class);
 
-            NotificationChannel channel = new NotificationChannel(vars.CHANNEL_UPDATE, getString(R.string.notif_ch_update), NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(vars.CHANNEL_UPDATE, getString(R.string.notif_ch_update), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(getString(R.string.notif_ch_update_desc));
             notifyMan.createNotificationChannel(channel);
 
-            channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD, getString(R.string.notif_ch_download), NotificationManager.IMPORTANCE_DEFAULT);
+            channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD, getString(R.string.notif_ch_download), NotificationManager.IMPORTANCE_LOW);
             channel.setDescription(getString(R.string.notif_ch_download_desc));
             notifyMan.createNotificationChannel(channel);
 

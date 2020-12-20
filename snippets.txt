@@ -1,0 +1,27 @@
+/* It's to big to use */
+private void writeORS() {
+    File ors = SuFile.open("/cache/recovery/openrecoveryscript");
+    OutputStream fop = null;
+
+    try {
+        if (!ors.exists())
+            ors.createNewFile();
+        fop = new SuFileOutputStream(ors);
+        fop.write(("install /sdcard/Fox/releases/" + fileName).getBytes());
+        fop.flush();
+        fop.close();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (fop != null)
+                fop.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    Shell.su("reboot recovery").submit();
+}

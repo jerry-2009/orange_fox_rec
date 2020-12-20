@@ -18,6 +18,9 @@
     <string name="err_md5_wrong">Release that you downloaded has been corrupted. Please, redownload release again.</string>
     <string name="err_md5_wrong_short">Release is corrupted!\nPlease, redownload it.</string>
     <string name="help_android11_pm">Tap \"OrangeFox\", then tap \"Allow access to manage all files\"</string>
+    <string name="err_where_reboot">Yeah... You probably realized that something went wrong...</string>
+    <string name="err_reboot">Unable to reboot to recovery. Please, reboot to recovery manually.</string>
+    <string name="err_ors">Unable to create OpenRecoveryScript file. Please, reboot to recovery and install ZIP file manually.\nFile location is %1$s</string>
 
     <string name="err_no_apps_to_open">Can\'t find apps that can open ZIP file</string>
 

@@ -1,6 +1,5 @@
 package com.fordownloads.orangefox;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -21,9 +20,7 @@ import com.downloader.Error;
 import com.downloader.OnDownloadListener;
 import com.downloader.OnProgressListener;
 import com.downloader.PRDownloader;
-import com.downloader.Priority;
 import com.downloader.Progress;
-import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.utils.MD5;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.topjohnwu.superuser.Shell;
@@ -68,8 +65,7 @@ public class InstallActivity extends AppCompatActivity {
 
     private void beginDownload(){
         String fileName = URLUtil.guessFileName(url, null, "application/zip");
-        String destDir = vars.updateZip.getAbsolutePath() + (install ? null : "/releases");
-        File finalFile = new File(destDir, fileName);
+        File finalFile = new File(vars.DOWNLOAD_DIR, fileName);
 
         //Find views
         ProgressBar _progressBar = findViewById(R.id.progressBar);
@@ -92,13 +88,6 @@ public class InstallActivity extends AppCompatActivity {
         Intent cancelIntent = new Intent(this, ActionReceiver.class)
                 .setAction("com.fordownloads.orangefox.Notification")
                 .putExtra("type", 0);
-        Intent retryIntent = new Intent(this, ActionReceiver.class)
-                .setAction("com.fordownloads.orangefox.Notification")
-                .putExtra("type", 1)
-                .putExtra("md5", expectedMD5)
-                .putExtra("url", url)
-                .putExtra("version", version)
-                .putExtra("install", install);
         //
 
         //Show & build notification
@@ -108,7 +97,7 @@ public class InstallActivity extends AppCompatActivity {
                 .setContentText(getString(R.string.preparing))
                 .setSmallIcon(R.drawable.ic_round_get_app_24)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setColor(ContextCompat.getColor(this, R.color.fox_accent))
+                .setColor(ContextCompat.getColor(this, R.color.fox_notify))
                 .setProgress(0, 0, true)
                 .setContentIntent(PendingIntent.getActivity(this, 0, openAppIntent, 0))
                 .addAction(R.drawable.ic_round_check_24, getString(R.string.inst_cancel),
@@ -118,11 +107,11 @@ public class InstallActivity extends AppCompatActivity {
 
         NotificationCompat.Builder completeNotify = new NotificationCompat.Builder(this, vars.CHANNEL_DOWNLOAD_STATUS)
                 .setAutoCancel(true)
-                .setColor(ContextCompat.getColor(this, R.color.fox_accent))
+                .setColor(ContextCompat.getColor(this, R.color.fox_notify))
                 .setPriority(NotificationCompat.PRIORITY_MAX);
         //
 
-        PRDownloader.download(url, destDir, fileName)
+        PRDownloader.download(url, vars.DOWNLOAD_DIR, fileName)
                 .build()
                 .setOnStartOrResumeListener(() -> _progressBar.setIndeterminate(false))
                 .setOnProgressListener(new OnProgressListener() {
@@ -135,7 +124,7 @@ public class InstallActivity extends AppCompatActivity {
                             String status = getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576);
                             _progressText.setText(status);
                             _progressBar.setProgress(currPercent);
-                            if (skipMB++ > 3) { // update notification every 2MB, because too frequent updates may hang up app
+                            if (skipMB++ > 2) { // update notification every 2MB, because too frequent updates may hang up app
                                 notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify
                                         .setProgress(100, currPercent, false)
                                         .setContentText(status)
@@ -147,13 +136,12 @@ public class InstallActivity extends AppCompatActivity {
                     }
                 })
                 .setOnCancelListener(() -> {
-                    NotificationManagerCompat.from(getApplicationContext()).cancel(vars.NOTIFY_DOWNLOAD_FG);
+                    notifyMan.cancel(vars.NOTIFY_DOWNLOAD_FG);
                     finish();
                 })
                 .start(new OnDownloadListener() {
                     @Override
                     public void onDownloadComplete() {
-                        String text;
                         _progressBar.setIndeterminate(true);
                         _cancel.hide();
 
@@ -163,37 +151,34 @@ public class InstallActivity extends AppCompatActivity {
                                 .build());
 
                         if (!MD5.checkMD5(expectedMD5, finalFile)) {
-                            text = getString(R.string.err_md5_wrong);
                             _progressText.setText(R.string.err_md5_wrong_short);
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_ERROR, completeNotify.setSmallIcon(R.drawable.ic_round_warning_24)
-                                    .setContentTitle(getString(R.string.notif_download_failed, version))
-                                    .setContentText(text)
-                                    .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
-                                    .addAction(R.drawable.ic_round_check_24, getString(R.string.retry),
-                                            PendingIntent.getBroadcast(getApplicationContext(), 0, retryIntent, 0))
-                                    .build());
-                            closeActivity();
+                            errorNotify(notifyMan, completeNotify, getString(R.string.err_md5_wrong));
                             return;
                         }
 
                         if (install) {
                             new Thread(() -> {
-                                try {
-                                    Thread.sleep(5000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                Shell.su("echo \"install /sdcard/Fox/" + fileName + "\" > /cache/recovery/openrecoveryscript && reboot recovery").exec();
+                                try { Thread.sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
+
+                                Shell.su("echo \"install /sdcard/Fox/releases/" + fileName + "\" > /cache/recovery/openrecoveryscript && reboot recovery").exec();
+
+                                try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+                                _progressText.setText(R.string.err_where_reboot);
+
+                                if (new File("/cache/recovery/openrecoveryscript").exists())
+                                    errorNotify(notifyMan, completeNotify, getString(R.string.err_reboot));
+                                else
+                                    errorNotify(notifyMan, completeNotify, getString(R.string.err_ors));
                             }).start();
 
                             _progressText.setText(R.string.inst_installing);
 
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.notif_rebooting, version))
+                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.notif_rebooting))
                                     .setProgress(0, 0, true)
                                     .build());
                         } else {
-                            _progressText.setText(getString(R.string.inst_downloaded, vars.updateZip + "/" + fileName));
-                            text = getString(R.string.inst_downloaded, vars.updateZip + "/" + fileName);
+                            String text = getString(R.string.inst_downloaded, vars.DOWNLOAD_DIR + "/" + fileName);
+                            _progressText.setText(text);
 
                             notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify.setSmallIcon(R.drawable.ic_round_check_24)
                                     .setContentTitle(getString(R.string.notif_download_complete, version))
@@ -209,21 +194,23 @@ public class InstallActivity extends AppCompatActivity {
                     @Override
                     public void onError(Error error) {
                         _progressText.setText(R.string.inst_down_err);
-
-                        notifyMan.notify(vars.NOTIFY_DOWNLOAD_ERROR, completeNotify.setSmallIcon(R.drawable.ic_round_warning_24)
-                                .setContentTitle(getString(R.string.notif_download_failed, version))
-                                .setContentText(getString(R.string.err_check_pm_inernet))
-                                .addAction(R.drawable.ic_round_check_24, getString(R.string.retry),
-                                        PendingIntent.getBroadcast(getApplicationContext(), 0, retryIntent, 0))
-                                .build());
-
-                        closeActivity();
+                        errorNotify(notifyMan, completeNotify, getString(R.string.err_check_pm_inernet));
                     }
                 });
     }
 
     @Override
     public void onBackPressed() {}
+
+    public void errorNotify(NotificationManagerCompat notifyMan, NotificationCompat.Builder completeNotify, String err) {
+        notifyMan.cancel(vars.NOTIFY_DOWNLOAD_FG);
+        notifyMan.notify(vars.NOTIFY_DOWNLOAD_ERROR, completeNotify.setSmallIcon(R.drawable.ic_round_warning_24)
+                .setContentTitle(getString(R.string.notif_download_failed, version))
+                .setContentText(err)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(err))
+                .build());
+        closeActivity();
+    }
 
     public void closeActivity() {
         NotificationManagerCompat.from(this).cancel(vars.NOTIFY_DOWNLOAD_FG);

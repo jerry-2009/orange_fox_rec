@@ -44,17 +44,6 @@ public class ScriptsFragment extends Fragment {
     public void testing(View v) {
 
         v.findViewById(R.id.startService).setOnClickListener(view -> {
-            Intent myIntent = new Intent(Intent.ACTION_VIEW);
-            myIntent.setDataAndType(Uri.fromFile(new File(vars.updateZip, "OFupdate.zip")), "application/zip");
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(myIntent);
-            /*
-            Intent openZIPIntent = new Intent(Intent.ACTION_VIEW)
-                    //.setDataAndType(FileProvider.getUriForFile(getActivity(), "com.fordownloads.orangefox.fileProvider", new File(vars.updateZip, "OFupdate.zip")), "application/zip")
-                    .setDataAndType(Uri.parse("content://com.fordownloads.orangefox.fileProvider/external/Fox/OFupdate.zip"), "application/zip")
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(openZIPIntent);
-            ((TextView)v.findViewById(R.id.testText)).setText(new File(vars.updateZip, "OFupdate.zip").getAbsolutePath());*/
         });
     }
 }
