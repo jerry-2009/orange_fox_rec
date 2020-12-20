@@ -16,11 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OrangeFox">
-        <service
-            android:name=".UpdateChecker"
-            android:enabled="true"
-            android:exported="false"></service>
-
         <activity
             android:name=".InstallActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
