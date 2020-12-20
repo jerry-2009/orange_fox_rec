@@ -1,6 +1,9 @@
 package com.fordownloads.orangefox;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_nav);
 
+        createNotificationChannel();
+
         PRDownloaderConfig config = PRDownloaderConfig.newBuilder()
                 .setDatabaseEnabled(true)
                 .setReadTimeout(30_000)
@@ -40,6 +45,20 @@ public class MainActivity extends AppCompatActivity {
         PRDownloader.initialize(getApplicationContext(), config);
 
         prepareBottomNav();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notifyMan = getSystemService(NotificationManager.class);
+
+            NotificationChannel channel = new NotificationChannel(vars.CHANNEL_UPDATE, getString(R.string.notif_ch_update), NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(getString(R.string.notif_ch_update_desc));
+            notifyMan.createNotificationChannel(channel);
+
+            channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD, getString(R.string.notif_ch_download), NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(getString(R.string.notif_ch_download_desc));
+            notifyMan.createNotificationChannel(channel);
+        }
     }
 
     protected void prepareBottomNav() {

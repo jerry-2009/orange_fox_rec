@@ -15,4 +15,19 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextAppearance="@style/ThemeToolbarText" />
 
+    <Button
+        android:id="@+id/startService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Start service" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="128dp"
+        android:text="TextView" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
