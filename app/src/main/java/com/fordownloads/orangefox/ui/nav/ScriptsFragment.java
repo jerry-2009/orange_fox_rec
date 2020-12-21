@@ -1,5 +1,8 @@
 package com.fordownloads.orangefox.ui.nav;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,9 +21,12 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.fordownloads.orangefox.ActionReceiver;
 import com.fordownloads.orangefox.InstallActivity;
+import com.fordownloads.orangefox.MainActivity;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
+import com.fordownloads.orangefox.UpdateReceiver;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.vars;
 
@@ -28,6 +34,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URI;
 
+import static android.content.Context.ALARM_SERVICE;
 import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 public class ScriptsFragment extends Fragment {
@@ -42,8 +49,27 @@ public class ScriptsFragment extends Fragment {
     }
 
     public void testing(View v) {
-
         v.findViewById(R.id.startService).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), UpdateReceiver.class)
+                    .setAction("com.fordownloads.orangefox.Update");
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),0, intent, 0);
+
+            AlarmManager alarmManager = (AlarmManager)getActivity().getApplicationContext().getSystemService(ALARM_SERVICE);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+                    10000, pendingIntent);
+
+            //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+(10000), pendingIntent);
+            android.os.Process.killProcess(android.os.Process.myPid());
+        });
+        v.findViewById(R.id.startService2).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), UpdateReceiver.class)
+                    .setAction("com.fordownloads.orangefox.Update");
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),0, intent, 0);
+
+            AlarmManager alarmManager = (AlarmManager)getActivity().getApplicationContext().getSystemService(ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
         });
     }
 }

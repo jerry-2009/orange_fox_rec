@@ -28,9 +28,10 @@ import com.topjohnwu.superuser.Shell;
 import java.io.File;
 
 public class InstallActivity extends AppCompatActivity {
-    boolean install = false;
+    boolean install = false, bg = false;
     String url, version, expectedMD5;
     ExtendedFloatingActionButton _cancel;
+    Thread installThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,9 @@ public class InstallActivity extends AppCompatActivity {
         url = intent.getStringExtra("url");
         version = intent.getStringExtra("version");
         install = intent.getBooleanExtra("install", false);
+        bg = intent.getBooleanExtra("bg", false);
+        moveTaskToBack(bg);
+
         _cancel = findViewById(R.id.cancelInstallation);
 
         _cancel.setOnClickListener(v -> PRDownloader.cancelAll());
@@ -75,6 +79,7 @@ public class InstallActivity extends AppCompatActivity {
         //Prepare notifications
         NotificationManagerCompat notifyMan = NotificationManagerCompat.from(this);
 
+        notifyMan.cancel(vars.NOTIFY_NEW_UPD);
         notifyMan.cancel(vars.NOTIFY_DOWNLOAD_FG);
         notifyMan.cancel(vars.NOTIFY_DOWNLOAD_ERROR);
         notifyMan.cancel(vars.NOTIFY_DOWNLOAD_SAVED);
@@ -88,6 +93,12 @@ public class InstallActivity extends AppCompatActivity {
         Intent cancelIntent = new Intent(this, ActionReceiver.class)
                 .setAction("com.fordownloads.orangefox.Notification")
                 .putExtra("type", 0);
+        Intent rebootIntent = new Intent(this, ActionReceiver.class)
+                .setAction("com.fordownloads.orangefox.Notification")
+                .putExtra("type", 1);
+        Intent deleteIntent = new Intent(this, ActionReceiver.class)
+                .setAction("com.fordownloads.orangefox.Notification")
+                .putExtra("type", 2);
         //
 
         //Show & build notification
@@ -157,27 +168,57 @@ public class InstallActivity extends AppCompatActivity {
                         }
 
                         if (install) {
-                            new Thread(() -> {
+                            installThread = new Thread(() -> {
                                 try { Thread.sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
 
-                                Shell.su("echo \"install /sdcard/Fox/releases/" + fileName + "\" > /cache/recovery/openrecoveryscript && reboot recovery").exec();
+                                if(!Shell.su(
+                                        "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + vars.ORS_FILE)
+                                        .exec().isSuccess()) {
+                                    _progressText.setText(getString(R.string.err_ors, finalFile));
+                                    errorNotify(notifyMan, completeNotify, getString(R.string.err_ors, finalFile));
+                                    if (bg) {
+                                        closeActivity();
+                                        return;
+                                    }
+                                }
+
+                                if (bg) {
+                                    String text = getString(R.string.notify_pending_reboot_sub, finalFile);
+                                    notifyMan.cancel(vars.NOTIFY_DOWNLOAD_FG);
+                                    notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify.setSmallIcon(R.drawable.ic_round_system_update_24)
+                                            .setContentTitle(getString(R.string.notify_pending_reboot, version))
+                                            .setContentText(text)
+                                            .addAction(R.drawable.ic_round_check_24, getString(R.string.reboot_recovery),
+                                                    PendingIntent.getBroadcast(getApplicationContext(), 0, rebootIntent, 0))
+                                            .addAction(R.drawable.ic_round_check_24, getString(R.string.inst_cancel),
+                                                    PendingIntent.getBroadcast(getApplicationContext(), 0, deleteIntent, 0))
+                                            .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
+                                            .build());
+                                    finish();
+                                    return;
+                                }
+
+                                if(!Shell.su(
+                                        "reboot recovery")
+                                        .exec().isSuccess()) {
+                                    _progressText.setText(R.string.err_reboot);
+                                    errorNotify(notifyMan, completeNotify, getString(R.string.err_reboot));
+                                }
 
                                 try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
                                 _progressText.setText(R.string.err_where_reboot);
+                            });
 
-                                if (new File("/cache/recovery/openrecoveryscript").exists())
-                                    errorNotify(notifyMan, completeNotify, getString(R.string.err_reboot));
-                                else
-                                    errorNotify(notifyMan, completeNotify, getString(R.string.err_ors));
-                            }).start();
+                            installThread.start();
 
-                            _progressText.setText(R.string.inst_installing);
-
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.notif_rebooting))
-                                    .setProgress(0, 0, true)
-                                    .build());
+                            if (!bg)    {
+                                _progressText.setText(R.string.inst_installing);
+                                notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.notif_rebooting))
+                                        .setProgress(0, 0, true)
+                                        .build());
+                            }
                         } else {
-                            String text = getString(R.string.inst_downloaded, vars.DOWNLOAD_DIR + "/" + fileName);
+                            String text = getString(R.string.inst_downloaded, finalFile);
                             _progressText.setText(text);
 
                             notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify.setSmallIcon(R.drawable.ic_round_check_24)
@@ -201,6 +242,13 @@ public class InstallActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {}
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (installThread != null)
+            installThread.interrupt();
+    }
 
     public void errorNotify(NotificationManagerCompat notifyMan, NotificationCompat.Builder completeNotify, String err) {
         notifyMan.cancel(vars.NOTIFY_DOWNLOAD_FG);

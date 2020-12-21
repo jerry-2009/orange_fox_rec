@@ -22,6 +22,14 @@
         android:layout_gravity="center"
         android:text="Start service" />
 
+    <Button
+        android:id="@+id/startService2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="128dp"
+        android:text="STOP" />
+
     <TextView
         android:id="@+id/testText"
         android:layout_width="wrap_content"

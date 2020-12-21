@@ -22,6 +22,9 @@
     <string name="err_reboot">Unable to reboot to recovery. Please, reboot to recovery manually.</string>
     <string name="err_ors">Unable to create OpenRecoveryScript file. Please, reboot to recovery and install ZIP file manually.\nFile location is %1$s</string>
 
+    <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
+    <string name="err_reboot_notify">Unable to reboot.\nCheck root access and reboot manually.</string>
+
     <string name="err_no_apps_to_open">Can\'t find apps that can open ZIP file</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
@@ -100,12 +103,20 @@
     <string name="notif_ch_download_desc">Shows download progress of release that downloads in app</string>
     <string name="notif_ch_download_status_desc">Shows download result</string>
 
+    <string name="notif_new_ver">New release of OrangeFox available</string>
+    <string name="notif_new_ver_sub">Version %1$s %2$s is available to download and install.\nTap \"Install\" to install this update.</string>
+
     <string name="notif_download_complete">Download of %1$s Finished</string>
     <string name="notif_download_failed">Download of %1$s Failed</string>
     <string name="notif_downloading">Downloading %1$s...</string>
     <string name="preparing">Preparing...</string>
     <string name="notif_rebooting">Rebooting...</string>
     <string name="retry">Retry</string>
+    <string name="install">Install</string>
+
+    <string name="reboot_recovery">Reboot</string>
+    <string name="notify_pending_reboot">OrangeFox %1$s is downloaded</string>
+    <string name="notify_pending_reboot_sub">Update downloaded to %1$s.\nReboot to recovery to finish installation.</string>
 
     <string name="md5_check">Checking MD5...</string>
 </resources>
