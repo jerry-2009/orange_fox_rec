@@ -3,12 +3,10 @@ package com.fordownloads.orangefox;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,24 +14,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.ui.recycler.AdapterStorage;
 import com.fordownloads.orangefox.ui.recycler.RecyclerAdapter;
-import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.fordownloads.orangefox.ui.recycler.RecyclerFragment;
+import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.fordownloads.orangefox.ui.recycler.TextFragment;
-import com.fordownloads.orangefox.ui.Tools;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +42,7 @@ public class RecyclerActivity extends AppCompatActivity {
     ExtendedFloatingActionButton _fab;
 
     @Override
-    protected void onSaveInstanceState(Bundle state) {
+    protected void onSaveInstanceState(@NotNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putBoolean("isRestarted", true);
     }
@@ -130,11 +127,10 @@ public class RecyclerActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 findViewById(R.id.installThis).setOnClickListener(view -> {
-                    setResult(Activity.RESULT_OK, new Intent().putExtra("ver", version)
-                            .putExtra("type", stringBuildType)
-                            .putExtra("md5", md5)
-                            .putExtra("url", url));
-                    finish();
+                    if (((App)getApplication()).isDownloadSrvRunning())
+                        Tools.showSnackbar(this, findViewById(R.id.installThis), R.string.err_service_running).show();
+                    else
+                        Install.dialog(this, version, stringBuildType, url, md5, false, this);
                 });
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
@@ -196,7 +192,6 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private void selectRelease(final View view, List<RecyclerItems> list) {
         int itemPosition = ((RecyclerView)findViewById(R.id.releaseRecycler)).getChildLayoutPosition(view);
-        RecyclerItems item = list.get(itemPosition);
         Intent intent = new Intent(this, RecyclerActivity.class);
         intent.putExtra("release", list.get(itemPosition).getId());
         intent.putExtra("type", 0);
@@ -213,10 +208,8 @@ public class RecyclerActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 201 && resultCode == RESULT_OK && data != null) {
-            setResult(Activity.RESULT_OK, data);
+        if (requestCode == 201 && resultCode == RESULT_OK)
             finish();
-        }
     }
 
     private void getReleases() {

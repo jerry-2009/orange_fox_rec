@@ -1,18 +1,12 @@
 package com.fordownloads.orangefox.ui;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-import com.fordownloads.orangefox.ActionReceiver;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.vars;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.security.MessageDigest;

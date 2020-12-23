@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/inst_warn"
+                android:text="@string/inst_file_found"
                 android:textAlignment="center" />
 
             <Button
@@ -53,7 +53,7 @@
                 style="@style/ThemeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/inst_install"
+                android:text="@string/ex_install_local"
                 app:icon="@drawable/ic_round_system_update_24" />
 
             <Button
@@ -61,10 +61,20 @@
                 style="@style/ThemeButtonOutline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/inst_download"
+                android:text="@string/ex_redownload"
                 android:backgroundTint="@color/fox_card"
                 app:icon="@drawable/ic_round_save_alt_24" />
 
+            <Button
+                android:id="@+id/btnDelete"
+                style="@style/ThemeButtonOutline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/fox_card"
+                android:text="@string/ex_delete"
+                android:textColor="@color/google_error"
+                app:iconTint="@color/google_error"
+                app:icon="@drawable/ic_delete" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

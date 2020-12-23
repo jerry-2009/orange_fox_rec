@@ -32,6 +32,7 @@ public class DownloadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        ((App) this.getApplication()).setDownloadSrv(this);
         expectedMD5 = intent.getStringExtra("md5");
         url = intent.getStringExtra("url");
         version = intent.getStringExtra("version");
@@ -56,6 +57,11 @@ public class DownloadService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        ((App)this.getApplication()).setDownloadSrv(null);
     }
 
     private void beginDownload(){

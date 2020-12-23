@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.UpdateReceiver;
+import com.fordownloads.orangefox.ActionReceiver;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -32,7 +32,7 @@ public class ScriptsFragment extends Fragment {
 
     public void testing(View v) {
         v.findViewById(R.id.startService).setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), UpdateReceiver.class)
+            Intent intent = new Intent(getActivity(), ActionReceiver.class)
                     .setAction("com.fordownloads.orangefox.Update");
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),0, intent, 0);
@@ -45,7 +45,7 @@ public class ScriptsFragment extends Fragment {
             android.os.Process.killProcess(android.os.Process.myPid());
         });
         v.findViewById(R.id.startService2).setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), UpdateReceiver.class)
+            Intent intent = new Intent(getActivity(), ActionReceiver.class)
                     .setAction("com.fordownloads.orangefox.Update");
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(),0, intent, 0);

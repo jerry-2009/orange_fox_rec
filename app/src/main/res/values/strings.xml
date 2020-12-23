@@ -16,12 +16,16 @@
     <string name="setup">Grant</string>
     <string name="err_no_pm_root">You didn\'t granted root permission.\nGrant root permission using Magisk Manager</string>
     <string name="err_md5_wrong">Release that you downloaded has been corrupted. Please, redownload release again.</string>
+    <string name="err_md5_wrong_exists">Release has been corrupted. Please, redownload release again.</string>
     <string name="err_md5_wrong_short">Release is corrupted!\nPlease, redownload it.</string>
     <string name="help_android11_pm">Tap \"OrangeFox\", then tap \"Allow access to manage all files\"</string>
     <string name="err_where_reboot">Yeah... You probably realized that something went wrong...</string>
     <string name="err_reboot">Unable to reboot to recovery. Please, reboot to recovery manually.</string>
     <string name="err_ors">Unable to create OpenRecoveryScript file. Please, reboot to recovery and install ZIP file manually.\nFile location is %1$s</string>
+    <string name="err_ors_short">Unable to create OpenRecoveryScript file</string>
+    <string name="err_service_running">Another release is being downloaded</string>
 
+    <string name="err_file_delete">Can\'t delete file</string>
     <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
     <string name="err_reboot_notify">Unable to reboot.\nCheck root access and reboot manually.</string>
 
@@ -77,6 +81,7 @@
 
     <string name="inst_title">Select Method</string>
     <string name="inst_warn">Auto-install requires installed recovery (TWRP, OrangeFox, etc.) and root access. You need to reboot device to recovery after download is finished.</string>
+    <string name="inst_file_found">This release is already downloaded to your device. Choose what you want to do with this release.</string>
     <string name="inst_install">Download and install</string>
     <string name="inst_download">Only download</string>
     <string name="inst_cancel">Cancel</string>
@@ -84,6 +89,10 @@
     <string name="inst_installing">Your phone will be rebooted after 5 seconds...</string>
     <string name="inst_down_err">Download error</string>
     <string name="inst_downloaded">Downloaded to %1$s</string>
+
+    <string name="ex_install_local">Install</string>
+    <string name="ex_redownload">Redownload</string>
+    <string name="ex_delete">Delete from device</string>
 
     <string name="pm_title">Missing Permissions</string>
     <string name="pm_subtitle">Grant these permissions to OrangeFox App. They need for saving and installing ZIP.\nYou can skip root permission if you don\'t have root.</string>

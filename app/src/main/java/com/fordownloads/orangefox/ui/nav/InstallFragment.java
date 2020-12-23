@@ -25,10 +25,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.fordownloads.orangefox.API;
+import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.Install;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
+import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.vars;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -117,10 +119,7 @@ public class InstallFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
-            Install.dialog(getActivity(), data.getStringExtra("ver"), data.getStringExtra("type"), data.getStringExtra("url"), data.getStringExtra("md5"));
-        }
-        else if (requestCode == 202) {
+        if (requestCode == 202) {
             if (resultCode == RESULT_OK && data != null)
                 new Thread(() -> setDevice(data.getStringExtra("codename"), true, false)).start();
             else
@@ -213,7 +212,12 @@ public class InstallFragment extends Fragment {
             ((TextView)rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
             ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
-            _installButton.setOnClickListener(view -> Install.dialog(getActivity(), version, stringBuildType, url, md5));
+            _installButton.setOnClickListener(view -> {
+                if (((App)getActivity().getApplication()).isDownloadSrvRunning())
+                    Tools.showSnackbar(getActivity(), _installButton, R.string.err_service_running).show();
+                else
+                    Install.dialog(getActivity(), version, stringBuildType, url, md5, false, null);
+            });
             getActivity().runOnUiThread(() -> {
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
                 _cardError.setVisibility(View.GONE);
