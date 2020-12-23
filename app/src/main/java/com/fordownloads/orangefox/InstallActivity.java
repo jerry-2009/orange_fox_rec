@@ -91,14 +91,11 @@ public class InstallActivity extends AppCompatActivity {
                 .setDataAndType(Uri.fromFile(finalFile), "application/zip")
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Intent cancelIntent = new Intent(this, ActionReceiver.class)
-                .setAction("com.fordownloads.orangefox.Notification")
-                .putExtra("type", 0);
+                .setAction("com.fordownloads.orangefox.Cancel");
         Intent rebootIntent = new Intent(this, ActionReceiver.class)
-                .setAction("com.fordownloads.orangefox.Notification")
-                .putExtra("type", 1);
+                .setAction("com.fordownloads.orangefox.Reboot");
         Intent deleteIntent = new Intent(this, ActionReceiver.class)
-                .setAction("com.fordownloads.orangefox.Notification")
-                .putExtra("type", 2);
+                .setAction("com.fordownloads.orangefox.ORS");
         //
 
         //Show & build notification

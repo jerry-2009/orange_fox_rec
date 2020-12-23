@@ -16,19 +16,19 @@ public class ActionReceiver extends BroadcastReceiver {
         //    for (String key : bundle.keySet())
         //        Log.e("OFR!!", key + " : " + (bundle.get(key) != null ? bundle.get(key) : "NULL"));
 
-        switch (intent.getIntExtra("type", -1)) {
-            case 0:
+        switch (intent.getAction()) {
+            case "com.fordownloads.orangefox.Cancel":
                 PRDownloader.cancelAll();
                 break;
-            case 1:
+            case "com.fordownloads.orangefox.Reboot":
                 if(!Shell.su("reboot recovery").exec().isSuccess())
                     Toast.makeText(context, R.string.err_reboot_notify, Toast.LENGTH_LONG).show();
                 break;
-            case 2:
+            case "com.fordownloads.orangefox.ORS":
                 if(!new SuFile(vars.ORS_FILE).delete())
                     Toast.makeText(context, R.string.err_ors_delete, Toast.LENGTH_LONG).show();
                 break;
-            case 3:
+            case "com.fordownloads.orangefox.Start":
                 context.startActivity(new Intent(context, InstallActivity.class)
                         .putExtra("bg", true)
                         .putExtra("md5", intent.getStringExtra("md5"))

@@ -40,7 +40,10 @@
         </activity>
         <receiver android:name=".ActionReceiver" android:process=":remote">
             <intent-filter>
-                <action android:name="com.fordownloads.orangefox.Notification"/>
+                <action android:name="com.fordownloads.orangefox.Cancel"/>
+                <action android:name="com.fordownloads.orangefox.Reboot"/>
+                <action android:name="com.fordownloads.orangefox.ORS"/>
+                <action android:name="com.fordownloads.orangefox.Start"/>
             </intent-filter>
         </receiver>
         <receiver android:name=".UpdateReceiver" android:process=":remote">

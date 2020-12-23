@@ -17,8 +17,7 @@ public class UpdateReceiver extends BroadcastReceiver {
     public void onReceive (Context context , Intent intent) {
         String text = context.getApplicationContext().getString(R.string.notif_new_ver_sub, "R11.0_2", "Stable");
         Intent instIntent = new Intent(context, ActionReceiver.class)
-                .setAction("com.fordownloads.orangefox.Notification")
-                .putExtra("type", 3)
+                .setAction("com.fordownloads.orangefox.Start")
                 .putExtra("ver", "R11.0_2")
                 .putExtra("url", "https://files.orangefox.tech/OrangeFox-Stable/x00t/OrangeFox-R11.0_2-Stable-X00T.zip")
                 .putExtra("md5", "2793969f67c6228d6436915ad7757898");
