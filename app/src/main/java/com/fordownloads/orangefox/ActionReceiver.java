@@ -29,13 +29,11 @@ public class ActionReceiver extends BroadcastReceiver {
                     Toast.makeText(context, R.string.err_ors_delete, Toast.LENGTH_LONG).show();
                 break;
             case "com.fordownloads.orangefox.Start":
-                context.startActivity(new Intent(context, InstallActivity.class)
-                        .putExtra("bg", true)
+                context.startService(new Intent(context, DownloadService.class)
                         .putExtra("md5", intent.getStringExtra("md5"))
                         .putExtra("url", intent.getStringExtra("url"))
                         .putExtra("version", intent.getStringExtra("ver"))
-                        .putExtra("install", true)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        .putExtra("install", true));
                 break;
         }
     }

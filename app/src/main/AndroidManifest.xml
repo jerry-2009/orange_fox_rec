@@ -7,24 +7,22 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
+        android:forceDarkAllowed="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:preserveLegacyExternalStorage="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:forceDarkAllowed="false"
         android:theme="@style/Theme.OrangeFox">
-        <activity
-            android:name=".InstallActivity"
-            android:launchMode="singleTop"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:label="@string/app_name"
-            android:excludeFromRecents="true"
-            android:theme="@style/ThemeInstall" />
+        <service
+            android:name=".DownloadService"
+            android:enabled="true"
+            android:exported="true" />
         <activity
             android:name=".RecyclerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
@@ -32,25 +30,31 @@
             android:theme="@style/Theme.OrangeFox.Activity" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ActionReceiver" android:process=":remote">
+
+        <receiver
+            android:name=".ActionReceiver"
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.fordownloads.orangefox.Cancel"/>
-                <action android:name="com.fordownloads.orangefox.Reboot"/>
-                <action android:name="com.fordownloads.orangefox.ORS"/>
-                <action android:name="com.fordownloads.orangefox.Start"/>
+                <action android:name="com.fordownloads.orangefox.Cancel" />
+                <action android:name="com.fordownloads.orangefox.Reboot" />
+                <action android:name="com.fordownloads.orangefox.ORS" />
+                <action android:name="com.fordownloads.orangefox.Start" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".UpdateReceiver" android:process=":remote">
+        <receiver
+            android:name=".UpdateReceiver"
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.fordownloads.orangefox.Update"/>
+                <action android:name="com.fordownloads.orangefox.Update" />
             </intent-filter>
         </receiver>
     </application>

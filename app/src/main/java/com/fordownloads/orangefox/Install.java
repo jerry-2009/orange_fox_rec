@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,12 +34,12 @@ public class Install {
             if (v.getId() == R.id.btnDownload || Shell.rootAccess())
                 if (hasStoragePM(activity)) {
                     dialog.dismiss();
-                    Intent intent = new Intent(activity, InstallActivity.class)
+                    Intent intent = new Intent(activity, DownloadService.class)
                         .putExtra("md5", md5)
                         .putExtra("url", url)
                         .putExtra("version", ver)
                         .putExtra("install", v.getId() == R.id.btnInstall);
-                    activity.startActivity(intent);
+                    activity.startService(intent);
                 } else {
                     Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_storage)
                             .setAction(R.string.setup, view -> requestPM(activity)).show();
@@ -50,10 +51,15 @@ public class Install {
         sheetView.findViewById(R.id.btnInstall).setOnClickListener(proceed);
         sheetView.findViewById(R.id.btnDownload).setOnClickListener(proceed);
 
-        Point size = new Point();
-        activity.getWindowManager().getDefaultDisplay().getSize(size);
 
-        sheetView.setY(size.y);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            sheetView.setY(activity.getWindowManager().getCurrentWindowMetrics().getBounds().height());
+        } else {
+            Point size = new Point();
+            activity.getWindowManager().getDefaultDisplay().getSize(size);
+            sheetView.setY(size.y);
+        }
+
         dialog.show();
 
         sheetView.animate()

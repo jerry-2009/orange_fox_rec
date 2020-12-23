@@ -76,7 +76,7 @@
     <string name="sel_activity">Select Device</string>
 
     <string name="inst_title">Select Method</string>
-    <string name="inst_warn">Auto-install requires installed recovery (TWRP, OrangeFox, etc.) and root access. Your device will reboot after installation automatically.</string>
+    <string name="inst_warn">Auto-install requires installed recovery (TWRP, OrangeFox, etc.) and root access. You need to reboot device to recovery after download is finished.</string>
     <string name="inst_install">Download and install</string>
     <string name="inst_download">Only download</string>
     <string name="inst_cancel">Cancel</string>
