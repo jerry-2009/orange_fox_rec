@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
+import android.util.Log;
 import android.webkit.URLUtil;
 
 import androidx.core.app.NotificationCompat;
@@ -32,7 +33,19 @@ public class DownloadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if ("STOP".equals(intent.getAction())) {
+            Log.d("OFR","called to cancel service");
+            PRDownloader.cancelAll();
+            stopForeground(true);
+            stopSelf();
+            return 0;
+        }
+
         ((App) this.getApplication()).setDownloadSrv(this);
+        Intent stopSelf = new Intent(this, DownloadService.class);
+        stopSelf.setAction("STOP");
+        PendingIntent pStopSelf = PendingIntent.getService(this, 0, stopSelf,PendingIntent.FLAG_CANCEL_CURRENT);
+
         expectedMD5 = intent.getStringExtra("md5");
         url = intent.getStringExtra("url");
         version = intent.getStringExtra("version");
@@ -47,8 +60,7 @@ public class DownloadService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setColor(ContextCompat.getColor(this, R.color.fox_notify))
                 .setProgress(0, 0, true)
-                .addAction(R.drawable.ic_round_check_24, this.getString(R.string.inst_cancel),
-                        PendingIntent.getBroadcast(this, 0, new Intent(this, ActionReceiver.class).setAction("com.fordownloads.orangefox.Cancel"), 0));
+                .addAction(R.drawable.ic_round_check_24, this.getString(R.string.inst_cancel), pStopSelf);
         startForeground(vars.NOTIFY_DOWNLOAD_FG, progressNotify.build());
         beginDownload();
         return super.onStartCommand(intent, flags, startId);
@@ -61,6 +73,7 @@ public class DownloadService extends Service {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         ((App)this.getApplication()).setDownloadSrv(null);
     }
 
@@ -92,21 +105,21 @@ public class DownloadService extends Service {
 
         PRDownloader.download(url, vars.DOWNLOAD_DIR, fileName)
                 .build()
-                .setOnCancelListener(() -> {
-                    stopForeground(true);
-                    stopSelf();
-                })
+                .setOnCancelListener(() -> Log.e("OFRService", "Download cancelled"))
                 .setOnProgressListener(new OnProgressListener() {
-                    byte currPercent = 0, lastPercent = -1;
+                    byte currPercent = 0, lastPercent = -1, skipMB = 0;
 
                     @Override
                     public void onProgress(Progress progress) {
                         currPercent = (byte) (progress.currentBytes * 100 / progress.totalBytes);
                         if (lastPercent != currPercent) {
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify
-                                    .setProgress(100, currPercent, false)
-                                    .setContentText(getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576))
-                                    .build());
+                            if (skipMB++ > 5) {
+                                notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify
+                                        .setProgress(100, currPercent, false)
+                                        .setContentText(getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576))
+                                        .build());
+                                skipMB = 0;
+                            }
                             lastPercent = currPercent;
                         }
                     }

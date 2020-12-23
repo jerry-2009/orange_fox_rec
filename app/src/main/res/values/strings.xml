@@ -124,7 +124,7 @@
     <string name="install">Install</string>
 
     <string name="reboot_recovery">Reboot</string>
-    <string name="notify_pending_reboot">OrangeFox %1$s is downloaded</string>
+    <string name="notify_pending_reboot">Reboot to install OrangeFox %1$s</string>
     <string name="notify_pending_reboot_sub">Update downloaded to %1$s.\nReboot to recovery to finish installation.</string>
 
     <string name="md5_check">Checking MD5...</string>

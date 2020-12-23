@@ -9,6 +9,9 @@ public class App extends Application {
     public boolean isDownloadSrvRunning() {
         return downloadSrv != null;
     }
+    public DownloadService getDownloadSrv() {
+        return downloadSrv;
+    }
 
     public void setDownloadSrv(DownloadService downloadSrv) {
         this.downloadSrv = downloadSrv;

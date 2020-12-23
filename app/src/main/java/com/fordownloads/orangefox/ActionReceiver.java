@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -16,16 +17,9 @@ import com.topjohnwu.superuser.io.SuFile;
 
 public class ActionReceiver extends BroadcastReceiver {
     public void onReceive (Context context , Intent intent) {
-        //Bundle bundle = intent.getExtras();
-        //if (bundle != null)
-        //    for (String key : bundle.keySet())
-        //        Log.e("OFR!!", key + " : " + (bundle.get(key) != null ? bundle.get(key) : "NULL"));
+                Log.e("OFR!!", intent.getAction());
 
         switch (intent.getAction()) {
-            case "com.fordownloads.orangefox.Cancel":
-                NotificationManagerCompat.from(context).cancel(vars.NOTIFY_DOWNLOAD_SAVED);
-                PRDownloader.cancelAll();
-                break;
             case "com.fordownloads.orangefox.Reboot":
                 NotificationManagerCompat.from(context).cancel(vars.NOTIFY_DOWNLOAD_SAVED);
                 if(!Shell.su("reboot recovery").exec().isSuccess())
