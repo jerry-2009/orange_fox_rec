@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.fordownloads.orangefox">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,6 +16,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:forceDarkAllowed="false"
         android:theme="@style/Theme.OrangeFox">
         <activity
             android:name=".InstallActivity"
