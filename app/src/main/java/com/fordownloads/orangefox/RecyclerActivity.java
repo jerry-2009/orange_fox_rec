@@ -103,20 +103,12 @@ public class RecyclerActivity extends AppCompatActivity {
                 release = new JSONObject((String)response.get("response"));
             }
 
-            int buildType = R.string.err_title;
-            switch (release.getString("build_type")) {
-                case "stable":
-                    buildType = R.string.rel_stable;
-                    break;
-                case "beta":
-                    buildType = R.string.rel_beta;
-                    break;
-            }
+
 
             final String md5 = release.getString("md5");
             final String version = release.getString("version");
             final String url = release.getString("url");
-            final String stringBuildType = getString(buildType);
+            final String stringBuildType = Tools.getBuildType(this, release);
 
             items.add(new RecyclerItems(getString(R.string.rel_type), stringBuildType, R.drawable.ic_outline_build_24));
             items.add(new RecyclerItems(getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));

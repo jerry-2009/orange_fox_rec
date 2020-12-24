@@ -57,7 +57,7 @@ public class InstallFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
-        prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+        prefs = getActivity().getSharedPreferences("App", Context.MODE_PRIVATE);
 
         _ofTitle = rootView.findViewById(R.id.ofTitle);
         _installButton = rootView.findViewById(R.id.installButton);
@@ -169,20 +169,10 @@ public class InstallFragment extends Fragment {
                 release = new JSONObject((String) response.get("response"));
             }
 
-            int buildType = R.string.err_title;
-            switch (release.getString("build_type")) {
-                case "stable":
-                    buildType = R.string.rel_stable;
-                    break;
-                case "beta":
-                    buildType = R.string.rel_beta;
-                    break;
-            }
-
             //why i need do this
             final String version = release.getString("version");
             final String url = release.getString("url");
-            final String stringBuildType = getString(buildType);
+            final String stringBuildType = Tools.getBuildType(getActivity(), release);
             final String md5 = release.getString("md5");
             //
 

@@ -40,9 +40,6 @@ public class ScriptsFragment extends Fragment {
             AlarmManager alarmManager = (AlarmManager)getActivity().getApplicationContext().getSystemService(ALARM_SERVICE);
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
                     10000, pendingIntent);
-
-            //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+(10000), pendingIntent);
-            android.os.Process.killProcess(android.os.Process.myPid());
         });
         v.findViewById(R.id.startService2).setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), ActionReceiver.class)

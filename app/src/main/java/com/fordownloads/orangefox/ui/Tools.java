@@ -1,6 +1,7 @@
 package com.fordownloads.orangefox.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
@@ -9,10 +10,23 @@ import androidx.core.content.ContextCompat;
 import com.fordownloads.orangefox.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Tools {
+    public static String getBuildType(Context c, JSONObject release) throws JSONException {
+        switch (release.getString("build_type")) {
+            case "stable":
+                return c.getString(R.string.rel_stable);
+            case "beta":
+                return c.getString(R.string.rel_beta);
+        }
+        return release.getString("build_type");
+    }
+
     public static void dialogFinish(Activity getActivity, int msg) {
         dialogFinish(getActivity, getActivity.getString(msg));
     }
