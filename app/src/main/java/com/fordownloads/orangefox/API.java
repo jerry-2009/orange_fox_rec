@@ -30,7 +30,7 @@ public class API {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://api.orangefox.download/v2/" + reqUrl)
+                    .url("https://testapi.orangefox.tech/" + reqUrl)
                     .build();
             Response response = client.newCall(request).execute();
 
@@ -47,7 +47,6 @@ public class API {
     }
 
     public static void errorHandler(Activity context, Map<String, Object> response, int customErr){
-        if (!(boolean) response.get("success")) {
             int code = (int) response.get("code");
             switch (code) {
                 case 404:
@@ -61,7 +60,6 @@ public class API {
                     Tools.dialogFinish(context, context.getString(R.string.err_response, code));
                     break;
             }
-        }
     }
 
     public static void findUpdate(Context context) throws JSONException {

@@ -1,6 +1,5 @@
 package com.fordownloads.orangefox.ui.nav;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -152,53 +150,50 @@ public class InstallFragment extends Fragment {
             new Thread(() -> setDevice(null, false, force)).start();
     }
 
+    private boolean abortDevice(Map<String, Object> response, BottomSheetDialog dialog) {
+        if (!(boolean) response.get("success")) {
+            if (dialog != null) dialog.dismiss();
+            errorCard((int)response.get("code"), R.string.err_no_rels);
+            if ((int)response.get("code") == 404 || (int)response.get("code") == 500)
+                prefs.edit().remove(pref.DEVICE).remove(pref.DEVICE_CODE).apply();
+            return true;
+        }
+        return false;
+    }
+
     private void parseRelease(BottomSheetDialog dialog, boolean force) {
         try {
             JSONObject release;
             if (prefs.contains(pref.CACHE_RELEASE) && !force) {
                 release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
             } else {
-                Map<String, Object> response = API.request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
-                if (!(boolean) response.get("success")) {
-                    if (dialog != null) dialog.dismiss();
-                    errorCard((int)response.get("code"), R.string.err_no_rels);
-                    if ((int)response.get("code") == 404 || (int)response.get("code") == 500)
-                        prefs.edit().remove(pref.DEVICE).remove(pref.DEVICE_CODE).apply();
-                    return;
-                }
+                Map<String, Object> responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
+                if (abortDevice(responseLast, dialog)) return;
+
+                String id = new JSONObject((String) responseLast.get("response"))
+                        .getJSONArray("data").getJSONObject(0).getString("_id");
+
+                Map<String, Object> response = API.request("releases/get?_id=" + id);
+                if (abortDevice(response, dialog)) return;
                 release = new JSONObject((String) response.get("response"));
             }
 
-            //why i need do this
             final String version = release.getString("version");
-            final String url = release.getString("url");
+            final String url = release.getJSONObject("mirrors").getString("DL");
             final String stringBuildType = Tools.getBuildType(getActivity(), release);
             final String md5 = release.getString("md5");
-            //
 
             ((TextView)rootView.findViewById(R.id.relType)).setText(stringBuildType);
             ((TextView)rootView.findViewById(R.id.relVers)).setText(version);
-            ((TextView)rootView.findViewById(R.id.relDate)).setText(release.getString("date"));
-            ((TextView)rootView.findViewById(R.id.relSize)).setText(release.getString("size_human"));
+            ((TextView)rootView.findViewById(R.id.relDate)).setText(Tools.formatDate(release.getLong("date")));
+            ((TextView)rootView.findViewById(R.id.relSize)).setText(Tools.formatSize(getActivity(), release.getInt("size")));
 
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
 
-            int maintainStatus = R.string.err_title;
-            switch (device.getInt("maintained")) {
-                case 1:
-                    maintainStatus = R.string.dev_maintained;
-                    break;
-                case 2:
-                    maintainStatus = R.string.dev_maintained_wod;
-                    break;
-                case 3:
-                    maintainStatus = R.string.dev_unmaintained;
-                    break;
-            }
-
             ((TextView)rootView.findViewById(R.id.devCode)).setText(device.getString("codename"));
-            ((TextView)rootView.findViewById(R.id.devModel)).setText(device.getString("fullname"));
-            ((TextView)rootView.findViewById(R.id.devStatus)).setText(maintainStatus);
+            ((TextView)rootView.findViewById(R.id.devModel)).setText(device.getString("full_name"));
+            ((TextView)rootView.findViewById(R.id.devStatus)).setText(device.getBoolean("supported") ?
+                    R.string.dev_maintained : R.string.dev_unmaintained);
             ((TextView)rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
             ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
@@ -237,7 +232,7 @@ public class InstallFragment extends Fragment {
             showDeviceDialog(Build.DEVICE, true, null);
             return;
         }
-        Map<String, Object> response = API.request("device/" + codename);
+        Map<String, Object> response = API.request("devices/get?codename=" + codename);
         if (!(boolean) response.get("success")) {
             errorCard((int) response.get("code"), R.string.err_no_device);
             return;
@@ -321,12 +316,12 @@ public class InstallFragment extends Fragment {
         String chk4 = Build.PRODUCT.toLowerCase();
 
         try {
-            Map<String, Object> response = API.request("device");
+            Map<String, Object> response = API.request("devices");
             if(!(boolean)response.get("success")) {
                 errorCard((int)response.get("code"), R.string.err_no_device);
                 return "no_internet_error";
             }
-            JSONArray devices = new JSONArray((String)response.get("response"));
+            JSONArray devices = new JSONObject((String)response.get("response")).getJSONArray("data");
             for (int i = 0; i < devices.length(); i++)
             {
                 JSONObject device = devices.getJSONObject(i);

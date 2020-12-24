@@ -96,25 +96,24 @@ public class RecyclerActivity extends AppCompatActivity {
             if (releaseJSON) {
                 release = new JSONObject(releaseIntent);
             } else {
-                Map<String, Object> response = API.request("releases/" + releaseIntent);
-                runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
-                if(!(boolean)response.get("success"))
+                Map<String, Object> response = API.request("releases/get?_id=" + releaseIntent);
+                if(!(boolean)response.get("success")) {
+                    runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
                     return;
+                }
                 release = new JSONObject((String)response.get("response"));
             }
 
-
-
             final String md5 = release.getString("md5");
             final String version = release.getString("version");
-            final String url = release.getString("url");
+            final String url = release.getJSONObject("mirrors").getString("DL");
             final String stringBuildType = Tools.getBuildType(this, release);
 
             items.add(new RecyclerItems(getString(R.string.rel_type), stringBuildType, R.drawable.ic_outline_build_24));
             items.add(new RecyclerItems(getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));
-            items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("file_name"), R.drawable.ic_outline_archive_24));
-            items.add(new RecyclerItems(getString(R.string.rel_date), release.getString("date"), R.drawable.ic_outline_today_24));
-            items.add(new RecyclerItems(getString(R.string.rel_size), release.getString("size_human"), R.drawable.ic_outline_sd_card_24));
+            items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("filename"), R.drawable.ic_outline_archive_24));
+            items.add(new RecyclerItems(getString(R.string.rel_date), Tools.formatDate(release.getLong("date")), R.drawable.ic_outline_today_24));
+            items.add(new RecyclerItems(getString(R.string.rel_size), Tools.formatSize(this, release.getInt("size")), R.drawable.ic_outline_sd_card_24));
             items.add(new RecyclerItems("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
 
             runOnUiThread(() -> {
@@ -131,13 +130,13 @@ public class RecyclerActivity extends AppCompatActivity {
                 try {
                     if (release.has("changelog"))
                         pageList.add(R.string.rel_changes, TextFragment.class,
-                                TextFragment.arguments(release.getString("changelog")));
-                    if (release.has("notes"))
+                                TextFragment.arguments(Tools.buildList(release, "changelog")));
+                    if (!release.isNull("notes"))
                         pageList.add(R.string.rel_notes, TextFragment.class,
                                 TextFragment.arguments(release.getString("notes")));
                     if (release.has("bugs"))
                             pageList.add(R.string.rel_bugs, TextFragment.class,
-                                    TextFragment.arguments(release.getString("bugs")));
+                                    TextFragment.arguments(Tools.buildList(release, "bugs")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -172,14 +171,28 @@ public class RecyclerActivity extends AppCompatActivity {
         }
     }
 
-    private List<RecyclerItems> addReleaseItems(String name, JSONObject node) throws JSONException {
+    private List<RecyclerItems> addReleaseItems(Map<String, Object> response) throws JSONException {
         List<RecyclerItems> array = new ArrayList<>();
-        JSONArray arrayRel = node.getJSONArray(name);
+        JSONArray arrayRel = new JSONObject((String)response.get("response")).getJSONArray("data");
         for (int i = 0; i < arrayRel.length(); i++) {
             JSONObject release = arrayRel.getJSONObject(i);
-            array.add(new RecyclerItems(release.getString("version"), release.getString("date"), R.drawable.ic_outline_archive_24, release.getString("_id")));
+            array.add(new RecyclerItems(release.getString("version"),
+                    Tools.formatDate(release.getLong("date")), R.drawable.ic_outline_archive_24,
+                    release.getString("_id")));
         }
         return array;
+    }
+    private boolean parseReleaseByType(FragmentPagerItems.Creator pageList, String type, int name) throws JSONException {
+        Map<String, Object> response = API.request("releases/?type="+type+"&codename=" + releaseIntent);
+        if ((boolean) response.get("success")) {
+            List<RecyclerItems> list = addReleaseItems(response);
+            pageList.add(name, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
+                    new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
+                    ))));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void selectRelease(final View view, List<RecyclerItems> list) {
@@ -206,27 +219,13 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private void getReleases() {
         try {
-            Map<String, Object> response = API.request("device/" + releaseIntent + "/releases");
-            runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
-
-            if(!(boolean)response.get("success"))
-                return;
-
-            JSONObject releases = new JSONObject((String)response.get("response"));
-
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
+            Map<String, Object> responseStable = API.request("releases/?type=stable&codename=" + releaseIntent);
 
-            if (releases.getJSONArray("stable").length() != 0) {
-                List<RecyclerItems> list = addReleaseItems("stable", releases);
-                pageList.add(R.string.rel_stable, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
-                        new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
-                ))));
-            }
-            if (releases.getJSONArray("beta").length() != 0) {
-                List<RecyclerItems> list = addReleaseItems("beta", releases);
-                pageList.add(R.string.rel_beta, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
-                        new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
-                ))));
+            if (!parseReleaseByType(pageList, "stable", R.string.rel_stable) &
+                    !parseReleaseByType(pageList, "beta", R.string.rel_beta)) {
+                runOnUiThread(() -> API.errorHandler(this, responseStable, R.string.err_no_rel));
+                return;
             }
 
             runOnUiThread(() -> {
@@ -257,20 +256,21 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private void getDevices() {
         try {
-            Map<String, Object> response = API.request("device");
-            runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_device));
+            Map<String, Object> response = API.request("devices");
 
-            if(!(boolean)response.get("success"))
+            if(!(boolean)response.get("success")) {
+                runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_device));
                 return;
+            }
 
-            JSONArray devices = new JSONArray((String)response.get("response"));
+            JSONArray devices = new JSONObject((String)response.get("response")).getJSONArray("data");
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             List<RecyclerItems> array = new ArrayList<>();
 
             for (int i = 0; i < devices.length(); i++) {
                 JSONObject device = devices.getJSONObject(i);
-                array.add(new RecyclerItems(device.getString("fullname"), device.getString("codename"), R.drawable.ic_device));
+                array.add(new RecyclerItems(device.getString("full_name"), device.getString("codename"), R.drawable.ic_device));
             }
 
             pageList.add("dev", RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(

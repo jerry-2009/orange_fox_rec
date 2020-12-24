@@ -1,6 +1,7 @@
 package com.fordownloads.orangefox.ui.recycler;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,6 @@ public class TextFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((TextView)view.findViewById(R.id.multiTextView)).setText(getArguments().getString("text"));
+        ((TextView)view.findViewById(R.id.multiTextView)).setText(Html.fromHtml(getArguments().getString("text"), Html.FROM_HTML_MODE_COMPACT));
     }
 }

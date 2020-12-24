@@ -61,11 +61,11 @@
     <string name="dev_maintainer">Maintainer</string>
     <string name="dev_status">Status</string>
     <string name="dev_maintained">Maintained</string>
-    <string name="dev_maintained_wod">Maintained without having device on hands</string>
     <string name="dev_unmaintained">Unmaintained</string>
     <string name="dev_patch">Sec.Patch</string>
 
     <string name="dev_activity">Select Device</string>
+    <string name="size_mb">%dMB</string>
 
     <string name="err_card_no_internet">No internet connection</string>
     <string name="err_card_error">An error has occurred</string>
