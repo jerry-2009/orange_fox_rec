@@ -23,16 +23,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/fox_main_gradient"/>
 
-    <TextView android:id="@+id/ofTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:fontFamily="@font/euclid_flex"
-        android:text="OrangeFox Recovery"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/white"
-        android:textSize="24sp"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -42,19 +32,44 @@
         android:id="@+id/scrollCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
         android:animateLayoutChanges="true">
 
         <LinearLayout
             android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:paddingBottom="150dp"
             android:animateLayoutChanges="true"
-            android:showDividers="beginning|middle|end">
-
+            android:showDividers="middle|end">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent">
+            <TextView android:id="@+id/ofTitle"
+                android:layout_weight="1"
+                android:layout_marginStart="64dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:fontFamily="@font/euclid_flex"
+                android:text="OrangeFox Recovery"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/white"
+                android:textSize="22sp"/>
+            <ImageButton
+                android:id="@+id/settingsOpen"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="14dp"
+                android:layout_weight="0"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_settings" />
+        </LinearLayout>
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardError"
                 style="@style/ThemeCard"
@@ -81,7 +96,7 @@
                         android:layout_weight="1"
                         android:paddingBottom="8dp"
                         android:src="@drawable/ic_round_public_off_24"
-                        android:tint="@color/google_gray" />
+                        app:tint="@color/google_gray" />
 
                     <TextView
                         android:id="@+id/cardErrorTitle"
@@ -156,7 +171,7 @@
                     android:layout_gravity="right|top"
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_device"
-                    android:tint="@color/google_gray" />
+                    app:tint="@color/google_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -272,7 +287,7 @@
                     android:layout_gravity="right|top"
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_outline_new_releases_24"
-                    android:tint="@color/google_gray" />
+                    app:tint="@color/google_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

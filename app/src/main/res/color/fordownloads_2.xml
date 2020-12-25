@@ -1,0 +1,5 @@
+<gradient android:tileMode="clamp" android:startX="128.0" android:startY="128.0" android:endX="304.0" android:endY="304.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <item android:color="#fffff2f2" android:offset="0.0" />
+    <item android:color="#fffbfbfb" android:offset="1.0" />
+</gradient>

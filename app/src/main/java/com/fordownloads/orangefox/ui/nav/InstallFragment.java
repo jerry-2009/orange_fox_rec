@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -27,6 +28,7 @@ import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.Install;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.RecyclerActivity;
+import com.fordownloads.orangefox.SettingsActivity;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.vars;
@@ -55,7 +57,7 @@ public class InstallFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
-        prefs = getActivity().getSharedPreferences("App", Context.MODE_PRIVATE);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         _ofTitle = rootView.findViewById(R.id.ofTitle);
         _installButton = rootView.findViewById(R.id.installButton);
@@ -73,6 +75,8 @@ public class InstallFragment extends Fragment {
         _shimmer = rootView.findViewById(R.id.shimmer);
 
         _installButton.hide();
+
+        rootView.findViewById(R.id.settingsOpen).setOnClickListener(view -> startActivityForResult(new Intent(getActivity(), SettingsActivity.class), 300));
 
         _releaseInfo.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), RecyclerActivity.class);
@@ -122,6 +126,13 @@ public class InstallFragment extends Fragment {
                 new Thread(() -> setDevice(data.getStringExtra("codename"), true, false)).start();
             else
                 errorCard(404, R.string.err_dev_not_selected);
+        } else if (requestCode == 300 && resultCode == RESULT_OK && data != null) {
+            _cardError.setVisibility(View.GONE);
+            _cardInfo.setVisibility(View.GONE);
+            _cardRelease.setVisibility(View.GONE);
+            _shimmer.setVisibility(View.VISIBLE);
+            _installButton.hide();
+            new Thread(() -> setDevice(data.getStringExtra("codename"), true, true)).start();
         }
     }
 
@@ -147,7 +158,7 @@ public class InstallFragment extends Fragment {
         if (prefs.contains(pref.DEVICE) && prefs.contains(pref.DEVICE_CODE))
             new Thread(() -> parseRelease(null, force)).start();
         else
-            new Thread(() -> setDevice(null, false, force)).start();
+            new Thread(() -> setDevice(null, false, false)).start();
     }
 
     private boolean abortDevice(Map<String, Object> response, BottomSheetDialog dialog) {
@@ -239,7 +250,7 @@ public class InstallFragment extends Fragment {
         }
         if (skipDialog){
             prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
-            new Thread(() -> parseRelease(null, false)).start();
+            new Thread(() -> parseRelease(null, force)).start();
         } else
             showDeviceDialog(codename, false, (String)response.get("response"));
     }

@@ -36,9 +36,6 @@ public class MD5 {
             return false;
         }
 
-        Log.v(TAG, "Calculated digest: " + calculatedDigest);
-        Log.v(TAG, "Provided digest: " + md5);
-
         return calculatedDigest.equalsIgnoreCase(md5);
     }
 

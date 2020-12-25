@@ -29,6 +29,8 @@
     <style name="Theme.OrangeFox.Activity">
         <item name="android:statusBarColor">@color/fox_status_solid_bg</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
+        <item name="preferenceCategoryStyle">@style/ThemePrefCategory</item>
+        <item name="colorControlNormal">@color/google_gray</item>
     </style>
 
     <style name="ThemeCard">
@@ -99,6 +101,15 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
+    <style name="ThemeButtonToolbar" parent="ThemeButton">
+        <item name="iconTint">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
     <style name="ThemeTitle">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/white</item>
@@ -155,5 +166,9 @@
 
     <style name="ThemeBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ThemePrefCategory" parent="Preference.Category">
+        <item name="android:layout">@layout/pref_category</item>
     </style>
 </resources>

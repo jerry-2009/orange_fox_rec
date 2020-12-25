@@ -1,0 +1,49 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        app:key="about"
+        app:layout="@layout/about" />
+
+    <PreferenceCategory app:title="@string/pref_update">
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/update_entries"
+            app:entryValues="@array/update_values"
+            app:key="pref_update_interval"
+            app:title="@string/pref_update_interval"
+            app:icon="@drawable/ic_round_av_timer_24"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_auto_install"
+            app:title="@string/pref_update_auto"
+            app:icon="@drawable/ic_round_system_update_24"
+            app:summary="@string/pref_update_auto_desc" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_recieve_beta"
+            app:title="@string/pref_update_beta"
+            app:icon="@drawable/ic_outline_new_releases_24"
+            app:summary="@string/pref_update_beta_desc" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_style">
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:key="pref_theme"
+            app:title="@string/pref_theme"
+            app:icon="@drawable/ic_round_av_timer_24"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_api">
+        <Preference
+            app:title="@string/pref_device"
+            app:icon="@drawable/ic_device"
+            app:key="change_device"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

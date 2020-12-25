@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <background>
+        <vector android:height="108.0dip" android:width="108.0dip" android:viewportWidth="432.0" android:viewportHeight="432.0">
+            <path android:fillColor="@color/fordownloads_1" android:pathData="M0 0H432V432H0V0Z" />
+        </vector>
+    </background>
+    <foreground>
+        <vector android:height="108.0dip" android:width="108.0dip" android:viewportWidth="432.0" android:viewportHeight="432.0">
+            <path android:fillColor="@color/fordownloads_2" android:pathData="M216 88c-70.692 0 -128 57.308 -128 128s57.308 128 128 128s128 -57.308 128 -128S286.692 88 216 88zM297.915 233.78l-68.432 67.679c-7.47 7.388 -19.496 7.388 -26.967 0l-68.432 -67.679c-3.723 -3.682 -5.585 -8.509 -5.585 -13.335c0 -7.028 5.698 -12.726 12.727 -12.726H174c0.351 0 0.636 -0.285 0.636 -0.636v-69.357c0 -7.028 5.698 -12.726 12.727 -12.726h57.273c7.029 0 12.727 5.698 12.727 12.726v69.357c0 0.351 0.285 0.636 0.636 0.636h32.773c7.029 0 12.727 5.698 12.727 12.726C303.5 225.272 301.638 230.098 297.915 233.78z" />
+        </vector>
+    </foreground>
+</adaptive-icon>

@@ -1,0 +1,25 @@
+<resources>
+    <string-array name="update_entries">
+        <item>@string/pref_update_disable</item>
+        <item>@string/pref_update_day</item>
+        <item>@string/pref_update_week</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>@string/pref_theme_system</item>
+        <item>@string/pref_theme_light</item>
+        <item>@string/pref_theme_dark</item>
+    </string-array>
+
+    <string-array name="update_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

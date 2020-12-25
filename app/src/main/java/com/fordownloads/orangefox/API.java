@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import com.fordownloads.orangefox.ui.Tools;
 
@@ -63,7 +64,7 @@ public class API {
     }
 
     public static void findUpdate(Context context) throws JSONException {
-        SharedPreferences prefs = context.getSharedPreferences("App", Context.MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Map<String, Object> response = request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
 
         if (!(boolean) response.get("success"))

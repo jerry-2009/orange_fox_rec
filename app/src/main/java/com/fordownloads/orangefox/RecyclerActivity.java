@@ -284,7 +284,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 ((ViewPager)findViewById(R.id.viewpager)).setAdapter(fragAdapter);
 
                 findViewById(R.id.viewpagerlayout).setVisibility(View.GONE);
-                getSupportActionBar().setElevation(12);
+                getSupportActionBar().setElevation(8);
 
                 _loadingView.animate()
                         .alpha(0f)
