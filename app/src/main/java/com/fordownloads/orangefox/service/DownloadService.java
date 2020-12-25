@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox;
+package com.fordownloads.orangefox.service;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -17,7 +17,10 @@ import com.downloader.OnDownloadListener;
 import com.downloader.OnProgressListener;
 import com.downloader.PRDownloader;
 import com.downloader.Progress;
+import com.fordownloads.orangefox.App;
+import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.utils.MD5;
+import com.fordownloads.orangefox.vars;
 import com.topjohnwu.superuser.Shell;
 
 import java.io.File;

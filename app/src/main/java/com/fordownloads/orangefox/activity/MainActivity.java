@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox;
+package com.fordownloads.orangefox.activity;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -18,10 +18,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
+import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.ui.nav.InstallFragment;
 import com.fordownloads.orangefox.ui.nav.LogsFragment;
 import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
 import com.fordownloads.orangefox.ui.nav.BackupsFragment;
+import com.fordownloads.orangefox.vars;
 import com.topjohnwu.superuser.Shell;
 
 import java.lang.reflect.Method;

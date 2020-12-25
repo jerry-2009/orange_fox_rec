@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.ActionReceiver;
+import com.fordownloads.orangefox.service.ActionReceiver;
 
 import static android.content.Context.ALARM_SERVICE;
 

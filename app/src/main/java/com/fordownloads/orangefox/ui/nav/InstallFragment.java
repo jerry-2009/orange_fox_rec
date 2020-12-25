@@ -1,13 +1,11 @@
 package com.fordownloads.orangefox.ui.nav;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +22,12 @@ import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.fordownloads.orangefox.API;
+import com.fordownloads.orangefox.utils.API;
 import com.fordownloads.orangefox.App;
-import com.fordownloads.orangefox.Install;
+import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.RecyclerActivity;
-import com.fordownloads.orangefox.SettingsActivity;
+import com.fordownloads.orangefox.activity.RecyclerActivity;
+import com.fordownloads.orangefox.activity.SettingsActivity;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.vars;

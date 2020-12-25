@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox;
+package com.fordownloads.orangefox.utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,8 +13,12 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
+import com.fordownloads.orangefox.App;
+import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.service.DownloadService;
 import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.utils.MD5;
+import com.fordownloads.orangefox.vars;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.topjohnwu.superuser.Shell;
 

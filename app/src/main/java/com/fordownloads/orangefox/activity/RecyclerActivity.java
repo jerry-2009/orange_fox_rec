@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox;
+package com.fordownloads.orangefox.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -14,12 +14,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fordownloads.orangefox.App;
+import com.fordownloads.orangefox.utils.Install;
+import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.ui.Tools;
 import com.fordownloads.orangefox.ui.recycler.AdapterStorage;
 import com.fordownloads.orangefox.ui.recycler.RecyclerAdapter;
 import com.fordownloads.orangefox.ui.recycler.RecyclerFragment;
 import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
 import com.fordownloads.orangefox.ui.recycler.TextFragment;
+import com.fordownloads.orangefox.utils.API;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;

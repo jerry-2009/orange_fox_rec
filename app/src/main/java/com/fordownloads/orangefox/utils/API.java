@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox;
+package com.fordownloads.orangefox.utils;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -11,7 +11,11 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import com.fordownloads.orangefox.service.DownloadService;
+import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.ui.Tools;
+import com.fordownloads.orangefox.vars;
 
 import org.json.JSONException;
 import org.json.JSONObject;
