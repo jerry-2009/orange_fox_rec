@@ -40,6 +40,7 @@
     <string name="rel_more">Old Builds</string>
     <string name="rel_current">Latest Release</string>
 
+    <string name="rel_cached">*Cached Data</string>
     <string name="rel_size">File Size</string>
     <string name="rel_vers">Version</string>
     <string name="rel_type">Build Type</string>

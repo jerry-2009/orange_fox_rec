@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
-    TextView _ofTitle, _cardErrorText, _cardErrorTitle;
+    TextView _ofTitle, _cardErrorText, _cardErrorTitle, _cachedInfo;
     Button _releaseInfo, _oldReleases, _btnRefresh;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
@@ -73,6 +74,8 @@ public class InstallFragment extends Fragment {
         _cardErrorText = rootView.findViewById(R.id.cardErrorText);
         _cardErrorTitle = rootView.findViewById(R.id.cardErrorTitle);
         _shimmer = rootView.findViewById(R.id.shimmer);
+
+        _cachedInfo = rootView.findViewById(R.id.cachedInfo);
 
         _installButton.hide();
 
@@ -175,15 +178,25 @@ public class InstallFragment extends Fragment {
     private void parseRelease(BottomSheetDialog dialog, boolean force) {
         try {
             JSONObject release;
-            if (prefs.contains(pref.CACHE_RELEASE) && !force) {
-                release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
-            } else {
-                Map<String, Object> responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
-                if (abortDevice(responseLast, dialog)) return;
+            Map<String, Object> responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
+            if (!prefs.contains(pref.RELEASE_ID) || !(boolean) responseLast.get("success") && (int)responseLast.get("code") != 0)
+                if (abortDevice(responseLast, dialog)) return; //no internet/cached_id
 
-                String id = new JSONObject((String) responseLast.get("response"))
+            String id = null;
+            boolean useCached;
+            if ((int)responseLast.get("code") == 200) {
+                id = new JSONObject((String) responseLast.get("response"))
                         .getJSONArray("data").getJSONObject(0).getString("_id");
+                useCached = !force && id.equals(prefs.getString(pref.RELEASE_ID, "err"));
+            } else {
+                useCached = true;
+            }
 
+            if (!force && useCached && prefs.contains(pref.CACHE_RELEASE)) {
+                release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
+                _cachedInfo.setVisibility(View.VISIBLE);
+            } else {
+                _cachedInfo.setVisibility(View.GONE);
                 Map<String, Object> response = API.request("releases/get?_id=" + id);
                 if (abortDevice(response, dialog)) return;
                 release = new JSONObject((String) response.get("response"));
@@ -225,9 +238,14 @@ public class InstallFragment extends Fragment {
                 _refreshLayout.setRefreshing(false);
             });
 
-            if (!prefs.contains(pref.CACHE_RELEASE))
-                prefs.edit().putString(pref.CACHE_RELEASE, release.toString()).apply();
+            if (force || !useCached || !prefs.contains(pref.CACHE_RELEASE)) {
+                prefs.edit().putString(pref.CACHE_RELEASE, release.toString())
+                            .putString(pref.RELEASE_ID, release.getString("_id")).apply();
+            }
         } catch (JSONException e) {
+            e.printStackTrace();
+            errorCard(1000, 0);
+        } catch (NullPointerException e) {
             e.printStackTrace();
             errorCard(1000, 0);
         }

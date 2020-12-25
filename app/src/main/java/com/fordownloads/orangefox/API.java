@@ -65,7 +65,7 @@ public class API {
 
     public static void findUpdate(Context context) throws JSONException {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Map<String, Object> response = request("device/" + prefs.getString(pref.DEVICE_CODE, "err") + "/releases/last");
+        Map<String, Object> response = request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
 
         if (!(boolean) response.get("success"))
             return;

@@ -370,6 +370,14 @@
                                     android:text="..." />
                             </TableRow>
                         </TableLayout>
+                        <TextView
+                            android:id="@+id/cachedInfo"
+                            android:visibility="gone"
+                            android:paddingEnd="0dp"
+                            style="@style/ThemeTextGray"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="@string/rel_cached" />
                     </LinearLayout>
 
                     <LinearLayout
