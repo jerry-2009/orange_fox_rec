@@ -1,14 +1,21 @@
 package com.fordownloads.orangefox.ui;
 
 import android.app.Activity;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
+import android.net.NetworkRequest;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.service.Scheduler;
 import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
+import com.fordownloads.orangefox.vars;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -21,6 +28,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class Tools {
     public static String getBuildType(Context c, JSONObject release) throws JSONException {
@@ -48,7 +57,7 @@ public class Tools {
                 .setActionTextColor(ContextCompat.getColor(activity, R.color.fox_accent))
                 .setBackgroundTint(ContextCompat.getColor(activity, R.color.fox_card))
                 .setTextColor(ContextCompat.getColor(activity, R.color.white))
-                .setDuration(8000)
+                .setDuration(6000)
                 .setAnchorView(view);
     }
 
@@ -68,25 +77,17 @@ public class Tools {
         return list;
     }
 
-    public static String md5(final String s) {
-        final String MD5 = "MD5";
-        try {
-            MessageDigest digest = java.security.MessageDigest
-                    .getInstance(MD5);
-            digest.update(s.getBytes());
-            byte messageDigest[] = digest.digest();
+    public static boolean scheduleJob(Context context, JobScheduler mScheduler, int network) {
+        ComponentName serviceName = new ComponentName(context.getPackageName(),
+                Scheduler.class.getName());
 
-            StringBuilder hexString = new StringBuilder();
-            for (byte aMessageDigest : messageDigest) {
-                String h = Integer.toHexString(0xFF & aMessageDigest);
-                while (h.length() < 2)
-                    h = "0" + h;
-                hexString.append(h);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return mScheduler.schedule(
+                new JobInfo.Builder(vars.SCHEDULER_JOB_ID, serviceName)
+                .setRequiredNetworkType(network)
+                .setPeriodic(vars.ONE_DAY)
+                .setPersisted(true)
+                .setRequiresStorageNotLow(true)
+                .setRequiresBatteryNotLow(true).build()
+        ) == JobScheduler.RESULT_SUCCESS;
     }
 }

@@ -9,16 +9,13 @@ import android.widget.Toast;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.utils.API;
 import com.fordownloads.orangefox.vars;
 import com.topjohnwu.superuser.Shell;
 import com.topjohnwu.superuser.io.SuFile;
 
-import org.json.JSONException;
-
 public class ActionReceiver extends BroadcastReceiver {
     public void onReceive (Context context , Intent intent) {
-                Log.e("OFR!!", intent.getAction());
+                Log.i("OFR-Action", intent.getAction());
 
         switch (intent.getAction()) {
             case "com.fordownloads.orangefox.Reboot":
@@ -30,13 +27,6 @@ public class ActionReceiver extends BroadcastReceiver {
                     NotificationManagerCompat.from(context).cancel(vars.NOTIFY_DOWNLOAD_SAVED);
                 else
                     Toast.makeText(context, R.string.err_ors_delete, Toast.LENGTH_LONG).show();
-                break;
-            case "com.fordownloads.orangefox.Update":
-                try {
-                    API.findUpdate(context);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 break;
         }
     }

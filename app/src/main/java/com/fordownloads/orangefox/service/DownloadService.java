@@ -108,7 +108,7 @@ public class DownloadService extends Service {
 
         PRDownloader.download(url, vars.DOWNLOAD_DIR, fileName)
                 .build()
-                .setOnCancelListener(() -> Log.e("OFRService", "Download cancelled"))
+                .setOnCancelListener(() -> Log.i("OFRService", "Download cancelled"))
                 .setOnProgressListener(new OnProgressListener() {
                     byte currPercent = 0, lastPercent = -1, skipMB = 0;
 

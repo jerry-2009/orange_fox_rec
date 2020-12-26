@@ -131,20 +131,25 @@
     <string name="md5_check">Checking MD5...</string>
     <string name="activity_settings">Settings</string>
 
+    <string name="scheduled">Updates scheduled successfully</string>
+    <string name="scheduled_fail">Error while scheduling updates</string>
+    <string name="schedule_disable">Background updates disabled</string>
+
     <string name="pref_update">Recovery updates</string>
+    <string name="pref_update_enable">Check for updates</string>
+    <string name="pref_update_enable_desc">Check for recovery updates every day</string>
+    <string name="pref_update_limited">Allow limited connections</string>
+    <string name="pref_update_limited_desc">Allow to check updates on limited connections</string>
     <string name="pref_update_beta">Install beta versions</string>
-    <string name="pref_update_auto">Auto install updates</string>
-    <string name="pref_update_auto_desc">All downloaded updates will be installed automatically. You still need to reboot to recovery to complete installation.</string>
+    <string name="pref_update_auto">Download and install updates</string>
+    <string name="pref_update_auto_desc">All downloaded updates will be downloaded and installed without prompt. You still need to reboot to recovery to complete installation.</string>
     <string name="pref_update_beta_desc">App will install all latest available versions including beta</string>
-    <string name="pref_update_interval">Update check interval</string>
-    <string name="pref_update_disable">Disable</string>
-    <string name="pref_update_day">Every day</string>
-    <string name="pref_update_week">Every week</string>
     <string name="pref_style">Appearance</string>
     <string name="pref_theme">Theme</string>
-    <string name="pref_theme_system">System</string>
-    <string name="pref_theme_light">Light</string>
-    <string name="pref_theme_dark">Dark</string>
+    <string name="pref_theme_system">System theme</string>
+    <string name="pref_theme_system_desc">Use default system theme</string>
+    <string name="pref_theme_dark">Use dark theme</string>
+    <string name="pref_theme_dark_desc">Use dark theme instead of light theme</string>
     <string name="pref_api">API settings</string>
     <string name="pref_device">Change device</string>
     <string name="pref_mirror">Change download mirror</string>

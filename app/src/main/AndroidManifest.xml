@@ -4,6 +4,7 @@
     package="com.fordownloads.orangefox">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,6 +31,10 @@
             android:enabled="true"
             android:exported="false" />
 
+        <service
+            android:name=".service.Scheduler"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity
             android:name=".activity.RecyclerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
@@ -54,7 +59,6 @@
                 <action android:name="com.fordownloads.orangefox.Reboot" />
                 <action android:name="com.fordownloads.orangefox.ORS" />
                 <action android:name="com.fordownloads.orangefox.Start" />
-                <action android:name="com.fordownloads.orangefox.Update" />
             </intent-filter>
         </receiver>
     </application>

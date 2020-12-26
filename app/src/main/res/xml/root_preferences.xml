@@ -5,45 +5,59 @@
         app:layout="@layout/about" />
 
     <PreferenceCategory app:title="@string/pref_update">
-        <ListPreference
-            app:defaultValue="0"
-            app:entries="@array/update_entries"
-            app:entryValues="@array/update_values"
-            app:key="pref_update_interval"
-            app:title="@string/pref_update_interval"
+        <SwitchPreferenceCompat
+            app:key="pref_updates_enable"
+            app:title="@string/pref_update_enable"
             app:icon="@drawable/ic_round_av_timer_24"
-            app:useSimpleSummaryProvider="true" />
+            app:defaultValue="false"
+            app:summary="@string/pref_update_enable_desc" />
 
         <SwitchPreferenceCompat
-            app:key="pref_auto_install"
+            app:key="pref_updates_limited"
+            app:title="@string/pref_update_limited"
+            app:icon="@drawable/ic_round_warning_24"
+            app:defaultValue="false"
+            app:dependency="pref_updates_enable"
+            app:summary="@string/pref_update_limited_desc" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_updates_install"
             app:title="@string/pref_update_auto"
             app:icon="@drawable/ic_round_system_update_24"
+            app:defaultValue="true"
+            app:dependency="pref_updates_enable"
             app:summary="@string/pref_update_auto_desc" />
 
         <SwitchPreferenceCompat
-            app:key="pref_recieve_beta"
+            app:key="pref_updates_beta"
             app:title="@string/pref_update_beta"
             app:icon="@drawable/ic_outline_new_releases_24"
+            app:defaultValue="true"
+            app:dependency="pref_updates_enable"
             app:summary="@string/pref_update_beta_desc" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_style">
-        <ListPreference
-            app:defaultValue="0"
-            app:entries="@array/theme_entries"
-            app:entryValues="@array/theme_values"
-            app:key="pref_theme"
-            app:title="@string/pref_theme"
-            app:icon="@drawable/ic_round_av_timer_24"
-            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:key="pref_theme_system"
+            app:title="@string/pref_theme_system"
+            app:icon="@drawable/ic_theme"
+            app:defaultValue="true"
+            app:summary="@string/pref_theme_system_desc" />
+        <SwitchPreferenceCompat
+            app:key="pref_theme_dark"
+            app:title="@string/pref_theme_dark"
+            app:icon="@drawable/ic_outline_nights_stay_24"
+            app:defaultValue="true"
+            app:dependency="pref_theme_system"
+            app:summary="@string/pref_theme_dark_desc" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/pref_api">
         <Preference
             app:title="@string/pref_device"
             app:icon="@drawable/ic_device"
-            app:key="change_device"
-            />
+            app:key="change_device" />
     </PreferenceCategory>
 
 </PreferenceScreen>

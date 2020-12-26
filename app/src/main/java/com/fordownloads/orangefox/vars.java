@@ -17,4 +17,6 @@ public class vars {
     public static final int NOTIFY_DOWNLOAD_FG = 3000;
     public static final int NOTIFY_DOWNLOAD_SAVED = 4000;
     public static final int NOTIFY_DOWNLOAD_ERROR = 5000;
+    public static final int SCHEDULER_JOB_ID = 1000;
+    public static final long ONE_DAY = 86400000;
 }

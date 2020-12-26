@@ -22,7 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MD5 {
-    private static final String TAG = "MD5";
+    private static final String TAG = "OFR-MD5";
 
     public static boolean checkMD5(String md5, File updateFile) {
         if (TextUtils.isEmpty(md5) || updateFile == null) {

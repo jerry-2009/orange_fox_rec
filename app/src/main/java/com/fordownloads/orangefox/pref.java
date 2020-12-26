@@ -5,4 +5,12 @@ public class pref {
     public static final String DEVICE_CODE = "pref_device_code";
     public static final String CACHE_RELEASE = "cache_release";
     public static final String RELEASE_ID = "pref_release_id";
+
+    public static final String THEME_SYSTEM = "pref_theme_system";
+    public static final String THEME_DARK = "pref_theme_dark";
+
+    public static final String UPDATES_BETA = "pref_updates_beta";
+    public static final String UPDATES_INSTALL = "pref_updates_install";
+    public static final String UPDATES_ENABLE = "pref_updates_enable";
+    public static final String UPDATES_LIMITED = "pref_updates_limited";
 }
