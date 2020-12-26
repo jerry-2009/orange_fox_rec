@@ -115,7 +115,10 @@ public class RecyclerActivity extends AppCompatActivity {
 
             items.add(new RecyclerItems(getString(R.string.rel_type), stringBuildType, R.drawable.ic_outline_build_24));
             items.add(new RecyclerItems(getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));
-            items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("filename"), R.drawable.ic_outline_archive_24));
+
+            if (release.has("filename"))
+                items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("filename"), R.drawable.ic_outline_archive_24));
+
             items.add(new RecyclerItems(getString(R.string.rel_date), Tools.formatDate(release.getLong("date")), R.drawable.ic_outline_today_24));
             items.add(new RecyclerItems(getString(R.string.rel_size), Tools.formatSize(this, release.getInt("size")), R.drawable.ic_outline_sd_card_24));
             items.add(new RecyclerItems("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
@@ -288,7 +291,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 ((ViewPager)findViewById(R.id.viewpager)).setAdapter(fragAdapter);
 
                 findViewById(R.id.viewpagerlayout).setVisibility(View.GONE);
-                getSupportActionBar().setElevation(8);
+                getSupportActionBar().setElevation(getResources().getDimension(R.dimen.elevation_medium));
 
                 _loadingView.animate()
                         .alpha(0f)

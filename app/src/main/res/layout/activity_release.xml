@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_marginTop="104dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +30,7 @@
         <LinearLayout
             android:id="@+id/viewpagerlayout"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="64dp"
             android:layout_weight="0"
             android:orientation="vertical">
 
@@ -32,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="8dp">
+                app:cardElevation="@dimen/elevation_medium">
 
                 <com.ogaclejapan.smarttablayout.SmartTabLayout
                     android:id="@+id/viewpagertab"
@@ -48,7 +54,7 @@
                     app:stl_defaultTabTextHorizontalPadding="18dp"
                     app:stl_dividerColor="@android:color/transparent"
                     app:stl_dividerThickness="0dp"
-                    app:stl_indicatorColor="@color/fox_card"
+                    app:stl_indicatorColor="@color/tab_selected"
                     app:stl_indicatorCornerRadius="18dp"
                     app:stl_indicatorGravity="center"
                     app:stl_indicatorInterpolation="linear"
@@ -57,12 +63,6 @@
                     app:stl_underlineThickness="0dp" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2" />
     </LinearLayout>
 
     <FrameLayout

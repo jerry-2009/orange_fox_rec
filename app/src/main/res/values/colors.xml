@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="fox_bright">#FFFF931E</color>
-    <color name="fox_dim">#FFE90600</color>
-    <color name="fox_accent">#FFED6F02</color>
-    <color name="fox_background">#FF1e1f22</color>
-    <color name="fox_status_solid_bg">#FF18191B</color>
-    <color name="fox_title_solid_bg">#FF1C1D20</color>
-    <color name="google_gray">#FF5F6368</color>
-    <color name="fox_card">#FF242528</color>
-    <color name="fox_card_shimmer">#D2393A40</color>
-    <color name="fox_outline">#FF2f3133</color>
-    <color name="fox_dark_text">#FF202124</color>
-    <color name="fox_notify">#FF78909C</color>
-    <color name="google_error">#ff5252</color>
-    <color name="gray_light">#ffdddddd</color>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF202124</color>
 
+    <color name="fox_bright">#FFEBEB</color>
+    <color name="fox_dim">#FCFCFC</color>
+
+    <color name="fox_accent">#F35928</color>
+    <color name="fox_background">#FCFCFC</color>
+
+    <color name="fox_status_solid_bg">#F8F8F8</color>
+    <color name="fox_title_solid_bg">#FCFCFC</color>
+
+    <color name="google_gray">#FF5F6368</color>
+
+    <color name="fox_card">#F9F9F9</color>
+
+    <color name="fox_card_shimmer">#D2EAEAEA</color>
+    <color name="fox_outline">#E8E6E6</color>
+    <color name="fox_dark_text">#FFFFFFFF</color>
+    <color name="fox_notify">#FF78909C</color>
+    <color name="google_error">#EF5350</color>
+    <color name="gray_light">#9E9999</color>
+
+    <color name="tab_selected">#90EDEBEB</color>
 </resources>

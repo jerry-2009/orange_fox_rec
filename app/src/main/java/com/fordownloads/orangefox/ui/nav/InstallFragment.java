@@ -43,7 +43,7 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
-    TextView _ofTitle, _cardErrorText, _cardErrorTitle, _cachedInfo;
+    TextView _ofTitle, _cardErrorText, _cardErrorTitle;
     Button _releaseInfo, _oldReleases, _btnRefresh;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
@@ -72,8 +72,6 @@ public class InstallFragment extends Fragment {
         _cardErrorText = rootView.findViewById(R.id.cardErrorText);
         _cardErrorTitle = rootView.findViewById(R.id.cardErrorTitle);
         _shimmer = rootView.findViewById(R.id.shimmer);
-
-        _cachedInfo = rootView.findViewById(R.id.cachedInfo);
 
         _installButton.hide();
 
@@ -192,9 +190,7 @@ public class InstallFragment extends Fragment {
 
             if (!force && useCached && prefs.contains(pref.CACHE_RELEASE)) {
                 release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
-                _cachedInfo.setVisibility(View.VISIBLE);
             } else {
-                _cachedInfo.setVisibility(View.GONE);
                 Map<String, Object> response = API.request("releases/get?_id=" + id);
                 if (abortDevice(response, dialog)) return;
                 release = new JSONObject((String) response.get("response"));

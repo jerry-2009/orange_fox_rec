@@ -4,17 +4,22 @@
     android:focusable="true"
     android:clickable="true"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="64.0dip"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <androidx.cardview.widget.CardView
+    android:layout_height="88dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
         style="@style/ThemeCard"
+        android:layout_gravity="top"
         android:layout_margin="8dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/fox_outline"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/fox_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="72dp" >
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher" />
         <LinearLayout
@@ -40,5 +45,5 @@
                 android:textSize="14sp"
                 android:text="@string/pref_about_desc"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

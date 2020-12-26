@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -46,7 +48,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
-        Preference _device, _updater;
+        Preference _device, _system, _dark, _upd_1, _upd_2, _upd_3;
+
+        public void updateTogglesState(boolean state) {
+            _upd_1.setVisible(state);
+            _upd_2.setVisible(state);
+            _upd_3.setVisible(state);
+        }
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -54,6 +62,14 @@ public class SettingsActivity extends AppCompatActivity {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             JobScheduler mScheduler = (JobScheduler)getActivity().getSystemService(JOB_SCHEDULER_SERVICE);
             _device = findPreference("change_device");
+            _system = findPreference(pref.THEME_SYSTEM);
+            _dark = findPreference(pref.THEME_DARK);
+            _upd_1 = findPreference(pref.UPDATES_LIMITED);
+            _upd_2 = findPreference(pref.UPDATES_INSTALL);
+            _upd_3 = findPreference(pref.UPDATES_BETA);
+
+            _dark.setVisible(!prefs.getBoolean(pref.THEME_SYSTEM, true));
+            updateTogglesState(prefs.getBoolean(pref.UPDATES_ENABLE, false));
 
             prefs.edit().putBoolean(pref.UPDATES_ENABLE, mScheduler.getPendingJob(vars.SCHEDULER_JOB_ID) != null).apply();
 
@@ -69,13 +85,31 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
             findPreference(pref.UPDATES_ENABLE).setOnPreferenceClickListener((p) -> {
+                mScheduler.cancelAll();
                 if (prefs.getBoolean(pref.UPDATES_ENABLE, false)) {
                     jobSchedule(prefs, mScheduler);
-                } else {
-                    mScheduler.cancelAll();
-                }
+                    updateTogglesState(true);
+                } else
+                    updateTogglesState(false);
                 return true;
             });
+
+            Preference.OnPreferenceClickListener theme = (p) -> {
+                if (prefs.getBoolean(pref.THEME_SYSTEM, true)) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    _dark.setVisible(false);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(
+                            prefs.getBoolean(pref.THEME_DARK, false) ?
+                                    AppCompatDelegate.MODE_NIGHT_YES :
+                                    AppCompatDelegate.MODE_NIGHT_NO);
+                    _dark.setVisible(true);
+                }
+                return true;
+            };
+
+            _system.setOnPreferenceClickListener(theme);
+            _dark.setOnPreferenceClickListener(theme);
 
             findPreference(pref.UPDATES_LIMITED).setOnPreferenceClickListener((p) -> {
                 mScheduler.cancelAll();

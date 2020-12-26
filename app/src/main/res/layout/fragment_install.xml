@@ -10,408 +10,427 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/installButton"
+        style="@style/ThemeButtonInstall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:layout_gravity="bottom|center"
-        android:text="Install R11.0_1 Stable"
-        style="@style/ThemeButtonInstall"/>
+        android:layout_margin="16dp"
+        android:text="Install R11.0_1 Stable" />
 
-    <ImageView android:id="@+id/imageView3"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/fox_main_gradient"/>
+        android:src="@drawable/fox_main_gradient" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollCards"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:animateLayoutChanges="true">
-
-        <LinearLayout
-            android:id="@+id/cards"
+        <ScrollView
+            android:id="@+id/scrollCards"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@drawable/divider"
-            android:orientation="vertical"
-            android:paddingBottom="150dp"
+            android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:showDividers="middle|end">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="horizontal"
-            android:background="@android:color/transparent">
-            <TextView android:id="@+id/ofTitle"
-                android:layout_weight="1"
-                android:layout_marginStart="64dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:fontFamily="@font/euclid_flex"
-                android:text="OrangeFox Recovery"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/white"
-                android:textSize="22sp"/>
-            <ImageButton
-                android:id="@+id/settingsOpen"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_margin="14dp"
-                android:layout_weight="0"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_settings" />
-        </LinearLayout>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardError"
-                style="@style/ThemeCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="0dp"
-                    android:paddingBottom="2dp">
-
-                    <ImageView
-                        android:id="@+id/cardErrorIcon"
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_weight="1"
-                        android:paddingBottom="8dp"
-                        android:src="@drawable/ic_round_public_off_24"
-                        app:tint="@color/google_gray" />
-
-                    <TextView
-                        android:id="@+id/cardErrorTitle"
-                        style="@style/ThemeTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/err_card_no_internet"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:id="@+id/cardErrorText"
-                        style="@style/ThemeText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/err_no_internet"
-                        android:textAlignment="center" />
-
-                    <Button
-                        android:id="@+id/btnRefresh"
-                        style="@style/ThemeButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/err_card_try_again"
-                        app:icon="@drawable/ic_round_refresh_24" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            android:scrollbars="none">
 
             <LinearLayout
-                android:id="@+id/shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:animateLayoutChanges="true"
                 android:divider="@drawable/divider"
-                tools:visibility="gone"
-                android:showDividers="beginning|middle|end">
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    style="@style/ThemeShimmer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.cardview.widget.CardView
-                        style="@style/ThemeCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="216dp"
-                        android:layout_weight="1"/>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    style="@style/ThemeShimmer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.cardview.widget.CardView
-                        style="@style/ThemeCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="216dp"
-                        android:layout_weight="1"/>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-            </LinearLayout>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardInfo"
-                style="@style/ThemeCard"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="right|top"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/ic_device"
-                    app:tint="@color/google_gray" />
+                android:orientation="vertical"
+                android:showDividers="middle|end">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp">
+                    android:layout_marginTop="6dp"
+                    android:layout_height="56dp"
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal">
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/ofTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="56dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/euclid_flex"
+                        android:gravity="center"
+                        android:text="OrangeFox Recovery"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/white"
+                        android:textSize="22sp" />
 
-                        <TextView
-                            style="@style/ThemeTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="8dp"
-                            android:text="@string/dev_info" />
-
-                        <TableLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:shrinkColumns="all">
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/dev_model" />
-
-                                <TextView
-                                    android:id="@+id/devModel"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/dev_code" />
-
-                                <TextView
-                                    android:id="@+id/devCode"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/dev_maintainer" />
-
-                                <TextView
-                                    android:id="@+id/devMaintainer"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/dev_status" />
-
-                                <TextView
-                                    android:id="@+id/devStatus"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/dev_patch" />
-
-                                <TextView
-                                    android:id="@+id/devPatch"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-                        </TableLayout>
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/settingsOpen"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_margin="13dp"
+                        android:layout_weight="0"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_settings" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardRelease"
-                style="@style/ThemeCard"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="right|top"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/ic_outline_new_releases_24"
-                    app:tint="@color/google_gray" />
 
                 <LinearLayout
+                    android:id="@+id/cards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:divider="@drawable/divider"
                     android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:paddingTop="8dp">
+                    android:clipToPadding="false"
+                    android:paddingTop="8dp"
+                    android:showDividers="middle|end">
 
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardError"
+                        style="@style/ThemeCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="150dp"
+                        android:layout_weight="1"
+                        android:clipToPadding="false"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
-                        <TextView
-                            style="@style/ThemeTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="8dp"
-                            android:text="@string/rel_current" />
-
-                        <TableLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:shrinkColumns="all">
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/rel_vers" />
-
-                                <TextView
-                                    android:id="@+id/relVers"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/rel_type" />
-
-                                <TextView
-                                    android:id="@+id/relType"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/rel_date" />
-
-                                <TextView
-                                    android:id="@+id/relDate"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-
-                            <TableRow>
-
-                                <TextView
-                                    style="@style/ThemeTextGray"
-                                    android:layout_weight="0"
-                                    android:text="@string/rel_size" />
-
-                                <TextView
-                                    android:id="@+id/relSize"
-                                    style="@style/ThemeTextBold"
-                                    android:layout_weight="1"
-                                    android:text="..." />
-                            </TableRow>
-                        </TableLayout>
-                        <TextView
-                            android:id="@+id/cachedInfo"
-                            android:visibility="gone"
-                            android:paddingEnd="0dp"
-                            style="@style/ThemeTextGray"
                             android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:text="@string/rel_cached" />
-                    </LinearLayout>
+                            android:layout_marginBottom="8dp"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="2dp">
+
+                            <ImageView
+                                android:id="@+id/cardErrorIcon"
+                                android:layout_width="match_parent"
+                                android:layout_height="64dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp"
+                                android:src="@drawable/ic_round_public_off_24"
+                                app:tint="@color/google_gray" />
+
+                            <TextView
+                                android:id="@+id/cardErrorTitle"
+                                style="@style/ThemeTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/err_card_no_internet"
+                                android:textAlignment="center" />
+
+                            <TextView
+                                android:id="@+id/cardErrorText"
+                                style="@style/ThemeText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_weight="1"
+                                android:text="@string/err_no_internet"
+                                android:textAlignment="center" />
+
+                            <Button
+                                android:id="@+id/btnRefresh"
+                                style="@style/ThemeButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/err_card_try_again"
+                                app:icon="@drawable/ic_round_refresh_24" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
                     <LinearLayout
+                        android:id="@+id/shimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:divider="@drawable/divider"
-                        android:orientation="horizontal"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="2dp"
-                        android:showDividers="middle">
+                        android:orientation="vertical"
+                        android:showDividers="beginning|middle|end"
+                        tools:visibility="gone">
 
-                        <Button
-                            android:id="@+id/oldReleases"
-                            style="@style/ThemeButtonOutline"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/fox_card"
-                            android:text="@string/rel_more"
-                            app:icon="@drawable/ic_widget" />
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            style="@style/ThemeShimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <Button
-                            android:id="@+id/releaseInfo"
-                            style="@style/ThemeButton"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/rel_button"
-                            app:icon="@drawable/ic_outline_info_24" />
+                            <androidx.cardview.widget.CardView
+                                style="@style/ThemeCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="216dp"
+                                android:layout_weight="1" />
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            style="@style/ThemeShimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.cardview.widget.CardView
+                                style="@style/ThemeCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="216dp"
+                                android:layout_weight="1" />
+                        </com.facebook.shimmer.ShimmerFrameLayout>
                     </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardInfo"
+                        style="@style/ThemeCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="right|top"
+                            android:layout_margin="8dp"
+                            android:src="@drawable/ic_device"
+                            app:tint="@color/google_gray" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/ThemeTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="8dp"
+                                    android:text="@string/dev_info" />
+
+                                <TableLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:shrinkColumns="all">
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/dev_model" />
+
+                                        <TextView
+                                            android:id="@+id/devModel"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/dev_code" />
+
+                                        <TextView
+                                            android:id="@+id/devCode"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/dev_maintainer" />
+
+                                        <TextView
+                                            android:id="@+id/devMaintainer"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/dev_status" />
+
+                                        <TextView
+                                            android:id="@+id/devStatus"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/dev_patch" />
+
+                                        <TextView
+                                            android:id="@+id/devPatch"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+                                </TableLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardRelease"
+                        style="@style/ThemeCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="150dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="right|top"
+                            android:layout_margin="8dp"
+                            android:src="@drawable/ic_outline_new_releases_24"
+                            app:tint="@color/google_gray" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp"
+                            android:paddingTop="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/ThemeTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="8dp"
+                                    android:text="@string/rel_current" />
+
+                                <TableLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:shrinkColumns="all">
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/rel_vers" />
+
+                                        <TextView
+                                            android:id="@+id/relVers"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/rel_type" />
+
+                                        <TextView
+                                            android:id="@+id/relType"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/rel_date" />
+
+                                        <TextView
+                                            android:id="@+id/relDate"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+
+                                    <TableRow>
+
+                                        <TextView
+                                            style="@style/ThemeTextGray"
+                                            android:layout_weight="0"
+                                            android:text="@string/rel_size" />
+
+                                        <TextView
+                                            android:id="@+id/relSize"
+                                            style="@style/ThemeTextBold"
+                                            android:layout_weight="1"
+                                            android:text="..." />
+                                    </TableRow>
+                                </TableLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:divider="@drawable/divider"
+                                android:orientation="horizontal"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="2dp"
+                                android:showDividers="middle">
+
+                                <Button
+                                    android:id="@+id/oldReleases"
+                                    style="@style/ThemeButtonOutline"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/fox_card"
+                                    android:text="@string/rel_more"
+                                    app:icon="@drawable/ic_widget" />
+
+                                <Button
+                                    android:id="@+id/releaseInfo"
+                                    style="@style/ThemeButton"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/rel_button"
+                                    app:icon="@drawable/ic_outline_info_24" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

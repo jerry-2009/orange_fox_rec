@@ -40,7 +40,6 @@
     <string name="rel_more">Old Builds</string>
     <string name="rel_current">Latest Release</string>
 
-    <string name="rel_cached">*Cached Data</string>
     <string name="rel_size">File Size</string>
     <string name="rel_vers">Version</string>
     <string name="rel_type">Build Type</string>
@@ -150,10 +149,9 @@
     <string name="pref_theme_system_desc">Use default system theme</string>
     <string name="pref_theme_dark">Use dark theme</string>
     <string name="pref_theme_dark_desc">Use dark theme instead of light theme</string>
-    <string name="pref_api">API settings</string>
     <string name="pref_device">Change device</string>
     <string name="pref_mirror">Change download mirror</string>
 
-    <string name="pref_about">About App</string>
+    <string name="pref_about">OrangeFox App</string>
     <string name="pref_about_desc">Authors, licenses, etc.</string>
 </resources>

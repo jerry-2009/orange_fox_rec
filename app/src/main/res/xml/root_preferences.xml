@@ -5,6 +5,11 @@
         app:layout="@layout/about" />
 
     <PreferenceCategory app:title="@string/pref_update">
+        <Preference
+            app:title="@string/pref_device"
+            app:icon="@drawable/ic_device"
+            app:key="change_device" />
+
         <SwitchPreferenceCompat
             app:key="pref_updates_enable"
             app:title="@string/pref_update_enable"
@@ -43,21 +48,14 @@
             app:title="@string/pref_theme_system"
             app:icon="@drawable/ic_theme"
             app:defaultValue="true"
+            app:disableDependentsState="true"
             app:summary="@string/pref_theme_system_desc" />
         <SwitchPreferenceCompat
             app:key="pref_theme_dark"
             app:title="@string/pref_theme_dark"
             app:icon="@drawable/ic_outline_nights_stay_24"
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:dependency="pref_theme_system"
             app:summary="@string/pref_theme_dark_desc" />
     </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/pref_api">
-        <Preference
-            app:title="@string/pref_device"
-            app:icon="@drawable/ic_device"
-            app:key="change_device" />
-    </PreferenceCategory>
-
 </PreferenceScreen>

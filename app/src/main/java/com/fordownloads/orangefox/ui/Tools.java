@@ -5,6 +5,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.NetworkRequest;
 import android.util.Log;
 import android.view.View;

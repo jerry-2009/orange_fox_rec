@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.OrangeFox" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/fox_accent</item>
+        <item name="colorPrimaryVariant">@color/fox_bright</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/fox_accent</item>
+        <item name="colorSecondaryVariant">@color/fox_accent</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:navigationBarColor">@color/fox_status_solid_bg</item>
+        <item name="android:windowBackground">@color/fox_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="alertDialogTheme">@style/ThemeDialog</item>
+    </style>
+</resources>
