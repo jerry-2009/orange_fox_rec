@@ -79,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
             _device.setOnPreferenceClickListener((p) -> {
                 Intent intent = new Intent(getContext(), RecyclerActivity.class);
                 intent.putExtra("type", 3);
+                intent.putExtra("arrow", true);
                 intent.putExtra("title", R.string.dev_activity);
                 startActivityForResult(intent, 202);
                 return true;

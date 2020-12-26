@@ -2,11 +2,9 @@ package com.fordownloads.orangefox.activity;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -25,8 +23,6 @@ import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
 import com.fordownloads.orangefox.ui.nav.BackupsFragment;
 import com.fordownloads.orangefox.vars;
 import com.topjohnwu.superuser.Shell;
-
-import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
     static {

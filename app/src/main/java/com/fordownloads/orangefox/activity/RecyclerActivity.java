@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -72,6 +74,8 @@ public class RecyclerActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        if (intent.getBooleanExtra("arrow", false))
+            ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
         ab.setTitle(intent.getIntExtra("title", R.string.app_name));
 
         switch (intent.getIntExtra("type", 0)) {
@@ -207,6 +211,7 @@ public class RecyclerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecyclerActivity.class);
         intent.putExtra("release", list.get(itemPosition).getId());
         intent.putExtra("type", 0);
+        intent.putExtra("arrow", true);
         intent.putExtra("title", R.string.rel_activity);
         startActivityForResult(intent, 201);
     }
@@ -288,7 +293,13 @@ public class RecyclerActivity extends AppCompatActivity {
                 FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
                         getSupportFragmentManager(), pageList.create());
 
-                ((ViewPager)findViewById(R.id.viewpager)).setAdapter(fragAdapter);
+                ViewPager pager = findViewById(R.id.viewpager);
+                pager.setAdapter(fragAdapter);
+                ViewPager.MarginLayoutParams p = (ViewPager.MarginLayoutParams) pager.getLayoutParams();
+                p.setMargins(0, (int)TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 56,
+                        getResources().getDisplayMetrics()),0,0);
+                pager.requestLayout();
 
                 findViewById(R.id.viewpagerlayout).setVisibility(View.GONE);
                 getSupportActionBar().setElevation(getResources().getDimension(R.dimen.elevation_medium));
