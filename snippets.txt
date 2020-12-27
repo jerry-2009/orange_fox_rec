@@ -25,3 +25,31 @@ private void writeORS() {
 
     Shell.su("reboot recovery").submit();
 }
+                /*if (offset <= 0.0f && !blockedUp) {
+                    myToolbar.setBackgroundColor(color);
+                    myToolbar.setElevation(originalElevation);
+                    blockedUp = true;
+                    blockedDown = false;
+                    Log.i("OFR", "Up");
+                } else if (offset > 0.0f && !blockedDown) {
+                    myToolbar.setBackgroundColor(transparent);
+                    myToolbar.setElevation(0);
+                    blockedUp = false;
+                    blockedDown = true;
+                    Log.i("OFR", "Down");
+                }*/
+
+
+                    /*float ratio = 1-(Math.abs(offset)/50);
+                    int red = (int)Math.abs((ratio * Color.red(color)) + ((1 - ratio) * Color.red(bg)));
+                    int green = (int)Math.abs((ratio * Color.green(color)) + ((1 - ratio) * Color.green(bg)));
+                    int blue = (int)Math.abs((ratio * Color.blue(color)) + ((1 - ratio) * Color.blue(bg)));
+                    int red2 = (int)Math.abs((ratio * Color.red(text)) + ((1 - ratio) * Color.red(bg)));
+                    int green2 = (int)Math.abs((ratio * Color.green(text)) + ((1 - ratio) * Color.green(bg)));
+                    int blue2 = (int)Math.abs((ratio * Color.blue(text)) + ((1 - ratio) * Color.blue(bg)));
+                    myToolbar.setBackgroundColor(android.graphics.Color.rgb(red, green, blue));
+                    myToolbar.setTitleTextColor(android.graphics.Color.rgb(red2, green2, blue2));
+                    myToolbar.setElevation(originalElevation - (Math.abs(offset) / 50 * originalElevation));
+
+                    upArrow.setColorFilter(android.graphics.Color.rgb(red2, green2, blue2), PorterDuff.Mode.SRC_ATOP);
+                    getSupportActionBar().setHomeAsUpIndicator(upArrow);*/

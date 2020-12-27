@@ -13,18 +13,7 @@
         <item name="android:windowBackground">@color/fox_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="alertDialogTheme">@style/ThemeDialog</item>
-    </style>
-
-    <style name="ThemeInstall" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/white</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowBackground">@color/fox_background</item>
+        <item name="android:overScrollMode">never</item>
     </style>
 
     <style name="Theme.OrangeFox.Activity">
@@ -93,8 +82,18 @@
         <item name="iconPadding">8dp</item>
         <item name="cornerRadius">6dp</item>
         <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingVertical">6dp</item>
         <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="ThemeButtonDialog" parent="ThemeButton">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:paddingVertical">10dp</item>
+    </style>
+
+    <style name="ThemeButtonDialogOutline" parent="ThemeButtonOutline">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:paddingVertical">10dp</item>
     </style>
 
     <style name="ThemeButtonOutline" parent="ThemeButton">

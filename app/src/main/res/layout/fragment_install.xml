@@ -47,9 +47,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="6dp"
-                    android:layout_height="56dp"
+                    android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:orientation="horizontal">
                     android:orientation="horizontal">
 
                     <TextView
@@ -70,7 +69,7 @@
                         android:id="@+id/settingsOpen"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_margin="13dp"
+                        android:layout_margin="11dp"
                         android:layout_weight="0"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_settings" />
@@ -92,7 +91,7 @@
                         style="@style/ThemeCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="150dp"
+                        android:layout_marginBottom="72dp"
                         android:layout_weight="1"
                         android:clipToPadding="false"
                         android:visibility="gone"
@@ -153,7 +152,8 @@
                         android:layout_height="wrap_content"
                         android:divider="@drawable/divider"
                         android:orientation="vertical"
-                        android:showDividers="beginning|middle|end"
+                        android:layout_marginBottom="72dp"
+                        android:showDividers="middle|end"
                         tools:visibility="gone">
 
                         <com.facebook.shimmer.ShimmerFrameLayout
@@ -164,7 +164,7 @@
                             <androidx.cardview.widget.CardView
                                 style="@style/ThemeCard"
                                 android:layout_width="match_parent"
-                                android:layout_height="216dp"
+                                android:layout_height="192dp"
                                 android:layout_weight="1" />
                         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -176,7 +176,7 @@
                             <androidx.cardview.widget.CardView
                                 style="@style/ThemeCard"
                                 android:layout_width="match_parent"
-                                android:layout_height="216dp"
+                                android:layout_height="192dp"
                                 android:layout_weight="1" />
                         </com.facebook.shimmer.ShimmerFrameLayout>
                     </LinearLayout>
@@ -302,7 +302,7 @@
                         style="@style/ThemeCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="150dp"
+                        android:layout_marginBottom="72dp"
                         android:layout_weight="1"
                         android:visibility="gone"
                         tools:visibility="visible">

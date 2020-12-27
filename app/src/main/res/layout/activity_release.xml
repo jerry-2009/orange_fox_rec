@@ -1,96 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.thefuntasty.hauler.HaulerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/haulerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_marginTop="104dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/appToolbar"
-            style="@style/ThemeToolbarStyle"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="0"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextAppearance="@style/ThemeToolbarText" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="104dp" />
 
         <LinearLayout
-            android:id="@+id/viewpagerlayout"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="0"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/appToolbar"
+                style="@style/ThemeToolbarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="@dimen/elevation_medium">
+                android:layout_height="?attr/actionBarSize"
+                android:layout_weight="0"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextAppearance="@style/ThemeToolbarText" />
 
-                <com.ogaclejapan.smarttablayout.SmartTabLayout
-                    android:id="@+id/viewpagertab"
+            <LinearLayout
+                android:id="@+id/viewpagerlayout"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_weight="0"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/viewpagertabElevation"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@color/fox_title_solid_bg"
-                    android:clipToPadding="false"
-                    android:defaultFocusHighlightEnabled="false"
-                    android:paddingStart="54dp"
-                    android:paddingEnd="8dp"
-                    android:theme="@style/ThemeTabs"
-                    app:stl_defaultTabTextColor="@color/white"
-                    app:stl_defaultTabTextHorizontalPadding="18dp"
-                    app:stl_dividerColor="@android:color/transparent"
-                    app:stl_dividerThickness="0dp"
-                    app:stl_indicatorColor="@color/tab_selected"
-                    app:stl_indicatorCornerRadius="18dp"
-                    app:stl_indicatorGravity="center"
-                    app:stl_indicatorInterpolation="linear"
-                    app:stl_indicatorThickness="36dp"
-                    app:stl_underlineColor="@android:color/transparent"
-                    app:stl_underlineThickness="0dp" />
-            </androidx.cardview.widget.CardView>
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="@dimen/elevation_medium">
+
+                    <com.ogaclejapan.smarttablayout.SmartTabLayout
+                        android:id="@+id/viewpagertab"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@color/fox_title_solid_bg"
+                        android:clipToPadding="false"
+                        android:defaultFocusHighlightEnabled="false"
+                        android:paddingStart="54dp"
+                        android:paddingEnd="8dp"
+                        android:theme="@style/ThemeTabs"
+                        app:stl_defaultTabTextColor="@color/white"
+                        app:stl_defaultTabTextHorizontalPadding="18dp"
+                        app:stl_dividerColor="@android:color/transparent"
+                        app:stl_dividerThickness="0dp"
+                        app:stl_indicatorColor="@color/tab_selected"
+                        app:stl_indicatorCornerRadius="18dp"
+                        app:stl_indicatorGravity="center"
+                        app:stl_indicatorInterpolation="linear"
+                        app:stl_indicatorThickness="36dp"
+                        app:stl_underlineColor="@android:color/transparent"
+                        app:stl_underlineThickness="0dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/loadingLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/fox_status_solid_bg"
-        android:orientation="vertical"
-        android:clickable="true"
-        tools:visibility="gone"
-        android:weightSum="5">
-
-        <ProgressBar
-            android:id="@+id/spinner"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center" />
-    </FrameLayout>
+            android:background="@color/fox_status_solid_bg"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:weightSum="5"
+            tools:visibility="gone">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/installThis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:layout_gravity="bottom|end"
-        android:text="@string/rel_installthis"
-        android:visibility="invisible"
-        style="@style/ThemeButtonInstall"/>
+            <ProgressBar
+                android:id="@+id/spinner"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/installThis"
+            style="@style/ThemeButtonInstall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="24dp"
+            android:text="@string/rel_installthis"
+            android:visibility="invisible" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.thefuntasty.hauler.HaulerView>

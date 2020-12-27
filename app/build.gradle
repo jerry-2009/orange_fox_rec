@@ -43,9 +43,11 @@ dependencies {
     implementation 'com.mindorks.android:prdownloader:0.6.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
+    implementation 'me.everything:overscroll-decor-android:1.1.0'
 
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+    implementation("com.thefuntasty.hauler:core:3.1.0")
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 

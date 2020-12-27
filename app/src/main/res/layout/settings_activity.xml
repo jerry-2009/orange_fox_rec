@@ -1,18 +1,27 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<com.thefuntasty.hauler.HaulerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout
-        android:id="@+id/settingsFragment"
-        android:layout_marginTop="?attr/actionBarSize"
+    android:id="@+id/haulerView"
+    android:layout_width="match_parent"
+    app:dragDismissScale="0.9"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/appToolbar"
-        style="@style/ThemeToolbarStyle"
-        android:elevation="@dimen/elevation_medium"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:titleTextAppearance="@style/ThemeToolbarText" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/settingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/appToolbar"
+            style="@style/ThemeToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="@dimen/elevation_medium"
+            app:titleTextAppearance="@style/ThemeToolbarText" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.thefuntasty.hauler.HaulerView>

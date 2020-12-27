@@ -147,10 +147,13 @@ public class InstallFragment extends Fragment {
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
 
-        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE && (float)(size.x / size.y) > 1.6)
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE && (float)(size.x / size.y) > 1.6){
             cards.setOrientation(LinearLayout.HORIZONTAL);
-        else if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
+            cards.setShowDividers(LinearLayout.SHOW_DIVIDER_BEGINNING | LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
             cards.setOrientation(LinearLayout.VERTICAL);
+            cards.setShowDividers(LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
+        }
     }
 
     private void prepareDevice(boolean force) {

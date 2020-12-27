@@ -43,7 +43,7 @@
 
             <Button
                 android:id="@+id/btnInstall"
-                style="@style/ThemeButton"
+                style="@style/ThemeButtonDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ex_install_local"
@@ -51,7 +51,7 @@
 
             <Button
                 android:id="@+id/btnDownload"
-                style="@style/ThemeButtonOutline"
+                style="@style/ThemeButtonDialogOutline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ex_redownload"
@@ -60,7 +60,7 @@
 
             <Button
                 android:id="@+id/btnDelete"
-                style="@style/ThemeButtonOutline"
+                style="@style/ThemeButtonDialogOutline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/fox_card"

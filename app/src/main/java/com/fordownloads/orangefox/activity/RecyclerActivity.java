@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.FrameLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -30,6 +30,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.thefuntasty.hauler.HaulerView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -40,10 +41,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class RecyclerActivity extends AppCompatActivity {
     public static String releaseIntent = null;
     public static boolean releaseJSON = false;
     List<RecyclerItems> items = new ArrayList<>();
+    SmartTabLayout viewPagerTab;
     FrameLayout _loadingView;
     ExtendedFloatingActionButton _fab;
 
@@ -70,6 +74,9 @@ public class RecyclerActivity extends AppCompatActivity {
         _loadingView = findViewById(R.id.loadingLayout);
         _fab = findViewById(R.id.installThis);
 
+        viewPagerTab = findViewById(R.id.viewpagertab);
+        CardView tabCard = findViewById(R.id.viewpagertabElevation);
+
         Toolbar myToolbar = findViewById(R.id.appToolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
@@ -77,6 +84,41 @@ public class RecyclerActivity extends AppCompatActivity {
         if (intent.getBooleanExtra("arrow", false))
             ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
         ab.setTitle(intent.getIntExtra("title", R.string.app_name));
+
+        float originalElevation = tabCard.getElevation();
+
+        ((HaulerView)findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
+
+        if (intent.getIntExtra("type", 0) == 3)
+            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
+                if (offset <= 15 && offset >= -15) {
+                    myToolbar.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
+                    myToolbar.setAlpha(1);
+                } else if (offset >= -50 && offset <= 50) {
+                    myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
+                    myToolbar.setElevation(0);
+                } else {
+                    myToolbar.setAlpha(0);
+                    myToolbar.setElevation(0);
+                }
+            });
+        else
+            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
+                if (offset <= 15 && offset >= -15) {
+                    tabCard.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
+                    tabCard.setAlpha(1);
+                    myToolbar.setAlpha(1);
+                } else if (offset >= -50 && offset <= 50) {
+                    myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
+                    tabCard.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
+                    tabCard.setElevation(0);
+                } else {
+                    tabCard.setAlpha(0);
+                    myToolbar.setAlpha(0);
+                    tabCard.setElevation(0);
+                }
+            });
+
 
         switch (intent.getIntExtra("type", 0)) {
             case 0: //release info (URL)
@@ -159,7 +201,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 ViewPager viewPager = findViewById(R.id.viewpager);
                 viewPager.setAdapter(fragAdapter);
 
-                SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
+                OverScrollDecoratorHelper.setUpOverScroll(viewPager);
                 viewPagerTab.setViewPager(viewPager);
 
                 if(releaseJSON)
@@ -247,7 +289,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 ViewPager viewPager = findViewById(R.id.viewpager);
                 viewPager.setAdapter(fragAdapter);
 
-                SmartTabLayout viewPagerTab = findViewById(R.id.viewpagertab);
+                OverScrollDecoratorHelper.setUpOverScroll(viewPager);
                 viewPagerTab.setViewPager(viewPager);
 
                 _loadingView.animate()
@@ -294,6 +336,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         getSupportFragmentManager(), pageList.create());
 
                 ViewPager pager = findViewById(R.id.viewpager);
+                OverScrollDecoratorHelper.setUpOverScroll(pager);
                 pager.setAdapter(fragAdapter);
                 ViewPager.MarginLayoutParams p = (ViewPager.MarginLayoutParams) pager.getLayoutParams();
                 p.setMargins(0, (int)TypedValue.applyDimension(

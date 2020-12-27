@@ -60,7 +60,7 @@
 
             <Button
                 android:id="@+id/guessSelect"
-                style="@style/ThemeButton"
+                style="@style/ThemeButtonDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sel_activity"
@@ -69,7 +69,7 @@
 
             <Button
                 android:id="@+id/btnInstall"
-                style="@style/ThemeButton"
+                style="@style/ThemeButtonDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/guess_correct"
@@ -77,7 +77,7 @@
 
             <Button
                 android:id="@+id/btnCancel"
-                style="@style/ThemeButtonOutline"
+                style="@style/ThemeButtonDialogOutline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/fox_card"
