@@ -25,10 +25,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
-            android:fontFamily="sans-serif-medium"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/subtitle"

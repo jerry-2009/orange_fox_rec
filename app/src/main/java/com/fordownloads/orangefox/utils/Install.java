@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Environment;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.TextView;
@@ -114,8 +115,14 @@ public class Install {
     }
 
     public static boolean hasStoragePM(Activity activity){
-        return activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                     activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                    activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                    Environment.isExternalStorageManager();
+        }
     }
 
     public static void requestPM(Activity activity){

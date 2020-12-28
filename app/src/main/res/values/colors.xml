@@ -21,7 +21,7 @@
     <color name="fox_outline">#E8E6E6</color>
     <color name="fox_notify">#FF78909C</color>
     <color name="google_error">#E53935</color>
-    <color name="gray_light">#9E9999</color>
+    <color name="gray_light">#747474</color>
 
     <color name="tab_selected">#90EDEBEB</color>
 </resources>

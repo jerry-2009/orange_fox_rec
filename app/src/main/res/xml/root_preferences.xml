@@ -1,10 +1,13 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
         app:key="about"
         app:layout="@layout/pref_about" />
 
     <PreferenceCategory app:title="@string/pref_update">
+        <Preference
+            app:key="pm"
+            app:layout="@layout/pref_no_pm" />
+
         <Preference
             app:title="@string/pref_device"
             app:icon="@drawable/ic_device"

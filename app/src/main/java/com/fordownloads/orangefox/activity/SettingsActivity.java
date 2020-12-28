@@ -1,11 +1,15 @@
 package com.fordownloads.orangefox.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +21,15 @@ import androidx.preference.PreferenceManager;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.pref;
+import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
 import com.fordownloads.orangefox.consts;
 import com.thefuntasty.hauler.HaulerView;
+import com.topjohnwu.superuser.Shell;
+
+import org.jetbrains.annotations.NotNull;
+
+import static androidx.core.app.ActivityCompat.requestPermissions;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
@@ -67,7 +77,15 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
-        Preference _device, _system, _dark, _upd_1, _upd_2, _upd_3;
+        Preference _device, _system, _dark, _upd_1, _upd_2, _upd_3, _upd, _pm;
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, int[] grantResults) {
+            if (Install.hasStoragePM(getActivity())) {
+                _pm.setVisible(false);
+                _upd.setEnabled(true);
+            }
+        }
 
         public void updateTogglesState(boolean state) {
             _upd_1.setVisible(state);
@@ -86,12 +104,38 @@ public class SettingsActivity extends AppCompatActivity {
             _upd_1 = findPreference(pref.UPDATES_LIMITED);
             _upd_2 = findPreference(pref.UPDATES_INSTALL);
             _upd_3 = findPreference(pref.UPDATES_BETA);
+            _upd = findPreference(pref.UPDATES_ENABLE);
+            _pm = findPreference("pm");
 
             _dark.setVisible(!prefs.getBoolean(pref.THEME_SYSTEM, true));
             updateTogglesState(prefs.getBoolean(pref.UPDATES_ENABLE, false));
 
+            if (Install.hasStoragePM(getActivity()))
+                _pm.setVisible(false);
+            else
+                _upd.setEnabled(false);
+
             if (prefs.contains(pref.DEVICE_CODE))
                 _device.setSummary(prefs.getString(pref.DEVICE_CODE, "Error"));
+            else {
+                _upd.setVisible(false);
+                _pm.setVisible(false);
+            }
+
+            _pm.setOnPreferenceClickListener((p) -> {
+                if (Shell.rootAccess())
+                    if (Install.hasStoragePM(getActivity())) {
+                        _pm.setVisible(false);
+                        _upd.setEnabled(true);
+                    } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                        startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
+                        Toast.makeText(getActivity(), R.string.help_android11_pm, Toast.LENGTH_LONG).show();
+                    }
+                return true;
+            });
 
             _device.setOnPreferenceClickListener((p) -> {
                 Intent intent = new Intent(getContext(), RecyclerActivity.class);
@@ -102,11 +146,18 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
             });
 
-            findPreference(pref.UPDATES_ENABLE).setOnPreferenceClickListener((p) -> {
+            _upd.setOnPreferenceChangeListener((p, val) -> {
+                if ((boolean)val && !Shell.rootAccess()) {
+                    _pm.setVisible(true);
+                    _upd.setEnabled(false);
+                    return false;
+                }
                 mScheduler.cancelAll();
-                if (prefs.getBoolean(pref.UPDATES_ENABLE, false)) {
-                    jobSchedule(prefs, mScheduler);
-                    updateTogglesState(true);
+                if ((boolean)val) {
+                    if (jobSchedule(prefs, mScheduler))
+                        updateTogglesState(true);
+                    else
+                        return false;
                 } else
                     updateTogglesState(false);
                 return true;
@@ -136,9 +187,8 @@ public class SettingsActivity extends AppCompatActivity {
             });
         }
 
-        private void jobSchedule(SharedPreferences prefs, JobScheduler mScheduler) {
-            if (!Tools.scheduleJob(getActivity(), mScheduler, prefs.getBoolean(pref.UPDATES_LIMITED, true) ? JobInfo.NETWORK_TYPE_NOT_ROAMING : JobInfo.NETWORK_TYPE_UNMETERED))
-                prefs.edit().putBoolean(pref.UPDATES_ENABLE, false).apply();
+        private boolean jobSchedule(SharedPreferences prefs, JobScheduler mScheduler) {
+            return Tools.scheduleJob(getActivity(), mScheduler, prefs.getBoolean(pref.UPDATES_LIMITED, true) ? JobInfo.NETWORK_TYPE_NOT_ROAMING : JobInfo.NETWORK_TYPE_UNMETERED);
         }
 
         @Override

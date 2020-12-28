@@ -128,6 +128,9 @@
     <string name="pref_theme_dark_desc">Use dark theme instead of light theme</string>
     <string name="pref_device">Change device</string>
 
+    <string name="pref_pm">Missing permissions</string>
+    <string name="pref_pm_desc">OrangeFox App needs storage and Root permissions to download and install updates. Tap here to grant needed permissions.</string>
+
     <string name="pref_about">OrangeFox App</string>
     <string name="pref_about_desc">Authors, licenses, etc.</string>
 </resources>
