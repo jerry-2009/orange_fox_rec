@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.recycler;
+package com.fordownloads.orangefox.recycler;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,7 +26,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @NotNull
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.list_release, parent, false);
+        View view = inflater.inflate(R.layout.list_item, parent, false);
         if (listener != null)
             view.setOnClickListener(listener);
         return new ViewHolder(view);

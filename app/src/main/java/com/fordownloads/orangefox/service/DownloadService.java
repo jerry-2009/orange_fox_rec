@@ -20,7 +20,7 @@ import com.downloader.Progress;
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.utils.MD5;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.consts;
 import com.topjohnwu.superuser.Shell;
 
 import java.io.File;
@@ -41,7 +41,7 @@ public class DownloadService extends Service {
             PRDownloader.cancelAll();
             stopForeground(true);
             stopSelf();
-            return 0;
+            return super.onStartCommand(intent, flags, startId);
         }
 
         ((App) this.getApplication()).setDownloadSrv(this);
@@ -55,7 +55,7 @@ public class DownloadService extends Service {
         install = intent.getBooleanExtra("install", false);
         notifyMan = NotificationManagerCompat.from(this);
 
-        progressNotify = new NotificationCompat.Builder(this, vars.CHANNEL_DOWNLOAD)
+        progressNotify = new NotificationCompat.Builder(this, consts.CHANNEL_DOWNLOAD)
                 .setOngoing(true)
                 .setContentTitle(getString(R.string.notif_downloading, version))
                 .setContentText(getString(R.string.preparing))
@@ -64,7 +64,7 @@ public class DownloadService extends Service {
                 .setColor(ContextCompat.getColor(this, R.color.fox_notify))
                 .setProgress(0, 0, true)
                 .addAction(R.drawable.ic_round_check_24, this.getString(R.string.inst_cancel), pStopSelf);
-        startForeground(vars.NOTIFY_DOWNLOAD_FG, progressNotify.build());
+        startForeground(consts.NOTIFY_DOWNLOAD_FG, progressNotify.build());
         beginDownload();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -82,12 +82,12 @@ public class DownloadService extends Service {
 
     private void beginDownload(){
         String fileName = URLUtil.guessFileName(url, null, "application/zip");
-        File finalFile = new File(vars.DOWNLOAD_DIR, fileName);
+        File finalFile = new File(consts.DOWNLOAD_DIR, fileName);
 
         //Prepare notifications
-        notifyMan.cancel(vars.NOTIFY_NEW_UPD);
-        notifyMan.cancel(vars.NOTIFY_DOWNLOAD_ERROR);
-        notifyMan.cancel(vars.NOTIFY_DOWNLOAD_SAVED);
+        notifyMan.cancel(consts.NOTIFY_NEW_UPD);
+        notifyMan.cancel(consts.NOTIFY_DOWNLOAD_ERROR);
+        notifyMan.cancel(consts.NOTIFY_DOWNLOAD_SAVED);
         //
 
         //Prepare intents for notifications
@@ -98,15 +98,15 @@ public class DownloadService extends Service {
         //
 
         //Show & build notification
-        notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.build());
+        notifyMan.notify(consts.NOTIFY_DOWNLOAD_FG, progressNotify.build());
 
-        NotificationCompat.Builder completeNotify = new NotificationCompat.Builder(this, vars.CHANNEL_DOWNLOAD_STATUS)
+        NotificationCompat.Builder completeNotify = new NotificationCompat.Builder(this, consts.CHANNEL_DOWNLOAD_STATUS)
                 .setAutoCancel(true)
                 .setColor(ContextCompat.getColor(this, R.color.fox_notify))
                 .setPriority(NotificationCompat.PRIORITY_MAX);
         //
 
-        PRDownloader.download(url, vars.DOWNLOAD_DIR, fileName)
+        PRDownloader.download(url, consts.DOWNLOAD_DIR, fileName)
                 .build()
                 .setOnCancelListener(() -> Log.i("OFRService", "Download cancelled"))
                 .setOnProgressListener(new OnProgressListener() {
@@ -117,7 +117,7 @@ public class DownloadService extends Service {
                         currPercent = (byte) (progress.currentBytes * 100 / progress.totalBytes);
                         if (lastPercent != currPercent) {
                             if (skipMB++ > 5) {
-                                notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify
+                                notifyMan.notify(consts.NOTIFY_DOWNLOAD_FG, progressNotify
                                         .setProgress(100, currPercent, false)
                                         .setContentText(getString(R.string.inst_progress, progress.currentBytes / 1048576, progress.totalBytes / 1048576))
                                         .build());
@@ -130,7 +130,7 @@ public class DownloadService extends Service {
                 .start(new OnDownloadListener() {
                     @Override
                     public void onDownloadComplete() {
-                        notifyMan.notify(vars.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.md5_check))
+                        notifyMan.notify(consts.NOTIFY_DOWNLOAD_FG, progressNotify.setContentText(getString(R.string.md5_check))
                                 .setProgress(0, 0, true)
                                 .build());
 
@@ -139,12 +139,12 @@ public class DownloadService extends Service {
 
                         if (install) {
                             if(!Shell.su(
-                                    "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + vars.ORS_FILE)
+                                    "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + consts.ORS_FILE)
                                     .exec().isSuccess())
                                 errorNotify(notifyMan, completeNotify, getString(R.string.err_ors, finalFile));
 
                             String text = getString(R.string.notify_pending_reboot_sub, finalFile);
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify
+                            notifyMan.notify(consts.NOTIFY_DOWNLOAD_SAVED, completeNotify
                                     .setSmallIcon(R.drawable.ic_round_system_update_24)
                                     .setContentTitle(getString(R.string.notify_pending_reboot, version))
                                     .setContentText(text)
@@ -157,7 +157,7 @@ public class DownloadService extends Service {
                         } else {
                             String text = getString(R.string.inst_downloaded, finalFile);
 
-                            notifyMan.notify(vars.NOTIFY_DOWNLOAD_SAVED, completeNotify
+                            notifyMan.notify(consts.NOTIFY_DOWNLOAD_SAVED, completeNotify
                                     .setSmallIcon(R.drawable.ic_round_check_24)
                                     .setContentTitle(getString(R.string.notif_download_complete, version))
                                     .setContentText(text)
@@ -177,7 +177,7 @@ public class DownloadService extends Service {
     }
 
     public void errorNotify(NotificationManagerCompat notifyMan, NotificationCompat.Builder completeNotify, String err) {
-        notifyMan.notify(vars.NOTIFY_DOWNLOAD_ERROR, completeNotify
+        notifyMan.notify(consts.NOTIFY_DOWNLOAD_ERROR, completeNotify
                 .setSmallIcon(R.drawable.ic_round_warning_24)
                 .setContentTitle(getString(R.string.notif_download_failed, version))
                 .setContentText(err)

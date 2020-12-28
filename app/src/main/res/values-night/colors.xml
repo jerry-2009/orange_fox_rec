@@ -13,9 +13,8 @@
     <color name="tab_selected">#FF242528</color>
     <color name="fox_card_shimmer">#D2393A40</color>
     <color name="fox_outline">#FF2f3133</color>
-    <color name="fox_dark_text">#FF202124</color>
     <color name="fox_notify">#FF78909C</color>
     <color name="google_error">#ff5252</color>
     <color name="gray_light">#ffdddddd</color>
-
+    <color name="card_icon">#995F6368</color>
 </resources>

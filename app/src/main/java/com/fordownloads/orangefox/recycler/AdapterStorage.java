@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.recycler;
+package com.fordownloads.orangefox.recycler;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,7 +9,7 @@ public class AdapterStorage implements Parcelable, Serializable {
     public AdapterStorage(RecyclerAdapter adapter) { this.adapter = adapter; }
     public RecyclerAdapter getAdapter() { return adapter; }
 
-    protected AdapterStorage(Parcel in) { }
+    protected AdapterStorage() { }
 
     @Override
     public int describeContents() {
@@ -22,7 +22,7 @@ public class AdapterStorage implements Parcelable, Serializable {
     public static final Parcelable.Creator<AdapterStorage> CREATOR = new Parcelable.Creator<AdapterStorage>() {
         @Override
         public AdapterStorage createFromParcel(Parcel in) {
-            return new AdapterStorage(in);
+            return new AdapterStorage();
         }
 
         @Override

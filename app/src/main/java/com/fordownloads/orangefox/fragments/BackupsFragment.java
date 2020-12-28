@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.nav;
+package com.fordownloads.orangefox.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import com.fordownloads.orangefox.R;
 
 public class BackupsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_backups, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_backups, container, false);
     }
 }

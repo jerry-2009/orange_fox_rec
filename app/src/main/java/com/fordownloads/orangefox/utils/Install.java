@@ -16,9 +16,7 @@ import androidx.core.app.ActivityCompat;
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.service.DownloadService;
-import com.fordownloads.orangefox.ui.Tools;
-import com.fordownloads.orangefox.utils.MD5;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.consts;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.topjohnwu.superuser.Shell;
 
@@ -30,10 +28,10 @@ public class Install {
         BottomSheetDialog dialog = new BottomSheetDialog(activity, R.style.ThemeBottomSheet);
 
         String fileName = URLUtil.guessFileName(url, null, "application/zip");
-        File finalFile = new File(vars.DOWNLOAD_DIR, fileName);
+        File finalFile = new File(consts.DOWNLOAD_DIR, fileName);
         boolean exist = !noExistsCheck && finalFile.exists() && hasStoragePM(activity);
 
-        View sheetView = activity.getLayoutInflater().inflate(exist ? R.layout.dialog_rel_exists : R.layout.dialog_install, null);
+        View sheetView = activity.getLayoutInflater().inflate(exist ? R.layout.dialog_exists : R.layout.dialog_install, null);
         dialog.setContentView(sheetView);
         dialog.setDismissWithAnimation(true);
         ((TextView)sheetView.findViewById(R.id.installTitle)).setText(activity.getString(R.string.install_latest, ver, type));
@@ -43,7 +41,7 @@ public class Install {
                 if (Shell.rootAccess())
                     if (MD5.checkMD5(md5, finalFile)) {
                         if (!Shell.su(
-                                "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + vars.ORS_FILE)
+                                "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + consts.ORS_FILE)
                                 .exec().isSuccess())
                             Tools.showSnackbar(activity, sheetView, R.string.err_ors_short).show();
                     } else {
@@ -101,7 +99,7 @@ public class Install {
         dialog.show();
 
         sheetView.animate()
-                .setInterpolator(vars.intr)
+                .setInterpolator(consts.intr)
                 .setDuration(600)
                 .setStartDelay(200)
                 .setStartDelay(100)

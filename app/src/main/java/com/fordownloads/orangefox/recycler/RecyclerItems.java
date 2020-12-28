@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.recycler;
+package com.fordownloads.orangefox.recycler;
 
 public class RecyclerItems {
         private final String title;

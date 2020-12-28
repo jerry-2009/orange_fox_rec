@@ -17,11 +17,11 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.ui.nav.InstallFragment;
-import com.fordownloads.orangefox.ui.nav.LogsFragment;
-import com.fordownloads.orangefox.ui.nav.ScriptsFragment;
-import com.fordownloads.orangefox.ui.nav.BackupsFragment;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.fragments.InstallFragment;
+import com.fordownloads.orangefox.fragments.LogsFragment;
+import com.fordownloads.orangefox.fragments.ScriptsFragment;
+import com.fordownloads.orangefox.fragments.BackupsFragment;
+import com.fordownloads.orangefox.consts;
 import com.topjohnwu.superuser.Shell;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,11 +29,6 @@ public class MainActivity extends AppCompatActivity {
         Shell.setDefaultBuilder(Shell.Builder.create()
                 .setFlags(Shell.FLAG_REDIRECT_STDERR)
                 .setTimeout(10));
-
-        //this allows opening files in external storage
-        //Какого хуя блять мое приложение не может открывать файлы просто указывая путь к файлу блять???
-        //ГУГЛ ИДИ НАХУЙ, КАКИЕ ЕБАНАТЫ ЭТО ПРИДУМАЛИ? ЗАЧЕМ МНЕ СОЗДАВАТЬ ПРОВАЙДЕРЫ, КОТОРЫЕ ОТКРЫВАЮТ
-        //ФАЙЛ ВО !!!ВНУТРЕННЕМ!!! ХРАНИЛИЩЕ???
         try {
             StrictMode.class.getMethod("disableDeathOnFileUriExposure").invoke(null);
         } catch (Exception ignored) {}
@@ -42,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_nav);
+        setContentView(R.layout.activity_main);
 
         createNotificationChannel();
 
@@ -60,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notifyMan = getSystemService(NotificationManager.class);
 
-            NotificationChannel channel = new NotificationChannel(vars.CHANNEL_UPDATE, getString(R.string.notif_ch_update), NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(consts.CHANNEL_UPDATE, getString(R.string.notif_ch_update), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(getString(R.string.notif_ch_update_desc));
             notifyMan.createNotificationChannel(channel);
 
-            channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD, getString(R.string.notif_ch_download), NotificationManager.IMPORTANCE_LOW);
+            channel = new NotificationChannel(consts.CHANNEL_DOWNLOAD, getString(R.string.notif_ch_download), NotificationManager.IMPORTANCE_LOW);
             channel.setDescription(getString(R.string.notif_ch_download_desc));
             notifyMan.createNotificationChannel(channel);
 
-            channel = new NotificationChannel(vars.CHANNEL_DOWNLOAD_STATUS, getString(R.string.notif_ch_download_status), NotificationManager.IMPORTANCE_HIGH);
+            channel = new NotificationChannel(consts.CHANNEL_DOWNLOAD_STATUS, getString(R.string.notif_ch_download_status), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(getString(R.string.notif_ch_download_status_desc));
             notifyMan.createNotificationChannel(channel);
         }
@@ -100,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tsa = fm.beginTransaction();
-            tsa.setCustomAnimations(R.anim.slide_in, R.anim.slide_in);
+            tsa.setCustomAnimations(R.anim.scale, R.anim.scale);
 
             switch (position) {
                 case 3:

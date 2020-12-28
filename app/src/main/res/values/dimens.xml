@@ -1,7 +1,5 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="elevation_high">14dp</dimen>
     <dimen name="elevation_medium">6dp</dimen>
     <dimen name="elevation_low">12dp</dimen>
-    <dimen name="elevation_settings">1dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.nav;
+package com.fordownloads.orangefox.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,14 +21,5 @@ public class ScriptsFragment extends Fragment {
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setTitle(R.string.bnav_scripts);
         return rootView;
-    }
-
-    public void testing(View v) {
-        v.findViewById(R.id.startService).setOnClickListener(view -> {
-
-        });
-        v.findViewById(R.id.startService2).setOnClickListener(view -> {
-
-        });
     }
 }

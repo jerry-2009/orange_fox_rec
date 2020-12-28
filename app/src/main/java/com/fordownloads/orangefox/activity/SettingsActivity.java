@@ -5,49 +5,27 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ScrollView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceRecyclerViewAccessibilityDelegate;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.activity.RecyclerActivity;
 import com.fordownloads.orangefox.pref;
-import com.fordownloads.orangefox.ui.Tools;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.utils.Tools;
+import com.fordownloads.orangefox.consts;
 import com.thefuntasty.hauler.HaulerView;
-import com.thefuntasty.hauler.OnDragActivityListener;
-
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
-import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
-import me.everything.android.ui.overscroll.adapters.AbsListViewOverScrollDecorAdapter;
-import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.activity_settings);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -65,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         JobScheduler mScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
-        prefs.edit().putBoolean(pref.UPDATES_ENABLE, mScheduler.getPendingJob(vars.SCHEDULER_JOB_ID) != null).apply();
+        prefs.edit().putBoolean(pref.UPDATES_ENABLE, mScheduler.getPendingJob(consts.SCHEDULER_JOB_ID) != null).apply();
 
         ((HaulerView)findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
         ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {

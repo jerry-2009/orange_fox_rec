@@ -19,12 +19,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.ui.Tools;
-import com.fordownloads.orangefox.ui.recycler.AdapterStorage;
-import com.fordownloads.orangefox.ui.recycler.RecyclerAdapter;
-import com.fordownloads.orangefox.ui.recycler.RecyclerFragment;
-import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
-import com.fordownloads.orangefox.ui.recycler.TextFragment;
+import com.fordownloads.orangefox.utils.Tools;
+import com.fordownloads.orangefox.recycler.AdapterStorage;
+import com.fordownloads.orangefox.recycler.RecyclerAdapter;
+import com.fordownloads.orangefox.fragments.RecyclerFragment;
+import com.fordownloads.orangefox.recycler.RecyclerItems;
+import com.fordownloads.orangefox.fragments.TextFragment;
 import com.fordownloads.orangefox.utils.API;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -60,7 +60,7 @@ public class RecyclerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_release);
+        setContentView(R.layout.activity_recycler);
 
         Intent intent = getIntent();
 
@@ -242,9 +242,9 @@ public class RecyclerActivity extends AppCompatActivity {
             pageList.add(name, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
                     new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
                     ))));
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -276,8 +276,8 @@ public class RecyclerActivity extends AppCompatActivity {
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             Map<String, Object> responseStable = API.request("releases/?type=stable&codename=" + releaseIntent);
 
-            if (!parseReleaseByType(pageList, "stable", R.string.rel_stable) &
-                    !parseReleaseByType(pageList, "beta", R.string.rel_beta)) {
+            if (parseReleaseByType(pageList, "stable", R.string.rel_stable) &
+                    parseReleaseByType(pageList, "beta", R.string.rel_beta)) {
                 runOnUiThread(() -> API.errorHandler(this, responseStable, R.string.err_no_rel));
                 return;
             }

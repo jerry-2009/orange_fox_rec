@@ -81,7 +81,6 @@
             tools:visibility="gone">
 
             <ProgressBar
-                android:id="@+id/spinner"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

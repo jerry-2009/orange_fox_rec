@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nav.ScriptsFragment">
+    tools:context=".fragments.ScriptsFragment">
 
     <TextView
-        android:id="@+id/text_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,8 +16,7 @@
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/fox_main_gradient" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

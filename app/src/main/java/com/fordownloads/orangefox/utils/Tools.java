@@ -1,13 +1,10 @@
-package com.fordownloads.orangefox.ui;
+package com.fordownloads.orangefox.utils;
 
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.net.NetworkRequest;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,22 +12,15 @@ import androidx.core.content.ContextCompat;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.service.Scheduler;
-import com.fordownloads.orangefox.ui.recycler.RecyclerItems;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.consts;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
-import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 public class Tools {
     public static String getBuildType(Context c, JSONObject release) throws JSONException {
@@ -72,10 +62,10 @@ public class Tools {
 
     public static String buildList(JSONObject release, String name) throws JSONException {
         JSONArray array = release.getJSONArray(name);
-        String list = "";
+        StringBuilder list = new StringBuilder();
         for (int i = 0; i < array.length(); i++)
-            list += "<li>\t" + array.getString(i) + "</li>\n";
-        return list;
+            list.append("<li>\t").append(array.getString(i)).append("</li>\n");
+        return list.toString();
     }
 
     public static boolean scheduleJob(Context context, JobScheduler mScheduler, int network) {
@@ -83,9 +73,9 @@ public class Tools {
                 Scheduler.class.getName());
 
         return mScheduler.schedule(
-                new JobInfo.Builder(vars.SCHEDULER_JOB_ID, serviceName)
+                new JobInfo.Builder(consts.SCHEDULER_JOB_ID, serviceName)
                 .setRequiredNetworkType(network)
-                .setPeriodic(vars.ONE_DAY)
+                .setPeriodic(consts.ONE_DAY)
                 .setPersisted(true)
                 .setRequiresStorageNotLow(true)
                 .setRequiresBatteryNotLow(true).build()

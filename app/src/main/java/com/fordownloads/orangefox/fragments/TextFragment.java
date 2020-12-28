@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.recycler;
+package com.fordownloads.orangefox.fragments;
 
 import android.os.Bundle;
 import android.text.Html;

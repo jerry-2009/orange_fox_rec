@@ -1,4 +1,4 @@
-package com.fordownloads.orangefox.ui.nav;
+package com.fordownloads.orangefox.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,11 +29,12 @@ import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.activity.RecyclerActivity;
 import com.fordownloads.orangefox.activity.SettingsActivity;
 import com.fordownloads.orangefox.pref;
-import com.fordownloads.orangefox.ui.Tools;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.utils.Tools;
+import com.fordownloads.orangefox.consts;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -136,7 +137,7 @@ public class InstallFragment extends Fragment {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration config) {
+    public void onConfigurationChanged(@NotNull Configuration config) {
         super.onConfigurationChanged(config);
         rotateUI(getActivity().findViewById(R.id.cards), config);
     }
@@ -239,10 +240,7 @@ public class InstallFragment extends Fragment {
                 prefs.edit().putString(pref.CACHE_RELEASE, release.toString())
                             .putString(pref.RELEASE_ID, release.getString("_id")).apply();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            errorCard(1000, 0);
-        } catch (NullPointerException e) {
+        } catch (JSONException | NullPointerException e) {
             e.printStackTrace();
             errorCard(1000, 0);
         }
@@ -252,12 +250,12 @@ public class InstallFragment extends Fragment {
     private void setDevice(String codename, boolean skipDialog, boolean force) {
         if (codename == null)
             codename = findDevice();
-        if (codename == "no_internet_error")
-            return;
         if (codename == null) {
             showDeviceDialog(Build.DEVICE, true, null);
             return;
         }
+        if (codename.equals("no_internet_error"))
+            return;
         Map<String, Object> response = API.request("devices/get?codename=" + codename);
         if (!(boolean) response.get("success")) {
             errorCard((int) response.get("code"), R.string.err_no_device);
@@ -274,12 +272,9 @@ public class InstallFragment extends Fragment {
         getActivity().runOnUiThread(() -> {
             ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
             BottomSheetDialog devDialog = new BottomSheetDialog(getActivity(), R.style.ThemeBottomSheet);
-            View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, null);
+            View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, (ViewGroup)null);
             devDialog.setContentView(sheetView);
             devDialog.setDismissWithAnimation(true);
-            /*
-            devDialog.setCancelable(false);
-            devDialog.setCanceledOnTouchOutside(false);*/
 
             Button gSelect = sheetView.findViewById(R.id.guessSelect);
             Button gRight = sheetView.findViewById(R.id.btnInstall);
@@ -317,9 +312,7 @@ public class InstallFragment extends Fragment {
             gWrong.setOnClickListener(onSelectDevice);
             gSelect.setOnClickListener(onSelectDevice);
 
-            devDialog.setOnDismissListener(v -> {
-                errorCard(404, R.string.err_dev_not_selected);
-            });
+            devDialog.setOnDismissListener(v -> errorCard(404, R.string.err_dev_not_selected));
 
             Point size = new Point();
             getActivity().getWindowManager().getDefaultDisplay().getSize(size);
@@ -328,7 +321,7 @@ public class InstallFragment extends Fragment {
             devDialog.show();
 
             sheetView.animate()
-                    .setInterpolator(vars.intr)
+                    .setInterpolator(consts.intr)
                     .setDuration(600)
                     .setStartDelay(200)
                     .setStartDelay(100)

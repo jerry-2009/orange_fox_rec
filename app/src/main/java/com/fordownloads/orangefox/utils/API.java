@@ -3,11 +3,9 @@ package com.fordownloads.orangefox.utils;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.job.JobService;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -17,8 +15,7 @@ import androidx.preference.PreferenceManager;
 import com.fordownloads.orangefox.service.DownloadService;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.pref;
-import com.fordownloads.orangefox.ui.Tools;
-import com.fordownloads.orangefox.vars;
+import com.fordownloads.orangefox.consts;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,8 +115,8 @@ public class API {
                 context.startForegroundService(instIntent);
             } else {
                 Log.i("OFR-JOB", "Starting notification...");
-                NotificationManagerCompat.from(context).notify(vars.NOTIFY_NEW_UPD,
-                        new NotificationCompat.Builder(context, vars.CHANNEL_UPDATE)
+                NotificationManagerCompat.from(context).notify(consts.NOTIFY_NEW_UPD,
+                        new NotificationCompat.Builder(context, consts.CHANNEL_UPDATE)
                                 .setContentTitle(context.getApplicationContext().getString(R.string.notif_new_ver))
                                 .setContentText(text)
                                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))

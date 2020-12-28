@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nav.ScriptsFragment"
+    tools:context=".fragments.ScriptsFragment"
     android:fitsSystemWindows="true">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/appToolbar"
@@ -16,14 +16,12 @@
         app:titleTextAppearance="@style/ThemeToolbarText" />
 
     <Button
-        android:id="@+id/startService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Start service" />
 
     <Button
-        android:id="@+id/startService2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -31,7 +29,6 @@
         android:text="STOP" />
 
     <TextView
-        android:id="@+id/testText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
