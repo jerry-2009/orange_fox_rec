@@ -1,12 +1,7 @@
-<p align="center">
-  <img src="preview.png" alt="logo" width="80%"/>
-</p>
-<h1 align="center">
-  OrangeFox App 
-</h1>
-<p align="center">
+<img src="preview.png" alt="OrangeFox 3D" width="300"/>
+
+# OrangeFox App
 App for <a href="https://wiki.orangefox.tech">OrangeFox Recovery</a> written on Java
-</p>
 
 ## Features
 
