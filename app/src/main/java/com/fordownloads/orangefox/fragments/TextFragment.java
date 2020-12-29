@@ -13,8 +13,8 @@ import com.ogaclejapan.smarttablayout.utils.v4.Bundler;
 import org.jetbrains.annotations.NotNull;
 
 public class TextFragment extends Fragment {
-    public static Bundle arguments(String param) {
-        return new Bundler().putString("text", param).get();
+    public static Bundle arguments(String param, boolean useHtml) {
+        return new Bundler().putString("text", param).putBoolean("useHtml", useHtml).get();
     }
 
     @Override
@@ -25,6 +25,9 @@ public class TextFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((TextView)view.findViewById(R.id.multiTextView)).setText(Html.fromHtml(getArguments().getString("text"), Html.FROM_HTML_MODE_COMPACT));
+        if (getArguments().getBoolean("useHtml"))
+            ((TextView)view.findViewById(R.id.multiTextView)).setText(Html.fromHtml(getArguments().getString("text"), Html.FROM_HTML_MODE_COMPACT));
+        else
+            ((TextView)view.findViewById(R.id.multiTextView)).setText(getArguments().getString("text"));
     }
 }

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -198,13 +197,13 @@ public class RecyclerActivity extends AppCompatActivity {
                 try {
                     if (release.has("changelog"))
                         pageList.add(R.string.rel_changes, TextFragment.class,
-                                TextFragment.arguments(Tools.buildList(release, "changelog")));
+                                TextFragment.arguments(Tools.buildList(release, "changelog"), true));
                     if (!release.isNull("notes"))
                         pageList.add(R.string.rel_notes, TextFragment.class,
-                                TextFragment.arguments(release.getString("notes")));
+                                TextFragment.arguments(release.getString("notes"), false));
                     if (release.has("bugs"))
                             pageList.add(R.string.rel_bugs, TextFragment.class,
-                                    TextFragment.arguments(Tools.buildList(release, "bugs")));
+                                    TextFragment.arguments(Tools.buildList(release, "bugs"), true));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -263,17 +262,16 @@ public class RecyclerActivity extends AppCompatActivity {
             items.add(new RecyclerItems(getString(R.string.dev_status), getString(device.getBoolean("supported") ?
                     R.string.dev_maintained : R.string.dev_unmaintained), R.drawable.ic_round_check_24));
 
-            if (!maintainer.isNull("telegram"))
+            if (!maintainer.isNull("telegram") && !maintainer.getJSONObject("telegram").isNull("url"))
                 items.add(new RecyclerItems(getString(R.string.dev_telegram),
                         maintainer.getJSONObject("telegram").getString("username"),
                         R.drawable.ic_tg, maintainer.getJSONObject("telegram").getString("url")));
-
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, (final View view) -> openTg(view, items)))));
             if (!device.isNull("notes"))
                 pageList.add(R.string.rel_notes, TextFragment.class,
-                        TextFragment.arguments(device.getString("notes")));
+                        TextFragment.arguments(device.getString("notes"), false));
 
             runOnUiThread(() -> {
                 FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
