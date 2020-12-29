@@ -3,7 +3,6 @@ package com.fordownloads.orangefox.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,16 +21,15 @@ import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.fordownloads.orangefox.utils.API;
 import com.fordownloads.orangefox.App;
-import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.activity.RecyclerActivity;
 import com.fordownloads.orangefox.activity.SettingsActivity;
-import com.fordownloads.orangefox.pref;
-import com.fordownloads.orangefox.utils.Tools;
 import com.fordownloads.orangefox.consts;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.fordownloads.orangefox.pref;
+import com.fordownloads.orangefox.utils.API;
+import com.fordownloads.orangefox.utils.Install;
+import com.fordownloads.orangefox.utils.Tools;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -45,12 +43,12 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
-    TextView _cardErrorText, _cardErrorTitle;
+    TextView _errorText, _errorTitle;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
     View rootView, _shimmer, _shimmer2;
-    CardView _cardError, _cardInfo, _cardRelease;
-    ImageView _cardErrorIcon;
+    CardView _errorLayout, _cardInfo, _cardRelease;
+    ImageView _errorIcon;
     SwipeRefreshLayout _refreshLayout;
     BottomSheetDialog devDialog = null, instDialog = null;
 
@@ -60,13 +58,13 @@ public class InstallFragment extends Fragment {
 
         _installButton = rootView.findViewById(R.id.installButton);
 
-        _cardError = rootView.findViewById(R.id.cardError);
+        _errorLayout = rootView.findViewById(R.id.errorLayout);
         _cardInfo = rootView.findViewById(R.id.cardInfo);
         _cardRelease = rootView.findViewById(R.id.cardRelease);
 
-        _cardErrorIcon = rootView.findViewById(R.id.cardErrorIcon);
-        _cardErrorText = rootView.findViewById(R.id.cardErrorText);
-        _cardErrorTitle = rootView.findViewById(R.id.cardErrorTitle);
+        _errorIcon = rootView.findViewById(R.id.errorIcon);
+        _errorText = rootView.findViewById(R.id.errorText);
+        _errorTitle = rootView.findViewById(R.id.errorTitle);
         _shimmer = rootView.findViewById(R.id.shimmer);
         _shimmer2 = rootView.findViewById(R.id.shimmer2);
 
@@ -99,7 +97,7 @@ public class InstallFragment extends Fragment {
         });
 
         rootView.findViewById(R.id.btnRefresh).setOnClickListener(view -> {
-            _cardError.setVisibility(View.GONE);
+            _errorLayout.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
             prepareDevice(true);
@@ -107,7 +105,7 @@ public class InstallFragment extends Fragment {
 
         _refreshLayout = rootView.findViewById(R.id.refreshLayout);
         _refreshLayout.setOnRefreshListener(() -> {
-            _cardError.setVisibility(View.GONE);
+            _errorLayout.setVisibility(View.GONE);
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
@@ -133,7 +131,7 @@ public class InstallFragment extends Fragment {
             else
                 errorCard(404, R.string.err_dev_not_selected);
         } else if (requestCode == 300 && resultCode == RESULT_OK && data != null) {
-            _cardError.setVisibility(View.GONE);
+            _errorLayout.setVisibility(View.GONE);
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
@@ -236,7 +234,7 @@ public class InstallFragment extends Fragment {
             });
             getActivity().runOnUiThread(() -> {
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
-                _cardError.setVisibility(View.GONE);
+                _errorLayout.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);
                 _shimmer2.setVisibility(View.GONE);
                 _cardInfo.setVisibility(View.VISIBLE);
@@ -360,6 +358,7 @@ public class InstallFragment extends Fragment {
         switch (errorCode) {
             case 404:
             case 500:
+            case 422:
                 text = getString(customErr);
                 break;
             case 0:
@@ -376,11 +375,11 @@ public class InstallFragment extends Fragment {
         boolean isInternet = errorCode == 0;
 
         getActivity().runOnUiThread(() -> {
-            _cardErrorTitle.setText(isInternet ? R.string.err_card_no_internet : R.string.err_card_error);
-            _cardErrorText.setText(text);
-            _cardErrorIcon.setImageResource(isInternet ? R.drawable.ic_round_public_off_24 : R.drawable.ic_round_warning_24);
+            _errorTitle.setText(isInternet ? R.string.err_card_no_internet : R.string.err_card_error);
+            _errorText.setText(text);
+            _errorIcon.setImageResource(isInternet ? R.drawable.ic_round_public_off_24 : R.drawable.ic_round_warning_24);
 
-            _cardError.setVisibility(View.VISIBLE);
+            _errorLayout.setVisibility(View.VISIBLE);
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.GONE);

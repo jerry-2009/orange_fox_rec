@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -153,6 +155,32 @@ public class RecyclerActivity extends AppCompatActivity {
         }
     }
 
+    public void errorHandler(int code, int customErr){
+        runOnUiThread(() -> {
+            findViewById(R.id.errorLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.btnClose).setOnClickListener(v -> finish());
+            TextView _text = findViewById(R.id.errorText);
+
+            switch (code) {
+                case 404:
+                case 500:
+                case 422:
+                    _text.setText(customErr);
+                    break;
+                case 1000:
+                    _text.setText(R.string.err_json);
+                    break;
+                default:
+                    _text.setText(getString(R.string.err_response, code));
+                    break;
+                case 0:
+                    ((TextView)findViewById(R.id.errorTitle)).setText(R.string.err_card_no_internet);
+                    ((ImageView)findViewById(R.id.errorIcon)).setImageResource(R.drawable.ic_round_public_off_24);
+                    break;
+            }
+        });
+    }
+
     private void getAllReleaseInfo() {
         JSONObject release;
         try {
@@ -162,7 +190,7 @@ public class RecyclerActivity extends AppCompatActivity {
             } else {
                 Map<String, Object> response = API.request("releases/get?_id=" + releaseIntent);
                 if(!(boolean)response.get("success")) {
-                    runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_rel));
+                    errorHandler((int)response.get("code"), R.string.err_no_rel);
                     return;
                 }
                 release = new JSONObject((String)response.get("response"));
@@ -234,7 +262,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
+            errorHandler(1000, 0);
         }
     }
 
@@ -243,14 +271,14 @@ public class RecyclerActivity extends AppCompatActivity {
         try {
             Map<String, Object> response = API.request("devices/get?_id=" + new JSONObject(releaseIntent).getString("_id"));
             if(!(boolean)response.get("success")) {
-                runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_dev));
+                errorHandler((int)response.get("code"), R.string.err_no_dev);
                 return;
             }
             device = new JSONObject((String)response.get("response"));
 
             Map<String, Object> responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
             if(!(boolean)responseMnt.get("success")) {
-                runOnUiThread(() -> API.errorHandler(this, responseMnt, R.string.err_no_dev));
+                errorHandler((int)responseMnt.get("code"), R.string.err_no_dev);
                 return;
             }
             maintainer = new JSONObject((String)responseMnt.get("response"));
@@ -295,7 +323,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
+            errorHandler(1000, 0);
         }
     }
 
@@ -364,7 +392,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
             if (parseReleaseByType(pageList, "stable", R.string.rel_stable) &
                     parseReleaseByType(pageList, "beta", R.string.rel_beta)) {
-                runOnUiThread(() -> API.errorHandler(this, responseStable, R.string.err_no_rel));
+                errorHandler((int)responseStable.get("code"), R.string.err_no_rel);
                 return;
             }
 
@@ -390,7 +418,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
+            errorHandler(1000, 0);
         }
     }
 
@@ -399,7 +427,7 @@ public class RecyclerActivity extends AppCompatActivity {
             Map<String, Object> response = API.request("devices");
 
             if(!(boolean)response.get("success")) {
-                runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_device));
+                errorHandler((int)response.get("code"), R.string.err_no_device);
                 return;
             }
 
@@ -445,7 +473,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
         } catch (JSONException e) {
             e.printStackTrace();
-            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
+            errorHandler(1000, 0);
         }
     }
 

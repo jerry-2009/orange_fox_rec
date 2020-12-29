@@ -43,16 +43,6 @@ public class Tools {
         return release.getString("build_type");
     }
 
-    public static void dialogFinish(Activity getActivity, int msg) {
-        dialogFinish(getActivity, getActivity.getString(msg));
-    }
-
-    public static void dialogFinish(Activity getActivity, String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity);
-        builder.setMessage(msg).setPositiveButton(R.string.close, (dialog, id) -> getActivity.finish()).setOnCancelListener(dialog -> getActivity.finish());
-        builder.create().show();
-    }
-
     public static Snackbar showSnackbar(Activity activity, View view, int msg) {
         return Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
                 .setActionTextColor(ContextCompat.getColor(activity, R.color.fox_accent))

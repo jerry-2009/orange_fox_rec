@@ -51,22 +51,6 @@ public class API {
         return map;
     }
 
-    public static void errorHandler(Activity context, Map<String, Object> response, int customErr){
-            int code = (int) response.get("code");
-            switch (code) {
-                case 404:
-                case 500:
-                    Tools.dialogFinish(context, customErr);
-                    break;
-                case 0:
-                    Tools.dialogFinish(context, R.string.err_no_internet);
-                    break;
-                default:
-                    Tools.dialogFinish(context, context.getString(R.string.err_response, code));
-                    break;
-            }
-    }
-
     public static void findUpdate(JobService context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

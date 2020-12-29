@@ -85,7 +85,7 @@
                     android:showDividers="middle|end">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardError"
+                        android:id="@+id/errorLayout"
                         style="@style/ThemeCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                             android:paddingBottom="2dp">
 
                             <ImageView
-                                android:id="@+id/cardErrorIcon"
+                                android:id="@+id/errorIcon"
                                 android:layout_width="match_parent"
                                 android:layout_height="64dp"
                                 android:layout_marginTop="16dp"
@@ -115,7 +115,7 @@
                                 app:tint="@color/google_gray" />
 
                             <TextView
-                                android:id="@+id/cardErrorTitle"
+                                android:id="@+id/errorTitle"
                                 style="@style/ThemeTitle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                                 android:textAlignment="center" />
 
                             <TextView
-                                android:id="@+id/cardErrorText"
+                                android:id="@+id/errorText"
                                 style="@style/ThemeText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
