@@ -191,10 +191,10 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
                             android:orientation="vertical"
                             android:paddingHorizontal="16dp"
-                            android:paddingVertical="8dp">
+                            android:paddingVertical="8dp"
+                            android:paddingTop="8dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -246,20 +246,6 @@
                                         <TextView
                                             style="@style/ThemeTextGray"
                                             android:layout_weight="0"
-                                            android:text="@string/dev_maintainer" />
-
-                                        <TextView
-                                            android:id="@+id/devMaintainer"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
                                             android:text="@string/dev_status" />
 
                                         <TextView
@@ -284,6 +270,16 @@
                                     </TableRow>
                                 </TableLayout>
                             </LinearLayout>
+
+                            <Button
+                                android:id="@+id/deviceInfo"
+                                android:layout_marginTop="16dp"
+                                android:paddingVertical="0dp"
+                                style="@style/ThemeButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/rel_button"
+                                app:icon="@drawable/ic_outline_info_24" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

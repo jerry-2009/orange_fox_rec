@@ -8,6 +8,8 @@
 
     <TextView
         android:id="@+id/multiTextView"
+        android:linksClickable="true"
+        android:autoLink="all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="16dp"

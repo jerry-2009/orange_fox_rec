@@ -4,6 +4,7 @@
     <string name="close">Close</string>
     <string name="err_json">Can\'t parse json</string>
     <string name="err_response">Server returned wrong response code: %1$d</string>
+    <string name="err_no_dev">Sorry, we can\'t find this device</string>
     <string name="err_no_rel">Sorry, we can\'t find this release</string>
     <string name="err_no_rels">Sorry, we can\'t find releases for this device</string>
     <string name="err_no_device">Device not found</string>
@@ -30,8 +31,8 @@
     <string name="rels_activity">Releases</string>
 
     <string name="rel_activity">Release Info</string>
-    <string name="rel_button">More Info</string>
-    <string name="rel_more">Old Builds</string>
+    <string name="rel_button">Show Info</string>
+    <string name="rel_more">All Builds</string>
     <string name="rel_current">Latest Release</string>
 
     <string name="rel_size">File Size</string>
@@ -45,7 +46,7 @@
     <string name="rel_info">Info</string>
 
     <string name="rel_changes">Changelog</string>
-    <string name="rel_notes">Build Notes</string>
+    <string name="rel_notes">Notes</string>
     <string name="rel_bugs">Bugs</string>
 
     <string name="dev_info">Device Info</string>
@@ -53,9 +54,9 @@
     <string name="dev_code">Codename</string>
     <string name="dev_maintainer">Maintainer</string>
     <string name="dev_status">Status</string>
-    <string name="dev_maintained">Maintained</string>
-    <string name="dev_unmaintained">Unmaintained</string>
-    <string name="dev_patch">Sec.Patch</string>
+    <string name="dev_maintained">Supported</string>
+    <string name="dev_unmaintained">Unsupported</string>
+    <string name="dev_patch">Patch</string>
 
     <string name="dev_activity">Select Device</string>
     <string name="size_mb">%dMB</string>
@@ -133,4 +134,6 @@
 
     <string name="pref_about">OrangeFox App</string>
     <string name="pref_about_desc">Authors, licenses, etc.</string>
+
+    <string name="dev_telegram">Maintainer\'s Telegram</string>
 </resources>

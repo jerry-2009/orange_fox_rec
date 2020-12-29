@@ -45,8 +45,7 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
-    TextView _ofTitle, _cardErrorText, _cardErrorTitle;
-    Button _releaseInfo, _oldReleases, _btnRefresh;
+    TextView _cardErrorText, _cardErrorTitle;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
     View rootView, _shimmer, _shimmer2;
@@ -59,11 +58,7 @@ public class InstallFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        _ofTitle = rootView.findViewById(R.id.ofTitle);
         _installButton = rootView.findViewById(R.id.installButton);
-        _releaseInfo = rootView.findViewById(R.id.releaseInfo);
-        _oldReleases = rootView.findViewById(R.id.oldReleases);
-        _btnRefresh = rootView.findViewById(R.id.btnRefresh);
 
         _cardError = rootView.findViewById(R.id.cardError);
         _cardInfo = rootView.findViewById(R.id.cardInfo);
@@ -79,7 +74,7 @@ public class InstallFragment extends Fragment {
 
         rootView.findViewById(R.id.settingsOpen).setOnClickListener(view -> startActivityForResult(new Intent(getActivity(), SettingsActivity.class), 300));
 
-        _releaseInfo.setOnClickListener(view -> {
+        rootView.findViewById(R.id.releaseInfo).setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), RecyclerActivity.class);
             intent.putExtra("release", prefs.getString(pref.CACHE_RELEASE, "no_cache_release"));
             intent.putExtra("type", 1);
@@ -87,7 +82,15 @@ public class InstallFragment extends Fragment {
             startActivityForResult(intent, 200);
         });
 
-        _oldReleases.setOnClickListener(view -> {
+        rootView.findViewById(R.id.deviceInfo).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), RecyclerActivity.class);
+            intent.putExtra("release", prefs.getString(pref.DEVICE, "no_cache_device"));
+            intent.putExtra("type", 4);
+            intent.putExtra("title", R.string.dev_info);
+            startActivity(intent);
+        });
+
+        rootView.findViewById(R.id.oldReleases).setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), RecyclerActivity.class);
             intent.putExtra("release", prefs.getString(pref.DEVICE_CODE, "no_device_code"));
             intent.putExtra("type", 2);
@@ -95,7 +98,7 @@ public class InstallFragment extends Fragment {
             startActivityForResult(intent, 200);
         });
 
-        _btnRefresh.setOnClickListener(view -> {
+        rootView.findViewById(R.id.btnRefresh).setOnClickListener(view -> {
             _cardError.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
@@ -223,7 +226,6 @@ public class InstallFragment extends Fragment {
             ((TextView)rootView.findViewById(R.id.devModel)).setText(device.getString("full_name"));
             ((TextView)rootView.findViewById(R.id.devStatus)).setText(device.getBoolean("supported") ?
                     R.string.dev_maintained : R.string.dev_unmaintained);
-            ((TextView)rootView.findViewById(R.id.devMaintainer)).setText(device.getJSONObject("maintainer").getString("name"));
             ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
 
             _installButton.setOnClickListener(view -> {

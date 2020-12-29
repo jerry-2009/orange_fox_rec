@@ -5,10 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -146,6 +148,9 @@ public class RecyclerActivity extends AppCompatActivity {
             case 3: //device list
                 new Thread(this::getDevices).start();
                 break;
+            case 4: //device info
+                new Thread(this::getDeviceInfo).start();
+                break;
         }
     }
 
@@ -232,6 +237,79 @@ public class RecyclerActivity extends AppCompatActivity {
             e.printStackTrace();
             runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
         }
+    }
+
+    private void getDeviceInfo() {
+        JSONObject device, maintainer;
+        try {
+            Map<String, Object> response = API.request("devices/get?_id=" + new JSONObject(releaseIntent).getString("_id"));
+            if(!(boolean)response.get("success")) {
+                runOnUiThread(() -> API.errorHandler(this, response, R.string.err_no_dev));
+                return;
+            }
+            device = new JSONObject((String)response.get("response"));
+
+            Map<String, Object> responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
+            if(!(boolean)responseMnt.get("success")) {
+                runOnUiThread(() -> API.errorHandler(this, responseMnt, R.string.err_no_dev));
+                return;
+            }
+            maintainer = new JSONObject((String)responseMnt.get("response"));
+
+            items.add(new RecyclerItems(getString(R.string.dev_model), device.getString("full_name"), R.drawable.ic_device));
+            items.add(new RecyclerItems(getString(R.string.dev_code), device.getString("codename"), R.drawable.ic_round_code_24));
+            items.add(new RecyclerItems(getString(R.string.dev_maintainer), maintainer.getString("name"), R.drawable.ic_outline_person_24));
+
+            items.add(new RecyclerItems(getString(R.string.dev_status), getString(device.getBoolean("supported") ?
+                    R.string.dev_maintained : R.string.dev_unmaintained), R.drawable.ic_round_check_24));
+
+            if (!maintainer.isNull("telegram"))
+                items.add(new RecyclerItems(getString(R.string.dev_telegram),
+                        maintainer.getJSONObject("telegram").getString("username"),
+                        R.drawable.ic_tg, maintainer.getJSONObject("telegram").getString("url")));
+
+
+            FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
+            pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, (final View view) -> openTg(view, items)))));
+            if (!device.isNull("notes"))
+                pageList.add(R.string.rel_notes, TextFragment.class,
+                        TextFragment.arguments(device.getString("notes")));
+
+            runOnUiThread(() -> {
+                FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
+                        getSupportFragmentManager(), pageList.create());
+
+                ViewPager viewPager = findViewById(R.id.viewpager);
+                viewPager.setAdapter(fragAdapter);
+
+                OverScrollDecoratorHelper.setUpOverScroll(viewPager);
+                viewPagerTab.setViewPager(viewPager);
+
+                _loadingView.animate()
+                        .alpha(0f)
+                        .setDuration(200)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                _loadingView.setVisibility(View.GONE);
+                            }
+                        });
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            runOnUiThread(() -> Tools.dialogFinish(this, R.string.err_json));
+        }
+    }
+
+    private void openTg(View view, List<RecyclerItems> items) {
+        int itemPosition = ((RecyclerView)findViewById(R.id.releaseRecycler)).getChildLayoutPosition(view);
+        String id = items.get(itemPosition).getId();
+        if (id != null)
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(id)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     private List<RecyclerItems> addReleaseItems(Map<String, Object> response) throws JSONException {
