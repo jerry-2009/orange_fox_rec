@@ -173,17 +173,20 @@
         <item name="android:layout">@layout/pref_category</item>
     </style>
 
-    <style name="ThemeSheet">
+    <style name="ThemeSheetBase">
         <item name="android:layout_gravity">bottom|center</item>
-        <item name="android:layout_margin">0dp</item>
-        <item name="cardElevation">@dimen/elevation_high</item>
+        <item name="cardBackgroundColor">@color/fox_card</item>
         <item name="contentPadding">26dp</item>
         <item name="contentPaddingTop">8dp</item>
-        <item name="contentPaddingBottom">8dp</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeTopRounded</item>
+        <item name="cardElevation">@dimen/elevation_high</item>
+    </style>
 
-        <item name="cardBackgroundColor">@color/fox_card</item>
-        <item name="android:layout_marginHorizontal">8dp</item>
+    <style name="ThemeSheet" parent="ThemeSheetBase">
+        <item name="contentPaddingBottom">8dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="contentPaddingTop">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeTopRounded</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="ShapeTopRounded">

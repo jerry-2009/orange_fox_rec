@@ -16,6 +16,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
+import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.fragments.InstallFragment;
 import com.fordownloads.orangefox.fragments.LogsFragment;

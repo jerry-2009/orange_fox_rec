@@ -1,0 +1,16 @@
+<resources>
+    <style name="ThemeSheet" parent="ThemeSheetBase">
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="cardCornerRadius">24dp</item>
+        <item name="android:layout_width">450dp</item>
+        <item name="contentPaddingBottom">20dp</item>
+    </style>
+    <style name="ThemeBottomSheet" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ThemeBottomSheetStyle</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <style name="ThemeButtonDialog" parent="ThemeButton"/>
+    <style name="ThemeButtonDialogOutline" parent="ThemeButtonOutline"/>
+</resources>

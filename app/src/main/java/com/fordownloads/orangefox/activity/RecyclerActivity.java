@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.fordownloads.orangefox.fragments.RecyclerFragment;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
 import com.fordownloads.orangefox.fragments.TextFragment;
 import com.fordownloads.orangefox.utils.API;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -50,11 +52,19 @@ public class RecyclerActivity extends AppCompatActivity {
     SmartTabLayout viewPagerTab;
     FrameLayout _loadingView;
     ExtendedFloatingActionButton _fab;
+    BottomSheetDialog instDialog;
 
     @Override
     protected void onSaveInstanceState(@NotNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putBoolean("isRestarted", true);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration config) {
+        super.onConfigurationChanged(config);
+        if (instDialog != null) instDialog.dismiss();
+        ((App) getApplication()).dismissDialog();
     }
 
     @Override
@@ -174,7 +184,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     if (((App)getApplication()).isDownloadSrvRunning())
                         Tools.showSnackbar(this, findViewById(R.id.installThis), R.string.err_service_running).show();
                     else
-                        Install.dialog(this, version, stringBuildType, url, md5, false, this);
+                        instDialog = Install.dialog(this, version, stringBuildType, url, md5, false, this);
                 });
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);

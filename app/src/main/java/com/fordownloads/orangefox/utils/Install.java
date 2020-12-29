@@ -2,22 +2,27 @@ package com.fordownloads.orangefox.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Environment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.URLUtil;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.service.DownloadService;
 import com.fordownloads.orangefox.consts;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.topjohnwu.superuser.Shell;
 
@@ -25,17 +30,15 @@ import java.io.File;
 
 public class Install {
 
-    public static void dialog(Activity activity, String ver, String type, String url, String md5, boolean noExistsCheck, Activity actToFinish) {
-        BottomSheetDialog dialog = new BottomSheetDialog(activity, R.style.ThemeBottomSheet);
-
+    public static BottomSheetDialog dialog(Activity activity, String ver, String type, String url, String md5, boolean noExistsCheck, Activity actToFinish) {
         String fileName = URLUtil.guessFileName(url, null, "application/zip");
         File finalFile = new File(consts.DOWNLOAD_DIR, fileName);
         boolean exist = !noExistsCheck && finalFile.exists() && hasStoragePM(activity);
 
         View sheetView = activity.getLayoutInflater().inflate(exist ? R.layout.dialog_exists : R.layout.dialog_install, null);
-        dialog.setContentView(sheetView);
-        dialog.setDismissWithAnimation(true);
         ((TextView)sheetView.findViewById(R.id.installTitle)).setText(activity.getString(R.string.install_latest, ver, type));
+
+        BottomSheetDialog dialog = Tools.initBottomSheet(activity, sheetView);
 
         if (exist) {
             sheetView.findViewById(R.id.btnInstall).setOnClickListener(v -> {
@@ -53,7 +56,7 @@ public class Install {
             });
             sheetView.findViewById(R.id.btnDownload).setOnClickListener (v -> {
                 dialog.dismiss();
-                dialog(activity, ver, type, url, md5, true, actToFinish);
+                ((App) activity.getApplication()).setDialogToDismiss(dialog(activity, ver, type, url, md5, true, actToFinish));
             });
             sheetView.findViewById(R.id.btnDelete).setOnClickListener (v -> {
                 if (!finalFile.delete())
@@ -89,22 +92,10 @@ public class Install {
             sheetView.findViewById(R.id.btnDownload).setOnClickListener(proceed);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            sheetView.setY(activity.getWindowManager().getCurrentWindowMetrics().getBounds().height());
-        } else {
-            Point size = new Point();
-            activity.getWindowManager().getDefaultDisplay().getSize(size);
-            sheetView.setY(size.y);
-        }
-
         dialog.show();
+        sheetView.animate().setInterpolator(consts.intr).setDuration(800).translationY(0);
 
-        sheetView.animate()
-                .setInterpolator(consts.intr)
-                .setDuration(600)
-                .setStartDelay(200)
-                .setStartDelay(100)
-                .translationY(0);
+        return dialog;
     }
 
     public static  void finishIfNotNull(Activity actToFinish){

@@ -9,7 +9,7 @@
 
     <com.google.android.material.card.MaterialCardView
         style="@style/ThemeSheet"
-        android:layout_width="match_parent"
+        android:id="@+id/cardDialog"
         android:layout_height="wrap_content">
 
         <LinearLayout

@@ -31,6 +31,7 @@ import com.fordownloads.orangefox.activity.SettingsActivity;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.Tools;
 import com.fordownloads.orangefox.consts;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -48,12 +49,11 @@ public class InstallFragment extends Fragment {
     Button _releaseInfo, _oldReleases, _btnRefresh;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
-    View rootView;
+    View rootView, _shimmer, _shimmer2;
     CardView _cardError, _cardInfo, _cardRelease;
     ImageView _cardErrorIcon;
-    View _shimmer;
     SwipeRefreshLayout _refreshLayout;
-
+    BottomSheetDialog devDialog = null, instDialog = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
@@ -73,6 +73,7 @@ public class InstallFragment extends Fragment {
         _cardErrorText = rootView.findViewById(R.id.cardErrorText);
         _cardErrorTitle = rootView.findViewById(R.id.cardErrorTitle);
         _shimmer = rootView.findViewById(R.id.shimmer);
+        _shimmer2 = rootView.findViewById(R.id.shimmer2);
 
         _installButton.hide();
 
@@ -97,7 +98,8 @@ public class InstallFragment extends Fragment {
         _btnRefresh.setOnClickListener(view -> {
             _cardError.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
-            prepareDevice(false);
+            _shimmer2.setVisibility(View.VISIBLE);
+            prepareDevice(true);
         });
 
         _refreshLayout = rootView.findViewById(R.id.refreshLayout);
@@ -106,6 +108,7 @@ public class InstallFragment extends Fragment {
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
+            _shimmer2.setVisibility(View.VISIBLE);
             new Thread(() -> prepareDevice( true)).start();
         });
         _refreshLayout.setEnabled(false);
@@ -131,6 +134,7 @@ public class InstallFragment extends Fragment {
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
+            _shimmer2.setVisibility(View.VISIBLE);
             _installButton.hide();
             new Thread(() -> setDevice(data.getStringExtra("codename"), true, true)).start();
         }
@@ -145,16 +149,19 @@ public class InstallFragment extends Fragment {
     private void rotateUI(LinearLayout cards, Configuration config) {
         if (cards == null) return;
 
-        Point size = new Point();
-        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-
-        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE && (float)(size.x / size.y) > 1.6){
+        if (Tools.isLandscape(getActivity(), config, Tools.getScreenSize(getActivity()))){
             cards.setOrientation(LinearLayout.HORIZONTAL);
             cards.setShowDividers(LinearLayout.SHOW_DIVIDER_BEGINNING | LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
-        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        } else if (getActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT) {
             cards.setOrientation(LinearLayout.VERTICAL);
             cards.setShowDividers(LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
         }
+
+        //Dismiss dialogs on device rotate because they has separate layouts for land/port
+        if (devDialog != null) devDialog.dismiss();
+        if (instDialog != null) instDialog.dismiss();
+
+        ((App) getActivity().getApplication()).dismissDialog();
     }
 
     private void prepareDevice(boolean force) {
@@ -223,12 +230,13 @@ public class InstallFragment extends Fragment {
                 if (((App)getActivity().getApplication()).isDownloadSrvRunning())
                     Tools.showSnackbar(getActivity(), _installButton, R.string.err_service_running).show();
                 else
-                    Install.dialog(getActivity(), version, stringBuildType, url, md5, false, null);
+                    instDialog = Install.dialog(getActivity(), version, stringBuildType, url, md5, false, null);
             });
             getActivity().runOnUiThread(() -> {
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
                 _cardError.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);
+                _shimmer2.setVisibility(View.GONE);
                 _cardInfo.setVisibility(View.VISIBLE);
                 _cardRelease.setVisibility(View.VISIBLE);
                 _installButton.show();
@@ -271,10 +279,10 @@ public class InstallFragment extends Fragment {
     protected void showDeviceDialog(String device, boolean fail, String cache) {
         getActivity().runOnUiThread(() -> {
             ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
-            BottomSheetDialog devDialog = new BottomSheetDialog(getActivity(), R.style.ThemeBottomSheet);
+
             View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, (ViewGroup)null);
-            devDialog.setContentView(sheetView);
-            devDialog.setDismissWithAnimation(true);
+
+            devDialog = Tools.initBottomSheet(getActivity(), sheetView);
 
             Button gSelect = sheetView.findViewById(R.id.guessSelect);
             Button gRight = sheetView.findViewById(R.id.btnInstall);
@@ -314,18 +322,8 @@ public class InstallFragment extends Fragment {
 
             devDialog.setOnDismissListener(v -> errorCard(404, R.string.err_dev_not_selected));
 
-            Point size = new Point();
-            getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-
-            sheetView.setY(size.y);
             devDialog.show();
-
-            sheetView.animate()
-                    .setInterpolator(consts.intr)
-                    .setDuration(600)
-                    .setStartDelay(200)
-                    .setStartDelay(100)
-                    .translationY(0);
+            sheetView.animate().setInterpolator(consts.intr).setDuration(800).translationY(0);
         });
     }
 
@@ -384,6 +382,7 @@ public class InstallFragment extends Fragment {
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.GONE);
+            _shimmer2.setVisibility(View.GONE);
             _refreshLayout.setRefreshing(false);
             _refreshLayout.setEnabled(true);
         });
