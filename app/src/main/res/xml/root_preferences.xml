@@ -1,7 +1,15 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
         app:key="about"
-        app:layout="@layout/pref_about" />
+        app:layout="@layout/pref_about">
+
+        <intent
+            android:targetPackage="com.fordownloads.orangefox"
+            android:targetClass="com.fordownloads.orangefox.activity.SettingsActivity">
+            <extra android:name="about" android:value="true" />
+        </intent>
+    </Preference>
 
     <PreferenceCategory app:title="@string/pref_update">
         <Preference

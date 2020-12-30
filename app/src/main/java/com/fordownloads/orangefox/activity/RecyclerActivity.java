@@ -287,8 +287,10 @@ public class RecyclerActivity extends AppCompatActivity {
             items.add(new RecyclerItems(getString(R.string.dev_code), device.getString("codename"), R.drawable.ic_round_code_24));
             items.add(new RecyclerItems(getString(R.string.dev_maintainer), maintainer.getString("name"), R.drawable.ic_outline_person_24));
 
-            items.add(new RecyclerItems(getString(R.string.dev_status), getString(device.getBoolean("supported") ?
-                    R.string.dev_maintained : R.string.dev_unmaintained), R.drawable.ic_round_check_24));
+            if (device.getBoolean("supported"))
+                items.add(new RecyclerItems(getString(R.string.dev_status), getString(R.string.dev_maintained), R.drawable.ic_round_check_24));
+            else
+                items.add(new RecyclerItems(getString(R.string.dev_status), getString(R.string.dev_unmaintained), R.drawable.ic_round_close_24));
 
             if (!maintainer.isNull("telegram") && !maintainer.getJSONObject("telegram").isNull("url"))
                 items.add(new RecyclerItems(getString(R.string.dev_telegram),

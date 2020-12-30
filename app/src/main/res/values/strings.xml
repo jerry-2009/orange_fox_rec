@@ -133,8 +133,17 @@
     <string name="pref_pm">Missing permissions</string>
     <string name="pref_pm_desc">OrangeFox App needs permissions to download and install updates.\nTap here to grant Storage and Root permissions.</string>
 
-    <string name="pref_about">OrangeFox App</string>
+    <string name="pref_about">About</string>
     <string name="pref_about_desc">Authors, licenses, etc.</string>
+
+    <string name="about_me">Main developer and designer</string>
+    <string name="about_yan">API creator, OrangeFox lead</string>
+    <string name="about_sub">App for OrangeFox Recovery</string>
+
+    <string name="about_news">News</string>
+    <string name="about_support">Support</string>
+    <string name="about_beta">Beta Support</string>
+    <string name="about_oos">Open Source Licenses</string>
 
     <string name="dev_telegram">Maintainer\'s Telegram</string>
 </resources>

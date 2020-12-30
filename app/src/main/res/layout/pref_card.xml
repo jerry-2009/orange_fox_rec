@@ -6,36 +6,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <com.google.android.material.card.MaterialCardView
         android:background="?android:selectableItemBackground"
-        style="@style/ThemeCardOutline"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="8dp">
-        <ImageView
+        style="@style/ThemeCardOutline" >
+        <ImageView android:id="@android:id/icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerInside" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="64dp"
             android:orientation="vertical">
-            <TextView
+            <TextView android:id="@android:id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/ThemeTitle"
                 android:textSize="16dp"
-                android:textColor="@color/white"
-                android:text="@string/pref_about"/>
-            <TextView
+                android:textColor="@color/white"/>
+            <TextView android:id="@android:id/summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingEnd="24dp"
                 android:textColor="@color/gray_light"
-                android:textSize="14sp"
-                android:text="@string/pref_about_desc"/>
+                android:textSize="14sp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
