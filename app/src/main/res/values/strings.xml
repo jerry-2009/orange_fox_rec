@@ -21,6 +21,7 @@
     <string name="err_ors">Unable to create OpenRecoveryScript file. Please, reboot to recovery and install ZIP file manually.\nFile location is %1$s</string>
     <string name="err_ors_short">Unable to create OpenRecoveryScript file</string>
     <string name="err_service_running">Another release is being downloaded</string>
+    <string name="err_ise">Internal server error</string>
 
     <string name="err_file_delete">Can\'t delete file</string>
     <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
@@ -130,7 +131,7 @@
     <string name="pref_device">Change device</string>
 
     <string name="pref_pm">Missing permissions</string>
-    <string name="pref_pm_desc">OrangeFox App needs storage and Root permissions to download and install updates. Tap here to grant needed permissions.</string>
+    <string name="pref_pm_desc">OrangeFox App needs permissions to download and install updates.\nTap here to grant Storage and Root permissions.</string>
 
     <string name="pref_about">OrangeFox App</string>
     <string name="pref_about_desc">Authors, licenses, etc.</string>

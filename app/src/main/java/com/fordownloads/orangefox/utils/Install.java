@@ -46,13 +46,17 @@ public class Install {
                     if (MD5.checkMD5(md5, finalFile)) {
                         if (!Shell.su(
                                 "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + consts.ORS_FILE)
-                                .exec().isSuccess())
-                            Tools.showSnackbar(activity, sheetView, R.string.err_ors_short).show();
+                                .exec().isSuccess()) {
+                            Tools.showSnackbar(activity, null, R.string.err_ors_short, dialog).show();
+                            return;
+                        }
+                        if (!Shell.su("reboot recovery").exec().isSuccess())
+                            Tools.showSnackbar(activity, null, R.string.err_reboot_notify, dialog).show();
                     } else {
-                        Tools.showSnackbar(activity, sheetView, R.string.err_md5_wrong_exists).show();
+                        Tools.showSnackbar(activity, null, R.string.err_md5_wrong_exists, dialog).show();
                     }
                 else
-                    Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_root).show();
+                    Tools.showSnackbar(activity, null, R.string.err_no_pm_root, dialog).show();
             });
             sheetView.findViewById(R.id.btnDownload).setOnClickListener (v -> {
                 dialog.dismiss();
@@ -60,7 +64,7 @@ public class Install {
             });
             sheetView.findViewById(R.id.btnDelete).setOnClickListener (v -> {
                 if (!finalFile.delete())
-                    Tools.showSnackbar(activity, sheetView, R.string.err_file_delete).show();
+                    Tools.showSnackbar(activity, null, R.string.err_file_delete, dialog).show();
                 else
                     dialog.dismiss();
             });
@@ -69,7 +73,7 @@ public class Install {
                 if (v.getId() == R.id.btnDownload || Shell.rootAccess())
                     if (hasStoragePM(activity)) {
                         if (((App)activity.getApplication()).isDownloadSrvRunning())
-                            Tools.showSnackbar(activity, sheetView, R.string.err_service_running).show();
+                            Tools.showSnackbar(activity, null, R.string.err_service_running, dialog).show();
                         else {
                             Intent intent = new Intent(activity, DownloadService.class)
                                     .putExtra("md5", md5)
@@ -81,11 +85,11 @@ public class Install {
                             activity.startService(intent);
                         }
                     } else {
-                        Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_storage)
+                        Tools.showSnackbar(activity, null, R.string.err_no_pm_storage, dialog)
                                 .setAction(R.string.setup, view -> requestPM(activity)).show();
                     }
                 else
-                    Tools.showSnackbar(activity, sheetView, R.string.err_no_pm_root).show();
+                    Tools.showSnackbar(activity, null, R.string.err_no_pm_root, dialog).show();
             };
 
             sheetView.findViewById(R.id.btnInstall).setOnClickListener(proceed);

@@ -85,7 +85,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         releaseIntent = intent.getStringExtra("release");
         _loadingView = findViewById(R.id.loadingLayout);
-        _fab = findViewById(R.id.installThis);
+        _fab = findViewById(R.id.installButton);
 
         viewPagerTab = findViewById(R.id.viewpagertab);
         CardView tabCard = findViewById(R.id.viewpagertabElevation);
@@ -170,12 +170,12 @@ public class RecyclerActivity extends AppCompatActivity {
                 case 1000:
                     _text.setText(R.string.err_json);
                     break;
-                default:
-                    _text.setText(getString(R.string.err_response, code));
-                    break;
                 case 0:
                     ((TextView)findViewById(R.id.errorTitle)).setText(R.string.err_card_no_internet);
                     ((ImageView)findViewById(R.id.errorIcon)).setImageResource(R.drawable.ic_round_public_off_24);
+                    break;
+                default:
+                    _text.setText(getString(R.string.err_response, code));
                     break;
             }
         });
@@ -212,9 +212,9 @@ public class RecyclerActivity extends AppCompatActivity {
             items.add(new RecyclerItems("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
 
             runOnUiThread(() -> {
-                findViewById(R.id.installThis).setOnClickListener(view -> {
+                findViewById(R.id.installButton).setOnClickListener(view -> {
                     if (((App)getApplication()).isDownloadSrvRunning())
-                        Tools.showSnackbar(this, findViewById(R.id.installThis), R.string.err_service_running).show();
+                        Tools.showSnackbar(this, findViewById(R.id.installButton), R.string.err_service_running).show();
                     else
                         instDialog = Install.dialog(this, version, stringBuildType, url, md5, false, this);
                 });
@@ -271,14 +271,14 @@ public class RecyclerActivity extends AppCompatActivity {
         try {
             Map<String, Object> response = API.request("devices/get?_id=" + new JSONObject(releaseIntent).getString("_id"));
             if(!(boolean)response.get("success")) {
-                errorHandler((int)response.get("code"), R.string.err_no_dev);
+                errorHandler((int)response.get("code"), R.string.err_ise);
                 return;
             }
             device = new JSONObject((String)response.get("response"));
 
             Map<String, Object> responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
             if(!(boolean)responseMnt.get("success")) {
-                errorHandler((int)responseMnt.get("code"), R.string.err_no_dev);
+                errorHandler((int)responseMnt.get("code"), R.string.err_ise);
                 return;
             }
             maintainer = new JSONObject((String)responseMnt.get("response"));
@@ -392,7 +392,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
             if (parseReleaseByType(pageList, "stable", R.string.rel_stable) &
                     parseReleaseByType(pageList, "beta", R.string.rel_beta)) {
-                errorHandler((int)responseStable.get("code"), R.string.err_no_rel);
+                errorHandler((int)responseStable.get("code"), R.string.err_no_rels);
                 return;
             }
 
@@ -427,7 +427,7 @@ public class RecyclerActivity extends AppCompatActivity {
             Map<String, Object> response = API.request("devices");
 
             if(!(boolean)response.get("success")) {
-                errorHandler((int)response.get("code"), R.string.err_no_device);
+                errorHandler((int)response.get("code"), R.string.err_ise);
                 return;
             }
 

@@ -44,12 +44,21 @@ public class Tools {
     }
 
     public static Snackbar showSnackbar(Activity activity, View view, int msg) {
+        return showSnackbar(activity, view, msg, null);
+    }
+
+    public static Snackbar showSnackbar(Activity activity, View view, int msg, BottomSheetDialog dialog) {
+        if (dialog != null) {
+            dialog.dismiss();
+            view = activity.findViewById(R.id.installButton);
+        }
+
         return Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+                .setAnchorView(view)
                 .setActionTextColor(ContextCompat.getColor(activity, R.color.fox_accent))
                 .setBackgroundTint(ContextCompat.getColor(activity, R.color.fox_card))
                 .setTextColor(ContextCompat.getColor(activity, R.color.white))
-                .setDuration(6000)
-                .setAnchorView(view);
+                .setDuration(6000);
     }
 
     public static String formatDate(long date) {

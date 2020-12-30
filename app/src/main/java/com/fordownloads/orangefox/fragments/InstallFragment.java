@@ -335,7 +335,7 @@ public class InstallFragment extends Fragment {
         try {
             Map<String, Object> response = API.request("devices");
             if(!(boolean)response.get("success")) {
-                errorCard((int)response.get("code"), R.string.err_no_device);
+                errorCard((int)response.get("code"), R.string.err_ise);
                 return "no_internet_error";
             }
             JSONArray devices = new JSONObject((String)response.get("response")).getJSONArray("data");
