@@ -159,4 +159,10 @@
     <string name="annoy_upd_desc">App will install all updates automatically in background</string>
     <string name="annoy_foxfiles">Some files are missing</string>
     <string name="annoy_foxfiles_desc">You need to reinstall recovery to have all functions</string>
+
+    <string name="script_add">Add</string>
+    <string name="script_add_title">Add action</string>
+    <string name="script_zip">Install</string>
+    <string name="script_backup">Backup</string>
+    <string name="script_wipe">Wipe</string>
 </resources>

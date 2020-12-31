@@ -21,4 +21,17 @@
         <item>https://orangefox.crowdin.com</item>
         <item>https://t.me/OrangeFoxChat</item>
     </string-array>
+    <string-array name="wipe_list">
+        <item>Data</item>
+        <item>System</item>
+        <item>Cache</item>
+        <item>Dalvik</item>
+    </string-array>
+    <string-array name="backup_list">
+        <item>Boot</item>
+        <item>Recovery</item>
+        <item>Data</item>
+        <item>System</item>
+        <item>Cache</item>
+    </string-array>
 </resources>

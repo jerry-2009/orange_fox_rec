@@ -331,7 +331,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private void openTg(View view, List<RecyclerItems> items) {
         int itemPosition = ((RecyclerView)findViewById(R.id.releaseRecycler)).getChildLayoutPosition(view);
-        String id = items.get(itemPosition).getId();
+        String id = items.get(itemPosition).getData();
         if (id != null)
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(id)));
@@ -367,7 +367,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private void selectRelease(final View view, List<RecyclerItems> list) {
         int itemPosition = ((RecyclerView)findViewById(R.id.releaseRecycler)).getChildLayoutPosition(view);
         Intent intent = new Intent(this, RecyclerActivity.class);
-        intent.putExtra("release", list.get(itemPosition).getId());
+        intent.putExtra("release", list.get(itemPosition).getData());
         intent.putExtra("type", 0);
         intent.putExtra("arrow", true);
         intent.putExtra("title", R.string.rel_activity);

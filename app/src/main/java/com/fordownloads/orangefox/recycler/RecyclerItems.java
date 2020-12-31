@@ -3,20 +3,20 @@ package com.fordownloads.orangefox.recycler;
 public class RecyclerItems {
         private final String title;
         private final String subtitle;
-        private final String id;
+        private final String data;
         private final int icon;
 
         public RecyclerItems(String title, String subtitle, int icon) {
             this.title = title;
             this.subtitle = subtitle;
-            this.id = null;
+            this.data = null;
             this.icon = icon;
         }
 
-        public RecyclerItems(String title, String subtitle, int icon, String id) {
+        public RecyclerItems(String title, String subtitle, int icon, String data) {
             this.title = title;
             this.subtitle = subtitle;
-            this.id = id;
+            this.data = data;
             this.icon = icon;
         }
 
@@ -26,8 +26,8 @@ public class RecyclerItems {
         public String getSubtitle() {
                 return this.subtitle;
         }
-        public String getId() {
-                return this.id;
+        public String getData() {
+                return this.data;
         }
         public int getIcon() {
                 return this.icon;
