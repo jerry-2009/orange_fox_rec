@@ -68,10 +68,30 @@
         <item name="android:elevation">0dp</item>
     </style>
 
-    <style name="ThemeTabs">
+    <style name="ThemeTabsHl">
         <item name="colorControlHighlight">@android:color/transparent</item>
         <item name="colorControlActivated">@android:color/transparent</item>
         <item name="colorPrimary">@android:color/transparent</item>
+    </style>
+
+    <style name="ThemeTabs">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:defaultFocusHighlightEnabled">false</item>
+        <item name="android:theme">@style/ThemeTabsHl</item>
+        <item name="stl_defaultTabTextColor">@color/white</item>
+        <item name="stl_defaultTabTextHorizontalPadding">18dp</item>
+        <item name="stl_dividerColor">@android:color/transparent</item>
+        <item name="stl_dividerThickness">0dp</item>
+        <item name="stl_indicatorColor">@color/tab_selected</item>
+        <item name="stl_indicatorCornerRadius">18dp</item>
+        <item name="stl_indicatorGravity">center</item>
+        <item name="stl_indicatorInterpolation">linear</item>
+        <item name="stl_indicatorThickness">36dp</item>
+        <item name="stl_underlineColor">@android:color/transparent</item>
+        <item name="stl_underlineThickness">0dp</item>
     </style>
 
     <style name="ThemeButtonInstall" parent="ThemeButtonBasic">
@@ -205,5 +225,10 @@
         <item name="cornerSize">0dp</item>
         <item name="cornerSizeTopLeft">24dp</item>
         <item name="cornerSizeTopRight">24dp</item>
+    </style>
+
+    <style name="ThemeList">
+        <item name="android:paddingHorizontal">32dp</item>
+        <item name="android:layout_marginHorizontal">32dp</item>
     </style>
 </resources>

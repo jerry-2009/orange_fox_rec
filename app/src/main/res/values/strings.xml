@@ -163,6 +163,7 @@
     <string name="script_add">Add</string>
     <string name="script_add_title">Add action</string>
     <string name="script_zip">Install</string>
+    <string name="script_zip_select">Select ZIP</string>
     <string name="script_backup">Backup</string>
     <string name="script_wipe">Wipe</string>
 </resources>

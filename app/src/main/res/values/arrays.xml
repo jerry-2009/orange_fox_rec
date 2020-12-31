@@ -33,5 +33,6 @@
         <item>Data</item>
         <item>System</item>
         <item>Cache</item>
+        <item>Optimize</item>
     </string-array>
 </resources>

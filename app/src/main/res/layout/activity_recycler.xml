@@ -48,25 +48,9 @@
 
                     <com.ogaclejapan.smarttablayout.SmartTabLayout
                         android:id="@+id/viewpagertab"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@color/fox_title_solid_bg"
-                        android:clipToPadding="false"
-                        android:defaultFocusHighlightEnabled="false"
                         android:paddingStart="54dp"
                         android:paddingEnd="8dp"
-                        android:theme="@style/ThemeTabs"
-                        app:stl_defaultTabTextColor="@color/white"
-                        app:stl_defaultTabTextHorizontalPadding="18dp"
-                        app:stl_dividerColor="@android:color/transparent"
-                        app:stl_dividerThickness="0dp"
-                        app:stl_indicatorColor="@color/tab_selected"
-                        app:stl_indicatorCornerRadius="18dp"
-                        app:stl_indicatorGravity="center"
-                        app:stl_indicatorInterpolation="linear"
-                        app:stl_indicatorThickness="36dp"
-                        app:stl_underlineColor="@android:color/transparent"
-                        app:stl_underlineThickness="0dp" />
+                        style="@style/ThemeTabs" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
         </LinearLayout>
