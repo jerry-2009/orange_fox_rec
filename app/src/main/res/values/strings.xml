@@ -146,4 +146,17 @@
     <string name="about_oos">Open Source Licenses</string>
 
     <string name="dev_telegram">Maintainer\'s Telegram</string>
+
+    <string name="annoy_opcol">Donate to OrangeFox</string>
+    <string name="annoy_opcol_desc">Help us to improve our recovery</string>
+    <string name="annoy_crowdin">You want to see app in your language?</string>
+    <string name="annoy_crowdin_desc">Help us to translate app on Crowdin</string>
+    <string name="annoy_support">Recovery not working?</string>
+    <string name="annoy_support_desc">Ask a question in Telegram Group</string>
+
+    <!-- Context -->
+    <string name="annoy_upd">Enable auto updates</string>
+    <string name="annoy_upd_desc">App will install all updates automatically in background</string>
+    <string name="annoy_foxfiles">Some files are missing</string>
+    <string name="annoy_foxfiles_desc">You need to reinstall recovery to have all functions</string>
 </resources>

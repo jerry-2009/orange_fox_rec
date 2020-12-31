@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="annoy_list">
+        <item>@string/annoy_upd</item>
+        <item>@string/annoy_foxfiles</item>
+        <item>@string/annoy_opcol</item>
+        <item>@string/annoy_crowdin</item>
+        <item>@string/annoy_support</item>
+    </string-array>
+    <string-array name="annoy_list_desc">
+        <item>@string/annoy_upd_desc</item>
+        <item>@string/annoy_foxfiles_desc</item>
+        <item>@string/annoy_opcol_desc</item>
+        <item>@string/annoy_crowdin_desc</item>
+        <item>@string/annoy_support_desc</item>
+    </string-array>
+    <string-array name="annoy_list_url">
+        <item>settings</item>
+        <item>null</item>
+        <item>https://opencollective.com/orangefox</item>
+        <item>https://orangefox.crowdin.com</item>
+        <item>https://t.me/OrangeFoxChat</item>
+    </string-array>
+</resources>

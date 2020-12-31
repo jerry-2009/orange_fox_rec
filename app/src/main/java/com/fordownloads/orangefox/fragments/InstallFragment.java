@@ -3,6 +3,7 @@ package com.fordownloads.orangefox.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,6 +32,7 @@ import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.API;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
+import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -115,6 +118,8 @@ public class InstallFragment extends Fragment {
         _refreshLayout.setEnabled(false);
         _refreshLayout.setColorSchemeResources(R.color.fox_accent);
         _refreshLayout.setProgressViewOffset(true, 64, 288);
+
+        setAnnoyCard(rootView);
 
         rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
 
@@ -387,5 +392,59 @@ public class InstallFragment extends Fragment {
             _refreshLayout.setRefreshing(false);
             _refreshLayout.setEnabled(true);
         });
+    }
+
+    public void setAnnoyCard(View rootView) {
+        int id;
+        String[] names = getResources().getStringArray(R.array.annoy_list);
+
+        if (Install.hasStoragePM(getActivity()) && !consts.FOXFILES_CHECK.exists() && consts.LAST_LOG.exists()) {
+            id = 1;
+        } else if (!prefs.getBoolean(pref.UPDATES_ENABLE, false)) {
+            id = 0;
+        } else {
+            id = prefs.getInt(pref.DISMISSED, 1) + 1;
+            if (id >= names.length) {
+                rootView.findViewById(R.id.swipeableLayout).setVisibility(View.GONE);
+                return;
+            }
+        }
+
+        String[] descs = getResources().getStringArray(R.array.annoy_list_desc);
+        String[] urls = getResources().getStringArray(R.array.annoy_list_url);
+
+        ((TextView)rootView.findViewById(R.id.annoyTitle)).setText(names[id]);
+        ((TextView)rootView.findViewById(R.id.annoyText)).setText(descs[id]);
+
+        int finalId = id;
+        rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> {
+            switch (urls[finalId]) {
+                case "null":
+                    break;
+                case "settings":
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    break;
+                default:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urls[finalId])));
+                    break;
+            }
+            rootView.findViewById(R.id.swipeableLayout).setVisibility(View.GONE);
+            prefs.edit().putInt(pref.DISMISSED, finalId).apply();
+        });
+
+        SwipeDismissBehavior<CardView> dismiss = new SwipeDismissBehavior();
+        dismiss.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
+        dismiss.setListener(new SwipeDismissBehavior.OnDismissListener() {
+            @Override
+            public void onDismiss(View view) {
+                rootView.findViewById(R.id.swipeableLayout).setVisibility(View.GONE);
+                prefs.edit().putInt(pref.DISMISSED, finalId).apply();
+            }
+            @Override public void onDragStateChanged(int state) {}
+        });
+
+        CoordinatorLayout.LayoutParams layoutParams =
+                (CoordinatorLayout.LayoutParams) rootView.findViewById(R.id.swipeCard).getLayoutParams();
+        layoutParams.setBehavior(dismiss);
     }
 }
