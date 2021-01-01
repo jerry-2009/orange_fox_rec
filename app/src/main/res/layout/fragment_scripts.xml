@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context=".fragments.ScriptsFragment">
 
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/createScript"
         style="@style/ThemeButtonInstall"
@@ -45,6 +46,7 @@
         app:layoutManager="LinearLayoutManager" />
     <Button
         android:id="@+id/btnAdd"
+        android:visibility="gone"
         style="@style/ThemeButtonDialogOutline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,5 +55,47 @@
         android:backgroundTint="@color/fox_background"
         android:text="@string/script_add_title"
         app:icon="@drawable/ic_round_add_24" />
+
+
+        <LinearLayout
+            android:id="@+id/emptyHelp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:layout_weight="1"
+                android:src="@drawable/art_add_cards" />
+
+            <TextView
+                style="@style/ThemeTitle"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/script_empty"
+                android:textAlignment="center" />
+
+            <TextView
+                style="@style/ThemeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:text="@string/script_empty_desc"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/btnAdd2"
+                android:layout_marginTop="16dp"
+                style="@style/ThemeButtonDialogOutline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/fox_background"
+                android:text="@string/script_add_title"
+                app:icon="@drawable/ic_round_add_24" />
+        </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

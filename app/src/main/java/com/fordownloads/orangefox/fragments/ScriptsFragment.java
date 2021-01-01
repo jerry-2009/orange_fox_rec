@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,6 +42,11 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.topjohnwu.superuser.Shell;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,11 +60,22 @@ public class ScriptsFragment extends Fragment {
     ORSAdapter ORSAdapter;
     ExtendedFloatingActionButton _createScript;
     BottomSheetDialog dialog = null;
+    View _emptyHelp;
+    Button _btnAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    public void listEmpty(boolean empty) {
+        if (empty)
+            _createScript.hide();
+        else
+            _createScript.show();
+        _emptyHelp.setVisibility(empty ? View.VISIBLE : View.GONE);
+        _btnAdd.setVisibility(empty ? View.GONE : View.VISIBLE);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,11 +85,14 @@ public class ScriptsFragment extends Fragment {
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setTitle(R.string.bnav_scripts);
 
+        _emptyHelp = rootView.findViewById(R.id.emptyHelp);
         _createScript = rootView.findViewById(R.id.createScript);
         _createScript.hide();
         _createScript.setOnClickListener(v -> buildScript(false));
 
-        rootView.findViewById(R.id.btnAdd).setOnClickListener(v -> addDialog(getActivity()));
+        _btnAdd = rootView.findViewById(R.id.btnAdd);
+        _btnAdd.setOnClickListener(v -> addDialog(getActivity()));
+        rootView.findViewById(R.id.btnAdd2).setOnClickListener(v -> addDialog(getActivity()));
 
         return rootView;
     }
@@ -88,7 +108,7 @@ public class ScriptsFragment extends Fragment {
             case R.id.clear:
                 items.clear();
                 ORSAdapter.notifyDataSetChanged();
-                _createScript.hide();
+                listEmpty(true);
                 return true;
             case R.id.reboot:
                 if (!Shell.su("reboot recovery").exec().isSuccess())
@@ -143,7 +163,7 @@ public class ScriptsFragment extends Fragment {
 
         ORSAdapter.setOnItemDismissListener(position -> {
             if (items.size() == 0)
-                _createScript.hide();
+                listEmpty(true);
         });
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(ORSAdapter);
@@ -164,7 +184,7 @@ public class ScriptsFragment extends Fragment {
                 items.add(new RecyclerItems(getString(R.string.script_zip),
                         path, R.drawable.ic_outline_archive_24, "install " + path));
                 ORSAdapter.notifyItemInserted(items.size() - 1);
-                _createScript.show();
+                listEmpty(false);
                 dialog.dismiss();
             }
         }
@@ -234,7 +254,7 @@ public class ScriptsFragment extends Fragment {
             items.add(new RecyclerItems(getString(R.string.script_backup),
                     name + "\n" + argUser.toString().substring(0, argUser.length() - 2), R.drawable.ic_outline_cloud_download_24, arg.toString()));
             ORSAdapter.notifyItemInserted(items.size() - 1);
-            _createScript.show();
+            listEmpty(false);
             dialog.dismiss();
         });
 
@@ -259,7 +279,7 @@ public class ScriptsFragment extends Fragment {
             items.add(new RecyclerItems(getString(R.string.script_wipe),
                     argUser.toString().substring(0, argUser.length() - 2), R.drawable.ic_delete, arg.toString().trim()));
             ORSAdapter.notifyItemInserted(items.size() - 1);
-            _createScript.show();
+            listEmpty(false);
             dialog.dismiss();
         });
 
