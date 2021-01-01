@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/clear"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/clear_all"
+        app:showAsAction="always"/>
+    <item android:id="@+id/reboot"
+        android:title="@string/reboot_recovery"
+        android:icon="@drawable/ic_round_refresh_24"
+        app:showAsAction="never"/>
+</menu>

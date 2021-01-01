@@ -39,13 +39,14 @@
                 style="@style/ThemeTabs"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="center"
+                android:background="@color/fox_card"
                 android:layout_width="wrap_content"/>
 
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="304dp" />
+                android:layout_height="380dp" />
 
         </LinearLayout>
 

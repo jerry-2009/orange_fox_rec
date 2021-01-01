@@ -1,5 +1,5 @@
 <resources>
     <dimen name="elevation_high">14dp</dimen>
-    <dimen name="elevation_medium">6dp</dimen>
-    <dimen name="elevation_low">12dp</dimen>
+    <dimen name="elevation_medium">2dp</dimen>
+    <dimen name="elevation_low">4dp</dimen>
 </resources>

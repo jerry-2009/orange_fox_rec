@@ -5,16 +5,13 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.fordownloads.orangefox.R;
@@ -23,6 +20,7 @@ import com.fordownloads.orangefox.consts;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
+import com.topjohnwu.superuser.io.SuFile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +28,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Tools {
@@ -45,6 +44,10 @@ public class Tools {
 
     public static Snackbar showSnackbar(Activity activity, View view, int msg) {
         return showSnackbar(activity, view, msg, null);
+    }
+
+    public static String getBackupFileName() {
+        return new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss_").format(new Date()) + Build.DEVICE;
     }
 
     public static Snackbar showSnackbar(Activity activity, View view, int msg, BottomSheetDialog dialog) {
@@ -131,5 +134,24 @@ public class Tools {
         sheetView.setY(sizes[1]);
 
         return dialog;
+    }
+
+    public static String getFileFromFilePicker(Intent resultData) {
+        File file = new File(resultData.getData().getPath());
+        String path = file.getAbsolutePath();
+        if (file.exists())
+            return path;
+
+        String[] uri = path.split(":");
+        uri[0] = uri[0].replace("/document/", "");
+        if (uri.length != 2 || uri[0].equals("msf"))
+            return null;
+        else if (uri[0].equals("primary") && new File("/sdcard/" + uri[1]).exists())
+            return "/sdcard/" + uri[1];
+        else if (new File("/storage/" + uri[0] + "/" + uri[1]).exists())
+            return "/external_sd/" + uri[1];
+        else if (new SuFile("/mnt/media_rw/" + uri[0] + "/" + uri[1]).exists())
+            return "/usb_otg/" + uri[1];
+        return null;
     }
 }

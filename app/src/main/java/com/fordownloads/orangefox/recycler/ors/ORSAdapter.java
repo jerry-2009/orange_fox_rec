@@ -32,11 +32,16 @@ public class ORSAdapter extends RecyclerView.Adapter<ORSAdapter.ItemViewHolder>
     private List<RecyclerItems> items;
     private final OnStartDragListener mDragStartListener;
     private final View.OnClickListener listener;
+    private OnItemDismissListener dismissListener;
 
     public ORSAdapter(Context context, OnStartDragListener dragStartListener, List<RecyclerItems> items, View.OnClickListener listener) {
         mDragStartListener = dragStartListener;
         this.items = items;
         this.listener = listener;
+    }
+
+    public void setOnItemDismissListener(OnItemDismissListener listener) {
+        this.dismissListener = listener;
     }
 
     @NotNull
@@ -67,6 +72,8 @@ public class ORSAdapter extends RecyclerView.Adapter<ORSAdapter.ItemViewHolder>
     public void onItemDismiss(int position) {
         items.remove(position);
         notifyItemRemoved(position);
+        if (listener != null)
+            dismissListener.onDismiss(position);
     }
 
     @Override

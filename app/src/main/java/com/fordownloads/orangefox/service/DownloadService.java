@@ -148,7 +148,7 @@ public class DownloadService extends Service {
                                     .setSmallIcon(R.drawable.ic_round_system_update_24)
                                     .setContentTitle(getString(R.string.notify_pending_reboot, version))
                                     .setContentText(text)
-                                    .addAction(R.drawable.ic_round_check_24, getString(R.string.reboot_recovery),
+                                    .addAction(R.drawable.ic_round_check_24, getString(R.string.reboot),
                                             PendingIntent.getBroadcast(getApplicationContext(), 0, actionIntent.setAction("com.fordownloads.orangefox.Reboot"), 0))
                                     .addAction(R.drawable.ic_round_check_24, getString(R.string.inst_cancel),
                                             PendingIntent.getBroadcast(getApplicationContext(), 0, actionIntent.setAction("com.fordownloads.orangefox.ORS"), 0))

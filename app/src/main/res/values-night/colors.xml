@@ -10,7 +10,7 @@
     <color name="fox_title_solid_bg">#FF1C1D20</color>
     <color name="google_gray">#FF5F6368</color>
     <color name="fox_card">#FF242528</color>
-    <color name="tab_selected">#FF242528</color>
+    <color name="tab_selected">#4D424747</color>
     <color name="fox_card_shimmer">#D2393A40</color>
     <color name="fox_outline">#FF2f3133</color>
     <color name="fox_notify">#FF78909C</color>

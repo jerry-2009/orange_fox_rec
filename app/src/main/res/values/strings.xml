@@ -22,10 +22,11 @@
     <string name="err_ors_short">Unable to create OpenRecoveryScript file</string>
     <string name="err_service_running">Another release is being downloaded</string>
     <string name="err_ise">Internal server error</string>
+    <string name="err_filepicker">Files from download folder or recents folder are not supported.</string>
 
     <string name="err_file_delete">Can\'t delete file</string>
     <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
-    <string name="err_reboot_notify">Unable to reboot.\nCheck root access and reboot manually.</string>
+    <string name="err_reboot_notify">Unable to reboot.\nCheck root access or reboot manually.</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
 
@@ -107,7 +108,7 @@
     <string name="preparing">Preparing...</string>
     <string name="install">Install</string>
 
-    <string name="reboot_recovery">Reboot</string>
+    <string name="reboot">Reboot</string>
     <string name="notify_pending_reboot">Reboot to install OrangeFox %1$s</string>
     <string name="notify_pending_reboot_sub">Update downloaded to %1$s.\nReboot to recovery to finish installation.</string>
 
@@ -160,10 +161,18 @@
     <string name="annoy_foxfiles">Some files are missing</string>
     <string name="annoy_foxfiles_desc">You need to reinstall recovery to have all functions</string>
 
-    <string name="script_add">Add</string>
+    <string name="script_backup_name">Backup Name</string>
     <string name="script_add_title">Add action</string>
+    <string name="script_create">Create Script</string>
     <string name="script_zip">Install</string>
     <string name="script_zip_select">Select ZIP</string>
     <string name="script_backup">Backup</string>
     <string name="script_wipe">Wipe</string>
+    <string name="script_created">Script has been created. Reboot to execute it.</string>
+    <string name="script_err_rom">You wiped system but didn\'t installed ROM.</string>
+    <string name="script_err_nothing">Script is empty.</string>
+    <string name="ignore">Ignore</string>
+
+    <string name="clear_all">Clear All</string>
+    <string name="reboot_recovery">Reboot Recovery</string>
 </resources>

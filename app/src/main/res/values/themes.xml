@@ -52,9 +52,7 @@
 
     <style name="ThemeToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/fox_accent</item>
-        <item name="actionMenuTextColor">@color/fox_accent</item>
         <item name="colorAccent">@color/fox_accent</item>
-        <item name="colorControlHighlight">@color/fox_accent</item>
     </style>
 
     <style name="ThemeToolbarText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -77,7 +75,7 @@
     <style name="ThemeTabs">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@color/fox_title_solid_bg</item>
         <item name="android:clipToPadding">false</item>
         <item name="android:defaultFocusHighlightEnabled">false</item>
         <item name="android:theme">@style/ThemeTabsHl</item>
@@ -230,5 +228,10 @@
     <style name="ThemeList">
         <item name="android:paddingHorizontal">32dp</item>
         <item name="android:layout_marginHorizontal">32dp</item>
+    </style>
+
+    <style name="ThemePopup" parent="Widget.AppCompat.PopupMenu">
+        <item name="popupMenuBackground">@drawable/popup_bg</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 </resources>

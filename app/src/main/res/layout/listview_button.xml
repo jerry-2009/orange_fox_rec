@@ -5,20 +5,35 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/backupNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="33dp"
+        android:hint="@string/script_backup_name"
+        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/backupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="26dp"
-        android:layout_weight="1"
         android:divider="@null"
-        android:layout_height="wrap_content"/>
-
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
     <Button
         android:id="@+id/btnAdd"
         android:layout_marginHorizontal="33dp"
         style="@style/ThemeButtonDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/script_add"
+        android:text="@string/script_add_title"
         app:icon="@drawable/ic_round_add_24" />
 </LinearLayout>
