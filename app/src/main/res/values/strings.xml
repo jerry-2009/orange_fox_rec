@@ -162,7 +162,7 @@
     <string name="annoy_foxfiles_desc">You need to reinstall recovery to have all functions</string>
 
     <string name="script_empty">Recovery Scripts</string>
-    <string name="script_empty_desc">Easily install, backup and wipe using recovery scripts.
+    <string name="script_empty_desc">Easily install, backup and wipe.\n
         You still need OrangeFox installed, all actions will be executed in recovery.</string>
     <string name="script_backup_name">Backup Name</string>
     <string name="script_add_title">Add action</string>

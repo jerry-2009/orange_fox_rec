@@ -2,6 +2,7 @@ package com.fordownloads.orangefox.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
@@ -41,6 +44,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.topjohnwu.superuser.Shell;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -60,13 +65,30 @@ public class ScriptsFragment extends Fragment {
     ORSAdapter ORSAdapter;
     ExtendedFloatingActionButton _createScript;
     BottomSheetDialog dialog = null;
-    View _emptyHelp;
+    View _emptyHelp, _emptyArt;
     Button _btnAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration config) {
+        super.onConfigurationChanged(config);
+        if (dialog != null) dialog.dismiss();
+
+        rotateUI(config);
+    }
+
+    private void rotateUI(Configuration config) {
+        if (_emptyArt == null) return;
+
+        if (Tools.isLandscape(getActivity(), config, Tools.getScreenSize(getActivity())))
+            _emptyArt.setVisibility(View.GONE);
+        else if (getActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT)
+            _emptyArt.setVisibility(View.VISIBLE);
     }
 
     public void listEmpty(boolean empty) {
@@ -86,6 +108,7 @@ public class ScriptsFragment extends Fragment {
         ab.setTitle(R.string.bnav_scripts);
 
         _emptyHelp = rootView.findViewById(R.id.emptyHelp);
+        _emptyArt = rootView.findViewById(R.id.emptyArt);
         _createScript = rootView.findViewById(R.id.createScript);
         _createScript.hide();
         _createScript.setOnClickListener(v -> buildScript(false));
@@ -93,6 +116,8 @@ public class ScriptsFragment extends Fragment {
         _btnAdd = rootView.findViewById(R.id.btnAdd);
         _btnAdd.setOnClickListener(v -> addDialog(getActivity()));
         rootView.findViewById(R.id.btnAdd2).setOnClickListener(v -> addDialog(getActivity()));
+
+        rotateUI(getResources().getConfiguration());
 
         return rootView;
     }

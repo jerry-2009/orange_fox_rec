@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,10 @@ public class InstallFragment extends Fragment {
     TextView _errorText, _errorTitle;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
-    View rootView, _shimmer, _shimmer2;
+    View rootView, _shimmer, _shimmer2, _annoyCard;
     CardView _errorLayout, _cardInfo, _cardRelease;
     ImageView _errorIcon;
+    LinearLayout _cards;
     SwipeRefreshLayout _refreshLayout;
     BottomSheetDialog devDialog = null, instDialog = null;
 
@@ -70,6 +72,8 @@ public class InstallFragment extends Fragment {
         _errorTitle = rootView.findViewById(R.id.errorTitle);
         _shimmer = rootView.findViewById(R.id.shimmer);
         _shimmer2 = rootView.findViewById(R.id.shimmer2);
+
+        _annoyCard = rootView.findViewById(R.id.swipeableLayout);
 
         _installButton.hide();
 
@@ -119,9 +123,11 @@ public class InstallFragment extends Fragment {
         _refreshLayout.setColorSchemeResources(R.color.fox_accent);
         _refreshLayout.setProgressViewOffset(true, 64, 288);
 
+        _cards = rootView.findViewById(R.id.cards);
+
         setAnnoyCard(rootView);
 
-        rotateUI(rootView.findViewById(R.id.cards), getResources().getConfiguration());
+        rotateUI(getResources().getConfiguration());
 
         prepareDevice(false);
 
@@ -149,18 +155,24 @@ public class InstallFragment extends Fragment {
     @Override
     public void onConfigurationChanged(@NotNull Configuration config) {
         super.onConfigurationChanged(config);
-        rotateUI(getActivity().findViewById(R.id.cards), config);
+        rotateUI(config);
     }
 
-    private void rotateUI(LinearLayout cards, Configuration config) {
-        if (cards == null) return;
+    private void rotateUI(Configuration config) {
+        if (_cards == null) return;
+
+        int _16dip = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 16,
+                getResources().getDisplayMetrics());
 
         if (Tools.isLandscape(getActivity(), config, Tools.getScreenSize(getActivity()))){
-            cards.setOrientation(LinearLayout.HORIZONTAL);
-            cards.setShowDividers(LinearLayout.SHOW_DIVIDER_BEGINNING | LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
+            _cards.setOrientation(LinearLayout.HORIZONTAL);
+            _cards.setShowDividers(LinearLayout.SHOW_DIVIDER_BEGINNING | LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
+            _annoyCard.setPadding(_16dip, 0, _16dip, _16dip);
         } else if (getActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            cards.setOrientation(LinearLayout.VERTICAL);
-            cards.setShowDividers(LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
+            _cards.setOrientation(LinearLayout.VERTICAL);
+            _cards.setShowDividers(LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
+            _annoyCard.setPadding(0, 0, 0, 0);
         }
 
         //Dismiss dialogs on device rotate because they has separate layouts for land/port
@@ -405,7 +417,7 @@ public class InstallFragment extends Fragment {
         } else {
             id = prefs.getInt(pref.DISMISSED, 1) + 1;
             if (id >= names.length) {
-                rootView.findViewById(R.id.swipeableLayout).setVisibility(View.GONE);
+                _annoyCard.setVisibility(View.GONE);
                 return;
             }
         }
@@ -428,7 +440,7 @@ public class InstallFragment extends Fragment {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urls[finalId])));
                     break;
             }
-            rootView.findViewById(R.id.swipeableLayout).setVisibility(View.GONE);
+            _annoyCard.setVisibility(View.GONE);
             prefs.edit().putInt(pref.DISMISSED, finalId).apply();
         });
 
@@ -437,7 +449,7 @@ public class InstallFragment extends Fragment {
         dismiss.setListener(new SwipeDismissBehavior.OnDismissListener() {
             @Override
             public void onDismiss(View view) {
-                rootView.findViewById(R.id.swipeableLayout).setVisibility(View.GONE);
+                _annoyCard.setVisibility(View.GONE);
                 prefs.edit().putInt(pref.DISMISSED, finalId).apply();
             }
             @Override public void onDragStateChanged(int state) {}

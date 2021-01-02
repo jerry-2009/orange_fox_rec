@@ -139,6 +139,12 @@
         <item name="android:fontFamily">@font/euclid_flex</item>
     </style>
 
+    <style name="ThemeTitleHideable" parent="ThemeTitle"/>
+
+    <style name="ThemeSheetNoPadding" parent="ThemeSheet">
+        <item name="contentPadding">-8dp</item>
+    </style>
+
     <style name="ThemeText">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
@@ -208,14 +214,14 @@
         <item name="contentPadding">26dp</item>
         <item name="contentPaddingTop">8dp</item>
         <item name="cardElevation">@dimen/elevation_high</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeTopRounded</item>
+        <item name="android:layout_margin">0dp</item>
     </style>
 
     <style name="ThemeSheet" parent="ThemeSheetBase">
         <item name="contentPaddingBottom">8dp</item>
-        <item name="android:layout_margin">0dp</item>
         <item name="contentPaddingTop">0dp</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeTopRounded</item>
-        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="ShapeTopRounded">
