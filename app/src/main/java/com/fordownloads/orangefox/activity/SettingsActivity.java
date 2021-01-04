@@ -4,10 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -22,16 +20,14 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
-import com.fordownloads.orangefox.consts;
 import com.thefuntasty.hauler.HaulerView;
 import com.topjohnwu.superuser.Shell;
 
 import org.jetbrains.annotations.NotNull;
-
-import static androidx.core.app.ActivityCompat.requestPermissions;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
@@ -148,7 +144,7 @@ public class SettingsActivity extends AppCompatActivity {
                         _pm.setVisible(false);
                         _upd.setEnabled(true);
                     } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
                     } else {
                         requestPermissions(new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
                         startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));

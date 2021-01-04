@@ -180,13 +180,13 @@
     <string name="ignore">Ignore</string>
 
 
-
     <string name="script_cmd_text">Command</string>
     <string name="script_mkdir_text">Directory Name</string>
     <string name="script_print_text">Text</string>
     <string name="script_var_text">Variable</string>
     <string name="script_var_val">Value</string>
     <string name="script_decrypt_text">Password</string>
+    <string name="script_decrypt_pattern">Pattern</string>
 
     <string name="script_decrypt">Decrypt</string>
     <string name="script_restore">Restore</string>

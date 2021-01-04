@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.thefuntasty.hauler.HaulerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/haulerView"
+    android:layout_width="match_parent"
+    android:background="@color/fox_background"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:background="@color/fox_background"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+            <com.andrognito.patternlockview.PatternLockView
+                android:id="@+id/pattern3"
+                android:layout_gravity="center"
+                android:layout_width="288dp"
+                android:layout_height="288dp" />
+            <com.andrognito.patternlockview.PatternLockView
+                android:id="@+id/pattern4"
+                android:layout_gravity="center"
+                app:dotCount="4"
+                android:visibility="gone"
+                android:layout_width="288dp"
+                android:layout_height="288dp" />
+            <com.andrognito.patternlockview.PatternLockView
+                android:id="@+id/pattern5"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                app:dotCount="5"
+                android:layout_width="288dp"
+                android:layout_height="288dp" />
+
+            <LinearLayout
+                android:layout_gravity="center|bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/divider"
+                android:orientation="horizontal"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="16dp"
+                android:showDividers="middle">
+
+                <Button
+                    android:id="@+id/mode3"
+                    style="@style/ThemeButtonOutline"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fox_background"
+                    android:text="3x3" />
+
+                <Button
+                    android:id="@+id/mode4"
+                    style="@style/ThemeButtonOutline"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fox_background"
+                    android:text="4x4" />
+
+                <Button
+                    android:id="@+id/mode5"
+                    style="@style/ThemeButtonOutline"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/fox_background"
+                    android:text="5x5" />
+            </LinearLayout>
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/appToolbar"
+            style="@style/ThemeToolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="@dimen/elevation_medium"
+            app:titleTextAppearance="@style/ThemeToolbarText" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.thefuntasty.hauler.HaulerView>

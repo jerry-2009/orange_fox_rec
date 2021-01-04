@@ -22,15 +22,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OrangeFox">
         <activity
+            android:name=".activity.PatternActivity"
+            android:label="@string/script_decrypt_pattern"
+            android:theme="@style/Theme.OrangeFox.Activity" />
+
+        <activity
             android:name=".activity.SettingsActivity"
-            android:theme="@style/Theme.OrangeFox.Activity"
-            android:label="@string/activity_settings" />
+            android:label="@string/activity_settings"
+            android:theme="@style/Theme.OrangeFox.Activity" />
 
         <service
             android:name=".service.DownloadService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".service.Scheduler"
             android:permission="android.permission.BIND_JOB_SERVICE" />

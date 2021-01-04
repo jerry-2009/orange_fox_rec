@@ -37,6 +37,7 @@ import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.activity.PatternActivity;
 import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
 import com.fordownloads.orangefox.recycler.ors.ORSAdapter;
@@ -224,8 +225,16 @@ public class ScriptsFragment extends Fragment {
                         path, R.drawable.ic_outline_archive_24, "install " + path));
                 ORSAdapter.notifyItemInserted(items.size() - 1);
                 listEmpty(false);
-                dialog.dismiss();
+                dialog.hide();
             }
+        }
+        if (requestCode == 400 && resultCode == Activity.RESULT_OK && resultData != null) {
+            String pass = resultData.getStringExtra("pass");
+            items.add(new RecyclerItems(getString(R.string.script_decrypt),
+                    pass, R.drawable.ic_baseline_lock_open_24, "decrypt " + pass));
+            ORSAdapter.notifyItemInserted(items.size() - 1);
+            listEmpty(false);
+            dialog.dismiss();
         }
     }
 
@@ -258,24 +267,8 @@ public class ScriptsFragment extends Fragment {
 
         // DECRYPT ------------------------------------------------------------
         View decryptView = inflater.inflate(R.layout.decrypt_layout, null);
-        PatternLockView decryptPattern = decryptView.findViewById(R.id.pattern_lock_view);
         TextView decryptPass = decryptView.findViewById(R.id.textName1);
-        decryptPattern.addPatternLockListener(new PatternLockViewListener() {
-            @Override public void onStarted() { }
-
-            @Override
-            public void onProgress(List<PatternLockView.Dot> progressPattern) {
-                decryptPass.setText(PatternLockUtils.patternToString(decryptPattern, progressPattern));
-            }
-
-            @Override
-            public void onComplete(List<PatternLockView.Dot> pattern) {
-                decryptPass.setText(PatternLockUtils.patternToString(decryptPattern, pattern));
-            }
-
-            @Override
-            public void onCleared() { }
-        });
+        decryptView.findViewById(R.id.btnOpenPattern).setOnClickListener(v -> startActivityForResult(new Intent(a, PatternActivity.class), 400));
 
         // REBOOT ------------------------------------------------------------
         View rebootView = inflater.inflate(R.layout.listview_button, null);
