@@ -110,7 +110,7 @@
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">8dp</item>
         <item name="cornerRadius">6dp</item>
-        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingStart">8dp</item>
         <item name="android:paddingVertical">6dp</item>
         <item name="android:stateListAnimator">@null</item>
     </style>

@@ -27,6 +27,22 @@
         <item>Cache</item>
         <item>Dalvik</item>
     </string-array>
+    <string-array name="reboot_list">
+        <item>System</item>
+        <item>Recovery</item>
+        <item>Power Off</item>
+        <item>Bootloader</item>
+        <item>Download</item>
+        <item>EDL</item>
+    </string-array>
+    <string-array name="reboot_list_cmd">
+        <item />
+        <item>recovery</item>
+        <item>poweroff</item>
+        <item>bootloader</item>
+        <item>download</item>
+        <item>edl</item>
+    </string-array>
     <string-array name="backup_list">
         <item>Boot</item>
         <item>Recovery</item>
@@ -34,5 +50,21 @@
         <item>System</item>
         <item>Cache</item>
         <item>Optimize</item>
+    </string-array>
+    <string-array name="etc_list">
+        <item>@string/script_cmd</item>
+        <item>@string/script_mkdir</item>
+        <item>@string/script_print</item>
+        <item>@string/script_sideload</item>
+        <item>@string/script_fixperms</item>
+        <item>@string/script_set</item>
+    </string-array>
+    <string-array name="etc_list_mode">
+        <item>@string/script_cmd_text</item>
+        <item>@string/script_mkdir_text</item>
+        <item>@string/script_print_text</item>
+        <item />
+        <item />
+        <item>@string/script_var_text</item>
     </string-array>
 </resources>

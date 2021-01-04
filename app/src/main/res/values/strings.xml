@@ -179,6 +179,29 @@
     <string name="script_err_nothing">Script is empty.</string>
     <string name="ignore">Ignore</string>
 
+
+
+    <string name="script_cmd_text">Command</string>
+    <string name="script_mkdir_text">Directory Name</string>
+    <string name="script_print_text">Text</string>
+    <string name="script_var_text">Variable</string>
+    <string name="script_var_val">Value</string>
+    <string name="script_decrypt_text">Password</string>
+
+    <string name="script_decrypt">Decrypt</string>
+    <string name="script_restore">Restore</string>
+    <string name="script_mount">Mount</string>
+    <string name="script_reboot">Reboot</string>
+    <string name="script_etc">Etc</string>
+
+    <string name="script_mkdir">Create directory</string>
+    <string name="script_cmd">Execute shell command</string>
+    <string name="script_set">Set variable</string>
+    <string name="script_print">Print text</string>
+    <string name="script_fixperms">Fix SELinux permissions</string>
+    <string name="script_sideload">Start Sideload</string>
+    <string name="script_no_params">&lt; No parameters &gt;</string>
+
     <string name="clear_all">Clear All</string>
     <string name="reboot_recovery">Reboot Recovery</string>
 </resources>

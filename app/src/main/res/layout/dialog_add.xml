@@ -47,6 +47,8 @@
                     style="@style/ThemeTabs"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
+                    android:paddingHorizontal="32dp"
+                    android:animateLayoutChanges="true"
                     android:background="@color/fox_card" />
 
 
