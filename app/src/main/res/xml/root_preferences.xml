@@ -68,5 +68,11 @@
             app:defaultValue="false"
             app:dependency="pref_theme_system"
             app:summary="@string/pref_theme_dark_desc" />
+        <SwitchPreferenceCompat
+            app:key="pref_annoy_enable"
+            app:title="@string/pref_annoy_enable"
+            app:icon="@drawable/ic_outline_message_24"
+            app:defaultValue="true"
+            app:summary="@string/pref_annoy_enable_desc" />
     </PreferenceCategory>
 </PreferenceScreen>

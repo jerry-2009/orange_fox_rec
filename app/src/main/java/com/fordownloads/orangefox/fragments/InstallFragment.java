@@ -407,6 +407,11 @@ public class InstallFragment extends Fragment {
     }
 
     public void setAnnoyCard(View rootView) {
+        if (!prefs.getBoolean(pref.ANNOY_ENABLE, true)) {
+            _annoyCard.setVisibility(View.GONE);
+            return;
+        }
+
         int id;
         String[] names = getResources().getStringArray(R.array.annoy_list);
 
