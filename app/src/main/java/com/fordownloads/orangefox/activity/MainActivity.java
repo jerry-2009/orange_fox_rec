@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigation bn = findViewById(R.id.bottom_navigation);
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_install, R.drawable.ic_round_save_alt_24, R.color.fox_accent));
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_scripts, R.drawable.ic_outline_receipt_long_24, R.color.fox_accent));
-        bn.addItem(new AHBottomNavigationItem(R.string.bnav_backups, R.drawable.ic_outline_cloud_download_24, R.color.fox_accent));
-        bn.addItem(new AHBottomNavigationItem(R.string.bnav_logs, R.drawable.ic_commit, R.color.fox_accent));
+        //bn.addItem(new AHBottomNavigationItem(R.string.bnav_backups, R.drawable.ic_outline_cloud_download_24, R.color.fox_accent));
+        //bn.addItem(new AHBottomNavigationItem(R.string.bnav_logs, R.drawable.ic_commit, R.color.fox_accent));
 
         bn.setBehaviorTranslationEnabled(false);
         bn.setUseElevation(true);
