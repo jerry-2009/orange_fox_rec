@@ -35,7 +35,7 @@ public class API {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://testapi.orangefox.tech/" + reqUrl)
+                    .url("https://api.orangefox.download/v3/" + reqUrl)
                     .build();
             Response response = client.newCall(request).execute();
 
