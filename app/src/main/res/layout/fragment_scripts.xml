@@ -8,6 +8,13 @@
     android:fitsSystemWindows="true"
     tools:context=".fragments.ScriptsFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/snackbarPlace"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"/>
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/createScript"
@@ -41,7 +48,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:paddingTop="14dp"
-        android:paddingBottom="4dp"
+        android:paddingBottom="72dp"
         android:clipToPadding="false"
         app:layoutManager="LinearLayoutManager" />
     <Button

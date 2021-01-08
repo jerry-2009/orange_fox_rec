@@ -132,8 +132,8 @@ public class RecyclerActivity extends AppCompatActivity {
                 }
             });
 
-
-        switch (intent.getIntExtra("type", 0)) {
+        int type = intent.getIntExtra("type", 0);
+        switch (type) {
             case 0: //release info (URL)
                 releaseJSON = false;
                 new Thread(this::getAllReleaseInfo).start();

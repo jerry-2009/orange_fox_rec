@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,7 +63,7 @@ public class ScriptsFragment extends Fragment {
     BottomSheetDialog dialog = null;
     View _emptyHelp, _emptyArt;
     Button _btnAdd;
-    View sheetView;
+    View sheetView, rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,17 +100,27 @@ public class ScriptsFragment extends Fragment {
             _emptyArt.setVisibility(View.VISIBLE);
     }
 
-    public void listEmpty(boolean empty) {
+    public void add(RecyclerItems i) {
+        items.add(i);
+        listEmpty(false, true);
+    }
+
+    public void listEmpty(boolean empty, boolean notify) {
         if (empty)
             _createScript.hide();
         else
             _createScript.show();
         _emptyHelp.setVisibility(empty ? View.VISIBLE : View.GONE);
         _btnAdd.setVisibility(empty ? View.GONE : View.VISIBLE);
+
+        if (notify) {
+            ORSAdapter.notifyItemInserted(items.size() - 1);
+            dialog.dismiss();
+        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_scripts, container, false);
+        rootView = inflater.inflate(R.layout.fragment_scripts, container, false);
         Toolbar myToolbar = rootView.findViewById(R.id.appToolbar);
         ((AppCompatActivity) requireActivity()).setSupportActionBar(myToolbar);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.bnav_scripts);
@@ -136,17 +147,12 @@ public class ScriptsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.clear:
-                items.clear();
-                ORSAdapter.notifyDataSetChanged();
-                listEmpty(true);
-                return true;
-            case R.id.reboot:
-                if (!Shell.su("reboot recovery").exec().isSuccess())
-                    Tools.showSnackbar(getActivity(), _createScript, R.string.err_reboot_notify).show();
-                return true;
-        }
+        if (item.getItemId() == R.id.clear) {
+            items.clear();
+            ORSAdapter.notifyDataSetChanged();
+            listEmpty(true, false);
+        } else if (!Shell.su("reboot recovery").exec().isSuccess())
+            Tools.showSnackbar(getActivity(), _createScript, R.string.err_reboot_notify).show();
 
         return super.onOptionsItemSelected(item);
     }
@@ -197,7 +203,7 @@ public class ScriptsFragment extends Fragment {
 
         ORSAdapter.setOnItemDismissListener(position -> {
             if (items.size() == 0)
-                listEmpty(true);
+                listEmpty(true, false);
         });
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(ORSAdapter);
@@ -207,28 +213,21 @@ public class ScriptsFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (requestCode == 10 && resultCode == Activity.RESULT_OK) {
-            if (resultData != null) {
+        if (resultCode != Activity.RESULT_OK || resultData == null) return;
+        switch (requestCode) {
+            case 10:
                 String path = Tools.getFileFromFilePicker(resultData);
                 if (path == null) {
-                    Tools.showSnackbar(getActivity(), _createScript, R.string.err_filepicker).show();
+                    Tools.showSnackbar(getActivity(), _createScript.getVisibility() == View.VISIBLE ?
+                            _createScript : rootView.findViewById(R.id.snackbarPlace), R.string.err_filepicker).show();
                     dialog.dismiss();
-                    return;
-                }
-                items.add(new RecyclerItems(getString(R.string.script_zip),
-                        path, R.drawable.ic_outline_archive_24, "install " + path));
-                ORSAdapter.notifyItemInserted(items.size() - 1);
-                listEmpty(false);
-                dialog.hide();
-            }
-        }
-        if (requestCode == 400 && resultCode == Activity.RESULT_OK && resultData != null) {
-            String pass = resultData.getStringExtra("pass");
-            items.add(new RecyclerItems(getString(R.string.script_decrypt),
-                    pass, R.drawable.ic_baseline_lock_open_24, "decrypt " + pass));
-            ORSAdapter.notifyItemInserted(items.size() - 1);
-            listEmpty(false);
-            dialog.dismiss();
+                } else
+                    add(new RecyclerItems(getString(R.string.script_zip), path, R.drawable.ic_outline_archive_24, "install " + path));
+                break;
+            case 400:
+                String pass = resultData.getStringExtra("pass");
+                add(new RecyclerItems(getString(R.string.script_decrypt), pass, R.drawable.ic_baseline_lock_open_24, "decrypt " + pass));
+                break;
         }
     }
 
@@ -245,6 +244,7 @@ public class ScriptsFragment extends Fragment {
         a.runOnUiThread(() -> dialog = Tools.initBottomSheet(a, sheetView));
 
         Resources res = getResources();
+        Animation shake = AnimationUtils.loadAnimation(a, R.anim.shake);
 
         // BACKUP ------------------------------------------------------------
         View backupView = inflater.inflate(R.layout.listview_button, null);
@@ -265,6 +265,33 @@ public class ScriptsFragment extends Fragment {
         View decryptView = inflater.inflate(R.layout.decrypt_layout, null);
         TextView decryptPass = decryptView.findViewById(R.id.textName1);
         decryptView.findViewById(R.id.btnOpenPattern).setOnClickListener(v -> startActivityForResult(new Intent(a, PatternActivity.class), 400));
+
+        // MOUNT ------------------------------------------------------------
+        View mountView = inflater.inflate(R.layout.listview_mount, null);
+        ListView mountList = mountView.findViewById(R.id.listView);
+        String[] mount_array = {"System", "Vendor"};
+        TextView mountName = mountView.findViewById(R.id.textName1);
+        mountList.setAdapter(new ArrayAdapter<String>(a, R.layout.list_radio, mount_array) {
+            int selectedPosition = 0;
+
+            @Override
+            public View getView(int pos, View convertView, ViewGroup parent) {
+                View v = convertView;
+                if (v == null) v = inflater.inflate(R.layout.list_radio, null);
+                RadioButton r = v.findViewById(R.id.title);
+                r.setText(mount_array[pos]);
+                r.setChecked(pos == selectedPosition);
+                r.setOnClickListener(view -> {
+                    selectedPosition = pos;
+                    mountList.setTag(pos);
+                    mountName.setText(mount_array[pos]);
+                    notifyDataSetChanged();
+                });
+                return v;
+            }
+        });
+        a.runOnUiThread(() -> mountName.setText(mount_array[0]));
+        mountList.setTag(0);
 
         // REBOOT ------------------------------------------------------------
         View rebootView = inflater.inflate(R.layout.listview_button, null);
@@ -334,8 +361,6 @@ public class ScriptsFragment extends Fragment {
             }
         });
 
-        rebootList.setTag(0);
-
         View installView = inflater.inflate(R.layout.list_select_zip_btn, null);
 
         // INIT ------------------------------------------------------------
@@ -344,6 +369,7 @@ public class ScriptsFragment extends Fragment {
                 .add(R.string.script_zip, installView)
                 .add(R.string.script_backup, backupView)
                 .add(R.string.script_wipe, wipeView)
+                .add(R.string.script_mount, mountView)
                 .add(R.string.script_decrypt, decryptView)
                 .add(R.string.script_reboot, rebootView)
                 .add(R.string.script_etc, etcView)
@@ -359,12 +385,14 @@ public class ScriptsFragment extends Fragment {
             startActivityForResult(intent, 10);
         });
 
+
         decryptView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
-            items.add(new RecyclerItems(getString(R.string.script_decrypt),
-                    decryptPass.getText().toString(), R.drawable.ic_baseline_lock_open_24, "decrypt " + decryptPass.getText()));
-            ORSAdapter.notifyItemInserted(items.size() - 1);
-            listEmpty(false);
-            dialog.dismiss();
+            String pass = decryptPass.getText().toString();
+            if (pass.equals(""))
+                decryptView.findViewById(R.id.textBox1).startAnimation(shake);
+            else
+                add(new RecyclerItems(getString(R.string.script_decrypt),
+                        pass, R.drawable.ic_baseline_lock_open_24, "decrypt " + pass));
         });
 
         backupView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
@@ -382,7 +410,7 @@ public class ScriptsFragment extends Fragment {
             }
 
             if (empty) {
-                backupList.startAnimation(AnimationUtils.loadAnimation(a, R.anim.shake));
+                backupList.startAnimation(shake);
                 return;
             }
 
@@ -390,11 +418,9 @@ public class ScriptsFragment extends Fragment {
             String name = backupName.getText().toString().trim();
             name = name.equals("") ? Tools.getBackupFileName() : name;
             arg.append(name);
-            items.add(new RecyclerItems(getString(R.string.script_backup),
-                    name + "\n" + argUser.toString().substring(0, argUser.length() - 2), R.drawable.ic_outline_cloud_download_24, arg.toString()));
-            ORSAdapter.notifyItemInserted(items.size() - 1);
-            listEmpty(false);
-            dialog.dismiss();
+            add(new RecyclerItems(getString(R.string.script_backup),
+                    name + "\n" + argUser.toString().substring(0, argUser.length() - 2),
+                    R.drawable.ic_outline_cloud_download_24, arg.toString()));
         });
 
         wipeView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
@@ -410,58 +436,67 @@ public class ScriptsFragment extends Fragment {
                 }
             }
 
-            if (empty) {
-                wipeList.startAnimation(AnimationUtils.loadAnimation(a, R.anim.shake));
+            if (empty)
+                wipeList.startAnimation(shake);
+            else
+                add(new RecyclerItems(getString(R.string.script_wipe),
+                    argUser.toString().substring(0, argUser.length() - 2),
+                    R.drawable.ic_delete, arg.toString().trim()));
+        });
+
+        rebootView.findViewById(R.id.btnAdd).setOnClickListener(v -> add(new RecyclerItems(getString(R.string.script_reboot),
+                reboot_array[(int) rebootList.getTag()], R.drawable.ic_round_refresh_24, "reboot " + reboot_cmd[(int) rebootList.getTag()])));
+
+        mountView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
+            String part = mountName.getText().toString().trim();
+            if (part.equals(""))
+                mountView.findViewById(R.id.textBox1).startAnimation(shake);
+            else
+                add(new RecyclerItems(getString(R.string.script_mount),
+                        part, R.drawable.ic_outline_dns_24, "mount " + part.toLowerCase()));
+        });
+
+        mountView.findViewById(R.id.btnUmount).setOnClickListener(v -> {
+            String part = mountName.getText().toString().trim();
+            if (part.equals(""))
+                mountView.findViewById(R.id.textBox1).startAnimation(shake);
+            else
+                add(new RecyclerItems(getString(R.string.script_umount),
+                        part, R.drawable.ic_outline_umount_24, "umount " + part.toLowerCase()));
+        });
+
+        mountView.findViewById(R.id.btnRW).setOnClickListener(v -> add(new RecyclerItems(getString(R.string.script_rw),
+                "System", R.drawable.ic_round_sync_24, "remountrw")));
+
+        etcView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
+            int tag = (int)etcList.getTag();
+            String text = etcTextName1.getText().toString().trim();
+            if (tag != 3 && tag != 4 && text.equals("")) {
+                etcView.findViewById(R.id.textBoxes).startAnimation(shake);
                 return;
             }
 
-            items.add(new RecyclerItems(getString(R.string.script_wipe),
-                    argUser.toString().substring(0, argUser.length() - 2), R.drawable.ic_delete, arg.toString().trim()));
-            ORSAdapter.notifyItemInserted(items.size() - 1);
-            listEmpty(false);
-            dialog.hide();
-        });
-
-        rebootView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
-            items.add(new RecyclerItems(getString(R.string.script_reboot),
-                    reboot_array[(int) rebootList.getTag()], R.drawable.ic_round_refresh_24, "reboot " + reboot_cmd[(int) rebootList.getTag()]));
-            ORSAdapter.notifyItemInserted(items.size() - 1);
-            listEmpty(false);
-            dialog.hide();
-        });
-
-        //ПОТРЯСТИ VIEW
-        etcView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
-            switch ((int)etcList.getTag()) {
+            switch (tag) {
                 case 0:
-                    items.add(new RecyclerItems(getString(R.string.script_cmd),
-                            etcTextName1.getText().toString(), R.drawable.ic_terminal, "cmd " + etcTextName1.getText()));
+                    add(new RecyclerItems(getString(R.string.script_cmd), text, R.drawable.ic_terminal, "cmd " + text));
                     break;
                 case 1:
-                    items.add(new RecyclerItems(getString(R.string.script_mkdir),
-                            etcTextName1.getText().toString(), R.drawable.ic_baseline_folder_open_24, "mkdir " + etcTextName1.getText()));
+                    add(new RecyclerItems(getString(R.string.script_mkdir), text, R.drawable.ic_baseline_folder_open_24, "mkdir " + text));
                     break;
                 case 2:
-                    items.add(new RecyclerItems(getString(R.string.script_print),
-                            etcTextName1.getText().toString(), R.drawable.ic_outline_message_24, "print " + etcTextName1.getText()));
+                    add(new RecyclerItems(getString(R.string.script_print), text, R.drawable.ic_outline_message_24, "print " + text));
                     break;
                 case 3:
-                    items.add(new RecyclerItems(getString(R.string.script_sideload), getString(R.string.script_no_params),
-                            R.drawable.ic_baseline_devices_24, "sideload"));
+                    add(new RecyclerItems(getString(R.string.script_sideload), getString(R.string.script_no_params), R.drawable.ic_baseline_devices_24, "sideload"));
                     break;
                 case 4:
-                    items.add(new RecyclerItems(getString(R.string.script_fixperms), getString(R.string.script_no_params),
-                            R.drawable.ic_outline_build_24, "fixperms"));
+                    add(new RecyclerItems(getString(R.string.script_fixperms), getString(R.string.script_no_params), R.drawable.ic_outline_build_24, "fixperms"));
                     break;
                 case 5:
-                    items.add(new RecyclerItems(getString(R.string.script_set),
-                            etcTextName1.getText() + " = " + etcTextName2.getText(),
-                            R.drawable.ic_equals, "set " + etcTextName1.getText() + " " + etcTextName2.getText()));
+                    add(new RecyclerItems(getString(R.string.script_set),
+                            text + " = " + etcTextName2.getText(), R.drawable.ic_equals, "set " + text + " " + etcTextName2.getText()));
                     break;
             }
-            ORSAdapter.notifyItemInserted(items.size() - 1);
-            listEmpty(false);
-            dialog.hide();
         });
 
         a.runOnUiThread(() -> ((SmartTabLayout) sheetView.findViewById(R.id.viewpagertab)).setViewPager(viewPager));

@@ -178,7 +178,9 @@
     <string name="script_err_rom">You wiped system but didn\'t installed ROM.</string>
     <string name="script_err_nothing">Script is empty.</string>
     <string name="ignore">Ignore</string>
-
+    <string name="script_add_umount">Add unmount action</string>
+    <string name="script_add_mount">Add mount action</string>
+    <string name="script_add_rw">Add remount R/W action</string>
 
     <string name="script_cmd_text">Command</string>
     <string name="script_mkdir_text">Directory Name</string>
@@ -191,6 +193,8 @@
     <string name="script_decrypt">Decrypt</string>
     <string name="script_restore">Restore</string>
     <string name="script_mount">Mount</string>
+    <string name="script_umount">Unmount</string>
+    <string name="script_rw">Remount R/W</string>
     <string name="script_reboot">Reboot</string>
     <string name="script_etc">Etc</string>
 
@@ -202,6 +206,7 @@
     <string name="script_sideload">Start Sideload</string>
     <string name="script_no_params">&lt; No parameters &gt;</string>
 
+    <string name="partition">Partition</string>
     <string name="clear_all">Clear All</string>
     <string name="reboot_recovery">Reboot Recovery</string>
 </resources>

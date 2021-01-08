@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textBox1"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="33dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/partition"
+        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textName1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="26dp"
+        android:divider="@null"
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+    <Button
+        android:id="@+id/btnRW"
+        android:layout_marginHorizontal="33dp"
+        style="@style/ThemeButtonDialogOutline"
+        android:backgroundTint="@color/fox_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/script_add_rw"
+        app:icon="@drawable/ic_round_sync_24" />
+    <Button
+        android:id="@+id/btnUmount"
+        android:layout_marginHorizontal="33dp"
+        style="@style/ThemeButtonDialogOutline"
+        android:backgroundTint="@color/fox_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/script_add_umount"
+        app:icon="@drawable/ic_outline_umount_24" />
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_marginHorizontal="33dp"
+        style="@style/ThemeButtonDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/script_add_mount"
+        app:icon="@drawable/ic_outline_dns_24" />
+</LinearLayout>
