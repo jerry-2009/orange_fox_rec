@@ -3,11 +3,12 @@ package com.fordownloads.orangefox.activity;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.LinearLayout;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
@@ -25,18 +26,31 @@ public class PatternActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pattern);
 
-        Toolbar myToolbar = findViewById(R.id.appToolbar);
-        setSupportActionBar(myToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.script_decrypt_pattern);
+        setSupportActionBar(findViewById(R.id.appToolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        findViewById(R.id.mode3).setOnClickListener(v -> dots(3));
+        findViewById(R.id.mode4).setOnClickListener(v -> dots(4));
+        findViewById(R.id.mode5).setOnClickListener(v -> dots(5));
 
-        findViewById(R.id.mode3).setOnClickListener(v -> setPattern(View.VISIBLE, View.GONE, View.GONE));
-        findViewById(R.id.mode4).setOnClickListener(v -> setPattern(View.GONE, View.VISIBLE, View.GONE));
-        findViewById(R.id.mode5).setOnClickListener(v -> setPattern(View.GONE, View.GONE, View.VISIBLE));
+        dots(3);
+    }
 
-        PatternLockViewListener listener = new PatternLockViewListener() {
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    // we need to recreate pattern because it can't dynamically change dot count
+    public void dots(int dots) {
+        LinearLayout patternPlace = findViewById(R.id.patternPlace);
+        patternPlace.removeAllViews();
+
+        PatternLockView decryptPattern = new PatternLockView(this);
+        decryptPattern.setDotCount(dots);
+
+        decryptPattern.addPatternLockListener(new PatternLockViewListener() {
             @Override public void onStarted() { }
 
             @Override
@@ -49,7 +63,7 @@ public class PatternActivity extends AppCompatActivity {
 
                 for (int i = 0; i < patternSize; i++) {
                     PatternLockView.Dot dot = pattern.get(i);
-                    stringBuilder.append(consts.PATTERN_SYMBOLS[(dot.getRow() * 3 + dot.getColumn())]);
+                    stringBuilder.append(consts.PATTERN_SYMBOLS[(dot.getRow() * decryptPattern.getDotCount() + dot.getColumn())]);
                 }
 
                 setResult(Activity.RESULT_OK, new Intent().putExtra("pass", stringBuilder.toString()));
@@ -58,21 +72,8 @@ public class PatternActivity extends AppCompatActivity {
 
             @Override
             public void onCleared() { }
-        };
-        ((PatternLockView)findViewById(R.id.pattern3)).addPatternLockListener(listener);
-        ((PatternLockView)findViewById(R.id.pattern4)).addPatternLockListener(listener);
-        ((PatternLockView)findViewById(R.id.pattern5)).addPatternLockListener(listener);
-    }
+        });
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
-    public void setPattern(int three, int four, int five) {
-        findViewById(R.id.pattern3).setVisibility(three);
-        findViewById(R.id.pattern4).setVisibility(four);
-        findViewById(R.id.pattern5).setVisibility(five);
+        patternPlace.addView(decryptPattern);
     }
 }

@@ -1,12 +1,10 @@
 package com.fordownloads.orangefox.fragments;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +22,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -33,9 +30,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.andrognito.patternlockview.PatternLockView;
-import com.andrognito.patternlockview.listener.PatternLockViewListener;
-import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.activity.PatternActivity;
 import com.fordownloads.orangefox.consts;
@@ -55,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -100,7 +95,7 @@ public class ScriptsFragment extends Fragment {
 
         if (Tools.isLandscape(getActivity(), config, Tools.getScreenSize(getActivity())))
             _emptyArt.setVisibility(View.GONE);
-        else if (getActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT)
+        else if (requireActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT)
             _emptyArt.setVisibility(View.VISIBLE);
     }
 
@@ -116,9 +111,8 @@ public class ScriptsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_scripts, container, false);
         Toolbar myToolbar = rootView.findViewById(R.id.appToolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(myToolbar);
-        ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        ab.setTitle(R.string.bnav_scripts);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(myToolbar);
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.bnav_scripts);
 
         _emptyHelp = rootView.findViewById(R.id.emptyHelp);
         _emptyArt = rootView.findViewById(R.id.emptyArt);
@@ -136,7 +130,7 @@ public class ScriptsFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NotNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.scripts, menu);
     }
 
@@ -191,7 +185,7 @@ public class ScriptsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ORSAdapter = new ORSAdapter(getActivity(), holder -> mItemTouchHelper.startDrag(holder), items, v ->
@@ -250,20 +244,22 @@ public class ScriptsFragment extends Fragment {
         sheetView = inflater.inflate(R.layout.dialog_add, null);
         a.runOnUiThread(() -> dialog = Tools.initBottomSheet(a, sheetView));
 
+        Resources res = getResources();
+
         // BACKUP ------------------------------------------------------------
         View backupView = inflater.inflate(R.layout.listview_button, null);
         ListView backupList = backupView.findViewById(R.id.listView);
         TextView backupName = backupView.findViewById(R.id.textName1);
         backupView.findViewById(R.id.textBox1).setVisibility(View.VISIBLE);
         backupList.setAdapter(new ArrayAdapter<>(a,
-                R.layout.list_check, getResources().getStringArray(R.array.backup_list)));
+                R.layout.list_check, res.getStringArray(R.array.backup_list)));
         a.runOnUiThread(() -> backupName.setText(Tools.getBackupFileName()));
 
         // WIPE ------------------------------------------------------------
         View wipeView = inflater.inflate(R.layout.listview_button, null);
         ListView wipeList = wipeView.findViewById(R.id.listView);
         wipeList.setAdapter(new ArrayAdapter<>(a,
-                R.layout.list_check, getResources().getStringArray(R.array.wipe_list)));
+                R.layout.list_check, res.getStringArray(R.array.wipe_list)));
 
         // DECRYPT ------------------------------------------------------------
         View decryptView = inflater.inflate(R.layout.decrypt_layout, null);
@@ -273,8 +269,8 @@ public class ScriptsFragment extends Fragment {
         // REBOOT ------------------------------------------------------------
         View rebootView = inflater.inflate(R.layout.listview_button, null);
         ListView rebootList = rebootView.findViewById(R.id.listView);
-        String[] reboot_array = getResources().getStringArray(R.array.reboot_list);
-        String[] reboot_cmd = getResources().getStringArray(R.array.reboot_list_cmd);
+        String[] reboot_array = res.getStringArray(R.array.reboot_list);
+        String[] reboot_cmd = res.getStringArray(R.array.reboot_list_cmd);
         rebootList.setAdapter(new ArrayAdapter<String>(a, R.layout.list_radio, reboot_array) {
             int selectedPosition = 0;
 
@@ -298,8 +294,8 @@ public class ScriptsFragment extends Fragment {
         // ETC ------------------------------------------------------------
         View etcView = inflater.inflate(R.layout.listview_button, null);
         ListView etcList = etcView.findViewById(R.id.listView);
-        String[] etc_array = getResources().getStringArray(R.array.etc_list);
-        String[] etc_text = getResources().getStringArray(R.array.etc_list_mode);
+        String[] etc_array = res.getStringArray(R.array.etc_list);
+        String[] etc_text = res.getStringArray(R.array.etc_list_mode);
         TextInputLayout etcTextView1 = etcView.findViewById(R.id.textBox1);
         TextInputLayout etcTextView2 = etcView.findViewById(R.id.textBox2);
         TextView etcTextName1 = etcView.findViewById(R.id.textName1);
@@ -361,6 +357,14 @@ public class ScriptsFragment extends Fragment {
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("application/zip");
             startActivityForResult(intent, 10);
+        });
+
+        decryptView.findViewById(R.id.btnAdd).setOnClickListener(v -> {
+            items.add(new RecyclerItems(getString(R.string.script_decrypt),
+                    decryptPass.getText().toString(), R.drawable.ic_baseline_lock_open_24, "decrypt " + decryptPass.getText()));
+            ORSAdapter.notifyItemInserted(items.size() - 1);
+            listEmpty(false);
+            dialog.dismiss();
         });
 
         backupView.findViewById(R.id.btnAdd).setOnClickListener(v -> {

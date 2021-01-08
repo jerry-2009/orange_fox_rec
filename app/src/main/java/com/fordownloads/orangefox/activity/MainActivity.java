@@ -88,13 +88,14 @@ public class MainActivity extends AppCompatActivity {
         bn.setTitleTextSizeInSp(14, 12);
         bn.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 
-        if (getSupportFragmentManager().findFragmentByTag("install") == null)
-            getSupportFragmentManager().beginTransaction().add(R.id.nav_frame, new InstallFragment(), "install").commit();
+        FragmentManager fm = getSupportFragmentManager();
+
+        if (fm.findFragmentByTag("install") == null)
+            fm.beginTransaction().add(R.id.nav_frame, new InstallFragment(), "install").commit();
 
         bn.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected)
                 return true;
-            FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tsa = fm.beginTransaction();
             tsa.setCustomAnimations(R.anim.scale, R.anim.scale);
 
