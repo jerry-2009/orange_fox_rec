@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         PRDownloader.initialize(getApplicationContext(), config);
 
         prepareBottomNav();
+
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
+        getWindow().setBackgroundDrawableResource(R.color.fox_background);
     }
 
     private void createNotificationChannel() {
@@ -93,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         if (fm.findFragmentByTag("install") == null)
             fm.beginTransaction().add(R.id.nav_frame, new InstallFragment(), "install").commit();
 
+        if (fm.findFragmentByTag("scripts") == null) {
+            ScriptsFragment scripts = new ScriptsFragment();
+            fm.beginTransaction().add(R.id.nav_frame, scripts, "scripts").commit();
+            fm.beginTransaction().hide(scripts).commit();
+        }
+
         bn.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected)
                 return true;
@@ -100,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             tsa.setCustomAnimations(R.anim.scale, R.anim.scale);
 
             switch (position) {
-                case 3:
+                /*case 3:
                     if(fm.findFragmentByTag("logs") != null) tsa.show(fm.findFragmentByTag("logs")).commit();
                     else tsa.add(R.id.nav_frame, new LogsFragment(), "logs").commit();
 
@@ -117,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                     if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
                     if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
 
-                    break;
+                    break;*/
                 case 1:
                     if(fm.findFragmentByTag("scripts") != null) tsa.show(fm.findFragmentByTag("scripts")).commit();
                     else tsa.add (R.id.nav_frame, new ScriptsFragment(), "scripts").commit();

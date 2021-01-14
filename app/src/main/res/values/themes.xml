@@ -16,6 +16,11 @@
         <item name="android:overScrollMode">never</item>
     </style>
 
+    <style name="Theme.OrangeFox.Splash">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:navigationBarColor">#E90600</item>
+    </style>
+
     <style name="Theme.OrangeFox.Activity">
         <item name="android:statusBarColor">@color/fox_status_solid_bg</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
