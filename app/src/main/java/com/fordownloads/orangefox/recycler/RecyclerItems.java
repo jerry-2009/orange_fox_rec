@@ -1,6 +1,9 @@
 package com.fordownloads.orangefox.recycler;
 
-public class RecyclerItems {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RecyclerItems implements Parcelable {
         private final String title;
         private final String subtitle;
         private final String data;
@@ -32,4 +35,33 @@ public class RecyclerItems {
         public int getIcon() {
                 return this.icon;
         }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(subtitle);
+        dest.writeString(data);
+        dest.writeInt(icon);
+    }
+
+    public static final Creator<RecyclerItems> CREATOR = new Creator<RecyclerItems>() {
+        @Override
+        public RecyclerItems createFromParcel(Parcel source) {
+            String title = source.readString();
+            String subtitle = source.readString();
+            String data = source.readString();
+            int icon = source.readInt();
+            return new RecyclerItems(title, subtitle, icon, data);
+        }
+
+        @Override
+        public RecyclerItems[] newArray(int size) {
+            return new RecyclerItems[size];
+        }
+    };
 }

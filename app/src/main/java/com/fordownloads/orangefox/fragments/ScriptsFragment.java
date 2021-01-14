@@ -56,7 +56,7 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class ScriptsFragment extends Fragment {
     private ItemTouchHelper mItemTouchHelper;
-    List<RecyclerItems> items = new ArrayList<>();
+    ArrayList<RecyclerItems> items = new ArrayList<>();
     RecyclerView recyclerView;
     ORSAdapter ORSAdapter;
     ExtendedFloatingActionButton _createScript;
@@ -70,13 +70,17 @@ public class ScriptsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        if(savedInstanceState != null)
+            items = savedInstanceState.getParcelableArrayList("items");
+
         //prerender dialog to avoid lags
         new Thread(() ->  addDialog(getActivity(), false)).start();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putParcelableArrayList("items", items);
     }
 
     @Override
@@ -193,6 +197,8 @@ public class ScriptsFragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (items.size() != 0)
+            listEmpty(false, false);
 
         ORSAdapter = new ORSAdapter(getActivity(), holder -> mItemTouchHelper.startDrag(holder), items, v ->
                 Toast.makeText(getActivity(), ((TextView)v.findViewById(R.id.text)).getText(), Toast.LENGTH_SHORT).show());
