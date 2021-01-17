@@ -37,6 +37,7 @@ import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
 import com.fordownloads.orangefox.recycler.ors.ORSAdapter;
 import com.fordownloads.orangefox.recycler.ors.SimpleItemTouchHelperCallback;
+import com.fordownloads.orangefox.utils.ParseORS;
 import com.fordownloads.orangefox.utils.Tools;
 import com.fordownloads.orangefox.viewpager.fdViewPagerItemAdapter;
 import com.fordownloads.orangefox.viewpager.fdViewPagerItems;
@@ -45,11 +46,13 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.textfield.TextInputLayout;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.topjohnwu.superuser.Shell;
+import com.topjohnwu.superuser.io.SuFile;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -64,6 +67,7 @@ public class ScriptsFragment extends Fragment {
     View _emptyHelp, _emptyArt;
     Button _btnAdd;
     View sheetView, rootView;
+    ParseORS parser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +143,8 @@ public class ScriptsFragment extends Fragment {
         _btnAdd.setOnClickListener(v -> addDialog(getActivity(), true));
         rootView.findViewById(R.id.btnAdd2).setOnClickListener(v -> addDialog(getActivity(), true));
 
+        parser = new ParseORS(getActivity());
+
         rotateUI(getResources().getConfiguration());
 
         return rootView;
@@ -151,14 +157,47 @@ public class ScriptsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.clear) {
+        int id = item.getItemId();
+        if (id == R.id.clear) {
             items.clear();
             ORSAdapter.notifyDataSetChanged();
             listEmpty(true, false);
+        } else if (id == R.id.load) {
+            if (!Shell.rootAccess()) {
+                Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_pm_root).show();
+                return false;
+            }
+            File orsFile = SuFile.open(consts.ORS_FILE);
+            if (!orsFile.exists()){
+                Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_ors).show();
+                return false;
+            }
+            items.clear();
+            try {
+                items.addAll(parser.parse(orsFile));
+                if (!items.isEmpty()) {
+                    listEmpty(false, false);
+                    ORSAdapter.notifyDataSetChanged();
+                }
+                Tools.showSnackbar(getActivity(), getSnackView(), parser.hasErrors() ? R.string.err_ors_bad : R.string.parser_ok).show();
+            } catch (IOException e) {
+                Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_ors_bad).show();
+            }
+        } else if (id == R.id.delete) {
+            if (Shell.rootAccess()) {
+                File orsFile = SuFile.open(consts.ORS_FILE);
+                if (!orsFile.exists())
+                    Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_ors).show();
+                else if (orsFile.delete())
+                    Tools.showSnackbar(getActivity(), getSnackView(), R.string.deleted_ors).show();
+                else
+                    Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_file_delete).show();
+            } else
+                Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_pm_root).show();
         } else if (!Shell.su("reboot recovery").exec().isSuccess())
-            Tools.showSnackbar(getActivity(), _createScript, R.string.err_reboot_notify).show();
+            Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_reboot_notify).show();
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     public void buildScript(String orsFile, boolean force, boolean silent) {
@@ -224,8 +263,7 @@ public class ScriptsFragment extends Fragment {
             case 10:
                 String path = Tools.getFileFromFilePicker(resultData);
                 if (path == null) {
-                    Tools.showSnackbar(getActivity(), _createScript.getVisibility() == View.VISIBLE ?
-                            _createScript : rootView.findViewById(R.id.snackbarPlace), R.string.err_filepicker).show();
+                    Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_filepicker).show();
                     dialog.dismiss();
                 } else
                     add(new RecyclerItems(getString(R.string.script_zip), path, R.drawable.ic_outline_archive_24, "install " + path));
@@ -235,6 +273,11 @@ public class ScriptsFragment extends Fragment {
                 add(new RecyclerItems(getString(R.string.script_decrypt), pass, R.drawable.ic_baseline_lock_open_24, "decrypt " + pass));
                 break;
         }
+    }
+
+    private View getSnackView() {
+        return _createScript.getVisibility() == View.VISIBLE ?
+            _createScript : rootView.findViewById(R.id.snackbarPlace);
     }
 
     public void addDialog(FragmentActivity a, boolean show) {
@@ -256,6 +299,7 @@ public class ScriptsFragment extends Fragment {
         View backupView = inflater.inflate(R.layout.listview_button, null);
         ListView backupList = backupView.findViewById(R.id.listView);
         TextView backupName = backupView.findViewById(R.id.textName1);
+        String[] backupParts = res.getStringArray(R.array.backup_list_cmd);
         backupView.findViewById(R.id.textBox1).setVisibility(View.VISIBLE);
         backupList.setAdapter(new ArrayAdapter<>(a,
                 R.layout.list_check, res.getStringArray(R.array.backup_list)));
@@ -409,9 +453,13 @@ public class ScriptsFragment extends Fragment {
             for (byte i = 0; i < backupList.getCount(); i++) {
                 CheckBox item = (CheckBox) backupList.getChildAt(i);
                 if (item != null && item.isChecked()) {
-                    arg.append(item.getText().charAt(0));
-                    argUser.append(item.getText()).append("; ");
-                    empty = false;
+                    arg.append(backupParts[i]);
+                    if (i >= 5)
+                        argUser.append("\n").append(item.getText());
+                    else {
+                        argUser.append(item.getText()).append("; ");
+                        empty = false;
+                    }
                 }
             }
 
@@ -425,7 +473,7 @@ public class ScriptsFragment extends Fragment {
             name = name.equals("") ? Tools.getBackupFileName() : name;
             arg.append(name);
             add(new RecyclerItems(getString(R.string.script_backup),
-                    name + "\n" + argUser.toString().substring(0, argUser.length() - 2),
+                    name + "\n" + argUser.toString(),
                     R.drawable.ic_outline_cloud_download_24, arg.toString()));
         });
 
@@ -445,9 +493,7 @@ public class ScriptsFragment extends Fragment {
             if (empty)
                 wipeList.startAnimation(shake);
             else
-                add(new RecyclerItems(getString(R.string.script_wipe),
-                    argUser.toString().substring(0, argUser.length() - 2),
-                    R.drawable.ic_delete, arg.toString().trim()));
+                add(new RecyclerItems(getString(R.string.script_wipe), argUser.toString(), R.drawable.ic_delete, arg.toString().trim()));
         });
 
         rebootView.findViewById(R.id.btnAdd).setOnClickListener(v -> add(new RecyclerItems(getString(R.string.script_reboot),

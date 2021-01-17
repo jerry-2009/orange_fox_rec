@@ -49,7 +49,17 @@
         <item>Data</item>
         <item>System</item>
         <item>Cache</item>
-        <item>Optimize</item>
+        <item>@string/backup_optimize</item>
+        <item>@string/backup_digest</item>
+    </string-array>
+    <string-array name="backup_list_cmd">
+        <item>B</item>
+        <item>R</item>
+        <item>D</item>
+        <item>S</item>
+        <item>C</item>
+        <item>O</item>
+        <item>M</item>
     </string-array>
     <string-array name="etc_list">
         <item>@string/script_cmd</item>

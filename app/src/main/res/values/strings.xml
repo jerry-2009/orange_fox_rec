@@ -8,6 +8,7 @@
     <string name="err_no_rel">Sorry, we can\'t find this release</string>
     <string name="err_no_rels">Sorry, we can\'t find releases for this device</string>
     <string name="err_no_device">Device not found</string>
+    <string name="err_no_ors">Script not found</string>
     <string name="err_no_internet">Looks like your device isn\'t connected to the internet.\nCheck Internet connection and try again</string>
     <string name="err_no_internet_short">Check Internet connection and try again</string>
     <string name="err_dev_not_selected">You didn\'t selected your device</string>
@@ -27,6 +28,12 @@
     <string name="err_file_delete">Can\'t delete file</string>
     <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
     <string name="err_reboot_notify">Unable to reboot.\nCheck root access or reboot manually.</string>
+    <string name="err_ors_bad">Script contains errors</string>
+
+    <string name="parser_ok">Script successfully parsed</string>
+    <string name="parser_load">Load script</string>
+    <string name="delete_ors">Delete script</string>
+    <string name="deleted_ors">Script was successfully deleted</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
 
@@ -202,6 +209,7 @@
     <string name="script_cmd">Execute shell command</string>
     <string name="script_set">Set variable</string>
     <string name="script_print">Print text</string>
+    <string name="script_print_mounts">Print mounts</string>
     <string name="script_fixperms">Fix SELinux permissions</string>
     <string name="script_sideload">Start Sideload</string>
     <string name="script_no_params">&lt; No parameters &gt;</string>
@@ -209,4 +217,7 @@
     <string name="partition">Partition</string>
     <string name="clear_all">Clear All</string>
     <string name="reboot_recovery">Reboot Recovery</string>
+    <string name="unknown">Unknown</string>
+    <string name="backup_optimize">Compress backup</string>
+    <string name="backup_digest">Skip digest creation</string>
 </resources>
