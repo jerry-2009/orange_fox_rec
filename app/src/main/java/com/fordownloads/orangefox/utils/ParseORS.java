@@ -69,11 +69,18 @@ public class ParseORS {
                         R.drawable.ic_delete, fullCmd);
             case "backup":
                 hasErrors = val.equals("");
-                return new RecyclerItems(getString(R.string.script_backup), constructParts(val, val2),
+                StringBuilder valBuilder = new StringBuilder();
+                if (!val2.equals("")) valBuilder.append(val2).append("\n");
+                valBuilder.append(constructParts(val));
+                return new RecyclerItems(getString(R.string.script_backup), valBuilder.toString(),
                         R.drawable.ic_outline_cloud_download_24, fullCmd);
             case "restore":
-                return new RecyclerItems(getString(R.string.script_restore), constructParts(val, val2),
-                        R.drawable.ic_outline_cloud_download_24, fullCmd);
+                hasErrors = val.equals("");
+                StringBuilder valBuilder2 = new StringBuilder();
+                valBuilder2.append(val);
+                if (!val2.equals("")) valBuilder2.append("\n").append(constructParts(val2));
+                return new RecyclerItems(getString(R.string.script_restore), valBuilder2.toString(),
+                        R.drawable.ic_outline_backup_24, fullCmd);
             case "remountrw":
                 return new RecyclerItems(getString(R.string.script_rw),
                         "System", R.drawable.ic_round_sync_24, fullCmd);
@@ -135,15 +142,13 @@ public class ParseORS {
         }
     }
 
-    private String constructParts(String val, String val2) {
+    private String constructParts(String val) {
         if (val.equals("")) return noArgs;
 
         StringBuilder parts = new StringBuilder();
         String[] split = val.toLowerCase().split("");
         boolean optimize = false;
         boolean digest = false;
-
-        if (!val2.equals("")) parts.append(val2).append("\n");
 
         for (String part : split) {
             switch (part) {
