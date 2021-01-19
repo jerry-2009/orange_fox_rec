@@ -93,6 +93,7 @@ public class API {
                     .putExtra("version", release.getString("version"))
                     .putExtra("url", release.getJSONObject("mirrors").getString("DL"))
                     .putExtra("md5", release.getString("md5"))
+                    .putExtra("name", release.getString("filename"))
                     .putExtra("install", true);
 
             if (prefs.getBoolean(pref.UPDATES_INSTALL, true)) {

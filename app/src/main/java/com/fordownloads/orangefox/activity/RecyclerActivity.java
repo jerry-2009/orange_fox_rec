@@ -197,16 +197,14 @@ public class RecyclerActivity extends AppCompatActivity {
             }
 
             final String md5 = release.getString("md5");
+            final String name = release.getString("filename");
             final String version = release.getString("version");
             final String url = release.getJSONObject("mirrors").getString("DL");
             final String stringBuildType = Tools.getBuildType(this, release);
 
             items.add(new RecyclerItems(getString(R.string.rel_type), stringBuildType, R.drawable.ic_outline_build_24));
             items.add(new RecyclerItems(getString(R.string.rel_vers), release.getString("version"), R.drawable.ic_outline_new_releases_24));
-
-            if (release.has("filename"))
-                items.add(new RecyclerItems(getString(R.string.rel_name), release.getString("filename"), R.drawable.ic_outline_archive_24));
-
+            items.add(new RecyclerItems(getString(R.string.rel_name), name, R.drawable.ic_outline_archive_24));
             items.add(new RecyclerItems(getString(R.string.rel_date), Tools.formatDate(release.getLong("date")), R.drawable.ic_outline_today_24));
             items.add(new RecyclerItems(getString(R.string.rel_size), Tools.formatSize(this, release.getInt("size")), R.drawable.ic_outline_sd_card_24));
             items.add(new RecyclerItems("MD5", release.getString("md5"), R.drawable.ic_outline_verified_user_24));
@@ -216,7 +214,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     if (((App)getApplication()).isDownloadSrvRunning())
                         Tools.showSnackbar(this, findViewById(R.id.installButton), R.string.err_service_running).show();
                     else
-                        instDialog = Install.dialog(this, version, stringBuildType, url, md5, false, this);
+                        instDialog = Install.dialog(this, version, stringBuildType, url, md5, name, false, this);
                 });
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);

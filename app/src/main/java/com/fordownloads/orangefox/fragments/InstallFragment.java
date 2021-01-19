@@ -223,6 +223,7 @@ public class InstallFragment extends Fragment {
                 release = new JSONObject((String) response.get("response"));
             }
 
+            final String name = release.getString("filename");;
             final String version = release.getString("version");
             final String url = release.getJSONObject("mirrors").getString("DL");
             final String stringBuildType = Tools.getBuildType(getActivity(), release);
@@ -245,7 +246,7 @@ public class InstallFragment extends Fragment {
                 if (((App)getActivity().getApplication()).isDownloadSrvRunning())
                     Tools.showSnackbar(getActivity(), _installButton, R.string.err_service_running).show();
                 else
-                    instDialog = Install.dialog(getActivity(), version, stringBuildType, url, md5, false, null);
+                    instDialog = Install.dialog(getActivity(), version, stringBuildType, url, md5, name, false, null);
             });
             getActivity().runOnUiThread(() -> {
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));

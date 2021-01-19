@@ -30,7 +30,7 @@ import java.io.File;
 
 public class Install {
 
-    public static BottomSheetDialog dialog(Activity activity, String ver, String type, String url, String md5, boolean noExistsCheck, Activity actToFinish) {
+    public static BottomSheetDialog dialog(Activity activity, String ver, String type, String url, String md5, String name, boolean noExistsCheck, Activity actToFinish) {
         String fileName = URLUtil.guessFileName(url, null, "application/zip");
         File finalFile = new File(consts.DOWNLOAD_DIR, fileName);
         boolean exist = !noExistsCheck && finalFile.exists() && hasStoragePM(activity);
@@ -60,7 +60,7 @@ public class Install {
             });
             sheetView.findViewById(R.id.btnDownload).setOnClickListener (v -> {
                 dialog.dismiss();
-                ((App) activity.getApplication()).setDialogToDismiss(dialog(activity, ver, type, url, md5, true, actToFinish));
+                ((App) activity.getApplication()).setDialogToDismiss(dialog(activity, ver, type, url, md5, name, true, actToFinish));
             });
             sheetView.findViewById(R.id.btnDelete).setOnClickListener (v -> {
                 if (!finalFile.delete())
@@ -79,6 +79,7 @@ public class Install {
                                     .putExtra("md5", md5)
                                     .putExtra("url", url)
                                     .putExtra("version", ver)
+                                    .putExtra("name", name)
                                     .putExtra("install", v.getId() == R.id.btnInstall);
                             finishIfNotNull(actToFinish);
                             dialog.dismiss();

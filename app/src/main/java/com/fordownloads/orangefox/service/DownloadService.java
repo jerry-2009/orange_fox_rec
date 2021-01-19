@@ -27,7 +27,7 @@ import java.io.File;
 
 public class DownloadService extends Service {
     boolean install = false;
-    String url, version, expectedMD5;
+    String url, version, expectedMD5, fileName;
     NotificationManagerCompat notifyMan;
     NotificationCompat.Builder progressNotify;
 
@@ -52,6 +52,7 @@ public class DownloadService extends Service {
         expectedMD5 = intent.getStringExtra("md5");
         url = intent.getStringExtra("url");
         version = intent.getStringExtra("version");
+        fileName = intent.getStringExtra("name");
         install = intent.getBooleanExtra("install", false);
         notifyMan = NotificationManagerCompat.from(this);
 
@@ -81,7 +82,6 @@ public class DownloadService extends Service {
     }
 
     private void beginDownload(){
-        String fileName = URLUtil.guessFileName(url, null, "application/zip");
         File finalFile = new File(consts.DOWNLOAD_DIR, fileName);
 
         //Prepare notifications
