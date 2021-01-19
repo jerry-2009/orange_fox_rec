@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import com.fordownloads.orangefox.activity.RecyclerActivity;
 import com.fordownloads.orangefox.service.DownloadService;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.pref;
@@ -99,6 +100,9 @@ public class API {
                 context.startForegroundService(instIntent);
             } else {
                 Log.i("OFR-JOB", "Starting notification...");
+                Intent intentChangeLog = new Intent(context, RecyclerActivity.class)
+                        .putExtra("release", prefs.getString(pref.CACHE_RELEASE, "no_cache_release"))
+                        .putExtra("type", 1).putExtra("title", R.string.rel_activity);
                 NotificationManagerCompat.from(context).notify(consts.NOTIFY_NEW_UPD,
                         new NotificationCompat.Builder(context, consts.CHANNEL_UPDATE)
                                 .setContentTitle(context.getApplicationContext().getString(R.string.notif_new_ver))
@@ -107,8 +111,10 @@ public class API {
                                 .setSmallIcon(R.drawable.ic_outline_new_releases_24)
                                 .setPriority(NotificationCompat.PRIORITY_MAX)
                                 .setColor(ContextCompat.getColor(context, R.color.fox_notify))
-                                .addAction(R.drawable.ic_round_check_24, context.getApplicationContext().getString(R.string.install),
+                                .addAction(R.drawable.ic_round_check_24, context.getString(R.string.install),
                                         PendingIntent.getService(context, 0, instIntent, 0))
+                                .addAction(R.drawable.ic_round_check_24, context.getString(R.string.rel_changes),
+                                        PendingIntent.getActivity(context, 0, intentChangeLog, 0))
                                 .build());
             }
         } catch (JSONException e) {
