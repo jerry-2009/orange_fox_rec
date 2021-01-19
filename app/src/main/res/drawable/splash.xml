@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
-    <item android:drawable="@drawable/fox_gradient"/>
+    <item android:drawable="@color/fox_background"/>
     <item
-        android:drawable="@drawable/ic_fox_white"
-        android:height="172dp"
+        android:drawable="@drawable/ic_fox_orange"
+        android:height="176dp"
         android:width="120dp"
         android:gravity="center"/>
+
+    <item
+        android:drawable="@drawable/ic_dev_by_fd"
+        android:height="36dp"
+        android:width="140dp"
+        android:bottom="88dp"
+        android:gravity="bottom|center"/>
 </layer-list>

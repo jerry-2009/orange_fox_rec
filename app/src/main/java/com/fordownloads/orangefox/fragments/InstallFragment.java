@@ -125,8 +125,6 @@ public class InstallFragment extends Fragment {
 
         _cards = rootView.findViewById(R.id.cards);
 
-        setAnnoyCard(rootView);
-
         rotateUI(getResources().getConfiguration());
 
         prepareDevice(false);
@@ -259,6 +257,8 @@ public class InstallFragment extends Fragment {
                 _installButton.show();
                 _refreshLayout.setEnabled(true);
                 _refreshLayout.setRefreshing(false);
+
+                setAnnoyCard(rootView);
             });
 
             if (force || !useCached || !prefs.contains(pref.CACHE_RELEASE)) {
@@ -407,10 +407,8 @@ public class InstallFragment extends Fragment {
     }
 
     public void setAnnoyCard(View rootView) {
-        if (!prefs.getBoolean(pref.ANNOY_ENABLE, true)) {
-            _annoyCard.setVisibility(View.GONE);
+        if (!prefs.getBoolean(pref.ANNOY_ENABLE, true))
             return;
-        }
 
         int id;
         String[] names = getResources().getStringArray(R.array.annoy_list);
@@ -463,5 +461,6 @@ public class InstallFragment extends Fragment {
         CoordinatorLayout.LayoutParams layoutParams =
                 (CoordinatorLayout.LayoutParams) rootView.findViewById(R.id.swipeCard).getLayoutParams();
         layoutParams.setBehavior(dismiss);
+        _annoyCard.setVisibility(View.VISIBLE);
     }
 }

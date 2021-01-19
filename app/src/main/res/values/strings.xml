@@ -4,7 +4,6 @@
     <string name="close">Close</string>
     <string name="err_json">Can\'t parse json</string>
     <string name="err_response">Server returned wrong response code: %1$d</string>
-    <string name="err_no_dev">Sorry, we can\'t find this device</string>
     <string name="err_no_rel">Sorry, we can\'t find this release</string>
     <string name="err_no_rels">Sorry, we can\'t find releases for this device</string>
     <string name="err_no_device">Device not found</string>
