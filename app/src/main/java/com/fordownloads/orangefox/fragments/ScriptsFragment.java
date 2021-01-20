@@ -25,7 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -138,7 +137,7 @@ public class ScriptsFragment extends Fragment {
         _emptyArt = rootView.findViewById(R.id.emptyArt);
         _createScript = rootView.findViewById(R.id.createScript);
         _createScript.hide();
-        _createScript.setOnClickListener(v -> buildScript(consts.ORS_FILE,false, false));
+        _createScript.setOnClickListener(v -> buildScript(Tools.getORS(),false, false));
 
         _btnAdd = rootView.findViewById(R.id.btnAdd);
         _btnAdd.setOnClickListener(v -> addDialog(getActivity(), true));
@@ -168,7 +167,7 @@ public class ScriptsFragment extends Fragment {
                 Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_pm_root).show();
                 return false;
             }
-            File orsFile = SuFile.open(consts.ORS_FILE);
+            File orsFile = SuFile.open(Tools.getORS());
             if (!orsFile.exists()){
                 Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_ors).show();
                 return false;
@@ -186,7 +185,7 @@ public class ScriptsFragment extends Fragment {
             }
         } else if (id == R.id.delete) {
             if (Shell.rootAccess()) {
-                File orsFile = SuFile.open(consts.ORS_FILE);
+                File orsFile = SuFile.open(Tools.getORS());
                 if (!orsFile.exists())
                     Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_ors).show();
                 else if (orsFile.delete())
@@ -219,7 +218,7 @@ public class ScriptsFragment extends Fragment {
 
         if (!force && content.toString().contains("wipe system") && !content.toString().contains("install ")) {
             Tools.showSnackbar(getActivity(), _createScript, R.string.script_err_rom)
-                    .setAction(R.string.ignore, view -> buildScript(consts.ORS_FILE, true, false)).show();
+                    .setAction(R.string.ignore, view -> buildScript(Tools.getORS(), true, false)).show();
             return;
         }
 

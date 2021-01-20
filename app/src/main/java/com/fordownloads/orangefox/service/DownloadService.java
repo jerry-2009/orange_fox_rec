@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
-import android.webkit.URLUtil;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -21,6 +20,7 @@ import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.utils.MD5;
 import com.fordownloads.orangefox.consts;
+import com.fordownloads.orangefox.utils.Tools;
 import com.topjohnwu.superuser.Shell;
 
 import java.io.File;
@@ -139,7 +139,7 @@ public class DownloadService extends Service {
 
                         if (install) {
                             if(!Shell.su(
-                                    "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + consts.ORS_FILE)
+                                    "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + Tools.getORS())
                                     .exec().isSuccess())
                                 errorNotify(notifyMan, completeNotify, getString(R.string.err_ors, finalFile));
 

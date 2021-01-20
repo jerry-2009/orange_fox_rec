@@ -10,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.consts;
+import com.fordownloads.orangefox.utils.Tools;
 import com.topjohnwu.superuser.Shell;
 import com.topjohnwu.superuser.io.SuFile;
 
@@ -23,7 +24,7 @@ public class ActionReceiver extends BroadcastReceiver {
                     Toast.makeText(context, R.string.err_reboot_notify, Toast.LENGTH_LONG).show();
                 break;
             case "com.fordownloads.orangefox.ORS":
-                if(new SuFile(consts.ORS_FILE).delete())
+                if(new SuFile(Tools.getORS()).delete())
                     NotificationManagerCompat.from(context).cancel(consts.NOTIFY_DOWNLOAD_SAVED);
                 else
                     Toast.makeText(context, R.string.err_ors_delete, Toast.LENGTH_LONG).show();

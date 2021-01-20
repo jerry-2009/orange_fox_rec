@@ -2,27 +2,21 @@ package com.fordownloads.orangefox.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Environment;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.URLUtil;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.service.DownloadService;
 import com.fordownloads.orangefox.consts;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.topjohnwu.superuser.Shell;
 
@@ -45,7 +39,7 @@ public class Install {
                 if (Shell.rootAccess())
                     if (MD5.checkMD5(md5, finalFile)) {
                         if (!Shell.su(
-                                "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + consts.ORS_FILE)
+                                "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + Tools.getORS())
                                 .exec().isSuccess()) {
                             Tools.showSnackbar(activity, null, R.string.err_ors_short, dialog).show();
                             return;
