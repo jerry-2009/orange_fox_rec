@@ -15,4 +15,7 @@
     <item android:id="@+id/reboot"
         android:title="@string/reboot_recovery"
         app:showAsAction="never"/>
+    <item android:id="@+id/rebootBootloader"
+        android:title="@string/reboot_bootloader"
+        app:showAsAction="never"/>
 </menu>

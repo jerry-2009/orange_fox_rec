@@ -350,6 +350,9 @@ public class InstallFragment extends Fragment {
         String chk3 = Build.MODEL.toLowerCase();
         String chk4 = Build.PRODUCT.toLowerCase();
 
+        if (chk2.equals("curtana") || chk2.equals("joyeuse") || chk2.equals("gram") || chk2.equals("excalibur"))
+            chk2 = "miatoll";
+
         try {
             Map<String, Object> response = API.request("devices");
             if(!(boolean)response.get("success")) {

@@ -216,6 +216,7 @@
     <string name="partition">Partition</string>
     <string name="clear_all">Clear All</string>
     <string name="reboot_recovery">Reboot Recovery</string>
+    <string name="reboot_bootloader">Reboot Bootloader</string>
     <string name="unknown">Unknown</string>
     <string name="backup_optimize">Compress backup</string>
     <string name="backup_digest">Skip digest creation</string>

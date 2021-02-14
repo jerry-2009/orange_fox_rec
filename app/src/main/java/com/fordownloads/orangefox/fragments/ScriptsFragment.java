@@ -194,7 +194,9 @@ public class ScriptsFragment extends Fragment {
                     Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_file_delete).show();
             } else
                 Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_no_pm_root).show();
-        } else if (!Shell.su("reboot recovery").exec().isSuccess())
+        } else if (id == R.id.reboot && !Shell.su("reboot recovery").exec().isSuccess())
+            Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_reboot_notify).show();
+        else if (id == R.id.rebootBootloader && !Shell.su("reboot bootloader").exec().isSuccess())
             Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_reboot_notify).show();
 
         return false;
