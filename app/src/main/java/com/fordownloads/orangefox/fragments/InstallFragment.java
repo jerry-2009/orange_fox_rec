@@ -136,7 +136,7 @@ public class InstallFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 202) {
             if (resultCode == RESULT_OK && data != null)
-                new Thread(() -> setDevice(data.getStringExtra("codename"), true, false)).start();
+                new Thread(() -> setDevice(data.getStringExtra("codename"), data.getStringExtra("full_name"), true, false)).start();
             else
                 errorCard(404, R.string.err_dev_not_selected);
         } else if (requestCode == 300 && resultCode == RESULT_OK && data != null) {
@@ -146,7 +146,7 @@ public class InstallFragment extends Fragment {
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
             _installButton.hide();
-            new Thread(() -> setDevice(data.getStringExtra("codename"), true, true)).start();
+            new Thread(() -> setDevice(data.getStringExtra("codename"), data.getStringExtra("full_name"), true, true)).start();
         }
     }
 
@@ -184,7 +184,7 @@ public class InstallFragment extends Fragment {
         if (prefs.contains(pref.DEVICE) && prefs.contains(pref.DEVICE_CODE))
             new Thread(() -> parseRelease(null, force)).start();
         else
-            new Thread(() -> setDevice(null, false, false)).start();
+            new Thread(() -> setDevice(null, Build.MODEL,false, false)).start();
     }
 
     private boolean abortDevice(Map<String, Object> response, BottomSheetDialog dialog) {
@@ -273,11 +273,11 @@ public class InstallFragment extends Fragment {
         if (dialog != null) dialog.dismiss();
     }
 
-    private void setDevice(String codename, boolean skipDialog, boolean force) {
+    private void setDevice(String codename, String deviceName, boolean skipDialog, boolean force) {
         if (codename == null)
             codename = findDevice();
         if (codename == null) {
-            showDeviceDialog(Build.DEVICE, true, null);
+            showDeviceDialog(Build.DEVICE, Build.MODEL, true, null);
             return;
         }
         if (codename.equals("no_internet_error"))
@@ -291,10 +291,10 @@ public class InstallFragment extends Fragment {
             prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
             new Thread(() -> parseRelease(null, force)).start();
         } else
-            showDeviceDialog(codename, false, (String)response.get("response"));
+            showDeviceDialog(codename, deviceName, false, (String)response.get("response"));
     }
 
-    protected void showDeviceDialog(String device, boolean fail, String cache) {
+    protected void showDeviceDialog(String device, String deviceName, boolean fail, String cache) {
         getActivity().runOnUiThread(() -> {
             ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
 
@@ -306,10 +306,12 @@ public class InstallFragment extends Fragment {
             Button gRight = sheetView.findViewById(R.id.btnInstall);
             Button gWrong = sheetView.findViewById(R.id.btnCancel);
             TextView gCode = sheetView.findViewById(R.id.guessDeviceCode);
+            TextView gName = sheetView.findViewById(R.id.guessDeviceName);
             TextView gBottom = sheetView.findViewById(R.id.guessBottomText);
             ProgressBar gProgress = sheetView.findViewById(R.id.setupProgress);
 
             gCode.setText(device.toUpperCase());
+            gName.setText(deviceName);
 
             if (fail) {
                 gRight.setVisibility(View.GONE);

@@ -76,7 +76,7 @@ public class Install {
                                     .putExtra("name", name)
                                     .putExtra("install", v.getId() == R.id.btnInstall);
                             finishIfNotNull(actToFinish);
-                            dialog.dismiss();
+                            Tools.showSnackbar(activity, null, R.string.inst_bg_download, dialog).show();
                             activity.startService(intent);
                         }
                     } else {

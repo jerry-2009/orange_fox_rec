@@ -150,6 +150,8 @@ public class SettingsActivity extends AppCompatActivity {
                         startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
                         Toast.makeText(getActivity(), R.string.help_android11_pm, Toast.LENGTH_LONG).show();
                     }
+                else
+                    Toast.makeText(getActivity(), R.string.err_no_pm_root, Toast.LENGTH_LONG).show();
                 return true;
             });
 
