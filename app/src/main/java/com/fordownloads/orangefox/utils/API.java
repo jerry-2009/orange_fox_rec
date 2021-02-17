@@ -1,6 +1,5 @@
 package com.fordownloads.orangefox.utils;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.job.JobService;
 import android.content.Intent;
@@ -22,44 +21,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class API {
-    public static Map<String, Object> request(String reqUrl) {
-        Map<String, Object> map = new HashMap<>();
-
+    public static APIResponse request(String reqUrl) {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url("https://api.orangefox.download/v3/" + reqUrl)
                     .build();
             Response response = client.newCall(request).execute();
-
-            map.put("success", response.isSuccessful());
-            map.put("code", response.code());
-            map.put("response", response.body().string());
+            return new APIResponse(response.isSuccessful(), response.code(), response.body().string());
         } catch (IOException e) {
             e.printStackTrace();
-            map.put("code", 0);
-            map.put("success", false);
+            return new APIResponse();
         }
-
-        return map;
     }
 
     public static void findUpdate(JobService context) {
         try {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            Map<String, Object> responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
+            APIResponse responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
 
             String id;
-            if ((int)responseLast.get("code") == 200)
-                id = new JSONObject((String) responseLast.get("response")).getJSONArray("data").getJSONObject(0).getString("_id");
+            if ((int)responseLast.code == 200)
+                id = new JSONObject((String) responseLast.response).getJSONArray("data").getJSONObject(0).getString("_id");
             else {
                 Log.e("OFR-JOB", "Server error");
                 return;
@@ -70,13 +59,13 @@ public class API {
                 return;
             }
 
-            Map<String, Object> response = API.request("releases/get?_id=" + id);
-            if (!(boolean) responseLast.get("success")) {
+            APIResponse response = API.request("releases/get?_id=" + id);
+            if (!(boolean) responseLast.success) {
                 Log.e("OFR-JOB", "Can't get release info");
                 return;
             }
 
-            JSONObject release = new JSONObject((String) response.get("response"));
+            JSONObject release = new JSONObject((String) response.response);
 
             prefs.edit().putString(pref.CACHE_RELEASE, release.toString()).putString(pref.RELEASE_ID, id).apply();
 

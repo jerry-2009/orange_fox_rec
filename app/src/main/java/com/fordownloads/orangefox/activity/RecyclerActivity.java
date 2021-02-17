@@ -21,15 +21,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fordownloads.orangefox.App;
-import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.utils.Tools;
+import com.fordownloads.orangefox.fragments.RecyclerFragment;
+import com.fordownloads.orangefox.fragments.TextFragment;
 import com.fordownloads.orangefox.recycler.AdapterStorage;
 import com.fordownloads.orangefox.recycler.RecyclerAdapter;
-import com.fordownloads.orangefox.fragments.RecyclerFragment;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
-import com.fordownloads.orangefox.fragments.TextFragment;
 import com.fordownloads.orangefox.utils.API;
+import com.fordownloads.orangefox.utils.APIResponse;
+import com.fordownloads.orangefox.utils.Install;
+import com.fordownloads.orangefox.utils.Tools;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -44,7 +45,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -188,12 +188,12 @@ public class RecyclerActivity extends AppCompatActivity {
             if (releaseJSON) {
                 release = new JSONObject(releaseIntent);
             } else {
-                Map<String, Object> response = API.request("releases/get?_id=" + releaseIntent);
-                if(!(boolean)response.get("success")) {
-                    errorHandler((int)response.get("code"), R.string.err_no_rel);
+                APIResponse response = API.request("releases/get?_id=" + releaseIntent);
+                if(!response.success) {
+                    errorHandler(response.code, R.string.err_no_rel);
                     return;
                 }
-                release = new JSONObject((String)response.get("response"));
+                release = new JSONObject(response.response);
             }
 
             final String md5 = release.getString("md5");
@@ -267,19 +267,19 @@ public class RecyclerActivity extends AppCompatActivity {
     private void getDeviceInfo() {
         JSONObject device, maintainer;
         try {
-            Map<String, Object> response = API.request("devices/get?_id=" + new JSONObject(releaseIntent).getString("_id"));
-            if(!(boolean)response.get("success")) {
-                errorHandler((int)response.get("code"), R.string.err_ise);
+            APIResponse response = API.request("devices/get?_id=" + new JSONObject(releaseIntent).getString("_id"));
+            if(!response.success) {
+                errorHandler(response.code, R.string.err_ise);
                 return;
             }
-            device = new JSONObject((String)response.get("response"));
+            device = new JSONObject(response.response);
 
-            Map<String, Object> responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
-            if(!(boolean)responseMnt.get("success")) {
-                errorHandler((int)responseMnt.get("code"), R.string.err_ise);
+            APIResponse responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
+            if(!responseMnt.success) {
+                errorHandler(responseMnt.code, R.string.err_ise);
                 return;
             }
-            maintainer = new JSONObject((String)responseMnt.get("response"));
+            maintainer = new JSONObject(responseMnt.response);
 
             items.add(new RecyclerItems(getString(R.string.dev_model), device.getString("full_name"), R.drawable.ic_device));
             items.add(new RecyclerItems(getString(R.string.dev_code), device.getString("codename"), R.drawable.ic_round_code_24));
@@ -338,9 +338,9 @@ public class RecyclerActivity extends AppCompatActivity {
             }
     }
 
-    private List<RecyclerItems> addReleaseItems(Map<String, Object> response) throws JSONException {
+    private List<RecyclerItems> addReleaseItems(APIResponse response) throws JSONException {
         List<RecyclerItems> array = new ArrayList<>();
-        JSONArray arrayRel = new JSONObject((String)response.get("response")).getJSONArray("data");
+        JSONArray arrayRel = new JSONObject(response.response).getJSONArray("data");
         for (int i = 0; i < arrayRel.length(); i++) {
             JSONObject release = arrayRel.getJSONObject(i);
             array.add(new RecyclerItems(release.getString("version"),
@@ -350,8 +350,8 @@ public class RecyclerActivity extends AppCompatActivity {
         return array;
     }
     private boolean parseReleaseByType(FragmentPagerItems.Creator pageList, String type, int name) throws JSONException {
-        Map<String, Object> response = API.request("releases/?type="+type+"&codename=" + releaseIntent);
-        if ((boolean) response.get("success")) {
+        APIResponse response = API.request("releases/?type="+type+"&codename=" + releaseIntent);
+        if (response.success) {
             List<RecyclerItems> list = addReleaseItems(response);
             pageList.add(name, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
                     new RecyclerAdapter(this, list, (final View view) -> selectRelease(view, list)
@@ -388,11 +388,11 @@ public class RecyclerActivity extends AppCompatActivity {
     private void getReleases() {
         try {
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
-            Map<String, Object> responseStable = API.request("releases/?type=stable&codename=" + releaseIntent);
+            APIResponse responseStable = API.request("releases/?type=stable&codename=" + releaseIntent);
 
             if (parseReleaseByType(pageList, "stable", R.string.rel_stable) &
                     parseReleaseByType(pageList, "beta", R.string.rel_beta)) {
-                errorHandler((int)responseStable.get("code"), R.string.err_no_rels);
+                errorHandler(responseStable.code, R.string.err_no_rels);
                 return;
             }
 
@@ -424,14 +424,14 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private void getDevices() {
         try {
-            Map<String, Object> response = API.request("devices");
+            APIResponse response = API.request("devices");
 
-            if(!(boolean)response.get("success")) {
-                errorHandler((int)response.get("code"), R.string.err_ise);
+            if(!response.success) {
+                errorHandler(response.code, R.string.err_ise);
                 return;
             }
 
-            JSONArray devices = new JSONObject((String)response.get("response")).getJSONArray("data");
+            JSONArray devices = new JSONObject(response.response).getJSONArray("data");
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             List<RecyclerItems> array = new ArrayList<>();

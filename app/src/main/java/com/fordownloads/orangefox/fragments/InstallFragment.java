@@ -31,6 +31,7 @@ import com.fordownloads.orangefox.activity.SettingsActivity;
 import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.API;
+import com.fordownloads.orangefox.utils.APIResponse;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
 import com.google.android.material.behavior.SwipeDismissBehavior;
@@ -41,8 +42,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -187,11 +186,11 @@ public class InstallFragment extends Fragment {
             new Thread(() -> setDevice(null, Build.MODEL,false, false)).start();
     }
 
-    private boolean abortDevice(Map<String, Object> response, BottomSheetDialog dialog) {
-        if (!(boolean) response.get("success")) {
+    private boolean abortDevice(APIResponse response, BottomSheetDialog dialog) {
+        if (!response.success) {
             if (dialog != null) dialog.dismiss();
-            errorCard((int)response.get("code"), R.string.err_no_rels);
-            if ((int)response.get("code") == 404 || (int)response.get("code") == 500)
+            errorCard(response.code, R.string.err_no_rels);
+            if (response.code == 404 || response.code == 500)
                 prefs.edit().remove(pref.DEVICE).remove(pref.DEVICE_CODE).apply();
             return true;
         }
@@ -201,14 +200,14 @@ public class InstallFragment extends Fragment {
     private void parseRelease(BottomSheetDialog dialog, boolean force) {
         try {
             JSONObject release;
-            Map<String, Object> responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
-            if (!prefs.contains(pref.RELEASE_ID) || !(boolean) responseLast.get("success") && (int)responseLast.get("code") != 0)
+            APIResponse responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
+            if (!prefs.contains(pref.RELEASE_ID) || !responseLast.success && responseLast.code != 0)
                 if (abortDevice(responseLast, dialog)) return; //no internet/cached_id
 
             String id = null;
             boolean useCached;
-            if ((int)responseLast.get("code") == 200) {
-                id = new JSONObject((String) responseLast.get("response"))
+            if (responseLast.code == 200) {
+                id = new JSONObject(responseLast.response)
                         .getJSONArray("data").getJSONObject(0).getString("_id");
                 useCached = !force && id.equals(prefs.getString(pref.RELEASE_ID, "err"));
             } else {
@@ -218,12 +217,12 @@ public class InstallFragment extends Fragment {
             if (!force && useCached && prefs.contains(pref.CACHE_RELEASE)) {
                 release = new JSONObject(prefs.getString(pref.CACHE_RELEASE, null));
             } else {
-                Map<String, Object> response = API.request("releases/get?_id=" + id);
+                APIResponse response = API.request("releases/get?_id=" + id);
                 if (abortDevice(response, dialog)) return;
-                release = new JSONObject((String) response.get("response"));
+                release = new JSONObject(response.response);
             }
 
-            final String name = release.getString("filename");;
+            final String name = release.getString("filename");
             final String version = release.getString("version");
             final String url = release.getJSONObject("mirrors").getString("DL");
             final String stringBuildType = Tools.getBuildType(getActivity(), release);
@@ -282,16 +281,16 @@ public class InstallFragment extends Fragment {
         }
         if (codename.equals("no_internet_error"))
             return;
-        Map<String, Object> response = API.request("devices/get?codename=" + codename);
-        if (!(boolean) response.get("success")) {
-            errorCard((int) response.get("code"), R.string.err_no_device);
+        APIResponse response = API.request("devices/get?codename=" + codename);
+        if (!response.success) {
+            errorCard(response.code, R.string.err_no_device);
             return;
         }
         if (skipDialog){
-            prefs.edit().putString(pref.DEVICE, (String)response.get("response")).putString(pref.DEVICE_CODE, codename).apply();
+            prefs.edit().putString(pref.DEVICE, response.response).putString(pref.DEVICE_CODE, codename).apply();
             new Thread(() -> parseRelease(null, force)).start();
         } else
-            showDeviceDialog(codename, deviceName, false, (String)response.get("response"));
+            showDeviceDialog(codename, deviceName, false, response.response);
     }
 
     protected void showDeviceDialog(String device, String deviceName, boolean fail, String cache) {
@@ -356,12 +355,12 @@ public class InstallFragment extends Fragment {
             chk2 = "miatoll";
 
         try {
-            Map<String, Object> response = API.request("devices");
-            if(!(boolean)response.get("success")) {
-                errorCard((int)response.get("code"), R.string.err_ise);
+            APIResponse response = API.request("devices");
+            if(!response.success) {
+                errorCard(response.code, R.string.err_ise);
                 return "no_internet_error";
             }
-            JSONArray devices = new JSONObject((String)response.get("response")).getJSONArray("data");
+            JSONArray devices = new JSONObject(response.response).getJSONArray("data");
             for (int i = 0; i < devices.length(); i++)
             {
                 JSONObject device = devices.getJSONObject(i);
@@ -453,7 +452,7 @@ public class InstallFragment extends Fragment {
             prefs.edit().putInt(pref.DISMISSED, finalId).apply();
         });
 
-        SwipeDismissBehavior<CardView> dismiss = new SwipeDismissBehavior();
+        SwipeDismissBehavior<CardView> dismiss = new SwipeDismissBehavior<>();
         dismiss.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
         dismiss.setListener(new SwipeDismissBehavior.OnDismissListener() {
             @Override
