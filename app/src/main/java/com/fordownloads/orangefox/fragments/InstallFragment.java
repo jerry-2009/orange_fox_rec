@@ -207,7 +207,7 @@ public class InstallFragment extends Fragment {
             String id = null;
             boolean useCached;
             if (responseLast.code == 200) {
-                id = new JSONObject(responseLast.response)
+                id = new JSONObject(responseLast.data)
                         .getJSONArray("data").getJSONObject(0).getString("_id");
                 useCached = !force && id.equals(prefs.getString(pref.RELEASE_ID, "err"));
             } else {
@@ -219,7 +219,7 @@ public class InstallFragment extends Fragment {
             } else {
                 APIResponse response = API.request("releases/get?_id=" + id);
                 if (abortDevice(response, dialog)) return;
-                release = new JSONObject(response.response);
+                release = new JSONObject(response.data);
             }
 
             final String name = release.getString("filename");
@@ -287,10 +287,10 @@ public class InstallFragment extends Fragment {
             return;
         }
         if (skipDialog){
-            prefs.edit().putString(pref.DEVICE, response.response).putString(pref.DEVICE_CODE, codename).apply();
+            prefs.edit().putString(pref.DEVICE, response.data).putString(pref.DEVICE_CODE, codename).apply();
             new Thread(() -> parseRelease(null, force)).start();
         } else
-            showDeviceDialog(codename, deviceName, false, response.response);
+            showDeviceDialog(codename, deviceName, false, response.data);
     }
 
     protected void showDeviceDialog(String device, String deviceName, boolean fail, String cache) {
@@ -360,7 +360,7 @@ public class InstallFragment extends Fragment {
                 errorCard(response.code, R.string.err_ise);
                 return "no_internet_error";
             }
-            JSONArray devices = new JSONObject(response.response).getJSONArray("data");
+            JSONArray devices = new JSONObject(response.data).getJSONArray("data");
             for (int i = 0; i < devices.length(); i++)
             {
                 JSONObject device = devices.getJSONObject(i);

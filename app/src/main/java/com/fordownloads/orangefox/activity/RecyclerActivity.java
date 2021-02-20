@@ -193,7 +193,7 @@ public class RecyclerActivity extends AppCompatActivity {
                     errorHandler(response.code, R.string.err_no_rel);
                     return;
                 }
-                release = new JSONObject(response.response);
+                release = new JSONObject(response.data);
             }
 
             final String md5 = release.getString("md5");
@@ -272,14 +272,14 @@ public class RecyclerActivity extends AppCompatActivity {
                 errorHandler(response.code, R.string.err_ise);
                 return;
             }
-            device = new JSONObject(response.response);
+            device = new JSONObject(response.data);
 
             APIResponse responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
             if(!responseMnt.success) {
                 errorHandler(responseMnt.code, R.string.err_ise);
                 return;
             }
-            maintainer = new JSONObject(responseMnt.response);
+            maintainer = new JSONObject(responseMnt.data);
 
             items.add(new RecyclerItems(getString(R.string.dev_model), device.getString("full_name"), R.drawable.ic_device));
             items.add(new RecyclerItems(getString(R.string.dev_code), device.getString("codename"), R.drawable.ic_round_code_24));
@@ -340,7 +340,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     private List<RecyclerItems> addReleaseItems(APIResponse response) throws JSONException {
         List<RecyclerItems> array = new ArrayList<>();
-        JSONArray arrayRel = new JSONObject(response.response).getJSONArray("data");
+        JSONArray arrayRel = new JSONObject(response.data).getJSONArray("data");
         for (int i = 0; i < arrayRel.length(); i++) {
             JSONObject release = arrayRel.getJSONObject(i);
             array.add(new RecyclerItems(release.getString("version"),
@@ -431,7 +431,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 return;
             }
 
-            JSONArray devices = new JSONObject(response.response).getJSONArray("data");
+            JSONArray devices = new JSONObject(response.data).getJSONArray("data");
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             List<RecyclerItems> array = new ArrayList<>();

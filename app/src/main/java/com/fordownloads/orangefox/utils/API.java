@@ -47,8 +47,8 @@ public class API {
             APIResponse responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
 
             String id;
-            if ((int)responseLast.code == 200)
-                id = new JSONObject((String) responseLast.response).getJSONArray("data").getJSONObject(0).getString("_id");
+            if (responseLast.code == 200)
+                id = new JSONObject(responseLast.data).getJSONArray("data").getJSONObject(0).getString("_id");
             else {
                 Log.e("OFR-JOB", "Server error");
                 return;
@@ -60,12 +60,12 @@ public class API {
             }
 
             APIResponse response = API.request("releases/get?_id=" + id);
-            if (!(boolean) responseLast.success) {
+            if (!responseLast.success) {
                 Log.e("OFR-JOB", "Can't get release info");
                 return;
             }
 
-            JSONObject release = new JSONObject((String) response.response);
+            JSONObject release = new JSONObject(response.data);
 
             prefs.edit().putString(pref.CACHE_RELEASE, release.toString()).putString(pref.RELEASE_ID, id).apply();
 
