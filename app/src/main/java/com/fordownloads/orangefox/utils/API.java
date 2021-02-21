@@ -36,7 +36,6 @@ public class API {
             Response response = client.newCall(request).execute();
             return new APIResponse(response.isSuccessful(), response.code(), response.body().string());
         } catch (IOException e) {
-            e.printStackTrace();
             return new APIResponse();
         }
     }

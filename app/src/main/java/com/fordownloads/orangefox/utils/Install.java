@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
@@ -122,6 +123,16 @@ public class Install {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
             activity.startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
             Toast.makeText(activity, R.string.help_android11_pm, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static void requestPM(Fragment fragment){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            fragment.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+        } else {
+            fragment.requestPermissions(new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+            fragment.startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
+            Toast.makeText(fragment.getActivity(), R.string.help_android11_pm, Toast.LENGTH_LONG).show();
         }
     }
 }

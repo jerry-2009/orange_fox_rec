@@ -106,6 +106,7 @@ public class InstallFragment extends Fragment {
             _errorLayout.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
+            _installButton.hide();
             prepareDevice(true);
         });
 
@@ -116,6 +117,7 @@ public class InstallFragment extends Fragment {
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
+            _installButton.hide();
             new Thread(() -> prepareDevice( true)).start();
         });
         _refreshLayout.setEnabled(false);
@@ -228,18 +230,12 @@ public class InstallFragment extends Fragment {
             final String stringBuildType = Tools.getBuildType(getActivity(), release);
             final String md5 = release.getString("md5");
 
-            ((TextView)rootView.findViewById(R.id.relType)).setText(stringBuildType);
-            ((TextView)rootView.findViewById(R.id.relVers)).setText(version);
-            ((TextView)rootView.findViewById(R.id.relDate)).setText(Tools.formatDate(release.getLong("date")));
-            ((TextView)rootView.findViewById(R.id.relSize)).setText(Tools.formatSize(getActivity(), release.getInt("size")));
-
+            final String date = Tools.formatDate(release.getLong("date"));
+            final String size = Tools.formatSize(getActivity(), release.getInt("size"));
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
-
-            ((TextView)rootView.findViewById(R.id.devCode)).setText(device.getString("codename"));
-            ((TextView)rootView.findViewById(R.id.devModel)).setText(device.getString("full_name"));
-            ((TextView)rootView.findViewById(R.id.devStatus)).setText(device.getBoolean("supported") ?
-                    R.string.dev_maintained : R.string.dev_unmaintained);
-            ((TextView)rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
+            final String codename = device.getString("codename");
+            final String full_name = device.getString("full_name");
+            final int supported = device.getBoolean("supported") ? R.string.dev_maintained : R.string.dev_unmaintained;
 
             _installButton.setOnClickListener(view -> {
                 if (((App)getActivity().getApplication()).isDownloadSrvRunning())
@@ -247,7 +243,18 @@ public class InstallFragment extends Fragment {
                 else
                     instDialog = Install.dialog(getActivity(), version, stringBuildType, url, md5, name, false, null);
             });
+
             getActivity().runOnUiThread(() -> {
+                ((TextView) rootView.findViewById(R.id.relType)).setText(stringBuildType);
+                ((TextView) rootView.findViewById(R.id.relVers)).setText(version);
+                ((TextView) rootView.findViewById(R.id.relDate)).setText(date);
+                ((TextView) rootView.findViewById(R.id.relSize)).setText(size);
+
+                ((TextView) rootView.findViewById(R.id.devCode)).setText(codename);
+                ((TextView) rootView.findViewById(R.id.devModel)).setText(full_name);
+                ((TextView) rootView.findViewById(R.id.devStatus)).setText(supported);
+                ((TextView) rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
+
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
                 _errorLayout.setVisibility(View.GONE);
                 _shimmer.setVisibility(View.GONE);

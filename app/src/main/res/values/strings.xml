@@ -27,6 +27,8 @@
     <string name="err_file_format">Wrong file format</string>
 
     <string name="err_file_delete">Can\'t delete file</string>
+    <string name="err_logs_delete">Can\'t delete logs</string>
+    <string name="err_logs_deleted">There is no logs to delete</string>
     <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
     <string name="err_reboot_notify">Unable to reboot.\nCheck root access or reboot manually.</string>
     <string name="err_ors_bad">Script contains errors</string>
@@ -40,6 +42,7 @@
 
     <string name="share">Share</string>
     <string name="delete">Delete</string>
+    <string name="delete_logs">Delete all logs</string>
 
     <string name="rels_activity">Releases</string>
 
@@ -235,4 +238,5 @@
     <string name="log_type_postinstall">Post-install log</string>
     <string name="log_type_last">Last log</string>
     <string name="log_empty">No logs found</string>
+    <string name="log_grantpm">Tap here to view logs</string>
 </resources>

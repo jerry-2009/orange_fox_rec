@@ -143,13 +143,8 @@ public class SettingsActivity extends AppCompatActivity {
                     if (Install.hasStoragePM(getActivity())) {
                         _pm.setVisible(false);
                         _upd.setEnabled(true);
-                    } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-                    } else {
-                        requestPermissions(new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-                        startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
-                        Toast.makeText(getActivity(), R.string.help_android11_pm, Toast.LENGTH_LONG).show();
-                    }
+                    } else
+                        Install.requestPM(this);
                 else
                     Toast.makeText(getActivity(), R.string.err_no_pm_root, Toast.LENGTH_LONG).show();
                 return true;

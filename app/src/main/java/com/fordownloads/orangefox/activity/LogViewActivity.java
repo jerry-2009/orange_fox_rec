@@ -76,6 +76,7 @@ public class LogViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         getMenuInflater().inflate(R.menu.share, menu);
         return true;
     }
@@ -84,7 +85,7 @@ public class LogViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.delete)
             if (!log.delete()) {
-                Toast.makeText(this, R.string.err_file_delete, Toast.LENGTH_LONG).show();
+                Tools.showSnackbar(this, findViewById(R.id.updownFAB), R.string.err_file_delete).show();
             } else {
                 setResult(Activity.RESULT_OK);
                 finish();
@@ -109,7 +110,7 @@ public class LogViewActivity extends AppCompatActivity {
 
         try {
             if (log.getAbsolutePath().endsWith(".log"))
-                setText(String.join("\n", Files.readAllLines(log.toPath())));
+                setText(String.join("\n", Files.readAllLines(log.toPath())) + "\n");
             else if (log.getAbsolutePath().endsWith(".zip"))
                 try (ZipFile zipFile = new ZipFile(log)) {
                     final Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -122,7 +123,7 @@ public class LogViewActivity extends AppCompatActivity {
                             finalStr.append(line).append("\n");
                             line = reader.readLine();
                         }
-                        setText(finalStr.append("\n").toString());
+                        setText(finalStr.toString());
                     }
                 }
             else

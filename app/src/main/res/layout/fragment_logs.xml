@@ -4,32 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fox_status_solid_bg"
+    android:background="@color/fox_background"
     android:fitsSystemWindows="true"
     tools:context=".fragments.LogsFragment">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/snackbarPlace"
-        android:orientation="horizontal"
         android:layout_gravity="bottom"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:background="@color/fox_background"
-        android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/appToolbar"
-            style="@style/ThemeToolbarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="@dimen/elevation_medium"
-            app:popupTheme="@style/ThemePopup"
-            app:titleTextAppearance="@style/ThemeToolbarText" />
-    </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -40,30 +23,18 @@
         android:clipToPadding="false"
         app:layoutManager="LinearLayoutManager" />
 
-    <LinearLayout
-        android:layout_marginTop="56dp"
+    <TextView
         android:id="@+id/emptyHelp"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/emptyArt"
-            android:layout_width="match_parent"
-            android:layout_height="168dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:src="@drawable/art_empty" />
-
-        <TextView
-            style="@style/ThemeTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/log_empty"
-            android:textColor="#DADCE0"
-            android:textSize="18sp"
-            android:textAlignment="center" />
-    </LinearLayout>
-
+        style="@style/ThemeTitle"
+        android:singleLine="false"
+        android:layout_marginTop="56dp"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:text="@string/log_empty"
+        android:textColor="@color/card_icon"
+        android:textSize="16sp"
+        android:drawablePadding="12dp"
+        android:textAlignment="center"
+        app:drawableTopCompat="@drawable/art_empty" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

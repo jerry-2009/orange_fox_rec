@@ -129,9 +129,6 @@ public class ScriptsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_scripts, container, false);
-        Toolbar myToolbar = rootView.findViewById(R.id.appToolbar);
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(myToolbar);
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(R.string.bnav_scripts);
 
         _emptyHelp = rootView.findViewById(R.id.emptyHelp);
         _emptyArt = rootView.findViewById(R.id.emptyArt);
@@ -152,7 +149,9 @@ public class ScriptsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NotNull Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.scripts, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
