@@ -6,20 +6,26 @@ import android.app.job.JobScheduler;
 import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.preference.PreferenceManager;
 
 import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.service.Scheduler;
 import com.fordownloads.orangefox.consts;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -125,6 +131,25 @@ public class Tools {
     }
 
     public static void share(Context context, String fileName, File log) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (prefs.getBoolean(pref.SHARE_DIALOG_SHOWN, false)) {
+            shareNoDialog(context, fileName, log);
+        } else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            LayoutInflater factory = LayoutInflater.from(context);
+            final View view = factory.inflate(R.layout.share_help, null);
+            alert.setView(view);
+            alert.setPositiveButton(R.string.btn_continue, (dlg, num) -> {
+                prefs.edit().putBoolean(pref.SHARE_DIALOG_SHOWN, true).apply();
+                shareNoDialog(context, fileName, log);
+            });
+
+            alert.show();
+        }
+    }
+
+    public static void shareNoDialog(Context context, String fileName, File log) {
         String mime;
         if (fileName.endsWith(".zip"))
             mime = "application/zip";

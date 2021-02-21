@@ -16,4 +16,5 @@ public class pref {
     public static final String UPDATES_ENABLE = "pref_updates_enable";
     public static final String UPDATES_LIMITED = "pref_updates_limited";
     public static final String ANNOY_ENABLE = "pref_annoy_enable";
+    public static final String SHARE_DIALOG_SHOWN = "pref_share_dialog_shown";
 }

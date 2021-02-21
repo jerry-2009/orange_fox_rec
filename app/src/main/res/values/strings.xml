@@ -239,4 +239,7 @@
     <string name="log_type_last">Last log</string>
     <string name="log_empty">No logs found</string>
     <string name="log_grantpm">Tap here to view logs</string>
+    <string name="btn_continue">Continue</string>
+    <string name="log_share">Send log</string>
+    <string name="log_share_text">Send logs directly to developers using telegram groups:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nAlso you can send private message to maintainer.</string>
 </resources>
