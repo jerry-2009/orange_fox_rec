@@ -59,7 +59,7 @@
             app:icon="@drawable/ic_gitlab">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://gitlab.com/fordownloads/orangefox-app"
+                android:data="https://gitlab.com/OrangeFox/misc/app"
                 />
         </Preference>
         <Preference
