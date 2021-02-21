@@ -17,4 +17,5 @@
     <color name="google_error">#ff5252</color>
     <color name="gray_light">#ffBCBCBD</color>
     <color name="card_icon">#995F6368</color>
+    <color name="ripple">#22BCBCBD</color>
 </resources>

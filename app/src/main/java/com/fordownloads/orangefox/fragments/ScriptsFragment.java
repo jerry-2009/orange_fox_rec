@@ -101,11 +101,10 @@ public class ScriptsFragment extends Fragment {
 
     private void rotateUI(Configuration config) {
         if (_emptyArt == null) return;
-
-        if (Tools.isLandscape(getActivity(), config, Tools.getScreenSize(getActivity())))
-            _emptyArt.setVisibility(View.GONE);
-        else if (requireActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT)
+        if (config.orientation == Configuration.ORIENTATION_PORTRAIT)
             _emptyArt.setVisibility(View.VISIBLE);
+        else
+            _emptyArt.setVisibility(View.GONE);
     }
 
     public void add(RecyclerItems i) {

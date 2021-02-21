@@ -1,10 +1,12 @@
 package com.fordownloads.orangefox.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.ContextMenu;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,12 +14,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ListPopupWindow;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -52,18 +57,20 @@ public class LogsFragment extends Fragment {
     View rootView;
     TextView _emptyHelp;
     int currentPos = 0;
+    ListPopupWindow popup;
 
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onMenuItemClick(AdapterView<?> p, View v, int pos, long id) {
         String fileName = items.get(currentPos).getSubtitle();
         File log = new File(LOGS_DIR, fileName);
-        if (item.getItemId() == R.id.delete)
+        if (pos == 1)
             if (log.delete()) {
                 removeItem();
             } else {
                 Tools.showSnackbar(getActivity(), rootView.findViewById(R.id.snackbarPlace), R.string.err_file_delete).show();
             }
-        else if (item.getItemId() == R.id.share)
+        else
             Tools.share(getActivity(), fileName, log);
+        popup.dismiss();
         return true;
     }
 
@@ -106,6 +113,14 @@ public class LogsFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_logs, container, false);
         setHasOptionsMenu(true);
 
+        String[] actions = {getString(R.string.share), getString(R.string.delete)};
+        popup = new ListPopupWindow(new ContextThemeWrapper(getActivity(), R.style.ThemePopupFill));
+        popup.setDropDownGravity(Gravity.CENTER);
+        popup.setHeight(ListPopupWindow.WRAP_CONTENT);
+        popup.setWidth(ListPopupWindow.MATCH_PARENT);
+        popup.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, actions));
+        popup.setOnItemClickListener(this::onMenuItemClick);
+
         adapter = new RecyclerAdapter(getActivity(), items, v ->
         {
             startActivityForResult(new Intent(getActivity(), LogViewActivity.class).putExtra("file_name", ((TextView)v.findViewById(R.id.subtitle)).getText()), 500);
@@ -113,9 +128,7 @@ public class LogsFragment extends Fragment {
         },v ->
         {
             currentPos = recyclerView.getChildLayoutPosition(v);
-            PopupMenu popup = new PopupMenu(getActivity(), v);
-            popup.getMenuInflater().inflate(R.menu.share, popup.getMenu());
-            popup.setOnMenuItemClickListener(this::onMenuItemClick);
+            popup.setAnchorView(v);
             popup.show();
             return true;
         }

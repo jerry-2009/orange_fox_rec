@@ -13,5 +13,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="alertDialogTheme">@style/ThemeDialog</item>
         <item name="android:overScrollMode">never</item>
+        <item name="colorControlHighlight">@color/ripple</item>
     </style>
 </resources>

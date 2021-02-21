@@ -13,8 +13,8 @@
         <item name="android:windowBackground">@color/fox_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="alertDialogTheme">@style/ThemeDialog</item>
-        <item name="popupMenuStyle">@style/ThemePopup</item>
         <item name="android:overScrollMode">never</item>
+        <item name="colorControlHighlight">@color/ripple</item>
     </style>
 
     <style name="Theme.OrangeFox.Splash">
@@ -27,6 +27,7 @@
         <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
         <item name="preferenceCategoryStyle">@style/ThemePrefCategory</item>
         <item name="colorControlNormal">@color/google_gray</item>
+        <item name="colorControlHighlight">@color/ripple</item>
     </style>
 
     <style name="ThemeCard">
@@ -59,6 +60,7 @@
     <style name="ThemeToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/fox_accent</item>
         <item name="colorAccent">@color/fox_accent</item>
+        <item name="colorControlHighlight">@color/ripple</item>
     </style>
 
     <style name="ThemeToolbarText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -240,5 +242,12 @@
     <style name="ThemePopup" parent="Widget.AppCompat.PopupMenu">
         <item name="popupMenuBackground">@drawable/popup_bg</item>
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorControlHighlight">@color/ripple</item>
+    </style>
+
+    <style name="ThemePopupFill" parent="Widget.AppCompat.PopupMenu">
+        <item name="popupMenuBackground">@drawable/popup_bg_fill</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorControlHighlight">@color/ripple</item>
     </style>
 </resources>

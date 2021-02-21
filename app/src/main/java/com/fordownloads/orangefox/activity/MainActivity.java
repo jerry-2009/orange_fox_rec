@@ -1,5 +1,7 @@
 package com.fordownloads.orangefox.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
@@ -29,6 +31,8 @@ import com.fordownloads.orangefox.fragments.BackupsFragment;
 import com.fordownloads.orangefox.consts;
 import com.topjohnwu.superuser.Shell;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle state) {
+    public void onSaveInstanceState(@NotNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putInt("selected", bn.getCurrentItem());
     }
@@ -121,23 +125,33 @@ public class MainActivity extends AppCompatActivity {
             fm.beginTransaction().add(R.id.nav_frame, (logs = new LogsFragment()), "logs").hide(logs).commit();
     }
 
+    int prevPos = 0;
+
     private boolean switchPages(int position, boolean wasSelected) {
         if (wasSelected) return false;
         FragmentTransaction tsa = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.scale, 0);
+        if (position > 0 && prevPos == 0) {
+            _toolbarWrapper.setVisibility(View.VISIBLE);
+            _statusBarFill.setVisibility(View.VISIBLE);
+            _toolbarWrapper.setAlpha(0);
+            _statusBarFill.setAlpha(0);
+            _toolbarWrapper.setTranslationY(-24);
+            _statusBarFill.setTranslationY(-24);
+            _toolbarWrapper.animate().alpha(1f).translationY(0).setDuration(250);
+            _statusBarFill.animate().alpha(1f).translationY(0).setDuration(250);
+        } else if (position == 0) {
+            _toolbarWrapper.setVisibility(View.GONE);
+            _statusBarFill.setVisibility(View.GONE);
+        }
+        prevPos = position;
         switch (position) {
             case 1:  tsa.show(scripts).hide(install).hide(logs).commit();
                 Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.bnav_scripts);
-                _toolbarWrapper.setVisibility(View.VISIBLE);
-                _statusBarFill.setVisibility(View.VISIBLE);
                 return true;
             case 2:  tsa.show(logs).hide(install).hide(scripts).commit();
                 Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.bnav_logs);
-                _toolbarWrapper.setVisibility(View.VISIBLE);
-                _statusBarFill.setVisibility(View.VISIBLE);
                 return true;
             default: tsa.show(install).hide(scripts).hide(logs).commit();
-                _toolbarWrapper.setVisibility(View.GONE);
-                _statusBarFill.setVisibility(View.GONE);
                 return true;
         }
     }
