@@ -241,8 +241,7 @@ public class ScriptsFragment extends Fragment {
         if (items.size() != 0)
             listEmpty(false, false);
 
-        ORSAdapter = new ORSAdapter(getActivity(), holder -> mItemTouchHelper.startDrag(holder), items, v ->
-                Toast.makeText(getActivity(), ((TextView)v.findViewById(R.id.text)).getText(), Toast.LENGTH_SHORT).show());
+        ORSAdapter = new ORSAdapter(getActivity(), holder -> mItemTouchHelper.startDrag(holder), items, null);
 
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);

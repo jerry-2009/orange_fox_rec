@@ -3,16 +3,21 @@ package com.fordownloads.orangefox.utils;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
+import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.service.Scheduler;
@@ -117,6 +122,25 @@ public class Tools {
             sizes[1] = size.y;
         }
         return sizes;
+    }
+
+    public static void share(Context context, String fileName, File log) {
+        String mime;
+        if (fileName.endsWith(".zip"))
+            mime = "application/zip";
+        else
+            mime = "text/plain";
+        try {
+            Uri uri = FileProvider.getUriForFile(context, "com.fordownloads.orangefox.fileprovider", log);
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType(mime);
+            intent.setClipData(new ClipData(fileName, new String[] { mime }, new ClipData.Item(uri)));
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+        } catch (Exception e) {
+            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static boolean isLandscape(Activity context, Configuration config, int[] sizes) {

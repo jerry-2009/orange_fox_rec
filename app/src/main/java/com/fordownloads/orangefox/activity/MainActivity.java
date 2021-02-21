@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_install, R.drawable.ic_round_save_alt_24, R.color.fox_accent));
         bn.addItem(new AHBottomNavigationItem(R.string.bnav_scripts, R.drawable.ic_outline_receipt_long_24, R.color.fox_accent));
         //bn.addItem(new AHBottomNavigationItem(R.string.bnav_backups, R.drawable.ic_outline_cloud_download_24, R.color.fox_accent));
-        //bn.addItem(new AHBottomNavigationItem(R.string.bnav_logs, R.drawable.ic_commit, R.color.fox_accent));
+        bn.addItem(new AHBottomNavigationItem(R.string.bnav_logs, R.drawable.ic_commit, R.color.fox_accent));
 
         bn.setBehaviorTranslationEnabled(false);
         bn.setUseElevation(true);
@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
             fm.beginTransaction().add(R.id.nav_frame, scripts, "scripts").commit();
             fm.beginTransaction().hide(scripts).commit();
         }
+        if (fm.findFragmentByTag("logs") == null) {
+            LogsFragment logs = new LogsFragment();
+            fm.beginTransaction().add(R.id.nav_frame, logs, "logs").commit();
+            fm.beginTransaction().hide(logs).commit();
+        }
 
         bn.setOnTabSelectedListener((position, wasSelected) -> {
             if (wasSelected)
@@ -109,30 +114,19 @@ public class MainActivity extends AppCompatActivity {
             tsa.setCustomAnimations(R.anim.scale, R.anim.scale);
 
             switch (position) {
-                /*case 3:
+                case 2:
                     if(fm.findFragmentByTag("logs") != null) tsa.show(fm.findFragmentByTag("logs")).commit();
                     else tsa.add(R.id.nav_frame, new LogsFragment(), "logs").commit();
 
                     if(fm.findFragmentByTag("scripts") != null) fm.beginTransaction().hide(fm.findFragmentByTag("scripts")).commit();
                     if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
-                    if(fm.findFragmentByTag("backups") != null) fm.beginTransaction().hide(fm.findFragmentByTag("backups")).commit();
 
                     break;
-                case 2:
-                    if(fm.findFragmentByTag("backups") != null) tsa.show(fm.findFragmentByTag("backups")).commit();
-                    else tsa.add(R.id.nav_frame, new BackupsFragment(), "backups").commit();
-
-                    if(fm.findFragmentByTag("scripts") != null) fm.beginTransaction().hide(fm.findFragmentByTag("scripts")).commit();
-                    if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
-                    if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
-
-                    break;*/
                 case 1:
                     if(fm.findFragmentByTag("scripts") != null) tsa.show(fm.findFragmentByTag("scripts")).commit();
                     else tsa.add (R.id.nav_frame, new ScriptsFragment(), "scripts").commit();
 
                     if(fm.findFragmentByTag("install") != null) fm.beginTransaction().hide(fm.findFragmentByTag("install")).commit();
-                    if(fm.findFragmentByTag("backups") != null) fm.beginTransaction().hide(fm.findFragmentByTag("backups")).commit();
                     if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
 
                     break;
@@ -141,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                     else tsa.add (R.id.nav_frame, new InstallFragment(), "install").commit();
 
                     if(fm.findFragmentByTag("scripts") != null) fm.beginTransaction().hide(fm.findFragmentByTag("scripts")).commit();
-                    if(fm.findFragmentByTag("backups") != null) fm.beginTransaction().hide(fm.findFragmentByTag("backups")).commit();
                     if(fm.findFragmentByTag("logs") != null) fm.beginTransaction().hide(fm.findFragmentByTag("logs")).commit();
 
                     break;

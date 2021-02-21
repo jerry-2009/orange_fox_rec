@@ -218,7 +218,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 });
 
                 FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
-                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, null))));
+                pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items))));
 
                 try {
                     if (release.has("changelog"))

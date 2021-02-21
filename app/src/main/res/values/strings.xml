@@ -23,6 +23,8 @@
     <string name="err_service_running">Another release is being downloaded</string>
     <string name="err_ise">Internal server error</string>
     <string name="err_filepicker">Files from download folder or recents folder are not supported.</string>
+    <string name="err_file_notfound">File not found</string>
+    <string name="err_file_format">Wrong file format</string>
 
     <string name="err_file_delete">Can\'t delete file</string>
     <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
@@ -35,6 +37,9 @@
     <string name="deleted_ors">Script was successfully deleted</string>
 
     <string name="install_latest">Install %1$s %2$s</string>
+
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
 
     <string name="rels_activity">Releases</string>
 
@@ -222,4 +227,12 @@
     <string name="unknown">Unknown</string>
     <string name="backup_optimize">Compress backup</string>
     <string name="backup_digest">Skip digest creation</string>
+
+    <string name="log_activity">Log</string>
+    <string name="log_type_normal">Log</string>
+    <string name="log_type_zip">Compressed log</string>
+    <string name="log_type_install">Installation log</string>
+    <string name="log_type_postinstall">Post-install log</string>
+    <string name="log_type_last">Last log</string>
+    <string name="log_empty">No logs found</string>
 </resources>

@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ScriptsFragment">
 
-    <TextView
-        android:id="@+id/multiTextView"
-        android:linksClickable="true"
-        android:autoLink="all"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="monospace"
-        android:gravity="top"
-        android:textIsSelectable="true"
-        android:textSize="12sp" />
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/multiTextView"
+            android:linksClickable="true"
+            android:autoLink="all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:gravity="top"
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -13,6 +13,7 @@
         <item name="android:windowBackground">@color/fox_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="alertDialogTheme">@style/ThemeDialog</item>
+        <item name="popupMenuStyle">@style/ThemePopup</item>
         <item name="android:overScrollMode">never</item>
     </style>
 

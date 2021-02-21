@@ -17,10 +17,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private final LayoutInflater inflater;
     private final List<RecyclerItems> items;
     private final OnClickListener listener;
+    private final View.OnLongClickListener listenerHold;
 
+    public RecyclerAdapter(Context context, List<RecyclerItems> items, OnClickListener listener, View.OnLongClickListener listenerHold) {
+        this.items = items;
+        this.listener = listener;
+        this.listenerHold = listenerHold;
+        this.inflater = LayoutInflater.from(context);
+    }
     public RecyclerAdapter(Context context, List<RecyclerItems> items, OnClickListener listener) {
         this.items = items;
         this.listener = listener;
+        this.listenerHold = null;
+        this.inflater = LayoutInflater.from(context);
+    }
+    public RecyclerAdapter(Context context, List<RecyclerItems> items) {
+        this.items = items;
+        this.listener = null;
+        this.listenerHold = null;
         this.inflater = LayoutInflater.from(context);
     }
     @NotNull
@@ -29,6 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         View view = inflater.inflate(R.layout.list_item, parent, false);
         if (listener != null)
             view.setOnClickListener(listener);
+        if (listenerHold != null)
+        view.setOnLongClickListener(listenerHold);
         return new ViewHolder(view);
     }
 
