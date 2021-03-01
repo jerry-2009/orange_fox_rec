@@ -1,5 +1,6 @@
 package com.fordownloads.orangefox.fragments;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,10 @@ import com.fordownloads.orangefox.recycler.RecyclerAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+
+import static androidx.core.view.ViewCompat.setSystemGestureExclusionRects;
 
 public class RecyclerFragment extends Fragment {
     private RecyclerAdapter adapter;
@@ -35,6 +40,7 @@ public class RecyclerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         _recycler = view.findViewById(R.id.releaseRecycler);
         _recycler.setAdapter(adapter);
+        setSystemGestureExclusionRects(_recycler, Arrays.asList(new Rect(0, 0, 0, 0), new Rect(0, 0, 2160, 10000)));
     }
 
     @Override

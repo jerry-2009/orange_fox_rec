@@ -20,7 +20,6 @@ App for <a href="https://wiki.orangefox.tech">OrangeFox Recovery</a> written on 
 * [SmartTabLayout](https://github.com/ogaclejapan/SmartTabLayout)
 * [Facebook Shimmer](https://github.com/facebook/shimmer-android)
 * [OkHttp](https://square.github.io/okhttp/)
-* [HaulerView](https://github.com/futuredapp/hauler)
 * [Overscroll Decor](https://github.com/EverythingMe/overscroll-decor)
 * [libsu](https://github.com/topjohnwu/libsu)
 * [LeakCanary](https://github.com/square/leakcanary)

@@ -12,10 +12,8 @@ import android.widget.LinearLayout;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
-import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.consts;
-import com.thefuntasty.hauler.HaulerView;
 
 import java.util.List;
 

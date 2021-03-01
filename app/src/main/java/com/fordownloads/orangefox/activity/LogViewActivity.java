@@ -15,13 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.utils.Tools;
-import com.thefuntasty.hauler.HaulerView;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -55,20 +51,6 @@ public class LogViewActivity extends AppCompatActivity {
         float originalElevation = ab.getElevation();
         _textView = findViewById(R.id.log);
         _scroll = findViewById(R.id.scroll);
-
-        ((HaulerView) findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
-        ((HaulerView) findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
-            if (offset <= 15 && offset >= -15) {
-                myToolbar.setElevation(originalElevation - (Math.abs(offset) / 15 * originalElevation));
-                myToolbar.setAlpha(1);
-            } else if (offset >= -50 && offset <= 50) {
-                myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
-                myToolbar.setElevation(0);
-            } else {
-                myToolbar.setAlpha(0);
-                myToolbar.setElevation(0);
-            }
-        });
 
         findViewById(R.id.updownFAB).setOnClickListener(this::scroll);
         new Thread(this::showLog).start();

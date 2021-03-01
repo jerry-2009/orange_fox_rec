@@ -24,7 +24,6 @@ import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
-import com.thefuntasty.hauler.HaulerView;
 import com.topjohnwu.superuser.Shell;
 
 import org.jetbrains.annotations.NotNull;
@@ -52,31 +51,13 @@ public class SettingsActivity extends AppCompatActivity {
             ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
             myToolbar.setElevation(0);
             myToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
-            ((HaulerView)findViewById(R.id.haulerView)).getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
             ab.setTitle("");
-        } else {
+        } else
             ab.setTitle(R.string.activity_settings);
-            float originalElevation = myToolbar.getElevation();
-
-            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
-                if (offset <= 15 && offset >= -15) {
-                    myToolbar.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
-                    myToolbar.setAlpha(1);
-                } else if (offset >= -50 && offset <= 50) {
-                    myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
-                    myToolbar.setElevation(0);
-                } else {
-                    myToolbar.setAlpha(0);
-                    myToolbar.setElevation(0);
-                }
-            });
-        }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         JobScheduler mScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
         prefs.edit().putBoolean(pref.UPDATES_ENABLE, mScheduler.getPendingJob(consts.SCHEDULER_JOB_ID) != null).apply();
-
-        ((HaulerView)findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
     }
 
     @Override

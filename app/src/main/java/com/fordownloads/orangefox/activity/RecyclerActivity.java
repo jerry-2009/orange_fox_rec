@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -17,6 +19,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -36,7 +39,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
-import com.thefuntasty.hauler.HaulerView;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -44,9 +48,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
+import static androidx.core.view.ViewCompat.setSystemGestureExclusionRects;
 
 public class RecyclerActivity extends AppCompatActivity {
     public static String releaseIntent = null;
@@ -88,7 +96,6 @@ public class RecyclerActivity extends AppCompatActivity {
         _fab = findViewById(R.id.installButton);
 
         viewPagerTab = findViewById(R.id.viewpagertab);
-        CardView tabCard = findViewById(R.id.viewpagertabElevation);
 
         Toolbar myToolbar = findViewById(R.id.appToolbar);
         setSupportActionBar(myToolbar);
@@ -97,40 +104,6 @@ public class RecyclerActivity extends AppCompatActivity {
         if (intent.getBooleanExtra("arrow", false))
             ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
         ab.setTitle(intent.getIntExtra("title", R.string.app_name));
-
-        float originalElevation = tabCard.getElevation();
-
-        ((HaulerView)findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
-
-        if (intent.getIntExtra("type", 0) == 3)
-            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
-                if (offset <= 15 && offset >= -15) {
-                    myToolbar.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
-                    myToolbar.setAlpha(1);
-                } else if (offset >= -50 && offset <= 50) {
-                    myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
-                    myToolbar.setElevation(0);
-                } else {
-                    myToolbar.setAlpha(0);
-                    myToolbar.setElevation(0);
-                }
-            });
-        else
-            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
-                if (offset <= 15 && offset >= -15) {
-                    tabCard.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
-                    tabCard.setAlpha(1);
-                    myToolbar.setAlpha(1);
-                } else if (offset >= -50 && offset <= 50) {
-                    myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
-                    tabCard.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
-                    tabCard.setElevation(0);
-                } else {
-                    tabCard.setAlpha(0);
-                    myToolbar.setAlpha(0);
-                    tabCard.setElevation(0);
-                }
-            });
 
         int type = intent.getIntExtra("type", 0);
         switch (type) {
@@ -153,6 +126,20 @@ public class RecyclerActivity extends AppCompatActivity {
                 new Thread(this::getDeviceInfo).start();
                 break;
         }
+
+        setSystemGestureExclusionRects(findViewById(R.id.root), Arrays.asList(new Rect(0, 0, 0, 0), new Rect(0, 0, 2160, 10000)));
+        SlidrConfig config = new SlidrConfig.Builder()
+                                .sensitivity(1f)
+                                .scrimColor(Color.BLACK)
+                                .scrimStartAlpha(0.8f)
+                                .scrimEndAlpha(0f)
+                                .velocityThreshold(240)
+                                .distanceThreshold(0.25f)
+                                .edge(true)
+                                .edgeSize(0.18f) // The % of the screen that counts as the edge, default 18%
+                                .build();
+
+        Slidr.attach(this,config);
     }
 
     public void errorHandler(int code, int customErr){

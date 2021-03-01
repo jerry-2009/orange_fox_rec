@@ -28,6 +28,8 @@
         <item name="preferenceCategoryStyle">@style/ThemePrefCategory</item>
         <item name="colorControlNormal">@color/google_gray</item>
         <item name="colorControlHighlight">@color/ripple</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="ThemeCard">
