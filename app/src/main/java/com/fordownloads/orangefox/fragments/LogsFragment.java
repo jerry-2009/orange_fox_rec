@@ -1,11 +1,8 @@
 package com.fordownloads.orangefox.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.ContextMenu;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,14 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ListPopupWindow;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,18 +26,13 @@ import com.fordownloads.orangefox.recycler.RecyclerAdapter;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
-import com.topjohnwu.superuser.Shell;
-import com.topjohnwu.superuser.io.SuFile;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -59,7 +46,7 @@ public class LogsFragment extends Fragment {
     int currentPos = 0;
     ListPopupWindow popup;
 
-    public boolean onMenuItemClick(AdapterView<?> p, View v, int pos, long id) {
+    public void onMenuItemClick(AdapterView<?> p, View v, int pos, long id) {
         String fileName = items.get(currentPos).getSubtitle();
         File log = new File(LOGS_DIR, fileName);
         if (pos == 1)
@@ -71,7 +58,6 @@ public class LogsFragment extends Fragment {
         else
             Tools.share(getActivity(), fileName, log);
         popup.dismiss();
-        return true;
     }
 
     @Override

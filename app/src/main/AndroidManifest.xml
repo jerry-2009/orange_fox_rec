@@ -22,17 +22,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OrangeFox">
         <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:label="@string/app_name"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.OrangeFox.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+        <activity
             android:name=".activity.LogViewActivity"
             android:label="@string/log_activity"
-            android:theme="@style/Theme.OrangeFox.Activity" />
+            android:exported="true"
+            android:theme="@style/Theme.OrangeFox.Activity" >
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
         <activity
             android:name=".activity.PatternActivity"
             android:label="@string/script_decrypt_pattern"
-            android:theme="@style/Theme.OrangeFox.Activity" />
+            android:exported="true"
+            android:theme="@style/Theme.OrangeFox.Activity" >
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/activity_settings"
-            android:theme="@style/Theme.OrangeFox.Activity" />
+            android:exported="true"
+            android:theme="@style/Theme.OrangeFox.Activity" >
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
 
         <service
             android:name=".service.DownloadService"
@@ -46,19 +73,13 @@
             android:name=".activity.RecyclerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:label="@string/app_name"
-            android:theme="@style/Theme.OrangeFox.Activity" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.OrangeFox.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="true"
+            android:theme="@style/Theme.OrangeFox.Activity" >
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
+        <meta-data android:name="android.app.shortcuts"
+            android:resource="@xml/shortcuts" />
 
         <receiver
             android:name=".service.ActionReceiver"
@@ -80,5 +101,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+    <meta-data android:name="android.app.shortcuts"
+        android:resource="@xml/shortcuts" />
 
 </manifest>

@@ -4,10 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
+import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +38,9 @@ import com.topjohnwu.superuser.Shell;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     InstallFragment install;
     View _toolbarWrapper, _statusBarFill;
     AHBottomNavigation bn;
+    boolean shortcutMode = false;
 
     PRDownloaderConfig config = PRDownloaderConfig.newBuilder()
             .setDatabaseEnabled(true)
@@ -58,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NotNull Bundle state) {
         super.onSaveInstanceState(state);
-        state.putInt("selected", bn.getCurrentItem());
+        if (!shortcutMode && bn != null)
+            state.putInt("selected", bn.getCurrentItem());
     }
 
     @Override
@@ -66,20 +76,52 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
 
-        bn = findViewById(R.id.bottom_navigation);
+        setSupportActionBar(findViewById(R.id.appToolbar));
         _toolbarWrapper = findViewById(R.id.toolbarWrapper);
         _statusBarFill = findViewById(R.id.statusBarFill);
-        setSupportActionBar(findViewById(R.id.appToolbar));
-
-        PRDownloader.initialize(getApplicationContext(), config);
         createNotificationChannel();
+
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
+        getWindow().setBackgroundDrawableResource(R.color.fox_background);
+
+        Intent intent = getIntent();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fmt = fm.beginTransaction();
+        if (intent.hasExtra("shortcut")) {
+            _toolbarWrapper.setVisibility(View.VISIBLE);
+            _statusBarFill.setVisibility(View.VISIBLE);
+            findViewById(R.id.nav_frame).setLayoutParams(new androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams.MATCH_PARENT, androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams.MATCH_PARENT));
+
+            switch (intent.getStringExtra("shortcut")) {
+                case "logs":
+                    fmt.add(R.id.nav_frame, (logs = new LogsFragment()), "logs");
+                    Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.bnav_logs);
+                    break;
+                case "scripts":
+                    fmt.add(R.id.nav_frame, (scripts = new ScriptsFragment()), "scripts");
+                    Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.bnav_scripts);
+                    break;
+            }
+            fmt.commit();
+            shortcutMode = true;
+            return;
+        }
+
+        bn = findViewById(R.id.bottom_navigation);
+        PRDownloader.initialize(getApplicationContext(), config);
         prepareBottomNav();
 
         if (bundle != null)
             switchPages(bundle.getInt("selected"), false);
+    }
 
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
-        getWindow().setBackgroundDrawableResource(R.color.fox_background);
+    @Override
+    protected void onNewIntent(Intent intent) {
+        if (!intent.hasExtra("shortcut") && shortcutMode) {
+            setIntent(intent);
+            recreate();
+        }
+        super.onNewIntent(intent);
     }
 
     private void createNotificationChannel() {
@@ -116,20 +158,22 @@ public class MainActivity extends AppCompatActivity {
         bn.setOnTabSelectedListener(this::switchPages);
 
         FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fmt = fm.beginTransaction();
 
         if ((install = (InstallFragment)fm.findFragmentByTag("install")) == null)
-            fm.beginTransaction().add(R.id.nav_frame, (install =  new InstallFragment()), "install").commit();
+            fmt.add(R.id.nav_frame, (install =  new InstallFragment()), "install");
         if ((scripts = (ScriptsFragment)fm.findFragmentByTag("scripts")) == null)
-            fm.beginTransaction().add(R.id.nav_frame, (scripts = new ScriptsFragment()), "scripts").hide(scripts).commit();
+            fmt.add(R.id.nav_frame, (scripts = new ScriptsFragment()), "scripts").hide(scripts);
         if ((logs = (LogsFragment)fm.findFragmentByTag("logs")) == null)
-            fm.beginTransaction().add(R.id.nav_frame, (logs = new LogsFragment()), "logs").hide(logs).commit();
+            fmt.add(R.id.nav_frame, (logs = new LogsFragment()), "logs").hide(logs);
+        fmt.commit();
     }
 
     int prevPos = 0;
 
     private boolean switchPages(int position, boolean wasSelected) {
         if (wasSelected) return false;
-        FragmentTransaction tsa = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.scale, 0);
+        FragmentTransaction fmt = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.scale, 0);
         if (position > 0 && prevPos == 0) {
             _toolbarWrapper.setVisibility(View.VISIBLE);
             _statusBarFill.setVisibility(View.VISIBLE);
@@ -145,13 +189,13 @@ public class MainActivity extends AppCompatActivity {
         }
         prevPos = position;
         switch (position) {
-            case 1:  tsa.show(scripts).hide(install).hide(logs).commit();
+            case 1:  fmt.show(scripts).hide(install).hide(logs).commit();
                 Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.bnav_scripts);
                 return true;
-            case 2:  tsa.show(logs).hide(install).hide(scripts).commit();
+            case 2:  fmt.show(logs).hide(install).hide(scripts).commit();
                 Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.bnav_logs);
                 return true;
-            default: tsa.show(install).hide(scripts).hide(logs).commit();
+            default: fmt.show(install).hide(scripts).hide(logs).commit();
                 return true;
         }
     }

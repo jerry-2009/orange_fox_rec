@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/shrt_background" />
+    <foreground>
+        <inset android:inset="26dp">
+            <vector android:autoMirrored="true" android:height="24dp"
+                android:tint="@color/fox_accent" android:viewportHeight="22"
+                android:viewportWidth="22" android:width="24dp">
+                <path android:fillColor="@android:color/white" android:pathData="M2,13L2,13c-1.105,0 -2,-0.895 -2,-2v0c0,-1.105 0.895,-2 2,-2h0c1.105,0 2,0.895 2,2v0C4,12.105 3.105,13 2,13zM2,8L2,8C1.448,8 1,7.552 1,7V1c0,-0.552 0.448,-1 1,-1h0c0.552,0 1,0.448 1,1v6C3,7.552 2.552,8 2,8zM2,22L2,22c-0.552,0 -1,-0.448 -1,-1v-6c0,-0.552 0.448,-1 1,-1h0c0.552,0 1,0.448 1,1v6C3,21.552 2.552,22 2,22zM20,6v10H10V6H20M20,4H10C8.895,4 8,4.895 8,6v10c0,1.105 0.895,2 2,2h10c1.105,0 2,-0.895 2,-2V6C22,4.895 21.105,4 20,4L20,4zM8,8.172l-2.121,2.121c-0.391,0.391 -0.391,1.024 0,1.414L8,13.828l1.313,-1.313c0.837,-0.837 0.837,-2.194 0,-3.031L8,8.172L8,8.172zM12,9L12,9c0,-0.552 0.448,-1 1,-1h4c0.552,0 1,0.448 1,1v0c0,0.552 -0.448,1 -1,1h-4C12.448,10 12,9.552 12,9zM12,13L12,13c0,-0.552 0.448,-1 1,-1h2c0.552,0 1,0.448 1,1v0c0,0.552 -0.448,1 -1,1h-2C12.448,14 12,13.552 12,13z"/>
+            </vector>
+        </inset>
+    </foreground>
+</adaptive-icon>
