@@ -244,6 +244,7 @@ public class ScriptsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(ORSAdapter);
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
         ORSAdapter.setOnItemDismissListener(position -> {
             if (items.size() == 0)

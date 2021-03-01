@@ -34,6 +34,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 import static android.app.Activity.RESULT_OK;
 
 public class LogsFragment extends Fragment {
@@ -122,6 +124,7 @@ public class LogsFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
         _emptyHelp = rootView.findViewById(R.id.emptyHelp);
 
