@@ -6,12 +6,14 @@
     <color name="fox_bright">#FFEDE7</color>
     <color name="fox_dim">#FCFCFC</color>
 
+    <color name="fox_switch_light">#F1C5B0</color>
+    <color name="fox_accent_dark">#882D10</color>
     <color name="fox_accent">#F35928</color>
-    <color name="fox_background">#FCFCFC</color>
+    <color name="fox_background">#FFFAF8</color>
 
     <color name="shrt_background">#F8F8F8</color>
-    <color name="fox_status_solid_bg">#F8F8F8</color>
-    <color name="fox_title_solid_bg">#FCFCFC</color>
+    <color name="fox_status_solid_bg">#FFFAF8</color>
+    <color name="fox_title_solid_bg">#FFFAF8</color>
 
     <color name="google_gray">#FF5F6368</color>
     <color name="card_icon">#335F6368</color>

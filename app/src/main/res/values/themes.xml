@@ -1,4 +1,5 @@
 <resources>
+    <attr name="bigActionBarHeight" format="dimension|reference" />
     <style name="Theme.OrangeFox" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <!-- Primary brand color. -->
@@ -17,6 +18,11 @@
         <item name="colorControlHighlight">@color/ripple</item>
     </style>
 
+    <style name="ThemeAbout" parent="Theme.OrangeFox.Activity">
+        <item name="bigActionBarHeight">?actionBarSize</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_round_keyboard_backspace_24</item>
+    </style>
+
     <style name="Theme.OrangeFox.Splash">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="android:navigationBarColor">@color/fox_background</item>
@@ -24,10 +30,16 @@
 
     <style name="Theme.OrangeFox.Activity">
         <item name="android:statusBarColor">@color/fox_status_solid_bg</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_round_close_24</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_round_keyboard_backspace_24</item>
         <item name="preferenceCategoryStyle">@style/ThemePrefCategory</item>
         <item name="colorControlNormal">@color/google_gray</item>
         <item name="colorControlHighlight">@color/ripple</item>
+        <item name="bigActionBarHeight">300dp</item>
+        <item name="switchPreferenceCompatStyle">@style/ThemeSwitch</item>
+    </style>
+
+    <style name="ThemeSwitch" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/pref_switch</item>
     </style>
 
     <style name="ThemeCard">
@@ -66,6 +78,11 @@
     <style name="ThemeToolbarText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">21sp</item>
         <item name="android:fontFamily">@font/euclid_flex</item>
+        <item name="android:textColor">@color/fox_accent</item>
+    </style>
+
+    <style name="ThemeToolbarTextBig" parent="ThemeToolbarText">
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="ThemeToolbarStyle">

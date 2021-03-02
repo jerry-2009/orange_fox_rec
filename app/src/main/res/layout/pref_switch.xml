@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.switchmaterial.SwitchMaterial xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/switchWidget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:maxWidth="40dp"
+    android:thumb="@drawable/switch_thumb"
+    android:focusable="false"
+    android:clickable="false"
+    app:thumbTint="@color/fox_accent_dark"
+    app:trackTint="@color/fox_switch_light"
+    app:track="@drawable/switch_track"/>

@@ -6,35 +6,51 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceRecyclerViewAccessibilityDelegate;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.Install;
+import com.fordownloads.orangefox.utils.OverScrollBehavior;
 import com.fordownloads.orangefox.utils.Tools;
+import com.google.android.material.appbar.AppBarLayout;
 import com.thefuntasty.hauler.HaulerView;
 import com.topjohnwu.superuser.Shell;
 
 import org.jetbrains.annotations.NotNull;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
         boolean isAbout = getIntent().getBooleanExtra("about", false);
+        if (isAbout)
+            setTheme(R.style.ThemeAbout);
+        setContentView(R.layout.activity_settings);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -49,27 +65,19 @@ public class SettingsActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         if (isAbout) {
-            ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
-            myToolbar.setElevation(0);
+            /*CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)findViewById(R.id.bigToolbar).getLayoutParams();
+
+            TypedValue typedValue = new TypedValue();
+            TypedArray a = obtainStyledAttributes(typedValue.data, new int[] { R.attr.actionBarSize });
+            params.height = a.getDimensionPixelSize(0, -1);
+            a.recycle();
+            ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);*/
+
+            findViewById(R.id.bigToolbar).setElevation(0);
             myToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
-            ((HaulerView)findViewById(R.id.haulerView)).getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
             ab.setTitle("");
         } else {
             ab.setTitle(R.string.activity_settings);
-            float originalElevation = myToolbar.getElevation();
-
-            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
-                if (offset <= 15 && offset >= -15) {
-                    myToolbar.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
-                    myToolbar.setAlpha(1);
-                } else if (offset >= -50 && offset <= 50) {
-                    myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
-                    myToolbar.setElevation(0);
-                } else {
-                    myToolbar.setAlpha(0);
-                    myToolbar.setElevation(0);
-                }
-            });
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
