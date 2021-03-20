@@ -4,7 +4,9 @@ import android.app.PendingIntent;
 import android.app.job.JobService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.Output;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -20,22 +22,34 @@ import com.fordownloads.orangefox.consts;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 
+import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class API {
+    public static OkHttpClient client = new OkHttpClient();
     public static APIResponse request(String reqUrl) {
         try {
-            OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url("https://api.orangefox.download/v3/" + reqUrl)
                     .build();
             Response response = client.newCall(request).execute();
             return new APIResponse(response.isSuccessful(), response.code(), response.body().string());
         } catch (IOException e) {
+            e.printStackTrace();
             return new APIResponse();
         }
     }
