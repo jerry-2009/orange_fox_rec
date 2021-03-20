@@ -172,7 +172,7 @@ public class LogsFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        getActivity().runOnUiThread(() -> {
+        requireActivity().runOnUiThread(() -> {
             if (!items.isEmpty())
                 _emptyHelp.setVisibility(View.GONE);
             adapter.notifyDataSetChanged();

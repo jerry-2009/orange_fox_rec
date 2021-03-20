@@ -145,7 +145,7 @@ public class Tools {
                 shareNoDialog(context, fileName, log);
             });
 
-            alert.show();
+            alert.show().getWindow().setLayout(1080, 1260);
         }
     }
 

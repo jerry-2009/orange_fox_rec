@@ -140,6 +140,14 @@
         <item name="strokeWidth">1dp</item>
     </style>
 
+    <style name="ThemeTitleAlert">
+        <item name="android:textAppearance">@style/ThemeTitleAlertAppearance</item>
+    </style>
+
+    <style name="ThemeTitleAlertAppearance" parent="ThemeTitle">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="ThemeTitle">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/white</item>
@@ -187,6 +195,7 @@
         <item name="dialogCornerRadius">8dp</item>
         <item name="colorPrimary">@color/fox_card</item>
         <item name="buttonBarButtonStyle">@style/ThemeDialogButton</item>
+        <item name="android:windowTitleStyle">@style/ThemeTitleAlert</item>
 
         <!-- просто блять почему -->
         <item name="android:fullDark">@color/fox_card</item>

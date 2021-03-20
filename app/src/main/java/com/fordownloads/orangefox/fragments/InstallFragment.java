@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
@@ -44,8 +45,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
-
 import static android.app.Activity.RESULT_OK;
 
 public class InstallFragment extends Fragment {
@@ -61,7 +60,7 @@ public class InstallFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
-        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity());
 
         _installButton = rootView.findViewById(R.id.installButton);
 
@@ -171,7 +170,7 @@ public class InstallFragment extends Fragment {
             _cards.setOrientation(LinearLayout.HORIZONTAL);
             _cards.setShowDividers(LinearLayout.SHOW_DIVIDER_BEGINNING | LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
             _annoyCard.setPadding(_16dip, 0, _16dip, _16dip);
-        } else if (getActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        } else if (requireActivity().isInMultiWindowMode() || config.orientation == Configuration.ORIENTATION_PORTRAIT) {
             _cards.setOrientation(LinearLayout.VERTICAL);
             _cards.setShowDividers(LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
             _annoyCard.setPadding(0, 0, 0, 0);
@@ -181,7 +180,7 @@ public class InstallFragment extends Fragment {
         if (devDialog != null) devDialog.dismiss();
         if (instDialog != null) instDialog.dismiss();
 
-        ((App) getActivity().getApplication()).dismissDialog();
+        ((App) requireActivity().getApplication()).dismissDialog();
     }
 
     private void prepareDevice(boolean force) {
@@ -234,20 +233,20 @@ public class InstallFragment extends Fragment {
             final String md5 = release.getString("md5");
 
             final String date = Tools.formatDate(release.getLong("date"));
-            final String size = Tools.formatSize(getActivity(), release.getInt("size"));
+            final String size = Tools.formatSize(requireActivity(), release.getInt("size"));
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
             final String codename = device.getString("codename");
             final String full_name = device.getString("full_name");
             final int supported = device.getBoolean("supported") ? R.string.dev_maintained : R.string.dev_unmaintained;
 
             _installButton.setOnClickListener(view -> {
-                if (((App)getActivity().getApplication()).isDownloadSrvRunning())
+                if (((App) requireActivity().getApplication()).isDownloadSrvRunning())
                     Tools.showSnackbar(getActivity(), _installButton, R.string.err_service_running).show();
                 else
-                    instDialog = Install.dialog(getActivity(), version, stringBuildType, url, md5, name, false, null);
+                    instDialog = Install.dialog(requireActivity(), version, stringBuildType, url, md5, name, false, null);
             });
 
-            getActivity().runOnUiThread(() -> {
+            requireActivity().runOnUiThread(() -> {
                 ((TextView) rootView.findViewById(R.id.relType)).setText(stringBuildType);
                 ((TextView) rootView.findViewById(R.id.relVers)).setText(version);
                 ((TextView) rootView.findViewById(R.id.relDate)).setText(date);
@@ -304,10 +303,10 @@ public class InstallFragment extends Fragment {
     }
 
     protected void showDeviceDialog(String device, String deviceName, boolean fail, String cache) {
-        getActivity().runOnUiThread(() -> {
-            ((AHBottomNavigation)getActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
+        requireActivity().runOnUiThread(() -> {
+            ((AHBottomNavigation) requireActivity().findViewById(R.id.bottom_navigation)).setCurrentItem(0);
 
-            View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, (ViewGroup)null);
+            View sheetView = getLayoutInflater().inflate(R.layout.dialog_device, null);
 
             devDialog = Tools.initBottomSheet(getActivity(), sheetView);
 
@@ -406,7 +405,7 @@ public class InstallFragment extends Fragment {
 
         boolean isInternet = errorCode == 0;
 
-        getActivity().runOnUiThread(() -> {
+        requireActivity().runOnUiThread(() -> {
             _errorTitle.setText(isInternet ? R.string.err_card_no_internet : R.string.err_card_error);
             _errorText.setText(text);
             _errorIcon.setImageResource(isInternet ? R.drawable.ic_round_public_off_24 : R.drawable.ic_round_warning_24);
@@ -422,6 +421,35 @@ public class InstallFragment extends Fragment {
     }
 
     public void setAnnoyCard(View rootView) {
+        if (!prefs.getBoolean(pref.MIUI_DARK_MODE_WAS_SET, false)) {
+            if (System.getProperty("ro.miui.ui.version.name", "").equals(""))
+                prefs.edit().putBoolean(pref.MIUI_DARK_MODE_WAS_SET, true).apply();
+            else {
+                ((TextView) rootView.findViewById(R.id.annoyTitle)).setText(R.string.MIUI_dark_mode);
+                ((TextView) rootView.findViewById(R.id.annoyText)).setText(R.string.MIUI_dark_mode_tap);
+                rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> {
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity());
+                    alert.setTitle(R.string.MIUI_dark_mode);
+                    alert.setMessage(R.string.MIUI_dark_mode_desc);
+                    alert.setPositiveButton(R.string.go_settings, (dlg, num) -> {
+                        _annoyCard.setVisibility(View.GONE);
+                        prefs.edit().putBoolean(pref.MIUI_DARK_MODE_WAS_SET, true).apply();
+                        startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        dlg.dismiss();
+                    });
+
+                    alert.setNegativeButton(R.string.show_me, (dlg, num) -> {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DXyz9RdYvAs")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        dlg.dismiss();
+                    });
+                    alert.show().getWindow().setLayout(1080, 772);
+                });
+                _annoyCard.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+
         if (!prefs.getBoolean(pref.ANNOY_ENABLE, true))
             return;
 

@@ -17,4 +17,5 @@ public class pref {
     public static final String UPDATES_LIMITED = "pref_updates_limited";
     public static final String ANNOY_ENABLE = "pref_annoy_enable";
     public static final String SHARE_DIALOG_SHOWN = "pref_share_dialog_shown";
+    public static final String MIUI_DARK_MODE_WAS_SET = "pref_miui_dark_mode_was_set";
 }

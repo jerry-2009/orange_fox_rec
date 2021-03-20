@@ -231,6 +231,12 @@
     <string name="backup_optimize">Compress backup</string>
     <string name="backup_digest">Skip digest creation</string>
 
+    <string name="MIUI_dark_mode">App doesn\'t look as intended</string>
+    <string name="MIUI_dark_mode_desc">MIUI inverts colors of OrangeFox App.\n\nTo disable this you need to:\n· Go to Display Settings\n· Find Dark Mode Settings\n· Tap on "Individual Apps"\n· Uncheck OrangeFox App</string>
+    <string name="MIUI_dark_mode_tap">Tap here to get more info</string>
+    <string name="go_settings">Go to settings</string>
+    <string name="show_me">Show Me How</string>
+
     <string name="log_activity">Log</string>
     <string name="log_type_normal">Log</string>
     <string name="log_type_zip">Compressed log</string>
