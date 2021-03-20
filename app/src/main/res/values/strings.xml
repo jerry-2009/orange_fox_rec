@@ -248,4 +248,5 @@
     <string name="btn_continue">Continue</string>
     <string name="log_share">Send log</string>
     <string name="log_share_text">Send logs directly to developers using telegram groups:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nAlso you can send private message to maintainer.</string>
+    <string name="feedback"><![CDATA[Help & Feedback]]></string>
 </resources>

@@ -1,13 +1,14 @@
 package com.fordownloads.orangefox.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -18,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.consts;
@@ -52,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
             ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
             myToolbar.setElevation(0);
             myToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
-            ((HaulerView)findViewById(R.id.haulerView)).getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
+            findViewById(R.id.haulerView).getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
             ab.setTitle("");
         } else {
             ab.setTitle(R.string.activity_settings);
@@ -71,6 +73,8 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         }
+
+        findViewById(R.id.feedback).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/OrangeFoxApp")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK)));
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         JobScheduler mScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
@@ -96,11 +100,19 @@ public class SettingsActivity extends AppCompatActivity {
         Preference _device, _system, _dark, _upd_1, _upd_2, _upd_3, _upd, _pm;
 
         @Override
-        public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, int[] grantResults) {
+        public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
             if (Install.hasStoragePM(getActivity())) {
                 _pm.setVisible(false);
                 _upd.setEnabled(true);
             }
+        }
+
+        @Override
+        public RecyclerView onCreateRecyclerView(LayoutInflater inflater, ViewGroup parent,
+                                                 Bundle savedInstanceState) {
+            RecyclerView r = super.onCreateRecyclerView(inflater, parent, savedInstanceState);
+            r.setPadding(0,0,0,216);
+            return r;
         }
 
         public void updateTogglesState(boolean state) {
@@ -112,8 +124,8 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            JobScheduler mScheduler = (JobScheduler)getActivity().getSystemService(JOB_SCHEDULER_SERVICE);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+            JobScheduler mScheduler = (JobScheduler)requireActivity().getSystemService(JOB_SCHEDULER_SERVICE);
             _device = findPreference("change_device");
             _system = findPreference(pref.THEME_SYSTEM);
             _dark = findPreference(pref.THEME_DARK);
@@ -201,7 +213,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private boolean jobSchedule(SharedPreferences prefs, JobScheduler mScheduler) {
-            return Tools.scheduleJob(getActivity(), mScheduler, prefs.getBoolean(pref.UPDATES_LIMITED, true) ? JobInfo.NETWORK_TYPE_NOT_ROAMING : JobInfo.NETWORK_TYPE_UNMETERED);
+            return Tools.scheduleJob(requireActivity(), mScheduler, prefs.getBoolean(pref.UPDATES_LIMITED, true) ? JobInfo.NETWORK_TYPE_NOT_ROAMING : JobInfo.NETWORK_TYPE_UNMETERED);
         }
 
         @Override
@@ -209,8 +221,8 @@ public class SettingsActivity extends AppCompatActivity {
             if (requestCode == 202) {
                 if (resultCode == RESULT_OK && data != null) {
                     _device.setSummary(data.getStringExtra("codename"));
-                    getActivity().setResult(Activity.RESULT_OK, data);
-                    getActivity().finish();
+                    requireActivity().setResult(Activity.RESULT_OK, data);
+                    requireActivity().finish();
                 }
             }
         }

@@ -12,6 +12,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/feedback"
+            style="@style/ThemeButtonBasic"
+            app:icon="@drawable/ic_tg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="16dp"
+            android:text="@string/feedback" />
+
         <FrameLayout
             android:id="@+id/settingsFragment"
             android:layout_width="match_parent"
@@ -25,5 +35,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="@dimen/elevation_medium"
             app:titleTextAppearance="@style/ThemeToolbarText" />
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </com.thefuntasty.hauler.HaulerView>
