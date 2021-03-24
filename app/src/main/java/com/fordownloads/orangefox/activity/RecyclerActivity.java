@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -133,6 +134,7 @@ public class RecyclerActivity extends AppCompatActivity {
             });
 
         int type = intent.getIntExtra("type", 0);
+        Log.e("OFR", "Type: "+type);
         switch (type) {
             case 0: //release info (URL)
                 releaseJSON = false;
@@ -274,26 +276,29 @@ public class RecyclerActivity extends AppCompatActivity {
             }
             device = new JSONObject(response.data);
 
-            APIResponse responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
+            /*APIResponse responseMnt = API.request("users/maintainers/get?_id=" + device.getJSONObject("maintainer").getString("_id"));
+
+            Log.e("OFR", "response: "+responseMnt.code);
+
             if(!responseMnt.success) {
                 errorHandler(responseMnt.code, R.string.err_ise);
                 return;
             }
-            maintainer = new JSONObject(responseMnt.data);
+            maintainer = new JSONObject(responseMnt.data);*/
 
             items.add(new RecyclerItems(getString(R.string.dev_model), device.getString("full_name"), R.drawable.ic_device));
             items.add(new RecyclerItems(getString(R.string.dev_code), device.getString("codename"), R.drawable.ic_round_code_24));
-            items.add(new RecyclerItems(getString(R.string.dev_maintainer), maintainer.getString("name"), R.drawable.ic_outline_person_24));
-
+            items.add(new RecyclerItems(getString(R.string.dev_maintainer), device.getJSONObject("maintainer").getString("username"), R.drawable.ic_outline_person_24));
+//maintainer.getString("name")
             if (device.getBoolean("supported"))
                 items.add(new RecyclerItems(getString(R.string.dev_status), getString(R.string.dev_maintained), R.drawable.ic_round_check_24));
             else
                 items.add(new RecyclerItems(getString(R.string.dev_status), getString(R.string.dev_unmaintained), R.drawable.ic_round_close_24));
-
+/*
             if (!maintainer.isNull("telegram") && !maintainer.getJSONObject("telegram").isNull("url"))
                 items.add(new RecyclerItems(getString(R.string.dev_telegram),
                         maintainer.getJSONObject("telegram").getString("username"),
-                        R.drawable.ic_tg, maintainer.getJSONObject("telegram").getString("url")));
+                        R.drawable.ic_tg, maintainer.getJSONObject("telegram").getString("url")));*/
 
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items, (final View view) -> openTg(view, items)))));
