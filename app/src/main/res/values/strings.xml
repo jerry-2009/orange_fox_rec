@@ -49,7 +49,8 @@
     <string name="rel_activity">Release Info</string>
     <string name="rel_button">Show Info</string>
     <string name="rel_more">All Builds</string>
-    <string name="rel_current">Latest Release</string>
+    <string name="rel_last">Latest Release</string>
+    <string name="rel_current">Installed Release</string>
 
     <string name="rel_size">File Size</string>
     <string name="rel_vers">Version</string>

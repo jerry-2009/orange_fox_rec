@@ -74,41 +74,47 @@
                     android:id="@+id/swipeableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    >
+                    android:visibility="gone">
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/swipeCard"
-                        android:clickable="true"
-                        android:focusable="true"
+                        style="@style/ThemeCardOutline"
                         android:layout_marginHorizontal="8dp"
                         android:layout_marginVertical="0dp"
-                        app:cardBackgroundColor="@color/fox_card"
-                        style="@style/ThemeCardOutline" >
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="@color/fox_card">
+
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="fill_parent"
-                            android:src="@drawable/ic_outline_info_24"
-                            android:scaleType="centerInside" />
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_outline_info_24" />
+
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="50dp"
                             android:layout_marginVertical="4dp"
+                            android:layout_marginStart="50dp"
                             android:orientation="vertical">
-                            <TextView android:id="@+id/annoyTitle"
+
+                            <TextView
+                                android:id="@+id/annoyTitle"
+                                style="@style/ThemeTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/ThemeTitle"
-                                android:textSize="16dp"
-                                android:textColor="@color/white"/>
-                            <TextView android:id="@+id/annoyText"
+                                android:textColor="@color/white"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:id="@+id/annoyText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:paddingEnd="24dp"
                                 android:textColor="@color/gray_light"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -118,9 +124,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
+                    android:clipToPadding="false"
                     android:divider="@drawable/divider"
                     android:orientation="vertical"
-                    android:clipToPadding="false"
                     android:paddingTop="8dp"
                     android:showDividers="middle|end">
 
@@ -189,8 +195,9 @@
                         style="@style/ThemeShimmer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:visibility="gone"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        tools:visibility="gone">
+
                         <androidx.cardview.widget.CardView
                             style="@style/ThemeCard"
                             android:layout_width="match_parent"
@@ -203,8 +210,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="72dp"
-                        tools:visibility="gone"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        tools:visibility="gone">
+
                         <androidx.cardview.widget.CardView
                             style="@style/ThemeCard"
                             android:layout_width="match_parent"
@@ -263,8 +271,7 @@
                                         <TextView
                                             android:id="@+id/devModel"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
 
                                     <TableRow>
@@ -277,8 +284,7 @@
                                         <TextView
                                             android:id="@+id/devCode"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
 
                                     <TableRow>
@@ -291,8 +297,7 @@
                                         <TextView
                                             android:id="@+id/devStatus"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
 
                                     <TableRow>
@@ -305,30 +310,30 @@
                                         <TextView
                                             android:id="@+id/devPatch"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
                                 </TableLayout>
                             </LinearLayout>
 
                             <Button
                                 android:id="@+id/deviceInfo"
-                                android:layout_marginTop="16dp"
-                                android:paddingVertical="0dp"
                                 style="@style/ThemeButton"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:paddingVertical="0dp"
                                 android:text="@string/rel_button"
                                 app:icon="@drawable/ic_outline_info_24" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardRelease"
                         style="@style/ThemeCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="72dp"
                         android:layout_weight="1"
                         android:visibility="gone"
                         tools:visibility="visible">
@@ -359,7 +364,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingBottom="8dp"
-                                    android:text="@string/rel_current" />
+                                    android:text="@string/rel_last" />
 
                                 <TableLayout
                                     android:layout_width="match_parent"
@@ -376,8 +381,7 @@
                                         <TextView
                                             android:id="@+id/relVers"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
 
                                     <TableRow>
@@ -390,8 +394,7 @@
                                         <TextView
                                             android:id="@+id/relType"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
 
                                     <TableRow>
@@ -404,8 +407,7 @@
                                         <TextView
                                             android:id="@+id/relDate"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
 
                                     <TableRow>
@@ -418,8 +420,7 @@
                                         <TextView
                                             android:id="@+id/relSize"
                                             style="@style/ThemeTextBold"
-                                            android:layout_weight="1"
-                                            android:text="..." />
+                                            android:layout_weight="1" />
                                     </TableRow>
                                 </TableLayout>
                             </LinearLayout>
@@ -452,6 +453,59 @@
                                     android:text="@string/rel_button"
                                     app:icon="@drawable/ic_outline_info_24" />
                             </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCurrent"
+                        style="@style/ThemeCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:layout_marginBottom="72dp"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="right|top"
+                            android:layout_margin="8dp"
+                            android:src="@drawable/ic_round_get_app_24"
+                            app:tint="@color/card_icon" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="12dp">
+
+                            <TextView
+                                style="@style/ThemeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:text="@string/rel_current" />
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:shrinkColumns="all">
+
+                                <TableRow>
+
+                                    <TextView
+                                        style="@style/ThemeTextGray"
+                                        android:layout_weight="0"
+                                        android:text="@string/rel_vers" />
+
+                                    <TextView
+                                        android:id="@+id/currentVers"
+                                        style="@style/ThemeTextBold"
+                                        android:layout_weight="1" />
+                                </TableRow>
+                            </TableLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>

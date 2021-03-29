@@ -7,6 +7,7 @@ import androidx.core.view.animation.PathInterpolatorCompat;
 import java.io.File;
 
 public class consts {
+    public static final File LOGS_DIR = new File(Environment.getExternalStorageDirectory(), "Fox/logs");
     public static final android.view.animation.Interpolator intr = PathInterpolatorCompat.create(0.2f, 0.7f, 0, 1);
     public static final String ORS_FILE = "/cache/recovery/openrecoveryscript";
     public static final String DOWNLOAD_DIR = new File(Environment.getExternalStorageDirectory(), "Fox/releases").getAbsolutePath();

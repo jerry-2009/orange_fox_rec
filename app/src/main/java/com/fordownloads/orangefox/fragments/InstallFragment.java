@@ -45,14 +45,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 import static android.app.Activity.RESULT_OK;
+import static com.fordownloads.orangefox.consts.LOGS_DIR;
 
 public class InstallFragment extends Fragment {
     TextView _errorText, _errorTitle;
     SharedPreferences prefs;
     ExtendedFloatingActionButton _installButton;
     View rootView, _shimmer, _shimmer2, _annoyCard;
-    CardView _errorLayout, _cardInfo, _cardRelease;
+    CardView _errorLayout, _cardInfo, _cardRelease, _cardCurrent;
     ImageView _errorIcon;
     LinearLayout _cards;
     SwipeRefreshLayout _refreshLayout;
@@ -67,6 +72,7 @@ public class InstallFragment extends Fragment {
         _errorLayout = rootView.findViewById(R.id.errorLayout);
         _cardInfo = rootView.findViewById(R.id.cardInfo);
         _cardRelease = rootView.findViewById(R.id.cardRelease);
+        _cardCurrent = rootView.findViewById(R.id.cardCurrent);
 
         _errorIcon = rootView.findViewById(R.id.errorIcon);
         _errorText = rootView.findViewById(R.id.errorText);
@@ -117,6 +123,7 @@ public class InstallFragment extends Fragment {
             _errorLayout.setVisibility(View.GONE);
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
+            _cardCurrent.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
             _installButton.hide();
@@ -145,6 +152,7 @@ public class InstallFragment extends Fragment {
         } else if (requestCode == 300 && resultCode == RESULT_OK && data != null) {
             _errorLayout.setVisibility(View.GONE);
             _cardInfo.setVisibility(View.GONE);
+            _cardCurrent.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
             _shimmer.setVisibility(View.VISIBLE);
             _shimmer2.setVisibility(View.VISIBLE);
@@ -234,6 +242,7 @@ public class InstallFragment extends Fragment {
 
             final String date = Tools.formatDate(release.getLong("date"));
             final String size = Tools.formatSize(requireActivity(), release.getInt("size"));
+
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
             final String codename = device.getString("codename");
             final String full_name = device.getString("full_name");
@@ -245,6 +254,24 @@ public class InstallFragment extends Fragment {
                 else
                     instDialog = Install.dialog(requireActivity(), version, stringBuildType, url, md5, name, false, null);
             });
+
+            File log = new File(LOGS_DIR, "lastrecoverylog.log");
+            if (log.exists())
+                try (FileReader fr = new FileReader(log)) {
+                    try (BufferedReader br = new BufferedReader(fr)) {
+                        requireActivity().runOnUiThread(() -> {
+                            try {
+                                ((TextView) rootView.findViewById(R.id.currentVers)).setText(br.readLine().split(" ")[3]);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             requireActivity().runOnUiThread(() -> {
                 ((TextView) rootView.findViewById(R.id.relType)).setText(stringBuildType);
@@ -263,6 +290,7 @@ public class InstallFragment extends Fragment {
                 _shimmer2.setVisibility(View.GONE);
                 _cardInfo.setVisibility(View.VISIBLE);
                 _cardRelease.setVisibility(View.VISIBLE);
+                _cardCurrent.setVisibility(View.VISIBLE);
                 _installButton.show();
                 _refreshLayout.setEnabled(true);
                 _refreshLayout.setRefreshing(false);
@@ -413,6 +441,7 @@ public class InstallFragment extends Fragment {
             _errorLayout.setVisibility(View.VISIBLE);
             _cardInfo.setVisibility(View.GONE);
             _cardRelease.setVisibility(View.GONE);
+            _cardCurrent.setVisibility(View.GONE);
             _shimmer.setVisibility(View.GONE);
             _shimmer2.setVisibility(View.GONE);
             _refreshLayout.setRefreshing(false);

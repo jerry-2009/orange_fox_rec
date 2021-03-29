@@ -37,9 +37,9 @@ import java.util.ArrayList;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 import static android.app.Activity.RESULT_OK;
+import static com.fordownloads.orangefox.consts.LOGS_DIR;
 
 public class LogsFragment extends Fragment {
-    private static final File LOGS_DIR = new File(Environment.getExternalStorageDirectory(), "Fox/logs");
     ArrayList<RecyclerItems> items = new ArrayList<>();
     RecyclerView recyclerView;
     RecyclerAdapter adapter;
