@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
             myToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
             findViewById(R.id.haulerView).getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.fox_status_solid_bg));
             ab.setTitle("");
+            findViewById(R.id.feedback).setVisibility(View.GONE);
         } else {
             ab.setTitle(R.string.activity_settings);
             float originalElevation = myToolbar.getElevation();
@@ -72,9 +74,9 @@ public class SettingsActivity extends AppCompatActivity {
                     myToolbar.setElevation(0);
                 }
             });
-        }
 
-        findViewById(R.id.feedback).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/OrangeFoxApp")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK)));
+            findViewById(R.id.feedback).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/OrangeFoxApp")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK)));
+        }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         JobScheduler mScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);

@@ -50,8 +50,7 @@ import java.util.List;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class RecyclerActivity extends AppCompatActivity {
-    public static String releaseIntent = null;
-    public static boolean releaseJSON = false;
+    public static String intentData = null;
     List<RecyclerItems> items = new ArrayList<>();
     SmartTabLayout viewPagerTab;
     FrameLayout _loadingView;
@@ -84,7 +83,7 @@ public class RecyclerActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        releaseIntent = intent.getStringExtra("release");
+        intentData = intent.getStringExtra("release");
         _loadingView = findViewById(R.id.loadingLayout);
         _fab = findViewById(R.id.installButton);
 
@@ -137,13 +136,11 @@ public class RecyclerActivity extends AppCompatActivity {
         Log.e("OFR", "Type: "+type);
         switch (type) {
             case 0: //release info (URL)
-                releaseJSON = false;
-                new Thread(this::getAllReleaseInfo).start();
+                new Thread(() -> getAllReleaseInfo(false, false)).start();
                 break;
             case 1: //release info (JSON)
-                releaseJSON = true;
                 _loadingView.setVisibility(View.GONE);
-                getAllReleaseInfo();
+                getAllReleaseInfo(false, true);
                 break;
             case 2: //release list
                 new Thread(this::getReleases).start();
@@ -153,6 +150,9 @@ public class RecyclerActivity extends AppCompatActivity {
                 break;
             case 4: //device info
                 new Thread(this::getDeviceInfo).start();
+                break;
+            case 5: //find release by device and version
+                new Thread(() -> getAllReleaseInfo(true, false)).start();
                 break;
         }
     }
@@ -183,14 +183,22 @@ public class RecyclerActivity extends AppCompatActivity {
         });
     }
 
-    private void getAllReleaseInfo() {
+    private void getAllReleaseInfo(boolean releaseFind, boolean releaseJSON) {
         JSONObject release;
         try {
+            if (releaseFind) {
+                APIResponse findResponse = API.request("releases/?device_id="+getIntent().getStringExtra("device")+"&version="+ intentData +"&sort=date_desc");
+                if(!findResponse.success) {
+                    errorHandler(findResponse.code, R.string.err_no_rel);
+                    return;
+                }
+                intentData = new JSONObject(findResponse.data).getJSONArray("data").getJSONObject(0).getString("_id");
+            }
 
             if (releaseJSON) {
-                release = new JSONObject(releaseIntent);
+                release = new JSONObject(intentData);
             } else {
-                APIResponse response = API.request("releases/get?_id=" + releaseIntent);
+                APIResponse response = API.request("releases/get?_id=" + intentData);
                 if(!response.success) {
                     errorHandler(response.code, R.string.err_no_rel);
                     return;
@@ -269,7 +277,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private void getDeviceInfo() {
         JSONObject device, maintainer;
         try {
-            APIResponse response = API.request("devices/get?_id=" + new JSONObject(releaseIntent).getString("_id"));
+            APIResponse response = API.request("devices/get?_id=" + new JSONObject(intentData).getString("_id"));
             if(!response.success) {
                 errorHandler(response.code, R.string.err_ise);
                 return;
@@ -355,7 +363,7 @@ public class RecyclerActivity extends AppCompatActivity {
         return array;
     }
     private boolean parseReleaseByType(FragmentPagerItems.Creator pageList, String type, int name) throws JSONException {
-        APIResponse response = API.request("releases/?type="+type+"&codename=" + releaseIntent);
+        APIResponse response = API.request("releases/?type="+type+"&codename=" + intentData);
         if (response.success) {
             List<RecyclerItems> list = addReleaseItems(response);
             pageList.add(name, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
@@ -393,7 +401,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private void getReleases() {
         try {
             FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
-            APIResponse responseStable = API.request("releases/?type=stable&codename=" + releaseIntent);
+            APIResponse responseStable = API.request("releases/?type=stable&codename=" + intentData);
 
             if (parseReleaseByType(pageList, "stable", R.string.rel_stable) &
                     parseReleaseByType(pageList, "beta", R.string.rel_beta)) {

@@ -28,6 +28,24 @@
             />
     </Preference>
         <Preference
+            app:title="@string/about_web"
+            app:summary="app.orangefox.tech"
+            app:icon="@drawable/ic_round_public_24">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://app.orangefox.tech"
+                />
+        </Preference>
+        <Preference
+            app:title="@string/about_app_tg"
+            app:summary="\@OrangeFoxApp"
+            app:icon="@drawable/ic_tg">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://t.me/OrangeFoxApp"
+                />
+        </Preference>
+        <Preference
             app:title="@string/about_news"
             app:summary="\@OrangeFoxNEWS"
             app:icon="@drawable/ic_tg">
@@ -68,5 +86,14 @@
             <intent
                 android:targetPackage="com.fordownloads.orangefox"
                 android:targetClass="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"/>
+        </Preference>
+        <Preference
+            app:title="@string/update_changelog"
+            app:icon="@drawable/ic_outline_receipt_long_24" >
+            <intent
+                android:targetPackage="com.fordownloads.orangefox"
+                android:targetClass="com.fordownloads.orangefox.activity.UpdateActivity">
+                <extra android:name="noUpdate" android:value="true" />
+            </intent>
         </Preference>
 </PreferenceScreen>

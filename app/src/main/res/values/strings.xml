@@ -122,6 +122,9 @@
     <string name="notif_download_complete">Download of %1$s Finished</string>
     <string name="notif_download_failed">Download of %1$s Failed</string>
     <string name="notif_downloading">Downloading %1$s...</string>
+    <string name="notif_downloading_app">Downloading app update...</string>
+    <string name="notif_downloaded_app">App update downloaded</string>
+    <string name="notif_download_failed_app">Failed to download app update</string>
     <string name="preparing">Preparing...</string>
     <string name="install">Install</string>
 
@@ -160,6 +163,8 @@
 
     <string name="about_news">News</string>
     <string name="about_support">Support</string>
+    <string name="about_app_tg">App Group</string>
+    <string name="about_web">Website</string>
     <string name="about_beta">Beta Support</string>
     <string name="about_oos">Open Source Licenses</string>
 
@@ -232,6 +237,13 @@
     <string name="backup_optimize">Compress backup</string>
     <string name="backup_digest">Skip digest creation</string>
 
+    <string name="err_changelog">Can\'t load changelog</string>
+    <string name="update_changelog">App Changelog</string>
+    <string name="update_install">Install App Update</string>
+    <string name="update_msg">New update of App is available</string>
+    <string name="update_msg_desc">Tap here to show changelog</string>
+    <string name="update_installed_vers">Installed version: %1$s\n\n%2$s</string>
+
     <string name="MIUI_dark_mode">App doesn\'t look as intended</string>
     <string name="MIUI_dark_mode_desc">MIUI inverts colors of OrangeFox App.\n\nTo disable this you need to:\n· Go to Display Settings\n· Find Dark Mode Settings\n· Tap on "Individual Apps"\n· Uncheck OrangeFox App</string>
     <string name="MIUI_dark_mode_tap">Tap here to get more info</string>
@@ -249,5 +261,9 @@
     <string name="btn_continue">Continue</string>
     <string name="log_share">Send log</string>
     <string name="log_share_text">Send logs directly to developers using telegram groups:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nAlso you can send private message to maintainer.</string>
-    <string name="feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="feedback">Help &amp; Feedback</string>
+
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+    <string name="very_old_version">You have very old app version</string>
+    <string name="very_old_version_desc">Please download new app from OrangeFox site</string>
 </resources>

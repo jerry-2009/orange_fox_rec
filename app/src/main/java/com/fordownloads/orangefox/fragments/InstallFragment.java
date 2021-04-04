@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,9 +29,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.fordownloads.orangefox.App;
+import com.fordownloads.orangefox.BuildConfig;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.activity.RecyclerActivity;
 import com.fordownloads.orangefox.activity.SettingsActivity;
+import com.fordownloads.orangefox.activity.UpdateActivity;
 import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.API;
@@ -49,8 +53,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import okhttp3.Request;
+import okhttp3.Response;
+
 import static android.app.Activity.RESULT_OK;
+import static com.fordownloads.orangefox.consts.LAST_LOG;
 import static com.fordownloads.orangefox.consts.LOGS_DIR;
+import static com.fordownloads.orangefox.utils.API.client;
 
 public class InstallFragment extends Fragment {
     TextView _errorText, _errorTitle;
@@ -62,10 +71,15 @@ public class InstallFragment extends Fragment {
     LinearLayout _cards;
     SwipeRefreshLayout _refreshLayout;
     BottomSheetDialog devDialog = null, instDialog = null;
+    boolean storagePM;
+    boolean foundCurrent;
+    String currentVersion;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_install, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+
+        storagePM = Install.hasStoragePM(getActivity());
 
         _installButton = rootView.findViewById(R.id.installButton);
 
@@ -158,7 +172,8 @@ public class InstallFragment extends Fragment {
             _shimmer2.setVisibility(View.VISIBLE);
             _installButton.hide();
             new Thread(() -> setDevice(data.getStringExtra("codename"), data.getStringExtra("full_name"), true, true)).start();
-        }
+        }  else if (requestCode == 600 && resultCode == RESULT_OK)
+            Tools.showSnackbar(getActivity(), _installButton, R.string.inst_bg_download).show();
     }
 
     @Override
@@ -199,6 +214,9 @@ public class InstallFragment extends Fragment {
     }
 
     private boolean abortDevice(APIResponse response, BottomSheetDialog dialog) {
+        /*if (foundCurrent != 0)
+            requireActivity().runOnUiThread(() -> _cardCurrent.setVisibility(View.VISIBLE));*/
+        
         if (!response.success) {
             if (dialog != null) dialog.dismiss();
             errorCard(response.code, R.string.err_no_rels);
@@ -209,8 +227,21 @@ public class InstallFragment extends Fragment {
         return false;
     }
 
+    private boolean findCurrentVersion() {
+        if (storagePM && LAST_LOG.exists())
+            try (FileReader fr = new FileReader(LAST_LOG)) {
+                try (BufferedReader br = new BufferedReader(fr)) {
+                    currentVersion = br.readLine().split(" ")[3];
+                    ((TextView) rootView.findViewById(R.id.currentVers)).setText(currentVersion);
+                    return true;
+                }
+            } catch (Exception e) { e.printStackTrace(); }
+        return false;
+    }
+
     private void parseRelease(BottomSheetDialog dialog, boolean force) {
         try {
+            foundCurrent = findCurrentVersion();
             JSONObject release;
             APIResponse responseLast = API.request("releases/?limit=1&codename=" + prefs.getString(pref.DEVICE_CODE, "err"));
             if (!prefs.contains(pref.RELEASE_ID) || !responseLast.success && responseLast.code != 0)
@@ -244,6 +275,7 @@ public class InstallFragment extends Fragment {
             final String size = Tools.formatSize(requireActivity(), release.getInt("size"));
 
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
+            final String device_id = device.getString("_id");
             final String codename = device.getString("codename");
             final String full_name = device.getString("full_name");
             final int supported = device.getBoolean("supported") ? R.string.dev_maintained : R.string.dev_unmaintained;
@@ -254,24 +286,6 @@ public class InstallFragment extends Fragment {
                 else
                     instDialog = Install.dialog(requireActivity(), version, stringBuildType, url, md5, name, false, null);
             });
-
-            File log = new File(LOGS_DIR, "lastrecoverylog.log");
-            if (log.exists())
-                try (FileReader fr = new FileReader(log)) {
-                    try (BufferedReader br = new BufferedReader(fr)) {
-                        requireActivity().runOnUiThread(() -> {
-                            try {
-                                ((TextView) rootView.findViewById(R.id.currentVers)).setText(br.readLine().split(" ")[3]);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
             requireActivity().runOnUiThread(() -> {
                 ((TextView) rootView.findViewById(R.id.relType)).setText(stringBuildType);
@@ -290,12 +304,24 @@ public class InstallFragment extends Fragment {
                 _shimmer2.setVisibility(View.GONE);
                 _cardInfo.setVisibility(View.VISIBLE);
                 _cardRelease.setVisibility(View.VISIBLE);
-                _cardCurrent.setVisibility(View.VISIBLE);
                 _installButton.show();
                 _refreshLayout.setEnabled(true);
                 _refreshLayout.setRefreshing(false);
+                
+                if (foundCurrent) {
+                    _cardCurrent.setVisibility(View.VISIBLE);
 
-                setAnnoyCard(rootView);
+                    rootView.findViewById(R.id.currentReleaseInfo).setOnClickListener(view -> {
+                        Intent intent = new Intent(getActivity(), RecyclerActivity.class);
+                        intent.putExtra("device", device_id);
+                        intent.putExtra("release", currentVersion);
+                        intent.putExtra("type", 5);
+                        intent.putExtra("title", R.string.rel_activity);
+                        startActivityForResult(intent, 200);
+                    });
+                }
+
+                new Thread(() -> setAnnoyCard(rootView)).start();
             });
 
             if (force || !useCached || !prefs.contains(pref.CACHE_RELEASE)) {
@@ -450,31 +476,34 @@ public class InstallFragment extends Fragment {
     }
 
     public void setAnnoyCard(View rootView) {
+        TextView _annoyTitle = rootView.findViewById(R.id.annoyTitle);
+        TextView _annoyText = rootView.findViewById(R.id.annoyText);
         if (!prefs.getBoolean(pref.MIUI_DARK_MODE_WAS_SET, false)) {
             if (System.getProperty("ro.miui.ui.version.name", "").equals(""))
                 prefs.edit().putBoolean(pref.MIUI_DARK_MODE_WAS_SET, true).apply();
             else {
-                ((TextView) rootView.findViewById(R.id.annoyTitle)).setText(R.string.MIUI_dark_mode);
-                ((TextView) rootView.findViewById(R.id.annoyText)).setText(R.string.MIUI_dark_mode_tap);
-                rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> {
+                requireActivity().runOnUiThread(() -> {
+                    _annoyTitle.setText(R.string.MIUI_dark_mode);
+                    _annoyText.setText(R.string.MIUI_dark_mode_tap);
+                    rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity());
+                        alert.setTitle(R.string.MIUI_dark_mode);
+                        alert.setMessage(R.string.MIUI_dark_mode_desc);
+                        alert.setPositiveButton(R.string.go_settings, (dlg, num) -> {
+                            _annoyCard.setVisibility(View.GONE);
+                            prefs.edit().putBoolean(pref.MIUI_DARK_MODE_WAS_SET, true).apply();
+                            startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            dlg.dismiss();
+                        });
 
-                    AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity());
-                    alert.setTitle(R.string.MIUI_dark_mode);
-                    alert.setMessage(R.string.MIUI_dark_mode_desc);
-                    alert.setPositiveButton(R.string.go_settings, (dlg, num) -> {
-                        _annoyCard.setVisibility(View.GONE);
-                        prefs.edit().putBoolean(pref.MIUI_DARK_MODE_WAS_SET, true).apply();
-                        startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                        dlg.dismiss();
+                        alert.setNegativeButton(R.string.show_me, (dlg, num) -> {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DXyz9RdYvAs")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            dlg.dismiss();
+                        });
+                        alert.show().getWindow().setLayout(1080, 772);
                     });
-
-                    alert.setNegativeButton(R.string.show_me, (dlg, num) -> {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=DXyz9RdYvAs")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                        dlg.dismiss();
-                    });
-                    alert.show().getWindow().setLayout(1080, 772);
+                    _annoyCard.setVisibility(View.VISIBLE);
                 });
-                _annoyCard.setVisibility(View.VISIBLE);
                 return;
             }
         }
@@ -482,17 +511,41 @@ public class InstallFragment extends Fragment {
         if (!prefs.getBoolean(pref.ANNOY_ENABLE, true))
             return;
 
+        try {
+            Request request = new Request.Builder().url("https://gitlab.com/OrangeFox/misc/appdev/updates/-/raw/master/version_id.txt").build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                int newVersion = Integer.parseInt(response.body().string().trim());
+                if (newVersion == 0) {
+                    requireActivity().runOnUiThread(() -> {
+                        _annoyTitle.setText(R.string.very_old_version);
+                        _annoyText.setText(R.string.very_old_version_desc);
+                        _annoyCard.setVisibility(View.VISIBLE);
+                    });
+                    return;
+                } else if (BuildConfig.VERSION_CODE < newVersion) {
+                    requireActivity().runOnUiThread(() -> {
+                        _annoyTitle.setText(R.string.update_msg);
+                        _annoyText.setText(R.string.update_msg_desc);
+                        rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), UpdateActivity.class), 600));
+                        _annoyCard.setVisibility(View.VISIBLE);
+                    });
+                    return;
+                }
+            }
+        } catch (Exception e) {e.printStackTrace();}
+
         int id;
         String[] names = getResources().getStringArray(R.array.annoy_list);
 
-        if (Install.hasStoragePM(getActivity()) && !consts.FOXFILES_CHECK.exists() && consts.LAST_LOG.exists()) {
+        if (storagePM && !consts.FOXFILES_CHECK.exists() && LAST_LOG.exists()) {
             id = 1;
         } else if (!prefs.getBoolean(pref.UPDATES_ENABLE, false)) {
             id = 0;
         } else {
             id = prefs.getInt(pref.DISMISSED, 1) + 1;
             if (id >= names.length) {
-                _annoyCard.setVisibility(View.GONE);
+                requireActivity().runOnUiThread(() -> _annoyCard.setVisibility(View.GONE));
                 return;
             }
         }
@@ -500,39 +553,44 @@ public class InstallFragment extends Fragment {
         String[] descs = getResources().getStringArray(R.array.annoy_list_desc);
         String[] urls = getResources().getStringArray(R.array.annoy_list_url);
 
-        ((TextView)rootView.findViewById(R.id.annoyTitle)).setText(names[id]);
-        ((TextView)rootView.findViewById(R.id.annoyText)).setText(descs[id]);
+        requireActivity().runOnUiThread(() -> {
+            _annoyTitle.setText(names[id]);
+            _annoyText.setText(descs[id]);
+        });
 
         int finalId = id;
-        rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> {
-            switch (urls[finalId]) {
-                case "null":
-                    break;
-                case "settings":
-                    startActivity(new Intent(getActivity(), SettingsActivity.class));
-                    break;
-                default:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urls[finalId])));
-                    break;
-            }
-            _annoyCard.setVisibility(View.GONE);
-            prefs.edit().putInt(pref.DISMISSED, finalId).apply();
-        });
 
-        SwipeDismissBehavior<CardView> dismiss = new SwipeDismissBehavior<>();
-        dismiss.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
-        dismiss.setListener(new SwipeDismissBehavior.OnDismissListener() {
-            @Override
-            public void onDismiss(View view) {
+        requireActivity().runOnUiThread(() -> {
+            rootView.findViewById(R.id.swipeCard).setOnClickListener(v -> {
+                switch (urls[finalId]) {
+                    case "null":
+                        break;
+                    case "settings":
+                        startActivity(new Intent(getActivity(), SettingsActivity.class));
+                        break;
+                    default:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urls[finalId])));
+                        break;
+                }
                 _annoyCard.setVisibility(View.GONE);
                 prefs.edit().putInt(pref.DISMISSED, finalId).apply();
-            }
-            @Override public void onDragStateChanged(int state) {}
-        });
+            });
 
-        CoordinatorLayout.LayoutParams layoutParams =
-                (CoordinatorLayout.LayoutParams) rootView.findViewById(R.id.swipeCard).getLayoutParams();
-        layoutParams.setBehavior(dismiss);
-        _annoyCard.setVisibility(View.VISIBLE);
+            SwipeDismissBehavior<CardView> dismiss = new SwipeDismissBehavior<>();
+            dismiss.setSwipeDirection(SwipeDismissBehavior.SWIPE_DIRECTION_ANY);
+            dismiss.setListener(new SwipeDismissBehavior.OnDismissListener() {
+                @Override
+                public void onDismiss(View view) {
+                    _annoyCard.setVisibility(View.GONE);
+                    prefs.edit().putInt(pref.DISMISSED, finalId).apply();
+                }
+                @Override public void onDragStateChanged(int state) {}
+            });
+
+            CoordinatorLayout.LayoutParams layoutParams =
+                    (CoordinatorLayout.LayoutParams) rootView.findViewById(R.id.swipeCard).getLayoutParams();
+            layoutParams.setBehavior(dismiss);
+            _annoyCard.setVisibility(View.VISIBLE);
+        });
     }
 }

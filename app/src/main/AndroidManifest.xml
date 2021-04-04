@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".App"
@@ -52,6 +53,12 @@
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/activity_settings"
+            android:exported="true"
+            android:theme="@style/Theme.OrangeFox.Activity" >
+        </activity>
+        <activity
+            android:name=".activity.UpdateActivity"
+            android:label="@string/update_changelog"
             android:exported="true"
             android:theme="@style/Theme.OrangeFox.Activity" >
         </activity>

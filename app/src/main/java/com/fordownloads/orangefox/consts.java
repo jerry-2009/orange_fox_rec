@@ -11,6 +11,7 @@ public class consts {
     public static final android.view.animation.Interpolator intr = PathInterpolatorCompat.create(0.2f, 0.7f, 0, 1);
     public static final String ORS_FILE = "/cache/recovery/openrecoveryscript";
     public static final String DOWNLOAD_DIR = new File(Environment.getExternalStorageDirectory(), "Fox/releases").getAbsolutePath();
+    public static final String FOX_DIR = new File(Environment.getExternalStorageDirectory(), "Fox").getAbsolutePath();
     public static final File FOXFILES_CHECK = new File(Environment.getExternalStorageDirectory(), "Fox/FoxFiles/Magisk.zip");
     public static final File LAST_LOG = new File(Environment.getExternalStorageDirectory(), "Fox/logs/lastrecoverylog.log");
     public static final String CHANNEL_UPDATE = "CHANNEL_UPDATE";

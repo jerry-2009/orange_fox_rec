@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -244,7 +245,6 @@ public class ScriptsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(ORSAdapter);
-        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
         ORSAdapter.setOnItemDismissListener(position -> {
             if (items.size() == 0)

@@ -1,6 +1,7 @@
 package com.fordownloads.orangefox.utils;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ClipData;
@@ -8,12 +9,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInstaller;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +29,8 @@ import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 
 import com.fordownloads.orangefox.R;
+import com.fordownloads.orangefox.activity.MainActivity;
+import com.fordownloads.orangefox.activity.UpdateActivity;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.service.Scheduler;
 import com.fordownloads.orangefox.consts;
@@ -38,6 +44,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
