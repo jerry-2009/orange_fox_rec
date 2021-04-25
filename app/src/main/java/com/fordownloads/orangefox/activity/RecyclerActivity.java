@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,9 +77,14 @@ public class RecyclerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler);
 
         Intent intent = getIntent();
+        int type = intent.getIntExtra("type", 0);
+
+        if (type == 3)
+            setContentView(R.layout.activity_device);
+        else
+            setContentView(R.layout.activity_recycler);
 
         if (savedInstanceState != null && savedInstanceState.getBoolean("isRestarted")) {
             overridePendingTransition(0, 0);
@@ -98,11 +107,11 @@ public class RecyclerActivity extends AppCompatActivity {
             ab.setHomeAsUpIndicator(R.drawable.ic_round_keyboard_backspace_24);
         ab.setTitle(intent.getIntExtra("title", R.string.app_name));
 
-        float originalElevation = tabCard.getElevation();
+        float originalElevation = type == 3 ? myToolbar.getElevation() : tabCard.getElevation();
 
         ((HaulerView)findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
 
-        if (intent.getIntExtra("type", 0) == 3)
+        if (type == 3)
             ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
                 if (offset <= 15 && offset >= -15) {
                     myToolbar.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
@@ -132,8 +141,6 @@ public class RecyclerActivity extends AppCompatActivity {
                 }
             });
 
-        int type = intent.getIntExtra("type", 0);
-        Log.e("OFR", "Type: "+type);
         switch (type) {
             case 0: //release info (URL)
                 new Thread(() -> getAllReleaseInfo(false, false)).start();
@@ -446,33 +453,31 @@ public class RecyclerActivity extends AppCompatActivity {
 
             JSONArray devices = new JSONObject(response.data).getJSONArray("data");
 
-            FragmentPagerItems.Creator pageList = FragmentPagerItems.with(this);
             List<RecyclerItems> array = new ArrayList<>();
 
             for (int i = 0; i < devices.length(); i++) {
                 JSONObject device = devices.getJSONObject(i);
                 array.add(new RecyclerItems(device.getString("full_name"), device.getString("codename"), R.drawable.ic_device));
             }
+            RecyclerAdapter adapter = new RecyclerAdapter(this, array, (final View view) -> selectDevice(view, array));
 
-            pageList.add("dev", RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(
-                    new RecyclerAdapter(this, array, (final View view) -> selectDevice(view, array)
-                    ))));
+            FragmentPagerItems pageList = FragmentPagerItems.with(this)
+                    .add("dev", RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(adapter)))
+                    .create();
 
             runOnUiThread(() -> {
-                FragmentPagerItemAdapter fragAdapter = new FragmentPagerItemAdapter(
-                        getSupportFragmentManager(), pageList.create());
-
                 ViewPager pager = findViewById(R.id.viewpager);
                 OverScrollDecoratorHelper.setUpOverScroll(pager);
-                pager.setAdapter(fragAdapter);
-                ViewPager.MarginLayoutParams p = (ViewPager.MarginLayoutParams) pager.getLayoutParams();
-                p.setMargins(0, (int)TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 56,
-                        getResources().getDisplayMetrics()),0,0);
-                pager.requestLayout();
+                pager.setAdapter(new FragmentPagerItemAdapter(getSupportFragmentManager(), pageList));
 
-                findViewById(R.id.viewpagerlayout).setVisibility(View.GONE);
-                getSupportActionBar().setElevation(getResources().getDimension(R.dimen.elevation_medium));
+                ((EditText)findViewById(R.id.search)).addTextChangedListener(new TextWatcher() {
+                    @Override public void afterTextChanged(Editable s) {}
+                    @Override public void beforeTextChanged(CharSequence f, int u, int c, int k) {}
+                    @Override
+                    public void onTextChanged(CharSequence q, int start, int before, int count) {
+                        adapter.filter(q);
+                    }
+                });
 
                 _loadingView.animate()
                         .alpha(0f)

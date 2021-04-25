@@ -12,6 +12,7 @@
     <color name="shrt_background">#F8F8F8</color>
     <color name="fox_status_solid_bg">#F8F8F8</color>
     <color name="fox_title_solid_bg">#FCFCFC</color>
+    <color name="search_box">#f4f4f4</color>
 
     <color name="google_gray">#FF5F6368</color>
     <color name="card_icon">#335F6368</color>
