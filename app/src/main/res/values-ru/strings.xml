@@ -7,7 +7,7 @@
     <string name="err_no_rels">Извините, для вашего устройства нет релизов</string>
     <string name="err_no_device">Устройство не найдено</string>
     <string name="err_no_ors">Скрипт не обнаружен</string>
-    <string name="err_no_internet">Кажется, ваше устройство не подключено и интернету.\Проверьте подключение к интернету и попробуйте снова.</string>
+    <string name="err_no_internet">Кажется, ваше устройство не подключено и интернету.\nПроверьте подключение к интернету и попробуйте снова.</string>
     <string name="err_no_internet_short">Проверьте подключение к интернету</string>
     <string name="err_dev_not_selected">Вы не выбрали модель вашего устройства</string>
     <string name="err_no_pm_storage">Вы не предоставили разрешение для доступа к памяти</string>
@@ -94,7 +94,7 @@
     <string name="inst_install">Скачать и установить</string>
     <string name="inst_download">Только скачать</string>
     <string name="inst_cancel">Отмена</string>
-    <string name="inst_progress">%d МБ из %d МБ</string>
+    <string name="inst_progress">%1$d MB из %2$d МБ</string>
     <string name="inst_downloaded">Загружено в %1$s</string>
 
     <string name="inst_bg_download">Загрузка началась.\nПроверьте уведомления.</string>
@@ -262,7 +262,7 @@
     <string name="log_share_text">Отправьте логи разработчикам в этих группах Telegram:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nВы так же можете отправить личное сообщение сопровождающему.</string>
     <string name="feedback">Помощь и отзывы</string>
 
-    <string name="about_translate">Переведено</string>
+    <string name="about_translate">Перевод на русский</string>
     <string name="about_translate_nick">\@fordownloads</string>
     <string name="about_translate_link">https://t.me/fordownloads</string>
 

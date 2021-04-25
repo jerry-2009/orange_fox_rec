@@ -95,7 +95,7 @@
     <string name="inst_install">Download and install</string>
     <string name="inst_download">Only download</string>
     <string name="inst_cancel">Cancel</string>
-    <string name="inst_progress">%d MB of %d MB</string>
+    <string name="inst_progress">%1$d MB of %2$d MB</string>
     <string name="inst_downloaded">Downloaded to %1$s</string>
 
     <string name="inst_bg_download">Download started.\nCheck notifications to track download progress.</string>

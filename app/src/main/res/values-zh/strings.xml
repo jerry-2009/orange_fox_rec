@@ -107,7 +107,7 @@
 <string name="inst_downloaded">下载到%1$s</string>
 <string name="inst_file_found">此版本已下载到您的设备。选择要对此版本执行的操作。</string>
 <string name="inst_install">下载并安装</string>
-<string name="inst_progress" formatted="false">%d MB of %d MB</string>
+<string name="inst_progress" formatted="false">%1$d / %2$d MB</string>
 <string name="inst_warn">自动安装需要安装的恢复（TWRP、OrangeFox、etc）和根访问。下载完成后，您需要重新启动设备以进行恢复。</string>
 <string name="install">安装</string>
 <string name="install_latest">安装%1$s %2$s</string>
