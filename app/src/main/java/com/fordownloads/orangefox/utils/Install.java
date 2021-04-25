@@ -1,13 +1,13 @@
 package com.fordownloads.orangefox.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.service.DownloadService;
 import com.fordownloads.orangefox.consts;
+import com.fordownloads.orangefox.service.DownloadService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.topjohnwu.superuser.Shell;
 
@@ -25,10 +25,10 @@ import java.io.File;
 
 public class Install {
 
+    @SuppressLint("StringFormatMatches")
     public static BottomSheetDialog dialog(Activity activity, String ver, String type, String url, String md5, String name, boolean noExistsCheck, Activity actToFinish) {
-        String fileName = URLUtil.guessFileName(url, null, "application/zip");
-        File finalFile = new File(consts.DOWNLOAD_DIR, fileName);
-        boolean exist = !noExistsCheck && finalFile.exists() && hasStoragePM(activity);
+        File finalFile = new File(consts.DOWNLOAD_DIR, name);
+        boolean exist = !noExistsCheck && finalFile.exists();
 
         View sheetView = activity.getLayoutInflater().inflate(exist ? R.layout.dialog_exists : R.layout.dialog_install, null);
         ((TextView)sheetView.findViewById(R.id.installTitle)).setText(activity.getString(R.string.install_latest, ver, type));
@@ -40,7 +40,7 @@ public class Install {
                 if (Shell.rootAccess())
                     if (MD5.checkMD5(md5, finalFile)) {
                         if (!Shell.su(
-                                "echo \"install /sdcard/Fox/releases/" + fileName + "\" > " + Tools.getORS())
+                                "echo \"install /sdcard/Fox/releases/" + name + "\" > " + Tools.getORS())
                                 .exec().isSuccess()) {
                             Tools.showSnackbar(activity, null, R.string.err_ors_short, dialog).show();
                             return;

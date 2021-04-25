@@ -109,12 +109,12 @@
     <string name="bnav_logs">Логи</string>
     <string name="bnav_backups">Копии</string>
 
-    <string name="notif_ch_update">Update Notifications</string>
-    <string name="notif_ch_update_desc">Notifications about new releases that found in background</string>
-    <string name="notif_ch_download">Download Progress</string>
-    <string name="notif_ch_download_status">Download Result</string>
-    <string name="notif_ch_download_desc">Shows download progress of release that downloads in app</string>
-    <string name="notif_ch_download_status_desc">Shows download result</string>
+    <string name="notif_ch_update">Обновления</string>
+    <string name="notif_ch_update_desc">Показывает наличие обновлений</string>
+    <string name="notif_ch_download">Прогресс</string>
+    <string name="notif_ch_download_status">Результат загрузки</string>
+    <string name="notif_ch_download_desc">Показывает прогресс загрузки</string>
+    <string name="notif_ch_download_status_desc">Показывает путь к загруженному файлу</string>
 
     <string name="notif_new_ver">Найден новый релиз OrangeFox</string>
     <string name="notif_new_ver_sub">%2$s версия %1$s доступна для установки.\nНажмите \"Установить\" для установки обновления.</string>

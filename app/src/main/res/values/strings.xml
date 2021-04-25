@@ -114,7 +114,7 @@
     <string name="notif_ch_update_desc">Notifications about new releases that found in background</string>
     <string name="notif_ch_download">Download Progress</string>
     <string name="notif_ch_download_status">Download Result</string>
-    <string name="notif_ch_download_desc">Shows download progress of release that downloads in app</string>
+    <string name="notif_ch_download_desc">Shows download progress</string>
     <string name="notif_ch_download_status_desc">Shows download result</string>
 
     <string name="notif_new_ver">New release of OrangeFox available</string>
