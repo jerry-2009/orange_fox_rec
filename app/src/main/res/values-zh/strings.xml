@@ -234,7 +234,7 @@ https://t.me/OrangeFoxBeta
 <string name="setup">格兰特</string>
 <string name="share">分享</string>
 <string name="show_me">告诉我怎么做</string>
-<string name="size_mb">%dMB公司</string>
+<string name="size_mb">%d MB</string>
 <string name="unknown">未知</string>
 <string name="update_changelog">应用程序更改日志</string>
 <string name="update_install">安装应用程序更新</string>
