@@ -14,6 +14,7 @@ public class consts {
     public static final String FOX_DIR = new File(Environment.getExternalStorageDirectory(), "Fox").getAbsolutePath();
     public static final File FOXFILES_CHECK = new File(Environment.getExternalStorageDirectory(), "Fox/FoxFiles/Magisk.zip");
     public static final File LAST_LOG = new File(Environment.getExternalStorageDirectory(), "Fox/logs/lastrecoverylog.log");
+    public static final File RELEASE_JSON = new File(Environment.getExternalStorageDirectory(), "Fox/logs/releaseinfo.json");
     public static final String CHANNEL_UPDATE = "CHANNEL_UPDATE";
     public static final String CHANNEL_DOWNLOAD = "CHANNEL_DOWNLOAD";
     public static final String CHANNEL_DOWNLOAD_STATUS = "CHANNEL_DOWNLOAD_STATUS";

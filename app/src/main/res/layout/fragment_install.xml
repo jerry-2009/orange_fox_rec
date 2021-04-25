@@ -257,62 +257,10 @@
                                     android:text="@string/dev_info" />
 
                                 <TableLayout
+                                    android:id="@+id/deviceTable"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:shrinkColumns="all">
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/dev_model" />
-
-                                        <TextView
-                                            android:id="@+id/devModel"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/dev_code" />
-
-                                        <TextView
-                                            android:id="@+id/devCode"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/dev_status" />
-
-                                        <TextView
-                                            android:id="@+id/devStatus"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/dev_patch" />
-
-                                        <TextView
-                                            android:id="@+id/devPatch"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-                                </TableLayout>
+                                    android:shrinkColumns="all"/>
                             </LinearLayout>
 
                             <Button
@@ -369,60 +317,8 @@
                                 <TableLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:shrinkColumns="all">
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/rel_vers" />
-
-                                        <TextView
-                                            android:id="@+id/relVers"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/rel_type" />
-
-                                        <TextView
-                                            android:id="@+id/relType"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/rel_date" />
-
-                                        <TextView
-                                            android:id="@+id/relDate"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-
-                                    <TableRow>
-
-                                        <TextView
-                                            style="@style/ThemeTextGray"
-                                            android:layout_weight="0"
-                                            android:text="@string/rel_size" />
-
-                                        <TextView
-                                            android:id="@+id/relSize"
-                                            style="@style/ThemeTextBold"
-                                            android:layout_weight="1" />
-                                    </TableRow>
-                                </TableLayout>
+                                    android:id="@+id/releaseTable"
+                                    android:shrinkColumns="all"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -499,19 +395,8 @@
                             <TableLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:id="@+id/currentTable"
                                 android:shrinkColumns="all">
-                                <TableRow>
-
-                                    <TextView
-                                        style="@style/ThemeTextGray"
-                                        android:layout_weight="0"
-                                        android:text="@string/rel_vers" />
-
-                                    <TextView
-                                        android:id="@+id/currentVers"
-                                        style="@style/ThemeTextBold"
-                                        android:layout_weight="1" />
-                                </TableRow>
                             </TableLayout>
                             </LinearLayout>
 

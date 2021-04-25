@@ -86,7 +86,7 @@
             app:icon="@drawable/ic_round_translate_24">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="about_translate_link"
+                android:data="@string/about_translate_link"
                 />
         </Preference>
         <Preference

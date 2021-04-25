@@ -64,6 +64,7 @@
     <string name="rel_changes">Изменения</string>
     <string name="rel_notes">Заметки</string>
     <string name="rel_bugs">Баги</string>
+    <string name="rel_commit">Код</string>
 
     <string name="dev_info">Устройство</string>
     <string name="dev_model">Модель</string>

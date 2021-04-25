@@ -13,9 +13,13 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -39,17 +43,24 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 public class Tools {
     public static String getBuildType(Context c, JSONObject release) throws JSONException {
         switch (release.getString("type")) {
             case "stable":
+            case "Stable":
                 return c.getString(R.string.rel_stable);
             case "beta":
+            case "Beta":
                 return c.getString(R.string.rel_beta);
         }
-        return release.getString("build_type");
+        return release.getString("type");
     }
 
     public static String cap(String s) {
@@ -85,6 +96,14 @@ public class Tools {
 
     public static String formatDate(long date) {
         return DateFormat.getDateTimeInstance().format(new Date(date*1000));
+    }
+
+    public static String formatDate(String dateStr) {
+        try {
+            DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy", Locale.ENGLISH);
+            return DateFormat.getDateTimeInstance().format(Objects.requireNonNull(format.parse(dateStr)));
+        } catch (Exception ignored) { }
+        return dateStr;
     }
 
     public static String formatSize(Context context, int size) {
@@ -208,5 +227,19 @@ public class Tools {
         else if (new SuFile("/mnt/media_rw/" + uri[0] + "/" + uri[1]).exists())
             return "/usb_otg/" + uri[1];
         return null;
+    }
+
+    public static void createTable(Context context, TableLayout table, Map<Integer, String> content) {
+        table.removeAllViews();
+        for (Map.Entry<Integer, String> e : content.entrySet()) {
+            TableRow row = new TableRow(context);
+            TextView tv = new TextView(new ContextThemeWrapper(context, R.style.ThemeTextGray));
+            tv.setText(e.getKey());
+            row.addView(tv);
+            tv = new TextView(new ContextThemeWrapper(context, R.style.ThemeTextBold));
+            tv.setText(e.getValue());
+            row.addView(tv);
+            table.addView(row);
+        }
     }
 }

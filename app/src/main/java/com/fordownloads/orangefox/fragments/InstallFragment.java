@@ -1,5 +1,6 @@
 package com.fordownloads.orangefox.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -50,12 +51,16 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.HashMap;
 
 import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 import static com.fordownloads.orangefox.consts.LAST_LOG;
+import static com.fordownloads.orangefox.consts.RELEASE_JSON;
 import static com.fordownloads.orangefox.utils.API.client;
 
 public class InstallFragment extends Fragment {
@@ -225,19 +230,41 @@ public class InstallFragment extends Fragment {
     }
 
     private boolean findCurrentVersion() {
-        if (LAST_LOG.exists())
-            try (FileReader fr = new FileReader(LAST_LOG)) {
-                try (BufferedReader br = new BufferedReader(fr)) {
-                    currentVersion = br.readLine().split(" ")[3];
-                    ((TextView) rootView.findViewById(R.id.currentVers)).setText(currentVersion);
-                    return true;
+        boolean parseFail = false;
+        HashMap<Integer, String> table = new HashMap<>();
+        if (RELEASE_JSON.exists())
+            try {
+                JSONObject json = new JSONObject(new String(Files.readAllBytes(RELEASE_JSON.toPath()), StandardCharsets.UTF_8));
+                currentVersion = json.getString("version");
+                table.put(R.string.rel_vers, currentVersion);
+                table.put(R.string.rel_type, Tools.getBuildType(getActivity(), json));
+                table.put(R.string.rel_date, Tools.formatDate(json.getString("date")));
+                table.put(R.string.rel_commit, json.getString("commit"));
+            } catch (Exception e) {
+                e.printStackTrace();
+                parseFail = true;
+            }
+
+        try {
+            if (parseFail || LAST_LOG.exists())
+                try (FileReader fr = new FileReader(LAST_LOG)) {
+                    try (BufferedReader br = new BufferedReader(fr)) {
+                        table.put(R.string.rel_vers, currentVersion = br.readLine().split(" ")[3]);
+                    }
                 }
-            } catch (Exception e) { e.printStackTrace(); }
-        else
-            Log.e("OrangeFox", "lastrecoverylog not found");
+
+            if (!table.isEmpty()) {
+                Tools.createTable(getActivity(), rootView.findViewById(R.id.currentTable), table);
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
+    @SuppressLint("StringFormatMatches")
     private void parseRelease(BottomSheetDialog dialog, boolean force) {
         try {
             foundCurrent = findCurrentVersion();
@@ -264,20 +291,30 @@ public class InstallFragment extends Fragment {
                 release = new JSONObject(response.data);
             }
 
+
             final String name = release.getString("filename");
             final String version = release.getString("version");
             final String url = release.getJSONObject("mirrors").getString("DL");
             final String stringBuildType = Tools.getBuildType(getActivity(), release);
             final String md5 = release.getString("md5");
 
-            final String date = Tools.formatDate(release.getLong("date"));
-            final String size = Tools.formatSize(requireActivity(), release.getInt("size"));
 
             JSONObject device = new JSONObject(prefs.getString(pref.DEVICE, "{}"));
             final String device_id = device.getString("_id");
-            final String codename = device.getString("codename");
-            final String full_name = device.getString("full_name");
-            final int supported = device.getBoolean("supported") ? R.string.dev_maintained : R.string.dev_unmaintained;
+
+            final HashMap<Integer, String> deviceTable = new HashMap<Integer, String>(){{
+                put(R.string.dev_model, device.getString("full_name"));
+                put(R.string.dev_code, device.getString("codename"));
+                put(R.string.dev_status, getString(device.getBoolean("supported") ? R.string.dev_maintained : R.string.dev_unmaintained));
+                put(R.string.dev_patch, Build.VERSION.SECURITY_PATCH);
+            }};
+
+            final HashMap<Integer, String> releaseTable = new HashMap<Integer, String>(){{
+                put(R.string.rel_vers, version);
+                put(R.string.rel_type, stringBuildType);
+                put(R.string.rel_date, Tools.formatDate(release.getLong("date")));
+                put(R.string.rel_size, Tools.formatSize(requireActivity(), release.getInt("size")));
+            }};
 
             _installButton.setOnClickListener(view -> {
                 if (((App) requireActivity().getApplication()).isDownloadSrvRunning())
@@ -287,15 +324,8 @@ public class InstallFragment extends Fragment {
             });
 
             requireActivity().runOnUiThread(() -> {
-                ((TextView) rootView.findViewById(R.id.relType)).setText(stringBuildType);
-                ((TextView) rootView.findViewById(R.id.relVers)).setText(version);
-                ((TextView) rootView.findViewById(R.id.relDate)).setText(date);
-                ((TextView) rootView.findViewById(R.id.relSize)).setText(size);
-
-                ((TextView) rootView.findViewById(R.id.devCode)).setText(codename);
-                ((TextView) rootView.findViewById(R.id.devModel)).setText(full_name);
-                ((TextView) rootView.findViewById(R.id.devStatus)).setText(supported);
-                ((TextView) rootView.findViewById(R.id.devPatch)).setText(Build.VERSION.SECURITY_PATCH);
+                Tools.createTable(getActivity(), rootView.findViewById(R.id.deviceTable), deviceTable);
+                Tools.createTable(getActivity(), rootView.findViewById(R.id.releaseTable), releaseTable);
 
                 _installButton.setText(getString(R.string.install_latest, version, stringBuildType));
                 _errorLayout.setVisibility(View.GONE);

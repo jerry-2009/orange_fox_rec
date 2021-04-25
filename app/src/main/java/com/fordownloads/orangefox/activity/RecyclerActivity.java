@@ -238,13 +238,13 @@ public class RecyclerActivity extends AppCompatActivity {
                 pageList.add(R.string.rel_info, RecyclerFragment.class, RecyclerFragment.arguments(new AdapterStorage(new RecyclerAdapter(this, items))));
 
                 try {
-                    if (release.has("changelog"))
+                    if (release.has("changelog") && !release.isNull("changelog"))
                         pageList.add(R.string.rel_changes, TextFragment.class,
                                 TextFragment.arguments(Tools.buildList(release, "changelog"), true));
                     if (!release.isNull("notes"))
                         pageList.add(R.string.rel_notes, TextFragment.class,
                                 TextFragment.arguments(release.getString("notes"), false));
-                    if (release.has("bugs"))
+                    if (!release.isNull("bugs"))
                             pageList.add(R.string.rel_bugs, TextFragment.class,
                                     TextFragment.arguments(Tools.buildList(release, "bugs"), true));
                 } catch (JSONException e) {
