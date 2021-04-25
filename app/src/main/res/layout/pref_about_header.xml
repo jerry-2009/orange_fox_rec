@@ -3,16 +3,10 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/fox_about_gradient"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_marginBottom="24dp"
+    android:gravity="center">
 
         <ImageView
             android:layout_width="72dp"
@@ -26,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="OrangeFox"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,5 +30,4 @@
             android:text="@string/about_sub"
             android:textColor="@color/gray_light"
             android:textSize="14sp" />
-    </LinearLayout>
 </LinearLayout>

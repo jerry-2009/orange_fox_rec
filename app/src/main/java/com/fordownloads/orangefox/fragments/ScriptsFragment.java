@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,12 +19,9 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -54,7 +50,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -83,7 +78,7 @@ public class ScriptsFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle state) {
+    public void onSaveInstanceState(@NotNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putParcelableArrayList("items", items);
     }
@@ -240,7 +235,7 @@ public class ScriptsFragment extends Fragment {
         if (items.size() != 0)
             listEmpty(false, false);
 
-        ORSAdapter = new ORSAdapter(getActivity(), holder -> mItemTouchHelper.startDrag(holder), items, null);
+        ORSAdapter = new ORSAdapter(holder -> mItemTouchHelper.startDrag(holder), items, null);
 
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);

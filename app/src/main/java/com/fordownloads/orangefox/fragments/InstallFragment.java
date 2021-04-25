@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -50,7 +49,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 
 import okhttp3.Request;
@@ -58,7 +56,6 @@ import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 import static com.fordownloads.orangefox.consts.LAST_LOG;
-import static com.fordownloads.orangefox.consts.LOGS_DIR;
 import static com.fordownloads.orangefox.utils.API.client;
 
 public class InstallFragment extends Fragment {
@@ -189,7 +186,7 @@ public class InstallFragment extends Fragment {
                 TypedValue.COMPLEX_UNIT_DIP, 16,
                 getResources().getDisplayMetrics());
 
-        if (Tools.isLandscape(getActivity(), config, Tools.getScreenSize(getActivity()))){
+        if (Tools.isLandscape(config, Tools.getScreenSize(getActivity()))){
             _cards.setOrientation(LinearLayout.HORIZONTAL);
             _cards.setShowDividers(LinearLayout.SHOW_DIVIDER_BEGINNING | LinearLayout.SHOW_DIVIDER_END | LinearLayout.SHOW_DIVIDER_MIDDLE);
             _annoyCard.setPadding(_16dip, 0, _16dip, _16dip);
@@ -228,7 +225,7 @@ public class InstallFragment extends Fragment {
     }
 
     private boolean findCurrentVersion() {
-        if (storagePM && LAST_LOG.exists())
+        if (LAST_LOG.exists())
             try (FileReader fr = new FileReader(LAST_LOG)) {
                 try (BufferedReader br = new BufferedReader(fr)) {
                     currentVersion = br.readLine().split(" ")[3];
@@ -236,6 +233,8 @@ public class InstallFragment extends Fragment {
                     return true;
                 }
             } catch (Exception e) { e.printStackTrace(); }
+        else
+            Log.e("OrangeFox", "lastrecoverylog not found");
         return false;
     }
 
@@ -424,12 +423,17 @@ public class InstallFragment extends Fragment {
                 return "no_internet_error";
             }
             JSONArray devices = new JSONObject(response.data).getJSONArray("data");
-            for (int i = 0; i < devices.length(); i++)
-            {
-                JSONObject device = devices.getJSONObject(i);
-                String dbDev = device.getString("codename").toLowerCase();
-                if (dbDev.contains(chk2) || dbDev.contains(chk3) || dbDev.contains(chk4))
-                    return device.getString("codename");
+            for (int tr = 0; tr < 2; tr++) {
+                for (int i = 0; i < devices.length(); i++) {
+                    JSONObject device = devices.getJSONObject(i);
+                    String dbDev = device.getString("codename").toLowerCase();
+                    if (dbDev.contains(chk2) || dbDev.contains(chk3) || dbDev.contains(chk4)
+                            || chk2.contains(dbDev) || chk3.contains(dbDev) || chk4.contains(dbDev))
+                        return device.getString("codename");
+                }
+                chk2 = chk2.substring(0, chk2.length() - 2);
+                chk3 = chk3.substring(0, chk3.length() - 2);
+                chk4 = chk4.substring(0, chk4.length() - 2);
             }
         } catch (JSONException e) {
             e.printStackTrace();

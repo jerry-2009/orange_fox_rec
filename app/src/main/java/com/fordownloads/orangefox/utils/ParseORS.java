@@ -1,17 +1,13 @@
 package com.fordownloads.orangefox.utils;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
-import com.topjohnwu.superuser.io.SuFile;
 import com.topjohnwu.superuser.io.SuFileInputStream;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class ParseORS {
 
     public ArrayList<RecyclerItems> parse(File file) throws IOException {
         items.clear();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new SuFileInputStream(file)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(SuFileInputStream.open(file)))) {
             String line = reader.readLine();
             while (line != null) {
                 RecyclerItems i = processLine(line);

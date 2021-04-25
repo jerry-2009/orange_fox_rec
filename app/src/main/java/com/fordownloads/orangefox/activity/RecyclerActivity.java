@@ -275,7 +275,7 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     private void getDeviceInfo() {
-        JSONObject device, maintainer;
+        JSONObject device;//, maintainer;
         try {
             APIResponse response = API.request("devices/get?_id=" + new JSONObject(intentData).getString("_id"));
             if(!response.success) {

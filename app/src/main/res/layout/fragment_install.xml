@@ -105,7 +105,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"
-                                android:textSize="16dp" />
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/annoyText"
@@ -231,7 +231,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:layout_gravity="right|top"
+                            android:layout_gravity="end|top"
                             android:layout_margin="8dp"
                             android:src="@drawable/ic_device"
                             app:tint="@color/card_icon" />
@@ -341,7 +341,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:layout_gravity="right|top"
+                            android:layout_gravity="end|top"
                             android:layout_margin="8dp"
                             android:src="@drawable/ic_outline_new_releases_24"
                             app:tint="@color/card_icon" />
@@ -469,7 +469,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:layout_gravity="right|top"
+                            android:layout_gravity="end|top"
                             android:layout_margin="8dp"
                             android:src="@drawable/ic_round_get_app_24"
                             app:tint="@color/card_icon" />
@@ -500,7 +500,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:shrinkColumns="all">
-
                                 <TableRow>
 
                                     <TextView

@@ -1,25 +1,15 @@
 package com.fordownloads.orangefox.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.pm.ShortcutManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -27,20 +17,15 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
-import com.fordownloads.orangefox.App;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.fragments.InstallFragment;
 import com.fordownloads.orangefox.fragments.LogsFragment;
 import com.fordownloads.orangefox.fragments.ScriptsFragment;
-import com.fordownloads.orangefox.fragments.BackupsFragment;
 import com.fordownloads.orangefox.consts;
 import com.topjohnwu.superuser.Shell;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {

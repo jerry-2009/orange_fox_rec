@@ -4,8 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.LayoutRes;
-
 import com.ogaclejapan.smarttablayout.utils.PagerItem;
 
 public class fdViewPagerItem extends PagerItem {

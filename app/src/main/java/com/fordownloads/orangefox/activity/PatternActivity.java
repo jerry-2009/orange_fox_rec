@@ -1,9 +1,6 @@
 package com.fordownloads.orangefox.activity;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,10 +9,8 @@ import android.widget.LinearLayout;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
-import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.consts;
-import com.thefuntasty.hauler.HaulerView;
 
 import java.util.List;
 

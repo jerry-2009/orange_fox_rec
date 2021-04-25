@@ -15,9 +15,9 @@ android {
         applicationId "com.fordownloads.orangefox"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.4.1"
-        resConfigs "en", "ru"
+        versionCode 6
+        versionName "1.4.2"
+        resConfigs "en", "ru", "zh"
     }
 
     buildTypes {

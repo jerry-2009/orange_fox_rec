@@ -12,13 +12,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.recycler.RecyclerAdapter;
 import com.fordownloads.orangefox.recycler.RecyclerItems;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,7 +31,7 @@ public class ORSAdapter extends RecyclerView.Adapter<ORSAdapter.ItemViewHolder>
     private final View.OnClickListener listener;
     private OnItemDismissListener dismissListener;
 
-    public ORSAdapter(Context context, OnStartDragListener dragStartListener, List<RecyclerItems> items, View.OnClickListener listener) {
+    public ORSAdapter(OnStartDragListener dragStartListener, List<RecyclerItems> items, View.OnClickListener listener) {
         mDragStartListener = dragStartListener;
         this.items = items;
         this.listener = listener;

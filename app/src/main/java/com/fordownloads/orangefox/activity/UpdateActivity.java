@@ -3,48 +3,24 @@ package com.fordownloads.orangefox.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.fordownloads.orangefox.BuildConfig;
 import com.fordownloads.orangefox.R;
-import com.fordownloads.orangefox.consts;
-import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.service.DownloadService;
-import com.fordownloads.orangefox.utils.Install;
-import com.fordownloads.orangefox.utils.Tools;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.thefuntasty.hauler.HaulerView;
 import com.topjohnwu.superuser.Shell;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.io.IOException;
 
 import okhttp3.Request;
 import okhttp3.Response;

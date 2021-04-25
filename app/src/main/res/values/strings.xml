@@ -84,7 +84,7 @@
 
     <string name="guess_top">Your device is</string>
     <string name="guess_bottom">Looks like we support this device officially!\nIs that your device?</string>
-    <string name="guess_fail">...and we don\'t support it.</string>
+    <string name="guess_fail">We can\'t identify it. It may be unsupported.</string>
     <string name="guess_correct">Yes, that\'s correct</string>
     <string name="guess_wrong">No, it\'s mistake</string>
 
@@ -95,7 +95,7 @@
     <string name="inst_install">Download and install</string>
     <string name="inst_download">Only download</string>
     <string name="inst_cancel">Cancel</string>
-    <string name="inst_progress">%dMB of %dMB</string>
+    <string name="inst_progress">%d MB of %d MB</string>
     <string name="inst_downloaded">Downloaded to %1$s</string>
 
     <string name="inst_bg_download">Download started.\nCheck notifications to track download progress.</string>
@@ -121,18 +121,18 @@
 
     <string name="notif_download_complete">Download of %1$s Finished</string>
     <string name="notif_download_failed">Download of %1$s Failed</string>
-    <string name="notif_downloading">Downloading %1$s...</string>
-    <string name="notif_downloading_app">Downloading app update...</string>
+    <string name="notif_downloading">Downloading %1$s…</string>
+    <string name="notif_downloading_app">Downloading app update…</string>
     <string name="notif_downloaded_app">App update downloaded</string>
     <string name="notif_download_failed_app">Failed to download app update</string>
-    <string name="preparing">Preparing...</string>
+    <string name="preparing">Preparing…</string>
     <string name="install">Install</string>
 
     <string name="reboot">Reboot</string>
     <string name="notify_pending_reboot">Reboot to install OrangeFox %1$s</string>
     <string name="notify_pending_reboot_sub">Update downloaded to %1$s.\nReboot to recovery to finish installation.</string>
 
-    <string name="md5_check">Checking MD5...</string>
+    <string name="md5_check">Checking MD5…</string>
     <string name="activity_settings">Settings</string>
 
     <string name="pref_update">Recovery updates</string>

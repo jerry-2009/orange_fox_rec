@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="MIUI_dark_mode">应用程序看起来不像预期的那样</string>
+<string name="MIUI_dark_mode_desc">"MIUI反转OrangeFox应用程序的颜色。
+要禁用此功能，您需要：
+·转到显示设置
+·查找暗模式设置
+·点击各个应用程序
+·取消选中OrangeFox应用程序"</string>
+<string name="MIUI_dark_mode_tap">点击此处获取更多信息</string>
+<string name="about_app_tg">应用程序组</string>
+<string name="about_beta">测试版支持</string>
+<string name="about_me">主要开发商和设计师</string>
+<string name="about_news">新闻</string>
+<string name="about_oos">开放源代码许可证</string>
+<string name="about_sub">OrangeFox恢复应用程序</string>
+<string name="about_support">支持</string>
+<string name="about_web">网站</string>
+<string name="about_yan">API创建者，OrangeFox负责人</string>
+<string name="activity_settings">设置</string>
+<string name="annoy_crowdin">你想看用你的语言编写的应用程序吗？</string>
+<string name="annoy_crowdin_desc">帮助我们在人群中翻译应用程序</string>
+<string name="annoy_foxfiles">一些文件丢失了</string>
+<string name="annoy_foxfiles_desc">您需要重新安装恢复才能拥有所有功能</string>
+<string name="annoy_opcol">捐赠给OrangeFox</string>
+<string name="annoy_opcol_desc">帮助我们改善我们的恢复</string>
+<string name="annoy_support">恢复不起作用？</string>
+<string name="annoy_support_desc">电报组提问</string>
+<string name="annoy_upd">启用自动更新</string>
+<string name="annoy_upd_desc">应用程序将在后台自动安装所有更新</string>
+<string name="backup_digest">跳过摘要创建</string>
+<string name="backup_optimize">压缩备份</string>
+<string name="bnav_backups">备份</string>
+<string name="bnav_install">安装</string>
+<string name="bnav_logs">日志</string>
+<string name="bnav_scripts">脚本</string>
+<string name="btn_continue">继续</string>
+<string name="clear_all">全部清除</string>
+<string name="close">关闭</string>
+<string name="delete">删除</string>
+<string name="delete_logs">删除所有日志</string>
+<string name="delete_ors">删除脚本</string>
+<string name="deleted_ors">脚本已成功删除</string>
+<string name="dev_activity">选择设备</string>
+<string name="dev_code">研发代码</string>
+<string name="dev_info">设备信息</string>
+<string name="dev_maintained">支持</string>
+<string name="dev_maintainer">维修人员</string>
+<string name="dev_model">模型</string>
+<string name="dev_patch">补丁</string>
+<string name="dev_status">状态</string>
+<string name="dev_telegram">维修人员电报</string>
+<string name="dev_unmaintained">不支持</string>
+<string name="err_card_error">发生了一个错误</string>
+<string name="err_card_no_internet">没有internet连接</string>
+<string name="err_card_try_again">再试一次</string>
+<string name="err_changelog">无法加载更改日志</string>
+<string name="err_check_pm_inernet">检查存储权限或internet连接</string>
+<string name="err_dev_not_selected">你没有选择你的设备</string>
+<string name="err_file_delete">无法删除文件</string>
+<string name="err_file_format">错误的文件格式</string>
+<string name="err_file_notfound">找不到文件</string>
+<string name="err_filepicker">不支持下载文件夹或最近文件夹中的文件。</string>
+<string name="err_ise">内部服务器错误</string>
+<string name="err_json">无法分析json</string>
+<string name="err_logs_delete">无法删除日志</string>
+<string name="err_logs_deleted">没有要删除的日志</string>
+<string name="err_md5_wrong">您下载的版本已损坏。请重新下载释放。</string>
+<string name="err_md5_wrong_exists">版本已损坏。请重新下载释放。</string>
+<string name="err_no_device">找不到设备</string>
+<string name="err_no_internet">"看起来你的设备没有连接到internet。
+请检查Internet连接并重试"</string>
+<string name="err_no_internet_short">请检查Internet连接并重试</string>
+<string name="err_no_ors">找不到脚本</string>
+<string name="err_no_pm_root">"你没有授予root权限。
+使用Magisk管理器授予根权限"</string>
+<string name="err_no_pm_storage">未授予存储权限</string>
+<string name="err_no_rel">抱歉，找不到此版本</string>
+<string name="err_no_rels">抱歉，找不到此设备的版本</string>
+<string name="err_ors">"无法创建OpenRecoveryScript文件。请重新启动恢复并手动安装ZIP文件。
+文件位置是%1$s"</string>
+<string name="err_ors_bad">脚本包含错误</string>
+<string name="err_ors_delete">"无法删除OpenRecoveryScript文件。
+没有根访问权限。"</string>
+<string name="err_ors_short">无法创建OpenRecoveryScript文件</string>
+<string name="err_reboot_notify">"无法重新启动。
+检查根访问权限或手动重新启动。"</string>
+<string name="err_response">服务器返回错误的响应代码：%1$d</string>
+<string name="err_service_running">正在下载另一个版本</string>
+<string name="ex_delete">从设备中删除</string>
+<string name="ex_install_local">安装</string>
+<string name="ex_redownload">重新下载</string>
+<string name="feedback">帮助和反馈</string>
+<string name="go_settings">转到设置</string>
+<string name="guess_bottom">"看来我们正式支持这个设备了！
+那是你的设备吗？"</string>
+<string name="guess_correct">是的，没错</string>
+<string name="guess_fail">我们无法识别。 它可能不受支持。</string>
+<string name="guess_top">你的设备是</string>
+<string name="guess_wrong">不，这是个错误</string>
+<string name="help_android11_pm">轻触“OrangeFox”，然后轻触“允许访问以管理所有文件”</string>
+<string name="ignore">忽略</string>
+<string name="inst_bg_download">"下载已开始。
+检查通知以跟踪下载进度。"</string>
+<string name="inst_cancel">取消</string>
+<string name="inst_download">仅下载</string>
+<string name="inst_downloaded">下载到%1$s</string>
+<string name="inst_file_found">此版本已下载到您的设备。选择要对此版本执行的操作。</string>
+<string name="inst_install">下载并安装</string>
+<string name="inst_progress" formatted="false">%d MB of %d MB</string>
+<string name="inst_warn">自动安装需要安装的恢复（TWRP、OrangeFox、etc）和根访问。下载完成后，您需要重新启动设备以进行恢复。</string>
+<string name="install">安装</string>
+<string name="install_latest">安装%1$s %2$s</string>
+<string name="log_activity">日志</string>
+<string name="log_empty">找不到日志</string>
+<string name="log_grantpm">点击此处查看日志</string>
+<string name="log_share">发送日志</string>
+<string name="log_share_text">"使用电报直接向开发人员发送日志：
+
+https://t.me/OrangeFoxChat
+https://t.me/OrangeFoxBeta
+
+您还可以向维护人员发送私人消息。"</string>
+<string name="log_type_install">安装日志</string>
+<string name="log_type_last">上次日志</string>
+<string name="log_type_normal">日志</string>
+<string name="log_type_postinstall">安装后日志</string>
+<string name="log_type_zip">压缩日志</string>
+<string name="md5_check">正在检查MD5。。。</string>
+<string name="notif_ch_download">下载进度</string>
+<string name="notif_ch_download_desc">显示在应用程序中下载的版本的下载进度</string>
+<string name="notif_ch_download_status">下载结果</string>
+<string name="notif_ch_download_status_desc">显示下载结果</string>
+<string name="notif_ch_update">更新通知</string>
+<string name="notif_ch_update_desc">关于在后台发现的新版本的通知</string>
+<string name="notif_download_complete">%1$s下载完成</string>
+<string name="notif_download_failed">下载%1$s失败</string>
+<string name="notif_download_failed_app">未能下载应用程序更新</string>
+<string name="notif_downloaded_app">已下载应用程序更新</string>
+<string name="notif_downloading">正在下载%1$s。。。</string>
+<string name="notif_downloading_app">正在下载应用程序更新。。。</string>
+<string name="notif_new_ver">新发布的OrangeFox可用</string>
+<string name="notif_new_ver_sub">"版本%1$s%2$s可供下载和安装。
+点击“安装”安装此更新。"</string>
+<string name="notify_pending_reboot">重新启动以安装OrangeFox %1$s</string>
+<string name="notify_pending_reboot_sub">"更新已下载到%1$s。
+重新启动以恢复以完成安装。"</string>
+<string name="parser_load">加载脚本</string>
+<string name="parser_ok">已成功分析脚本</string>
+<string name="partition">隔板</string>
+<string name="pref_about">关于</string>
+<string name="pref_about_desc">作者、许可证、链接</string>
+<string name="pref_annoy_enable">显示帮助消息</string>
+<string name="pref_annoy_enable_desc">显示有用的上下文消息</string>
+<string name="pref_device">更换设备</string>
+<string name="pref_pm">缺少权限</string>
+<string name="pref_pm_desc">"OrangeFox应用程序需要下载和安装更新的权限。
+点击此处授予存储和根权限。"</string>
+<string name="pref_style">外观</string>
+<string name="pref_theme_dark">使用深色主题</string>
+<string name="pref_theme_dark_desc">使用深色主题而不是浅色主题</string>
+<string name="pref_theme_system">系统主题</string>
+<string name="pref_theme_system_desc">使用默认系统主题</string>
+<string name="pref_update">恢复更新</string>
+<string name="pref_update_auto">下载并安装更新</string>
+<string name="pref_update_auto_desc">所有下载的更新都将在没有提示的情况下下载和安装。您仍然需要重新启动才能恢复以完成安装。</string>
+<string name="pref_update_beta">安装测试版</string>
+<string name="pref_update_beta_desc">应用程序将安装所有最新版本，包括测试版</string>
+<string name="pref_update_enable">检查更新</string>
+<string name="pref_update_enable_desc">每天检查恢复更新</string>
+<string name="pref_update_limited">允许有限的连接</string>
+<string name="pref_update_limited_desc">允许检查有限连接的更新</string>
+<string name="preparing">准备。。。</string>
+<string name="reboot">重新启动</string>
+<string name="reboot_bootloader">重新引导引导程序</string>
+<string name="reboot_recovery">重启到恢复模式</string>
+<string name="rel_activity">发布信息</string>
+<string name="rel_beta">测试版</string>
+<string name="rel_bugs">漏洞</string>
+<string name="rel_button">显示信息</string>
+<string name="rel_changes">变更日志</string>
+<string name="rel_current">已安装版本</string>
+<string name="rel_date">日期</string>
+<string name="rel_info">信息</string>
+<string name="rel_installthis">安装此版本</string>
+<string name="rel_last">最新版本</string>
+<string name="rel_more">所有生成</string>
+<string name="rel_name">文件名</string>
+<string name="rel_notes">笔记</string>
+<string name="rel_size">文件大小</string>
+<string name="rel_stable">稳定</string>
+<string name="rel_type">生成类型</string>
+<string name="rel_vers">版本</string>
+<string name="rels_activity">释放</string>
+<string name="script_add_mount">添加装载操作</string>
+<string name="script_add_rw">添加重新装载R/W操作</string>
+<string name="script_add_title">添加操作</string>
+<string name="script_add_umount">添加卸载操作</string>
+<string name="script_backup">备份</string>
+<string name="script_backup_name">备份名称</string>
+<string name="script_cmd">执行shell命令</string>
+<string name="script_cmd_text">命令</string>
+<string name="script_create">创建脚本</string>
+<string name="script_created">脚本已创建。重新启动以执行它。</string>
+<string name="script_decrypt">解密</string>
+<string name="script_decrypt_pattern">图案</string>
+<string name="script_decrypt_text">密码</string>
+<string name="script_empty">恢复脚本</string>
+<string name="script_empty_desc">"易于安装、备份和擦除。
+您仍然需要安装OrangeFox，所有操作都将在恢复中执行。"</string>
+<string name="script_err_nothing">脚本为空。</string>
+<string name="script_err_rom">你删除了系统，但没有安装ROM。</string>
+<string name="script_etc">Etc</string>
+<string name="script_fixperms">修复SELinux权限</string>
+<string name="script_mkdir">创建目录</string>
+<string name="script_mkdir_text">目录名</string>
+<string name="script_mount">挂载</string>
+<string name="script_no_params">&lt;无参数></string>
+<string name="script_print">打印文本</string>
+<string name="script_print_mounts">打印挂载</string>
+<string name="script_print_text">文本</string>
+<string name="script_reboot">重新启动</string>
+<string name="script_restore">还原</string>
+<string name="script_rw">重新安装R/W</string>
+<string name="script_set">设置变量</string>
+<string name="script_sideload">启动侧负荷</string>
+<string name="script_umount">卸载</string>
+<string name="script_var_text">变量</string>
+<string name="script_var_val">价值</string>
+<string name="script_wipe">格式化</string>
+<string name="script_zip">安装</string>
+<string name="script_zip_select">选择ZIP</string>
+<string name="sel_activity">选择设备</string>
+<string name="setup">格兰特</string>
+<string name="share">分享</string>
+<string name="show_me">告诉我怎么做</string>
+<string name="size_mb">%dMB公司</string>
+<string name="unknown">未知</string>
+<string name="update_changelog">应用程序更改日志</string>
+<string name="update_install">安装应用程序更新</string>
+<string name="update_installed_vers">"已安装版本：%1$s
+
+%2$s"</string>
+<string name="update_msg">新的应用程序更新可用</string>
+<string name="update_msg_desc">点击此处显示更改日志</string>
+<string name="very_old_version">你的应用程序版本很旧</string>
+<string name="very_old_version_desc">请从下载新应用app.orangefox.tech</string>
+</resources>

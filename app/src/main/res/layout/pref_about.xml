@@ -2,7 +2,6 @@
 <LinearLayout android:gravity="center_vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <com.google.android.material.card.MaterialCardView
         android:background="?android:selectableItemBackground"
@@ -24,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/ThemeTitle"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 android:text="@string/pref_about"/>
             <TextView

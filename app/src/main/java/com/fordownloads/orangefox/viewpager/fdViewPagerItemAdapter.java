@@ -8,10 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.collection.SparseArrayCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.ogaclejapan.smarttablayout.utils.ViewPagerItem;
-import com.ogaclejapan.smarttablayout.utils.ViewPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.ViewPagerItems;
-
 import java.lang.ref.WeakReference;
 
 public class fdViewPagerItemAdapter extends PagerAdapter {
@@ -36,7 +32,7 @@ public class fdViewPagerItemAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = getPagerItem(position).initiate(inflater, container);
         container.addView(view);
-        holder.put(position, new WeakReference<View>(view));
+        holder.put(position, new WeakReference<>(view));
         return view;
     }
 
@@ -61,10 +57,10 @@ public class fdViewPagerItemAdapter extends PagerAdapter {
         return getPagerItem(position).getWidth();
     }
 
-    public View getPage(int position) {
+    /*public View getPage(int position) {
         final WeakReference<View> weakRefItem = holder.get(position);
         return (weakRefItem != null) ? weakRefItem.get() : null;
-    }
+    }*/
 
     protected fdViewPagerItem getPagerItem(int position) {
         return pages.get(position);

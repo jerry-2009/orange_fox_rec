@@ -2,7 +2,6 @@ package com.fordownloads.orangefox.viewpager;
 import android.content.Context;
 import android.view.View;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.StringRes;
 
 import com.ogaclejapan.smarttablayout.utils.PagerItems;

@@ -83,7 +83,7 @@
 
     <string name="guess_top">Ваше устройство</string>
     <string name="guess_bottom">Кажется, мы официально его поддерживаем!\nЭто ваше устройство?</string>
-    <string name="guess_fail">...и мы его не поддерживаем.</string>
+    <string name="guess_fail">Мы не можем найти его в нашей базе</string>
     <string name="guess_correct">Да, все верно</string>
     <string name="guess_wrong">Нет, это ошибка</string>
 
@@ -120,18 +120,18 @@
 
     <string name="notif_download_complete">Загрузка %1$s завершена</string>
     <string name="notif_download_failed">Ошибка загрузки %1$s</string>
-    <string name="notif_downloading">Скачивание %1$s...</string>
-    <string name="notif_downloading_app">Скачивание обновления приложения...</string>
+    <string name="notif_downloading">Скачивание %1$s…</string>
+    <string name="notif_downloading_app">Скачивание обновления приложения…</string>
     <string name="notif_downloaded_app">Обновление загружено</string>
     <string name="notif_download_failed_app">Ошибка загрузки обновления приложения</string>
-    <string name="preparing">Подготовка...</string>
+    <string name="preparing">Подготовка…</string>
     <string name="install">Установить</string>
 
     <string name="reboot">Перезагрузка</string>
     <string name="notify_pending_reboot">Перезагрузитесь для установки OrangeFox %1$s</string>
     <string name="notify_pending_reboot_sub">Обновление скачано в %1$s.\nПерезагрузитесь в рекавери для установки.</string>
 
-    <string name="md5_check">Проверка MD5...</string>
+    <string name="md5_check">Проверка MD5…</string>
     <string name="activity_settings">Настройки</string>
 
     <string name="pref_update">Обновления OrangeFox</string>

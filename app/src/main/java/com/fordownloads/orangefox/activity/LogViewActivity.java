@@ -15,13 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.utils.Tools;
 import com.thefuntasty.hauler.HaulerView;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
