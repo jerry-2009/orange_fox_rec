@@ -81,6 +81,15 @@
                 />
         </Preference>
         <Preference
+            app:title="@string/about_translate"
+            app:summary="@string/about_translate_nick"
+            app:icon="@drawable/ic_round_translate_24">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="about_translate_link"
+                />
+        </Preference>
+        <Preference
             app:title="@string/about_oos"
             app:icon="@drawable/ic_round_menu_book_24" >
             <intent

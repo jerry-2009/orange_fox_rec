@@ -245,4 +245,8 @@ https://t.me/OrangeFoxBeta
 <string name="update_msg_desc">点击此处显示更改日志</string>
 <string name="very_old_version">你的应用程序版本很旧</string>
 <string name="very_old_version_desc">请从下载新应用app.orangefox.tech</string>
+
+<string name="about_translate">被某某人翻译</string>
+<string name="about_translate_nick">\@Yuban10032</string>
+<string name="about_translate_link">https://t.me/Yuban10032</string>
 </resources>

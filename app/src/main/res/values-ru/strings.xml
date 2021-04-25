@@ -262,6 +262,10 @@
     <string name="log_share_text">Отправьте логи разработчикам в этих группах Telegram:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nВы так же можете отправить личное сообщение сопровождающему.</string>
     <string name="feedback">Помощь и отзывы</string>
 
+    <string name="about_translate">Переведено</string>
+    <string name="about_translate_nick">\@fordownloads</string>
+    <string name="about_translate_link">https://t.me/fordownloads</string>
+
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
     <string name="very_old_version">Приложение устарело</string>
     <string name="very_old_version_desc">Скачайте новую версию с app.orangefox.tech</string>

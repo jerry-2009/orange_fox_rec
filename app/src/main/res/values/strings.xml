@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OrangeFox</string>
+    <string name="app_name" translatable="false">OrangeFox</string>
 
     <string name="close">Close</string>
     <string name="err_json">Can\'t parse json</string>
@@ -262,6 +262,10 @@
     <string name="log_share">Send log</string>
     <string name="log_share_text">Send logs directly to developers using telegram groups:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nAlso you can send private message to maintainer.</string>
     <string name="feedback">Help &amp; Feedback</string>
+
+    <string name="about_translate">Crowdin</string>
+    <string name="about_translate_nick">Translate app to your language</string>
+    <string name="about_translate_link">https://orangefox.crowdin.com/app</string>
 
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
     <string name="very_old_version">You have very old app version</string>
