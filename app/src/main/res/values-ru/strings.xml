@@ -1,2 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="close">Закрыть</string>
+    <string name="err_json">Ошибка парсинга json</string>
+    <string name="err_response">Сервер вернул ошибку: %1$d</string>
+    <string name="err_no_rel">Извините, мы не можем найти этот релиз</string>
+    <string name="err_no_rels">Извините, для вашего устройства нет релизов</string>
+    <string name="err_no_device">Устройство не найдено</string>
+    <string name="err_no_ors">Скрипт не обнаружен</string>
+    <string name="err_no_internet">Кажется, ваше устройство не подключено и интернету.\Проверьте подключение к интернету и попробуйте снова.</string>
+    <string name="err_no_internet_short">Проверьте подключение к интернету</string>
+    <string name="err_dev_not_selected">Вы не выбрали модель вашего устройства</string>
+    <string name="err_no_pm_storage">Вы не предоставили разрешение для доступа к памяти</string>
+    <string name="err_check_pm_inernet">Проверьте подключение к интернету или разрешение для доступа к памяти</string>
+    <string name="setup">Предоставить</string>
+    <string name="err_no_pm_root">Вы не предоставили root-доступ.\nОткройте Magisk Manager и предоставьте root вручную.</string>
+    <string name="err_md5_wrong">Релиз, который вы скачали, был поврежден. Пожалуйста, скачайте релиз заново.</string>
+    <string name="err_md5_wrong_exists">Релиз поврежден. Пожалуйста, скачайте релиз заново.</string>
+    <string name="help_android11_pm">Нажмите \"OrangeFox\", затем нажмите \"Разрешить доступ к управлению всеми файлами\"</string>
+    <string name="err_ors">Невозможно создать файл OpenRecoveryScript. Пожалуйста, перезагрузитесь в рекавери и установите обновление вручную.\nФайл находится в %1$s</string>
+    <string name="err_ors_short">Невозможно создать файл OpenRecoveryScript</string>
+    <string name="err_service_running">Другой релиз уже скачивается</string>
+    <string name="err_ise">Внутренняя серверная ошибка</string>
+    <string name="err_filepicker">Не выберайте файлы из папок "Недавние" или "Загрузки".</string>
+    <string name="err_file_notfound">Файл не найден</string>
+    <string name="err_file_format">Неверный формат файла</string>
+
+    <string name="err_file_delete">Невозможно удалить файл</string>
+    <string name="err_logs_delete">Невозможно удалить логи</string>
+    <string name="err_logs_deleted">Нет логов для удаления</string>
+    <string name="err_ors_delete">Невозможно удалить OpenRecoveryScript.\nНет root-доступа.</string>
+    <string name="err_reboot_notify">Невозможно перезагрузиться.\nПроверьте root или перезагрузитесь самостоятельно.</string>
+    <string name="err_ors_bad">Скрипт содержит ошибки</string>
+
+    <string name="parser_ok">Скрипт загружен</string>
+    <string name="parser_load">Загрузить скрипт</string>
+    <string name="delete_ors">Удалить скрипт</string>
+    <string name="deleted_ors">Скрипт удален</string>
+
+    <string name="install_latest">Установить %1$s</string>
+
+    <string name="share">Поделиться</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_logs">Удалить все логи</string>
+
+    <string name="rels_activity">Релизы</string>
+
+    <string name="rel_activity">Информация о релизе</string>
+    <string name="rel_button">Инфо</string>
+    <string name="rel_more">Все сборки</string>
+    <string name="rel_last">Последний релиз</string>
+    <string name="rel_current">Установленный релиз</string>
+
+    <string name="rel_size">Размер файла</string>
+    <string name="rel_vers">Версия</string>
+    <string name="rel_type">Тип сборки</string>
+    <string name="rel_name">Название файла</string>
+    <string name="rel_date">Дата</string>
+    <string name="rel_stable">Стабильная</string>
+    <string name="rel_beta">Бета</string>
+    <string name="rel_installthis">Установить этот релиз</string>
+    <string name="rel_info">Информация</string>
+
+    <string name="rel_changes">Изменения</string>
+    <string name="rel_notes">Заметки</string>
+    <string name="rel_bugs">Баги</string>
+
+    <string name="dev_info">Устройство</string>
+    <string name="dev_model">Модель</string>
+    <string name="dev_code">Кодовое имя</string>
+    <string name="dev_maintainer">Сопровождающий</string>
+    <string name="dev_status">Статус</string>
+    <string name="dev_maintained">Поддерживается</string>
+    <string name="dev_unmaintained">Неподдерживается</string>
+    <string name="dev_patch">Патч</string>
+
+    <string name="dev_activity">Выбрать устройство</string>
+    <string name="size_mb">%d MБ</string>
+
+    <string name="err_card_no_internet">Нет интернета</string>
+    <string name="err_card_error">Произошла ошибка</string>
+    <string name="err_card_try_again">Повторить</string>
+
+    <string name="guess_top">Ваше устройство</string>
+    <string name="guess_bottom">Кажется, мы официально его поддерживаем!\nЭто ваше устройство?</string>
+    <string name="guess_fail">...и мы его не поддерживаем.</string>
+    <string name="guess_correct">Да, все верно</string>
+    <string name="guess_wrong">Нет, это ошибка</string>
+
+    <string name="sel_activity">Выбрать устройство</string>
+
+    <string name="inst_warn">Авто-установка требует рекавери (TWRP, OrangeFox, пр.) и root-доступ. Вам необходимо перезагрузиться в рекавери после установки.</string>
+    <string name="inst_file_found">Этот релиз уже был скачан раннее. Выберите, что следует с ним сделать.</string>
+    <string name="inst_install">Скачать и установить</string>
+    <string name="inst_download">Только скачать</string>
+    <string name="inst_cancel">Отмена</string>
+    <string name="inst_progress">%d МБ из %d МБ</string>
+    <string name="inst_downloaded">Загружено в %1$s</string>
+
+    <string name="inst_bg_download">Загрузка началась.\nПроверьте уведомления.</string>
+
+    <string name="ex_install_local">Установить</string>
+    <string name="ex_redownload">Переустановить</string>
+    <string name="ex_delete">Удалить с устройства</string>
+
+    <string name="bnav_install">Установка</string>
+    <string name="bnav_scripts">Скрипты</string>
+    <string name="bnav_logs">Логи</string>
+    <string name="bnav_backups">Копии</string>
+
+    <string name="notif_ch_update">Update Notifications</string>
+    <string name="notif_ch_update_desc">Notifications about new releases that found in background</string>
+    <string name="notif_ch_download">Download Progress</string>
+    <string name="notif_ch_download_status">Download Result</string>
+    <string name="notif_ch_download_desc">Shows download progress of release that downloads in app</string>
+    <string name="notif_ch_download_status_desc">Shows download result</string>
+
+    <string name="notif_new_ver">Найден новый релиз OrangeFox</string>
+    <string name="notif_new_ver_sub">%2$s версия %1$s доступна для установки.\nНажмите \"Установить\" для установки обновления.</string>
+
+    <string name="notif_download_complete">Загрузка %1$s завершена</string>
+    <string name="notif_download_failed">Ошибка загрузки %1$s</string>
+    <string name="notif_downloading">Скачивание %1$s...</string>
+    <string name="notif_downloading_app">Скачивание обновления приложения...</string>
+    <string name="notif_downloaded_app">Обновление загружено</string>
+    <string name="notif_download_failed_app">Ошибка загрузки обновления приложения</string>
+    <string name="preparing">Подготовка...</string>
+    <string name="install">Установить</string>
+
+    <string name="reboot">Перезагрузка</string>
+    <string name="notify_pending_reboot">Перезагрузитесь для установки OrangeFox %1$s</string>
+    <string name="notify_pending_reboot_sub">Обновление скачано в %1$s.\nПерезагрузитесь в рекавери для установки.</string>
+
+    <string name="md5_check">Проверка MD5...</string>
+    <string name="activity_settings">Настройки</string>
+
+    <string name="pref_update">Обновления OrangeFox</string>
+    <string name="pref_update_enable">Проверка обновлений</string>
+    <string name="pref_update_enable_desc">Проверять обновления ежедневно</string>
+    <string name="pref_update_limited">Лимитные подключения</string>
+    <string name="pref_update_limited_desc">Разрешить проверку обновлений, когда включен мобильный интернет</string>
+    <string name="pref_update_beta">Устанавливать бета версии</string>
+    <string name="pref_update_auto">Скачивать и устанавливать обновления</string>
+    <string name="pref_update_auto_desc">Обновления будут автоматически загружаться и устанавливаться. Вам все еще нужно перезагрузиться для установки обновления.</string>
+    <string name="pref_update_beta_desc">Приложение будет проверять наличие бета версий</string>
+    <string name="pref_style">Внешний вид</string>
+    <string name="pref_theme_system">Системная тема</string>
+    <string name="pref_theme_system_desc">Будет использоваться тема, заданная системой</string>
+    <string name="pref_theme_dark">Темная тема</string>
+    <string name="pref_theme_dark_desc">Всегда использовать темную тему</string>
+    <string name="pref_device">Изменить устройство</string>
+
+    <string name="pref_pm">Отсутствуют разрешения</string>
+    <string name="pref_pm_desc">Приложения нужны разрешения для скачивания и установки обновлений.\nНажмите здесь, чтобы предоставить root-доступ и доступ к памяти.</string>
+
+    <string name="pref_about">О приложении</string>
+    <string name="pref_about_desc">Авторы, лицензии, ссылки</string>
+
+    <string name="about_me">Разработчик приложения, дизайнер</string>
+    <string name="about_yan">Создатель API, основатель OrangeFox</string>
+    <string name="about_sub">Приложение для OrangeFox Recovery</string>
+
+    <string name="about_news">Новости</string>
+    <string name="about_support">Поддержка</string>
+    <string name="about_app_tg">Группа приложения</string>
+    <string name="about_web">Сайт</string>
+    <string name="about_beta">Поддержка для бета версий</string>
+    <string name="about_oos">Лицензии открытого ПО</string>
+
+    <string name="dev_telegram">Telegram сопровождающего</string>
+
+    <string name="annoy_opcol">Пожертвуйте OrangeFox</string>
+    <string name="annoy_opcol_desc">Помогите нам развиваться</string>
+    <string name="annoy_crowdin">Хотите видеть приложение на вашем языке?</string>
+    <string name="annoy_crowdin_desc">Помогите нам перевести его на Crowdin</string>
+    <string name="annoy_support">OrangeFox не работает?</string>
+    <string name="annoy_support_desc">Задайте вопрос в Telegram</string>
+
+    <!-- Context -->
+    <string name="annoy_upd">Включить авто-обновление</string>
+    <string name="annoy_upd_desc">Приложение будет устанавливать обновления в фоне</string>
+    <string name="annoy_foxfiles">Некоторые файлы отсутствуют</string>
+    <string name="annoy_foxfiles_desc">Переустановите OrangeFox для доступа ко всем функциям</string>
+
+    <string name="pref_annoy_enable">Показывать подсказки</string>
+    <string name="pref_annoy_enable_desc">Приложение будет показывать вам советы и проверять обновления</string>
+
+    <string name="script_empty">Скрипты OrangeFox</string>
+    <string name="script_empty_desc">Устанавливайте прошивки, создавайте резервные копии.\n
+        Вам все еще нужно иметь установленный OrangeFox, все действия будут выполнены в рекавери.</string>
+    <string name="script_backup_name">Название резервной копии</string>
+    <string name="script_add_title">Добавить действие</string>
+    <string name="script_create">Создать скрипт</string>
+    <string name="script_zip">Установка</string>
+    <string name="script_zip_select">Выбрать ZIP</string>
+    <string name="script_backup">Резерв. копия</string>
+    <string name="script_wipe">Очистка</string>
+    <string name="script_created">Скрипт создан. Перезагрузитесь в OrangeFox для выполнения.</string>
+    <string name="script_err_rom">Вы очистили раздел System, но не поставили прошивку</string>
+    <string name="script_err_nothing">Скрипт пуст.</string>
+    <string name="ignore">Игнорировать</string>
+    <string name="script_add_umount">Размотрировать</string>
+    <string name="script_add_mount">Смонтировать</string>
+    <string name="script_add_rw">Перемонтировать как R/W</string>
+
+    <string name="script_cmd_text">Команда</string>
+    <string name="script_mkdir_text">Название папки</string>
+    <string name="script_print_text">Текст</string>
+    <string name="script_var_text">Переменная</string>
+    <string name="script_var_val">Значение</string>
+    <string name="script_decrypt_text">Пароль</string>
+    <string name="script_decrypt_pattern">Граф. ключ</string>
+
+    <string name="script_decrypt">Расшифровать</string>
+    <string name="script_restore">Восстановить</string>
+    <string name="script_mount">Смонтировать</string>
+    <string name="script_umount">Размонтировать</string>
+    <string name="script_rw">Перемонтировать как R/W</string>
+    <string name="script_reboot">Перезагрузка</string>
+    <string name="script_etc">Прочее</string>
+
+    <string name="script_mkdir">Создать папку</string>
+    <string name="script_cmd">Выполнить shell-команду</string>
+    <string name="script_set">Изменить переменную</string>
+    <string name="script_print">Написать текст</string>
+    <string name="script_print_mounts">Вывести смонтированные разделы</string>
+    <string name="script_fixperms">Исправить разрешения SELinux</string>
+    <string name="script_sideload">Начать Sideload</string>
+    <string name="script_no_params">&lt; Нет параметров &gt;</string>
+
+    <string name="partition">Раздел</string>
+    <string name="clear_all">Очистить все</string>
+    <string name="reboot_recovery">Перезагрузка в OrangeFox</string>
+    <string name="reboot_bootloader">Перезагрузка в загрузчик</string>
+    <string name="unknown">Неизвестно</string>
+    <string name="backup_optimize">Сжать копию</string>
+    <string name="backup_digest">Не создавать контрольные суммы</string>
+
+    <string name="err_changelog">Невозможно загрузить список изменений</string>
+    <string name="update_changelog">Список изменений</string>
+    <string name="update_install">Обновить приложение</string>
+    <string name="update_msg">Найдена новая версия приложения!</string>
+    <string name="update_msg_desc">Нажмите здесь, чтобы показать изменения</string>
+    <string name="update_installed_vers">Установленная версия: %1$s\n\n%2$s</string>
+
+    <string name="MIUI_dark_mode">Приложение выглядит неправильно</string>
+    <string name="MIUI_dark_mode_desc">MIUI инвертирует цвета приложения.\n\nЧтобы отключить это, вам надо:\n· Зайти в настройки экрана\n· Найти настройки темной темы\n· Нажать на "Индивидуальные приложения"\n· Снать флажок с OrangeFox App</string>
+    <string name="MIUI_dark_mode_tap">Нажмите здесь, чтобы исправить</string>
+    <string name="go_settings">Открыть настройки</string>
+    <string name="show_me">Показать как</string>
+
+    <string name="log_activity">Лог</string>
+    <string name="log_type_normal">Лог</string>
+    <string name="log_type_zip">Сжатый лог</string>
+    <string name="log_type_install">Лог установки</string>
+    <string name="log_type_postinstall">Лог запуска после установки</string>
+    <string name="log_type_last">Последний лог</string>
+    <string name="log_empty">Логи не найдены</string>
+    <string name="log_grantpm">Нажмите здесь, чтобы показать логи</string>
+    <string name="btn_continue">Продолжить</string>
+    <string name="log_share">Отправить лог</string>
+    <string name="log_share_text">Отправьте логи разработчикам в этих группах Telegram:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nВы так же можете отправить личное сообщение сопровождающему.</string>
+    <string name="feedback">Помощь и отзывы</string>
+
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+    <string name="very_old_version">Приложение устарело</string>
+    <string name="very_old_version_desc">Скачайте новую версию с app.orangefox.tech</string>
+</resources>

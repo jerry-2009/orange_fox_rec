@@ -29,7 +29,7 @@
     <string name="err_file_delete">Can\'t delete file</string>
     <string name="err_logs_delete">Can\'t delete logs</string>
     <string name="err_logs_deleted">There is no logs to delete</string>
-    <string name="err_ors_delete">Unable to deltete OpenRecoveryScript file.\nNo root access.</string>
+    <string name="err_ors_delete">Unable to delete OpenRecoveryScript file.\nNo root access.</string>
     <string name="err_reboot_notify">Unable to reboot.\nCheck root access or reboot manually.</string>
     <string name="err_ors_bad">Script contains errors</string>
 
@@ -155,7 +155,7 @@
     <string name="pref_pm_desc">OrangeFox App needs permissions to download and install updates.\nTap here to grant Storage and Root permissions.</string>
 
     <string name="pref_about">About</string>
-    <string name="pref_about_desc">Authors, licenses, etc.</string>
+    <string name="pref_about_desc">Authors, licenses, links</string>
 
     <string name="about_me">Main developer and designer</string>
     <string name="about_yan">API creator, OrangeFox lead</string>
@@ -265,5 +265,5 @@
 
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
     <string name="very_old_version">You have very old app version</string>
-    <string name="very_old_version_desc">Please download new app from OrangeFox site</string>
+    <string name="very_old_version_desc">Please download new app from app.orangefox.tech</string>
 </resources>
