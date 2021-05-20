@@ -53,8 +53,7 @@ import io.sentry.Sentry;
 
 public class Tools {
     public static void reportException(Exception e, boolean notImportant) {
-        //if (!BuildConfig.DEBUG)
-        if (!notImportant)
+        if (!BuildConfig.DEBUG && !notImportant)
             Sentry.captureException(e);
     }
     public static void reportException(Exception e) {

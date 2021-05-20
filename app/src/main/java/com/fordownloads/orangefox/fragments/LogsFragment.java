@@ -155,7 +155,9 @@ public class LogsFragment extends Fragment {
                     .forEach(path -> {
                         String name = path.getFileName().toString();
                         String type;
-                        if (name.equals("install.log"))
+                        if (name.equals("releaseinfo.json"))
+                            return;
+                        else if (name.equals("install.log"))
                             type = getString(R.string.log_type_install);
                         else if (name.equals("lastrecoverylog.log"))
                             type = getString(R.string.log_type_last);
