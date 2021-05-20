@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,10 +35,12 @@ public class API {
                     .url("https://api.orangefox.download/v3/" + reqUrl)
                     .build();
             Response response = client.newCall(request).execute();
-            return new APIResponse(response.isSuccessful(), response.code(), response.body().string());
+            return new APIResponse(reqUrl, response.isSuccessful(), response.code(), response.body().string());
+        } catch (UnknownHostException e) {
+            return new APIResponse(reqUrl);
         } catch (IOException e) {
-            e.printStackTrace();
-            return new APIResponse();
+            Tools.reportException(e);
+            return new APIResponse(reqUrl);
         }
     }
 
@@ -108,7 +111,7 @@ public class API {
                                 .build());
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
         }
         Log.i("OFR-JOB", "Job finished successfully");
     }

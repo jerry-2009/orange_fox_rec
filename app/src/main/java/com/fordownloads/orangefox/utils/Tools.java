@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 
+import com.fordownloads.orangefox.BuildConfig;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.service.Scheduler;
@@ -43,14 +44,23 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import io.sentry.Sentry;
+
 public class Tools {
+    public static void reportException(Exception e, boolean notImportant) {
+        //if (!BuildConfig.DEBUG)
+        if (!notImportant)
+            Sentry.captureException(e);
+    }
+    public static void reportException(Exception e) {
+        reportException(e, false);
+    }
+
     public static String getBuildType(Context c, JSONObject release) throws JSONException {
         switch (release.getString("type")) {
             case "stable":
@@ -181,6 +191,7 @@ public class Tools {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
         } catch (Exception e) {
+            Tools.reportException(e, true);
             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }

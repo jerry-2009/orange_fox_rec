@@ -169,7 +169,7 @@ public class LogsFragment extends Fragment {
                         items.add(new RecyclerItems(type, name, R.drawable.ic_commit));
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            Tools.reportException(e, true);
         }
         requireActivity().runOnUiThread(() -> {
             if (!items.isEmpty())

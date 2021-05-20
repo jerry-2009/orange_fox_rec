@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.fordownloads.orangefox.BuildConfig;
 import com.fordownloads.orangefox.R;
 import com.fordownloads.orangefox.service.DownloadService;
+import com.fordownloads.orangefox.utils.Tools;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.thefuntasty.hauler.HaulerView;
 import com.topjohnwu.superuser.Shell;
@@ -95,12 +96,15 @@ public class UpdateActivity extends AppCompatActivity {
                                         }
                                     });
                         } catch (Exception e) {
+                            Tools.reportException(e);
                             findViewById(R.id.errorLayout).setVisibility(View.VISIBLE);
                         }
                     });
                     return;
                 }
-            } catch (Exception ignored) { }
+            } catch (Exception e) {
+                Tools.reportException(e);
+            }
             findViewById(R.id.errorLayout).setVisibility(View.VISIBLE);
         }).start();
     }

@@ -175,6 +175,7 @@ public class ScriptsFragment extends Fragment {
                 }
                 Tools.showSnackbar(getActivity(), getSnackView(), parser.hasErrors() ? R.string.err_ors_bad : R.string.parser_ok).show();
             } catch (IOException e) {
+                Tools.reportException(e);
                 Tools.showSnackbar(getActivity(), getSnackView(), R.string.err_ors_bad).show();
             }
         } else if (id == R.id.delete) {

@@ -264,6 +264,7 @@
     <string name="log_share_text">Send logs directly to developers using telegram groups:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nAlso you can send private message to maintainer.</string>
     <string name="feedback">Help &amp; Feedback</string>
 
+    <string name="translated_by">Translated by</string>
     <string translatable="false" name="about_translate">Crowdin</string>
     <string translatable="false" name="about_translate_nick">Translate app to your language</string>
     <string translatable="false" name="about_translate_link">https://orangefox.crowdin.com/app</string>

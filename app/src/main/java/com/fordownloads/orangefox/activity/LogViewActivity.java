@@ -127,7 +127,7 @@ public class LogViewActivity extends AppCompatActivity {
                 setText(getString(R.string.err_file_format));
         } catch (Exception e) {
             setText(e.getLocalizedMessage());
-            e.printStackTrace();
+            Tools.reportException(e, true);
         }
     }
 

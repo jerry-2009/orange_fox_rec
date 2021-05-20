@@ -51,6 +51,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.sentry.Sentry;
+import io.sentry.SentryLevel;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class RecyclerActivity extends AppCompatActivity {
@@ -196,6 +198,7 @@ public class RecyclerActivity extends AppCompatActivity {
             if (releaseFind) {
                 APIResponse findResponse = API.request("releases/?device_id="+getIntent().getStringExtra("device")+"&version="+ intentData +"&sort=date_desc");
                 if(!findResponse.success) {
+                    Sentry.captureMessage("getAllReleaseInfo() can't find release: "+findResponse.toString(), SentryLevel.ERROR);
                     errorHandler(findResponse.code, R.string.err_no_rel);
                     return;
                 }
@@ -207,6 +210,7 @@ public class RecyclerActivity extends AppCompatActivity {
             } else {
                 APIResponse response = API.request("releases/get?_id=" + intentData);
                 if(!response.success) {
+                    Sentry.captureMessage("getAllReleaseInfo() can't find release by id: "+response.toString(), SentryLevel.ERROR);
                     errorHandler(response.code, R.string.err_no_rel);
                     return;
                 }
@@ -248,7 +252,7 @@ public class RecyclerActivity extends AppCompatActivity {
                             pageList.add(R.string.rel_bugs, TextFragment.class,
                                     TextFragment.arguments(Tools.buildList(release, "bugs"), true));
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Tools.reportException(e);
                 }
 
 
@@ -276,7 +280,7 @@ public class RecyclerActivity extends AppCompatActivity {
                             });
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
             errorHandler(1000, 0);
         }
     }
@@ -287,6 +291,7 @@ public class RecyclerActivity extends AppCompatActivity {
             APIResponse response = API.request("devices/get?_id=" + new JSONObject(intentData).getString("_id"));
             if(!response.success) {
                 errorHandler(response.code, R.string.err_ise);
+                Sentry.captureMessage("getDeviceInfo() failed: "+response.toString(), SentryLevel.ERROR);
                 return;
             }
             device = new JSONObject(response.data);
@@ -342,7 +347,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         });
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
             errorHandler(1000, 0);
         }
     }
@@ -354,7 +359,7 @@ public class RecyclerActivity extends AppCompatActivity {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(id)));
             } catch (Exception e) {
-                e.printStackTrace();
+                Tools.reportException(e, true);
             }
     }
 
@@ -437,7 +442,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         });
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
             errorHandler(1000, 0);
         }
     }
@@ -447,6 +452,7 @@ public class RecyclerActivity extends AppCompatActivity {
             APIResponse response = API.request("devices");
 
             if(!response.success) {
+                Sentry.captureMessage("getDevices() failed: "+response.toString(), SentryLevel.ERROR);
                 errorHandler(response.code, R.string.err_ise);
                 return;
             }
@@ -490,7 +496,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         });
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
             errorHandler(1000, 0);
         }
     }

@@ -241,7 +241,7 @@ public class InstallFragment extends Fragment {
                 table.put(R.string.rel_date, Tools.formatDate(json.getString("date")));
                 table.put(R.string.rel_commit, json.getString("commit"));
             } catch (Exception e) {
-                e.printStackTrace();
+                Tools.reportException(e, true);
                 parseFail = true;
             }
 
@@ -258,7 +258,7 @@ public class InstallFragment extends Fragment {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Tools.reportException(e, true);
         }
 
         return false;
@@ -358,7 +358,7 @@ public class InstallFragment extends Fragment {
                             .putString(pref.RELEASE_ID, release.getString("_id")).apply();
             }
         } catch (JSONException | NullPointerException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
             errorCard(1000, 0);
         }
         if (dialog != null) dialog.dismiss();
@@ -466,7 +466,7 @@ public class InstallFragment extends Fragment {
                 chk4 = chk4.substring(0, chk4.length() - 2);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Tools.reportException(e);
             errorCard(1000, 0);
         }
         return null;
@@ -567,7 +567,9 @@ public class InstallFragment extends Fragment {
                     return;
                 }
             }
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            Tools.reportException(e);
+        }
 
         int id;
         String[] names = getResources().getStringArray(R.array.annoy_list);
