@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">ปิด</string>
+    <string name="err_json" comment="err_json">ไม่สามารถวิเคราะห์ json</string>
+    <string name="err_response">เซิร์ฟเวอร์ส่งคืนรหัสตอบกลับที่ไม่ถูกต้อง:%1$d</string>
+    <string name="err_no_rel">ขออภัยไม่พบเวอร์ชันนี้</string>
+    <string name="err_no_rels">ขออภัยไม่พบเวอร์ชันสำหรับอุปกรณ์นี้</string>
+    <string name="err_no_device">ไม่พบอุปกรณ์</string>
+    <string name="err_no_ors">ไม่พบสคริปต์</string>
+    <string name="err_no_internet">ดูเหมือนว่าอุปกรณ์ของคุณไม่ได้เชื่อมต่อกับอินเทอร์เน็ต
+โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองอีกครั้ง</string>
+    <string name="err_no_internet_short">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองอีกครั้ง</string>
+    <string name="err_dev_not_selected">คุณไม่ได้เลือกอุปกรณ์ของคุณ</string>
+    <string name="err_no_pm_storage">ไม่ได้รับอนุญาตการจัดเก็บ</string>
+    <string name="err_check_pm_inernet">ตรวจสอบสิทธิ์การจัดเก็บหรือการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="setup">ติดตั้ง</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">คุณไม่ได้ให้สิทธิ์รูท
+ใช้ Magisk Manager เพื่อให้สิทธิ์รูท</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">เวอร์ชันที่คุณดาวน์โหลดเสียหาย โปรดดาวน์โหลดและปล่อยอีกครั้ง</string>
+    <string name="err_md5_wrong_exists">เวอร์ชันเสียหาย โปรดดาวน์โหลดและปล่อยอีกครั้ง</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">แตะ \"OrangeFox\" แล้วแตะ \"อนุญาตให้เข้าถึงเพื่อจัดการไฟล์ทั้งหมด\"</string>
+    <string name="err_ors" comment="err_ors&#10;&#10;Appears in snackbar or in notification">ไม่สามารถสร้างไฟล์ OpenRecoveryScript โปรดรีสตาร์ทการกู้คืนและติดตั้งไฟล์ ZIP ด้วยตนเอง
+ตำแหน่งไฟล์คือ%1$s</string>
+    <string name="err_ors_short" comment="err_ors_short&#10;&#10;Appears in snackbar or in notification">ไม่สามารถสร้างไฟล์ OpenRecoveryScript</string>
+    <string name="err_service_running" comment="err_service_running&#10;&#10;Appears in snackbar on main page">กำลังดาวน์โหลดเวอร์ชันอื่น</string>
+    <string name="err_ise">ข้อผิดพลาดภายในเซิร์ฟเวอร์</string>
+    <string name="err_filepicker" comment="err_filepicker&#10;&#10;Appears in snackbar on scripts page">ไม่รองรับการดาวน์โหลดไฟล์ในโฟลเดอร์หรือโฟลเดอร์ล่าสุด</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">ไม่พบไฟล์</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">รูปแบบไฟล์ไม่ถูกต้อง</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">ไม่สามารถลบไฟล์</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">ไม่สามารถลบบันทึก</string>
+    <string name="err_logs_deleted">ไม่มีบันทึกที่จะลบ</string>
+    <string name="err_ors_delete" comment="err_ors_delete&#10;&#10;Appears in snackbar on scripts page">ไม่สามารถลบไฟล์ OpenRecoveryScript
+ไม่มีการเข้าถึงรูท</string>
+    <string name="err_reboot_notify" comment="err_reboot_notify&#10;&#10;Appears in snackbar on scripts page">รีสตาร์ทไม่ได้
+ตรวจสอบการเข้าถึงรูทหรือรีสตาร์ทด้วยตนเอง</string>
+    <string name="err_ors_bad" comment="err_ors_bad&#10;&#10;Appears in snackbar on scripts page">สคริปต์มีข้อผิดพลาด</string>
+    <string name="parser_ok">วิเคราะห์สคริปต์เรียบร้อยแล้ว</string>
+    <string name="parser_load">โหลดสคริปต์</string>
+    <string name="delete_ors">ลบสคริปต์</string>
+    <string name="deleted_ors">ลบสคริปต์สำเร็จแล้ว</string>
+    <string name="install_latest">การติดตั้ง%1$s %2$s</string>
+    <string name="share">แบ่งปัน</string>
+    <string name="delete">ลบ</string>
+    <string name="delete_logs">ลบบันทึกทั้งหมด</string>
+    <string name="rels_activity">ปลดปล่อย</string>
+    <string name="rel_activity">ข่าวประชาสัมพันธ์</string>
+    <string name="rel_button">แสดงข้อมูล</string>
+    <string name="rel_more">สร้างขึ้นทั้งหมด</string>
+    <string name="rel_last">เวอร์ชันล่าสุดของ</string>
+    <string name="rel_current">เวอร์ชันที่ติดตั้ง</string>
+    <string name="rel_size">ขนาดไฟล์</string>
+    <string name="rel_commit">รหัสรุ่น</string>
+    <string name="rel_vers">เวอร์ชัน</string>
+    <string name="rel_type">ประเภทการสร้าง</string>
+    <string name="rel_name">ชื่อไฟล์</string>
+    <string name="rel_date">วันที่</string>
+    <string name="rel_stable">เสถียร</string>
+    <string name="rel_beta">เบต้า</string>
+    <string name="rel_installthis">ติดตั้งเวอร์ชันนี้</string>
+    <string name="rel_info">ข้อมูล</string>
+    <string name="rel_changes">เปลี่ยนบันทึก</string>
+    <string name="rel_notes">หมายเหตุ</string>
+    <string name="rel_bugs">ช่องโหว่</string>
+    <string name="dev_info">ข้อมูลอุปกรณ์</string>
+    <string name="dev_model">โมเดล</string>
+    <string name="dev_code">รหัส R &amp; D</string>
+    <string name="dev_maintainer">ผู้พัฒนา</string>
+    <string name="dev_status">สถานะ</string>
+    <string name="dev_maintained">รอ</string>
+    <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">ไม่รองรับ</string>
+    <string name="dev_patch">patch</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">เลือกอุปกรณ์</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%d MB</string>
+    <string name="err_card_no_internet">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">เกิดข้อผิดพลาด</string>
+    <string name="err_card_try_again">ลองอีกครั้ง</string>
+    <string name="guess_top">อุปกรณ์ของคุณคือ</string>
+    <string name="guess_bottom">ดูเหมือนว่าเราจะสนับสนุนอุปกรณ์นี้อย่างเป็นทางการ!
+นั่นคืออุปกรณ์ของคุณหรือไม่?</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">เราไม่ทราบ อาจไม่ได้รับการสนับสนุน</string>
+    <string name="guess_correct">ใช่แล้ว，ถูกตัอง</string>
+    <string name="guess_wrong">อย่า，นี่คือข้อผิดพลาด</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">เลือกอุปกรณ์</string>
+    <string name="inst_warn">การติดตั้งการกู้คืนอัตโนมัติ (TWRP, OrangeFox ฯลฯ ) และการเข้าถึงรูทที่ต้องติดตั้ง หลังจากดาวน์โหลดเสร็จสิ้นคุณต้องรีสตาร์ทอุปกรณ์เพื่อกู้คืน</string>
+    <string name="inst_file_found">ดาวน์โหลดเวอร์ชันนี้ลงในอุปกรณ์ของคุณแล้ว เลือกสิ่งที่จะทำกับเวอร์ชันนี้</string>
+    <string name="inst_install">ดาวน์โหลดและติดตั้ง</string>
+    <string name="inst_download">ดาวน์โหลดเท่านั้น</string>
+    <string name="inst_cancel">ยกเลิก</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%d MB of %d MB</string>
+    <string name="inst_downloaded">ดาวน์โหลดเป็น%1$s</string>
+    <string name="inst_bg_download">การดาวน์โหลดเริ่มขึ้นแล้ว
+ตรวจสอบการแจ้งเตือนเพื่อติดตามความคืบหน้าในการดาวน์โหลด</string>
+    <string name="ex_install_local">การติดตั้ง</string>
+    <string name="ex_redownload">ดาวน์โหลดอีกครั้ง</string>
+    <string name="ex_delete">ลบออกจากอุปกรณ์</string>
+    <string name="bnav_install">การติดตั้ง</string>
+    <string name="bnav_scripts">สคริปต์</string>
+    <string name="bnav_logs">日志</string>
+    <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">การสำรองข้อมูล</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">อัปเดตการแจ้งเตือน</string>
+    <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">การแจ้งเตือนเกี่ยวกับเวอร์ชันใหม่ที่พบในพื้นหลัง</string>
+    <string name="notif_ch_download" comment="notif_ch_download&#10;&#10;Appears in Android settings when you're changing notification channel settings.">ดาวน์โหลดความคืบหน้า</string>
+    <string name="notif_ch_download_status" comment="notif_ch_download_status&#10;&#10;Appears in Android settings when you're changing notification channel settings.">ดาวน์โหลดผล</string>
+    <string name="notif_ch_download_desc" comment="notif_ch_download_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">แสดงความคืบหน้าในการดาวน์โหลดของเวอร์ชันที่ดาวน์โหลดในแอป</string>
+    <string name="notif_ch_download_status_desc" comment="notif_ch_download_status_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">แสดงผลการดาวน์โหลด</string>
+    <string name="notif_new_ver" comment="notif_new_ver&#10;&#10;Notification">OrangeFox ที่เพิ่งเปิดตัวพร้อมใช้งานแล้ว</string>
+    <string name="notif_new_ver_sub" comment="notif_new_ver_sub&#10;&#10;Notification.">เวอร์ชัน%1$s%2$sมีให้ดาวน์โหลดและติดตั้ง
+คลิก \"ติดตั้ง\" เพื่อติดตั้งโปรแกรมปรับปรุงนี้</string>
+    <string name="notif_download_complete">%1$sการดาวน์โหลดเสร็จสมบูรณ์</string>
+    <string name="notif_download_failed">ดาวน์โหลด%1$sความล้มเหลว</string>
+    <string name="notif_downloading">กำลังดาวน์โหลด%1$s。。。</string>
+    <string name="notif_downloading_app" comment="notif_downloading_app&#10;&#10;Notification.">กำลังดาวน์โหลดการอัปเดตแอปพลิเคชัน . .</string>
+    <string name="notif_downloaded_app" comment="notif_downloaded_app&#10;&#10;Notification.">ดาวน์โหลดอัปเดตแอปแล้ว</string>
+    <string name="notif_download_failed_app" comment="notif_download_failed_app&#10;&#10;Notification.">ดาวน์โหลดการอัปเดตแอปไม่สำเร็จ</string>
+    <string name="preparing">พร้อม. . .</string>
+    <string name="install">การติดตั้ง</string>
+    <string name="reboot">เริ่มต้นใหม่</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">รีสตาร์ทเพื่อติดตั้ง OrangeFox %1$s</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">ดาวน์โหลดอัปเดตไปที่แล้ว%1$s。
+รีสตาร์ทเพื่อดำเนินการต่อเพื่อทำการติดตั้งให้เสร็จสมบูรณ์</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">การตรวจสอบ MD5 . .</string>
+    <string name="activity_settings">ติดตั้ง</string>
+    <string name="pref_update">ดำเนินการอัปเดตต่อ</string>
+    <string name="pref_update_enable">ตรวจสอบสำหรับการอัพเดต</string>
+    <string name="pref_update_enable_desc">ตรวจหาการอัปเดตการกู้คืนทุกวัน</string>
+    <string name="pref_update_limited">อนุญาตการเชื่อมต่อที่ จำกัด</string>
+    <string name="pref_update_limited_desc">อนุญาตให้ตรวจสอบการอัปเดตด้วยการเชื่อมต่อที่ จำกัด</string>
+    <string name="pref_update_beta">ติดตั้งเวอร์ชันเบต้า</string>
+    <string name="pref_update_auto">ดาวน์โหลดและติดตั้งการอัปเดต</string>
+    <string name="pref_update_auto_desc">การอัปเดตที่ดาวน์โหลดทั้งหมดจะดาวน์โหลดและติดตั้งโดยไม่ต้องแจ้ง คุณยังต้องรีสตาร์ทเพื่อดำเนินการติดตั้งต่อเพื่อให้การติดตั้งเสร็จสมบูรณ์</string>
+    <string name="pref_update_beta_desc">แอปพลิเคชันจะติดตั้งเวอร์ชันล่าสุดทั้งหมดรวมถึงเวอร์ชันเบต้า</string>
+    <string name="pref_style">ภายนอก</string>
+    <string name="pref_theme_system">ธีมระบบ</string>
+    <string name="pref_theme_system_desc">ใช้ธีมระบบเริ่มต้น</string>
+    <string name="pref_theme_dark">ใช้ธีมสีเข้ม</string>
+    <string name="pref_theme_dark_desc">ใช้ธีมสีเข้มแทนธีมสีอ่อน</string>
+    <string name="pref_device">อุปกรณ์ทดแทน</string>
+    <string name="pref_pm">ขาดสิทธิ์</string>
+    <string name="pref_pm_desc">แอปพลิเคชัน OrangeFox ต้องได้รับอนุญาตในการดาวน์โหลดและติดตั้งการอัปเดต
+คลิกที่นี่เพื่อให้สิทธิ์พื้นที่เก็บข้อมูลและรูท</string>
+    <string name="pref_about">关于</string>
+    <string name="pref_about_desc">ผู้เขียน,ใบอนุญาต,ลิงค์</string>
+    <string name="about_me">นักพัฒนาและนักออกแบบ</string>
+    <string name="about_yan">ผู้สร้าง API หัวหน้า OrangeFox</string>
+    <string name="about_sub">แอปพลิเคชั่นการกู้คืน OrangeFox</string>
+    <string name="about_news">ข่าว</string>
+    <string name="about_support">รอ</string>
+    <string name="about_app_tg">กลุ่มแอปพลิเคชัน</string>
+    <string name="about_web">เว็บไซต์</string>
+    <string name="about_beta">การสนับสนุนเบต้า</string>
+    <string name="about_oos">ใบอนุญาตโอเพนซอร์ส</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">Telegram ผู้ดูแล</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">บริจาคให้ OrangeFox</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">ช่วยเราปรับปรุงการฟื้นตัวของเรา</string>
+    <string name="annoy_crowdin" comment="annoy_crowdin&#10;&#10;Help message on top of the screen in main activity">คุณต้องการดูแอปพลิเคชันที่เขียนด้วยภาษาของคุณหรือไม่?</string>
+    <string name="annoy_crowdin_desc" comment="annoy_crowdin_desc&#10;&#10;Help message on top of the screen in main activity">ช่วยเราแปลแอป</string>
+    <string name="annoy_support" comment="annoy_support&#10;&#10;Help message on top of the screen in main activity">การกู้คืนไม่ทำงาน?</string>
+    <string name="annoy_support_desc" comment="annoy_support_desc&#10;&#10;Help message on top of the screen in main activity">คำถามกลุ่มโทรเลข</string>
+    <!-- Context -->
+    <string name="annoy_upd">เปิดใช้งานการอัปเดตอัตโนมัติ</string>
+    <string name="annoy_upd_desc">แอปจะติดตั้งการอัปเดตทั้งหมดในพื้นหลังโดยอัตโนมัติ</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">บางไฟล์หายไป</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">คุณต้องติดตั้งการกู้คืนใหม่เพื่อให้มีคุณสมบัติทั้งหมด</string>
+    <string name="pref_annoy_enable">แสดงข้อความช่วยเหลือ</string>
+    <string name="pref_annoy_enable_desc">แสดงข้อความตามบริบทที่เป็นประโยชน์</string>
+    <string name="script_empty">สคริปต์การกู้คืน</string>
+    <string name="script_empty_desc">ติดตั้งสำรองและลบ
+คุณยังคงต้องติดตั้ง OrangeFox และการดำเนินการทั้งหมดจะดำเนินการในระหว่างการกู้คืน</string>
+    <string name="script_backup_name">ชื่อสำรอง</string>
+    <string name="script_add_title">เพิ่มการดำเนินการ</string>
+    <string name="script_create">สร้างสคริปต์</string>
+    <string name="script_zip">การติดตั้ง</string>
+    <string name="script_zip_select">เลือก ZIP</string>
+    <string name="script_backup">การสำรองข้อมูล</string>
+    <string name="script_wipe">รูปแบบ</string>
+    <string name="script_created">สร้างสคริปต์แล้ว เริ่มต้นใหม่เพื่อดำเนินการ</string>
+    <string name="script_err_rom">คุณลบระบบ แต่ไม่ได้ติดตั้ง ROM</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">脚本为空。</string>
+    <string name="ignore">เพิกเฉย</string>
+    <string name="script_add_umount">เพิ่มการดำเนินการถอนการติดตั้ง</string>
+    <string name="script_add_mount">เพิ่มการดำเนินการโหลด</string>
+    <string name="script_add_rw">เพิ่มรีโหลด R/การทำงานของ W</string>
+    <string name="script_cmd_text">คำสั่ง</string>
+    <string name="script_mkdir_text">ชื่อไดเรกทอรี</string>
+    <string name="script_print_text">ข้อความ</string>
+    <string name="script_var_text">ตัวแปร</string>
+    <string name="script_var_val">มูลค่า</string>
+    <string name="script_decrypt_text">รหัสผ่าน</string>
+    <string name="script_decrypt_pattern">รูปแบบ</string>
+    <string name="script_decrypt">ถอดรหัส</string>
+    <string name="script_restore" comment="script_restore&#10;&#10;Restore action in scripts action list. It's used, when user loads custom OpenRecoveryScript">การลด</string>
+    <string name="script_mount">เมานต์</string>
+    <string name="script_umount">ถอนการติดตั้ง</string>
+    <string name="script_rw">ติดตั้ง R/W</string>
+    <string name="script_reboot">เริ่มต้นใหม่</string>
+    <string name="script_mkdir">สร้างไดเร็กทอรี</string>
+    <string name="script_cmd">ดำเนินการคำสั่งเชลล์</string>
+    <string name="script_set">ตั้งค่าตัวแปร</string>
+    <string name="script_print">พิมพ์ข้อความ</string>
+    <string name="script_print_mounts" comment="script_print_mounts&#10;&#10;Action in scripts action list. It's used, when user loads custom OpenRecoveryScript">พิมพ์เมานต์</string>
+    <string name="script_fixperms">ซ่อมแซมสิทธิ์ SELinux</string>
+    <string name="script_sideload">เริ่มไซส์โหลด</string>
+    <string name="script_no_params">&lt;ไม่มีพารามิเตอร์&gt;</string>
+    <string name="partition">พาร์ทิชัน</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">ลบทั้งหมด</string>
+    <string name="reboot_recovery">เริ่มต้นใหม่ในโหมดการกู้คืน</string>
+    <string name="reboot_bootloader">รีบูต bootloader</string>
+    <string name="unknown">ไม่ทราบ</string>
+    <string name="backup_optimize">การสำรองข้อมูลที่บีบอัด</string>
+    <string name="backup_digest">ข้ามการสร้างสรุป</string>
+    <string name="err_changelog" comment="err_changelog&#10;&#10;Appears instead of changelog of app">ไม่สามารถโหลดบันทึกการเปลี่ยนแปลง</string>
+    <string name="update_changelog">บันทึกการเปลี่ยนแปลงแอปพลิเคชัน</string>
+    <string name="update_install" comment="update_install&#10;&#10;Floating action button on changelog page">ติดตั้งการอัปเดตแอปพลิเคชัน</string>
+    <string name="update_msg" comment="update_msg&#10;&#10;Help message on top of the screen in main activity">มีการอัปเดตแอปใหม่</string>
+    <string name="update_msg_desc" comment="update_msg_desc&#10;&#10;Help message on top of the screen in main activity">คลิกที่นี่เพื่อแสดงบันทึกการเปลี่ยนแปลง</string>
+    <string name="update_installed_vers" comment="update_installed_vers&#10;&#10;Appears at the top of changelog">รุ่นที่ติดตั้ง:%1$s
+
+%2$s</string>
+    <string name="MIUI_dark_mode" comment="MIUI_dark_mode&#10;&#10;Help message on top of the screen in main activity">แอปพลิเคชันไม่เป็นไปตามที่คาดไว้</string>
+    <string name="MIUI_dark_mode_desc" comment="MIUI_dark_mode_desc&#10;&#10;Special dialog for MIUI.">MIUI กลับสีของแอปพลิเคชัน OrangeFox
+ในการปิดใช้งานคุณสมบัตินี้คุณต้อง:
+·ไปที่การตั้งค่าการแสดงผล
+·ค้นหาการตั้งค่าโหมดมืด
+·คลิกแต่ละแอปพลิเคชัน
+·ยกเลิกการเลือกแอปพลิเคชัน OrangeFox</string>
+    <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">คลิกที่นี่เพื่อดูข้อมูลเพิ่มเติม</string>
+    <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">ไปที่การตั้งค่า</string>
+    <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">บอกวิธีทำ</string>
+    <string name="log_activity">บันทึก</string>
+    <string name="log_type_normal">บันทึก</string>
+    <string name="log_type_zip">บันทึกการบีบอัด</string>
+    <string name="log_type_install">บันทึกการติดตั้ง</string>
+    <string name="log_type_postinstall">โพสต์บันทึกการติดตั้ง</string>
+    <string name="log_type_last">บันทึกล่าสุด</string>
+    <string name="log_empty">ไม่พบบันทึก</string>
+    <string name="log_grantpm">คลิกที่นี่เพื่อดูบันทึก</string>
+    <string name="btn_continue">ดำเนินการต่อไป</string>
+    <string name="log_share">ส่งบันทึก</string>
+    <string name="log_share_text">ใช้ Telegram เพื่อส่งบันทึกไปยังนักพัฒนาโดยตรง:
+
+https://t.me/OrangeFoxChat
+https://t.me/OrangeFoxBeta
+
+คุณยังสามารถส่งข้อความส่วนตัวถึงผู้ดูแล</string>
+    <string name="feedback">ความช่วยเหลือและข้อเสนอแนะ</string>
+    <string name="translated_by" comment="translated_by&#10;&#10;Appears in about page. You DO NOT need write your nickname after 'by'!">นักแปล</string>
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+    <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">เวอร์ชันแอปของคุณเก่ามาก</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">โปรดดาวน์โหลดแอปใหม่จาก app.orangefox.tech</string>
+<string name="about_translate">@string/translated_by</string>
+<string name="about_translate_nick">Dezadx</string>
+</resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="close">關閉</string>
-    <string name="err_json">無法分析json</string>
+    <string name="err_json" comment="err_json">無法分析json</string>
     <string name="err_response">伺服器返回錯誤的回應代碼：%1$d</string>
     <string name="err_no_rel">抱歉，找不到此版本</string>
     <string name="err_no_rels">抱歉，找不到此設備的版本</string>
@@ -13,25 +13,25 @@
     <string name="err_no_pm_storage">未授予儲存權限</string>
     <string name="err_check_pm_inernet">檢查儲存權限或internet連接</string>
     <string name="setup">授予</string>
-    <string name="err_no_pm_root">你沒有授予root權限。\n使用Magisk管理器授予根權限</string>
-    <string name="err_md5_wrong">您下載的版本已損壞。請重新下載已發佈版本。</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">你沒有授予root權限。\n使用Magisk管理器授予根權限</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">您下載的版本已損壞。請重新下載已發佈版本。</string>
     <string name="err_md5_wrong_exists">版本已損壞。請重新下載已發佈版本。</string>
-    <string name="help_android11_pm">輕觸“OrangeFox”，然後輕觸“允許訪問以管理所有文件”</string>
-    <string name="err_ors">無法創建OpenRecoveryScript文件。請重新啟動恢復並手動安裝ZIP文件。
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">輕觸“OrangeFox”，然後輕觸“允許訪問以管理所有文件”</string>
+    <string name="err_ors" comment="err_ors&#10;&#10;Appears in snackbar or in notification">無法創建OpenRecoveryScript文件。請重新啟動恢復並手動安裝ZIP文件。
 \n文件位置是%1$s</string>
-    <string name="err_ors_short">無法創建OpenRecovery腳本文件</string>
-    <string name="err_service_running">正在下載另一個版本</string>
+    <string name="err_ors_short" comment="err_ors_short&#10;&#10;Appears in snackbar or in notification">無法創建OpenRecovery腳本文件</string>
+    <string name="err_service_running" comment="err_service_running&#10;&#10;Appears in snackbar on main page">正在下載另一個版本</string>
     <string name="err_ise">內部服務器錯誤</string>
-    <string name="err_filepicker">不支援下載文件夾或最近文件夾中的文件。</string>
-    <string name="err_file_notfound">找不到檔案</string>
-    <string name="err_file_format">錯誤的文件格式</string>
-    <string name="err_file_delete">無法刪除文件</string>
-    <string name="err_logs_delete">無法刪除日誌</string>
+    <string name="err_filepicker" comment="err_filepicker&#10;&#10;Appears in snackbar on scripts page">不支援下載文件夾或最近文件夾中的文件。</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">找不到檔案</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">錯誤的文件格式</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">無法刪除文件</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">無法刪除日誌</string>
     <string name="err_logs_deleted">沒有可以刪除的日誌</string>
-    <string name="err_ors_delete">無法刪除OpenRecovery腳本文件。
+    <string name="err_ors_delete" comment="err_ors_delete&#10;&#10;Appears in snackbar on scripts page">無法刪除OpenRecovery腳本文件。
 \n沒有root權限。</string>
-    <string name="err_reboot_notify">無法重新啟動。\n檢查root權限或手動重新啟動。</string>
-    <string name="err_ors_bad">脚本包含錯誤</string>
+    <string name="err_reboot_notify" comment="err_reboot_notify&#10;&#10;Appears in snackbar on scripts page">無法重新啟動。\n檢查root權限或手動重新啟動。</string>
+    <string name="err_ors_bad" comment="err_ors_bad&#10;&#10;Appears in snackbar on scripts page">脚本包含錯誤</string>
     <string name="parser_ok">已成功分析腳本</string>
     <string name="parser_load">加載腳本</string>
     <string name="delete_ors">删除腳本</string>
@@ -64,26 +64,26 @@
     <string name="dev_maintainer">維護人員</string>
     <string name="dev_status">狀態</string>
     <string name="dev_maintained">支援</string>
-    <string name="dev_unmaintained">不支援</string>
+    <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">不支援</string>
     <string name="dev_patch">補丁</string>
-    <string name="dev_activity">選擇設備</string>
-    <string name="size_mb">%dMB</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">選擇設備</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%dMB</string>
     <string name="err_card_no_internet">沒有internet連接</string>
-    <string name="err_card_error">發生了一個錯誤</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">發生了一個錯誤</string>
     <string name="err_card_try_again">再試一次</string>
     <string name="guess_top">你的設備是</string>
     <string name="guess_bottom">看來我們正式支援這個設備了！
 \n那是你的設備嗎？</string>
-    <string name="guess_fail">我們無法識別。它可能不受支持。</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">我們無法識別。它可能不受支持。</string>
     <string name="guess_correct">是的，没錯</string>
     <string name="guess_wrong">不，這是個錯誤</string>
-    <string name="sel_activity">選擇設備</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">選擇設備</string>
     <string name="inst_warn">自動安裝需要安裝的恢復(TWRP、OrangeFox、etc) 和root權限。下載完成後，您需要重新啟動設備到恢復模式。</string>
     <string name="inst_file_found">此版本已下載到您的設備。選擇要對此版本執行的操作。</string>
     <string name="inst_install">下載並安裝</string>
     <string name="inst_download">僅下載</string>
     <string name="inst_cancel">取消</string>
-    <string name="inst_progress">%d MB of %d MB</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%d MB of %d MB</string>
     <string name="inst_downloaded">下載到%1$s</string>
     <string name="inst_bg_download">下載已開始。\n檢查通知以追踪下載進度。</string>
     <string name="ex_install_local">安装</string>
@@ -92,27 +92,27 @@
     <string name="bnav_install">安装</string>
     <string name="bnav_scripts">腳本</string>
     <string name="bnav_logs">日志</string>
-    <string name="bnav_backups">備份</string>
-    <string name="notif_ch_update">更新通知</string>
-    <string name="notif_ch_update_desc">關於在後台發現的新版本的通知</string>
-    <string name="notif_ch_download">下载進度</string>
-    <string name="notif_ch_download_status">下載结果</string>
-    <string name="notif_ch_download_desc">顯示在應用程序中下載的版本的下載進度</string>
-    <string name="notif_ch_download_status_desc">顯示下載結果</string>
-    <string name="notif_new_ver">新發布的OrangeFox可用</string>
-    <string name="notif_new_ver_sub">版本%1$s%2$s可供下載和安裝。\n點擊“安裝”安裝此更新。</string>
+    <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">備份</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">更新通知</string>
+    <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">關於在後台發現的新版本的通知</string>
+    <string name="notif_ch_download" comment="notif_ch_download&#10;&#10;Appears in Android settings when you're changing notification channel settings.">下载進度</string>
+    <string name="notif_ch_download_status" comment="notif_ch_download_status&#10;&#10;Appears in Android settings when you're changing notification channel settings.">下載结果</string>
+    <string name="notif_ch_download_desc" comment="notif_ch_download_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">顯示在應用程序中下載的版本的下載進度</string>
+    <string name="notif_ch_download_status_desc" comment="notif_ch_download_status_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">顯示下載結果</string>
+    <string name="notif_new_ver" comment="notif_new_ver&#10;&#10;Notification">新發布的OrangeFox可用</string>
+    <string name="notif_new_ver_sub" comment="notif_new_ver_sub&#10;&#10;Notification.">版本%1$s%2$s可供下載和安裝。\n點擊“安裝”安裝此更新。</string>
     <string name="notif_download_complete">%1$s下载完成</string>
     <string name="notif_download_failed">下載%1$s失敗</string>
     <string name="notif_downloading">正在下載%1$s。。。</string>
-    <string name="notif_downloading_app">正在下載應用程序更新。 。 。</string>
-    <string name="notif_downloaded_app">已下載應用程序更新</string>
-    <string name="notif_download_failed_app">未能下載應用程序更新</string>
+    <string name="notif_downloading_app" comment="notif_downloading_app&#10;&#10;Notification.">正在下載應用程序更新。 。 。</string>
+    <string name="notif_downloaded_app" comment="notif_downloaded_app&#10;&#10;Notification.">已下載應用程序更新</string>
+    <string name="notif_download_failed_app" comment="notif_download_failed_app&#10;&#10;Notification.">未能下載應用程序更新</string>
     <string name="preparing">準備。 。 。</string>
     <string name="install">安裝</string>
     <string name="reboot">重新啟動</string>
-    <string name="notify_pending_reboot">重新啟動以安裝OrangeFox %1$s</string>
-    <string name="notify_pending_reboot_sub">更新已下載到%1$s。\n重新啟動以恢復以完成安裝。</string>
-    <string name="md5_check">正在檢查MD5...</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">重新啟動以安裝OrangeFox %1$s</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">更新已下載到%1$s。\n重新啟動以恢復以完成安裝。</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">正在檢查MD5...</string>
     <string name="activity_settings">設定</string>
     <string name="pref_update">恢復更新</string>
     <string name="pref_update_enable">檢查更新</string>
@@ -142,18 +142,18 @@
     <string name="about_web">網站</string>
     <string name="about_beta">測試版支援</string>
     <string name="about_oos">開放源代碼許可證</string>
-    <string name="dev_telegram">維護人員Telegram</string>
-    <string name="annoy_opcol">捐贈給OrangeFox</string>
-    <string name="annoy_opcol_desc">幫助我們改善我們的恢復</string>
-    <string name="annoy_crowdin">你想看用你的語言編寫的應用程序嗎？</string>
-    <string name="annoy_crowdin_desc">幫助我們在Crowdin中翻譯應用程序</string>
-    <string name="annoy_support">恢復不起作用？</string>
-    <string name="annoy_support_desc">Telegram中提問</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">維護人員Telegram</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">捐贈給OrangeFox</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">幫助我們改善我們的恢復</string>
+    <string name="annoy_crowdin" comment="annoy_crowdin&#10;&#10;Help message on top of the screen in main activity">你想看用你的語言編寫的應用程序嗎？</string>
+    <string name="annoy_crowdin_desc" comment="annoy_crowdin_desc&#10;&#10;Help message on top of the screen in main activity">幫助我們在Crowdin中翻譯應用程序</string>
+    <string name="annoy_support" comment="annoy_support&#10;&#10;Help message on top of the screen in main activity">恢復不起作用？</string>
+    <string name="annoy_support_desc" comment="annoy_support_desc&#10;&#10;Help message on top of the screen in main activity">Telegram中提問</string>
     <!-- Context -->
     <string name="annoy_upd">啟用自動更新</string>
     <string name="annoy_upd_desc">應用程序將在後台自動安裝所有更新</string>
-    <string name="annoy_foxfiles">一些文件丟失了</string>
-    <string name="annoy_foxfiles_desc">您需要重新安裝恢復才能擁有所有功能</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">一些文件丟失了</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">您需要重新安裝恢復才能擁有所有功能</string>
     <string name="pref_annoy_enable">顯示幫助消息</string>
     <string name="pref_annoy_enable_desc">顯示有​​用的上下文消息</string>
     <string name="script_empty">恢復腳本</string>
@@ -167,7 +167,7 @@
     <string name="script_wipe">格式化</string>
     <string name="script_created">腳本已創建。重新啟動以執行它。</string>
     <string name="script_err_rom">你刪除了系統，但沒有安裝ROM。</string>
-    <string name="script_err_nothing">腳本為空。</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">腳本為空。</string>
     <string name="ignore">忽略</string>
     <string name="script_add_umount">添加卸載操作</string>
     <string name="script_add_mount">添加裝載操作</string>
@@ -180,7 +180,7 @@
     <string name="script_decrypt_text">密碼</string>
     <string name="script_decrypt_pattern">圖案</string>
     <string name="script_decrypt">解密</string>
-    <string name="script_restore">還原</string>
+    <string name="script_restore" comment="script_restore&#10;&#10;Restore action in scripts action list. It's used, when user loads custom OpenRecoveryScript">還原</string>
     <string name="script_mount">掛載</string>
     <string name="script_umount">卸載</string>
     <string name="script_rw">重新掛載R/W</string>
@@ -190,28 +190,28 @@
     <string name="script_cmd">執行shell命令</string>
     <string name="script_set">設置變量</string>
     <string name="script_print">打印文本</string>
-    <string name="script_print_mounts">打印掛載</string>
+    <string name="script_print_mounts" comment="script_print_mounts&#10;&#10;Action in scripts action list. It's used, when user loads custom OpenRecoveryScript">打印掛載</string>
     <string name="script_fixperms">修復SELinux權限</string>
     <string name="script_sideload">啟動sideload</string>
     <string name="script_no_params">&lt; 無參數&gt;</string>
     <string name="partition">劃分</string>
-    <string name="clear_all">全部清除</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">全部清除</string>
     <string name="reboot_recovery">重啟到恢復模式</string>
     <string name="reboot_bootloader">重新引導引導程序</string>
     <string name="unknown">未知</string>
     <string name="backup_optimize">壓縮備份</string>
     <string name="backup_digest">跳過digest創建</string>
-    <string name="err_changelog">無法加載更改日誌</string>
+    <string name="err_changelog" comment="err_changelog&#10;&#10;Appears instead of changelog of app">無法加載更改日誌</string>
     <string name="update_changelog">應用程序更改日誌</string>
-    <string name="update_install">安裝應用程序更新</string>
-    <string name="update_msg">新的應用程序更新可用</string>
-    <string name="update_msg_desc">點擊此處顯示更改日誌</string>
-    <string name="update_installed_vers">已安装版本：%1$s\n\n%2$s</string>
-    <string name="MIUI_dark_mode">應用程序看起來不像預期的那樣</string>
-    <string name="MIUI_dark_mode_desc">MIUI反轉OrangeFox應用程序的顏色。\n\n要禁用此功能，您需要：\n·轉到顯示設置\n·查找暗模式設置\n·點擊各個應用程序\n·取消選中OrangeFox應用程序</string>
-    <string name="MIUI_dark_mode_tap">點擊此處獲取更多信息</string>
-    <string name="go_settings">轉到設置</string>
-    <string name="show_me">告訴我怎麼做</string>
+    <string name="update_install" comment="update_install&#10;&#10;Floating action button on changelog page">安裝應用程序更新</string>
+    <string name="update_msg" comment="update_msg&#10;&#10;Help message on top of the screen in main activity">新的應用程序更新可用</string>
+    <string name="update_msg_desc" comment="update_msg_desc&#10;&#10;Help message on top of the screen in main activity">點擊此處顯示更改日誌</string>
+    <string name="update_installed_vers" comment="update_installed_vers&#10;&#10;Appears at the top of changelog">已安装版本：%1$s\n\n%2$s</string>
+    <string name="MIUI_dark_mode" comment="MIUI_dark_mode&#10;&#10;Help message on top of the screen in main activity">應用程序看起來不像預期的那樣</string>
+    <string name="MIUI_dark_mode_desc" comment="MIUI_dark_mode_desc&#10;&#10;Special dialog for MIUI.">MIUI反轉OrangeFox應用程序的顏色。\n\n要禁用此功能，您需要：\n·轉到顯示設置\n·查找暗模式設置\n·點擊各個應用程序\n·取消選中OrangeFox應用程序</string>
+    <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">點擊此處獲取更多信息</string>
+    <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">轉到設置</string>
+    <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">告訴我怎麼做</string>
     <string name="log_activity">日志</string>
     <string name="log_type_normal">日志</string>
     <string name="log_type_zip">壓縮日誌</string>
@@ -225,6 +225,6 @@
     <string name="log_share_text">使用電報直接向開發人員發送日誌:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\n您還可以向維護人員發送私人消息。</string>
     <string name="feedback">幫助 &amp; 反饋</string>
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
-    <string name="very_old_version">你的應用程序版本很舊</string>
-    <string name="very_old_version_desc">請從下載新應用app.orangefox.tech</string>
+    <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">你的應用程序版本很舊</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">請從下載新應用app.orangefox.tech</string>
 </resources>

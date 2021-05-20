@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">Κλείσιμο</string>
+    <string name="err_json" comment="err_json">Αδυναμία ανάλυσης json</string>
+    <string name="err_response">Ο διακομιστής επέστρεψε λάθος κωδικό απάντησης: %1$d</string>
+    <string name="err_no_rel">Λυπούμαστε, δεν μπορούμε να βρούμε αυτή την έκδοση</string>
+    <string name="err_no_rels">Λυπούμαστε, δεν μπορούμε να βρούμε εκδόσεις για αυτή τη συσκευή</string>
+    <string name="err_no_device">Δεν βρέθηκε συσκευή</string>
+    <string name="err_no_ors">Το script δεν βρέθηκε</string>
+    <string name="err_no_internet">Φαίνεται ότι η συσκευή σας δεν είναι συνδεδεμένη στο διαδίκτυο.\nΕλέγξτε τη σύνδεση στο διαδίκτυο και προσπαθήστε ξανά</string>
+    <string name="err_no_internet_short">Ελέγξτε τη σύνδεση στο Διαδίκτυο και προσπαθήστε ξανά</string>
+    <string name="err_dev_not_selected">Δεν επιλέξατε τη συσκευή σας</string>
+    <string name="err_no_pm_storage">Τα δικαιώματα αποθήκευσης δεν χορηγήθηκαν</string>
+    <string name="err_check_pm_inernet">Έλεγχος δικαιωμάτων αποθήκευσης ή σύνδεσης στο διαδίκτυο</string>
+    <string name="setup">Χορήγηση</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">Δεν εκχωρήσατε δικαιώματα root.\nΠαραχωρήστε δικαιώματα root χρησιμοποιώντας το Magisk Manager</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">Η έκδοση ότι έχετε κατεβάσει έχει καταστραφεί. Παρακαλώ, ξανά κατεβάστε την έκδοση.</string>
+    <string name="err_md5_wrong_exists">Η έκδοση έχει καταστραφεί. Παρακαλώ, ξανά κατεβάστε την έκδοση.</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">Πατήστε \"Orange Fox\" και μετά πατήστε \"Να επιτρέπεται η πρόσβαση για να διαχειριστείτε όλα τα αρχεία\"</string>
+    <string name="err_ors" comment="err_ors&#10;&#10;Appears in snackbar or in notification">Αδυναμία δημιουργίας αρχείου OpenRecoveryScript. Παρακαλούμε, επανεκκινήστε στη recovery και εγκατάσταση αρχείου ZIP χειροκίνητα.\nΗ θέση αρχείου είναι %1$s</string>
+    <string name="err_ors_short" comment="err_ors_short&#10;&#10;Appears in snackbar or in notification">Αδυναμία δημιουργίας αρχείου OpenRecoveryScript</string>
+    <string name="err_service_running" comment="err_service_running&#10;&#10;Appears in snackbar on main page">Μια άλλη έκδοση κατεβαίνει</string>
+    <string name="err_ise">Εσωτερικό σφάλμα διακομιστή</string>
+    <string name="err_filepicker" comment="err_filepicker&#10;&#10;Appears in snackbar on scripts page">Τα αρχεία από το φάκελο λήψης ή το φάκελο πρόσφατων δεν υποστηρίζονται.</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">Δεν βρέθηκε αρχείο</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">Λάθος μορφή αρχείου</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">Αδυναμία διαγραφής αρχείου</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">Αδυναμία διαγραφής αρχείων καταγραφής</string>
+    <string name="err_logs_deleted">Δεν υπάρχουν αρχεία καταγραφής για διαγραφή</string>
+    <string name="err_ors_delete" comment="err_ors_delete&#10;&#10;Appears in snackbar on scripts page">Αδυναμία διαγραφής του αρχείου OpenRecoveryScript.\nΧωρίς πρόσβαση root.</string>
+    <string name="err_reboot_notify" comment="err_reboot_notify&#10;&#10;Appears in snackbar on scripts page">Αδυναμία επανεκκίνησης.\nΕλέγξτε την πρόσβαση root ή επανεκκινήστε χειροκίνητα.</string>
+    <string name="err_ors_bad" comment="err_ors_bad&#10;&#10;Appears in snackbar on scripts page">Το script περιέχει σφάλματα</string>
+    <string name="parser_ok">Το script διαγράφηκε επιτυχώς</string>
+    <string name="parser_load">Φόρτωση script</string>
+    <string name="delete_ors">Διαγραφή script</string>
+    <string name="deleted_ors">Το script διαγράφηκε επιτυχώς</string>
+    <string name="install_latest">Εγκατάσταση %1$s %2$s</string>
+    <string name="share">Κοινοποίηση</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="delete_logs">Διαγραφή όλων των αρχείων καταγραφής</string>
+    <string name="rels_activity">Εκδόσεις</string>
+    <string name="rel_activity">Πληροφορίες Κυκλοφορίας</string>
+    <string name="rel_button">Εμφάνιση Πληροφοριών</string>
+    <string name="rel_more">Όλες οι εκδόσεις</string>
+    <string name="rel_last">Τελευταία Έκδοση</string>
+    <string name="rel_current">Εγκατεστημένη Έκδοση</string>
+    <string name="rel_size">Μέγεθος Αρχείου</string>
+    <string name="rel_commit">Codebase</string>
+    <string name="rel_vers">Έκδοση</string>
+    <string name="rel_type">Τύπος Έκδοσης</string>
+    <string name="rel_name">Όνομα Αρχείου</string>
+    <string name="rel_date">Ημερομηνία</string>
+    <string name="rel_stable">Σταθερό</string>
+    <string name="rel_beta">Beta</string>
+    <string name="rel_installthis">Εγκατάσταση Αυτής Της Έκδοσης</string>
+    <string name="rel_info">Πληροφορίες</string>
+    <string name="rel_changes">Αλλαγές</string>
+    <string name="rel_notes">Σημειώσεις</string>
+    <string name="rel_bugs">Bugs</string>
+    <string name="dev_info">Πληροφορίες Συσκευής</string>
+    <string name="dev_model">Μοντέλο</string>
+    <string name="dev_code">Κωδικό όνομα</string>
+    <string name="dev_maintainer">Συντηρητής</string>
+    <string name="dev_status">Κατάσταση</string>
+    <string name="dev_maintained">Υποστηριζόμενο</string>
+    <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">Ανυποστήρικτο</string>
+    <string name="dev_patch">Διόρθωση</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">Επιλέξτε Συσκευή</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%dMB</string>
+    <string name="err_card_no_internet">Χωρίς σύνδεση στο διαδίκτυο</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">Παρουσιάστηκε ένα σφάλμα</string>
+    <string name="err_card_try_again">Προσπάθησε ξανά</string>
+    <string name="guess_top">Η συσκευή σας είναι</string>
+    <string name="guess_bottom">Φαίνεται ότι υποστηρίζουμε αυτήν τη συσκευή επίσημα!\nΕίναι αυτή συσκευή σας;</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">Δεν μπορούμε να το αναγνωρίσουμε. Μπορεί να μην υποστηρίζεται.</string>
+    <string name="guess_correct">Ναι, είναι σωστό</string>
+    <string name="guess_wrong">Όχι, είναι λάθος</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">Επιλέξτε Συσκευή</string>
+    <string name="inst_warn">Η αυτόματη εγκατάσταση απαιτεί εγκατεστημένο recovery (TWRP, OrangeFox, κλπ.) και πρόσβαση root. Θα πρέπει να επανεκκινήσετε τη συσκευή για να ανακτήσετε μετά την ολοκλήρωση της λήψης.</string>
+    <string name="inst_file_found">Αυτή η έκδοση είναι ήδη κατεβασμένη στη συσκευή σας. Επιλέξτε τι θέλετε να κάνετε με αυτή την έκδοση.</string>
+    <string name="inst_install">Λήψη και εγκατάσταση</string>
+    <string name="inst_download">Λήψη μόνο</string>
+    <string name="inst_cancel">Ακύρωση</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%1$d MB από %2$d MB</string>
+    <string name="inst_downloaded">Λήφθηκε σε %1$s</string>
+    <string name="inst_bg_download">Η λήψη ξεκίνησε.\nΕλέγξτε τις ειδοποιήσεις για να παρακολουθήσετε την πρόοδο λήψης.</string>
+    <string name="ex_install_local">Εγκατάσταση</string>
+    <string name="ex_redownload">Ξανακατέβασμα</string>
+    <string name="ex_delete">Διαγραφή από τη συσκευή</string>
+    <string name="bnav_install">Εγκατάσταση</string>
+    <string name="bnav_scripts">Scripts</string>
+    <string name="bnav_logs">Καταγραφή</string>
+    <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">Αντίγραφα Ασφαλείας</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Ενημέρωση Ειδοποιήσεων</string>
+    <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Ειδοποιήσεις για νέες εκδόσεις που βρέθηκαν στο παρασκήνιο</string>
+    <string name="notif_ch_download" comment="notif_ch_download&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Πρόοδος Λήψης</string>
+    <string name="notif_ch_download_status" comment="notif_ch_download_status&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Αποτέλεσμα Λήψης</string>
+    <string name="notif_ch_download_desc" comment="notif_ch_download_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Εμφάνιση προόδου λήψης</string>
+    <string name="notif_ch_download_status_desc" comment="notif_ch_download_status_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Εμφάνιση αποτελέσματος λήψης</string>
+    <string name="notif_new_ver" comment="notif_new_ver&#10;&#10;Notification">Νέα κυκλοφορία του OrangeFox διαθέσιμο</string>
+    <string name="notif_new_ver_sub" comment="notif_new_ver_sub&#10;&#10;Notification.">Η έκδοση %1$s %2$s είναι διαθέσιμη για λήψη και εγκατάσταση.\nΠατήστε \"Εγκατάσταση\" για να εγκαταστήσετε αυτήν την ενημέρωση.</string>
+    <string name="notif_download_complete">Η λήψη του %1$s Ολοκληρώθηκε</string>
+    <string name="notif_download_failed">Η λήψη του %1$s Απέτυχε</string>
+    <string name="notif_downloading">Λήψη %1$s…</string>
+    <string name="notif_downloading_app" comment="notif_downloading_app&#10;&#10;Notification.">Λήψη ενημέρωσης εφαρμογής…</string>
+    <string name="notif_downloaded_app" comment="notif_downloaded_app&#10;&#10;Notification.">Λήψη ενημέρωσης εφαρμογής</string>
+    <string name="notif_download_failed_app" comment="notif_download_failed_app&#10;&#10;Notification.">Αποτυχία λήψης ενημέρωσης εφαρμογής</string>
+    <string name="preparing">Προετοιμασία…</string>
+    <string name="install">Εγκατάσταση</string>
+    <string name="reboot">Επανεκκινήση</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">Επανεκκίνηση για να εγκαταστήσετε το OrangeFox %1$s</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">Η ενημέρωση κατέβηκε στο %1$s.\nΕπανεκκινήστε σε ανάκαμψη για να ολοκληρώσετε την εγκατάσταση.</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">Έλεγχος MD5…</string>
+    <string name="activity_settings">Ρυθμίσεις</string>
+    <string name="pref_update">Ενημερώσεις Recovery</string>
+    <string name="pref_update_enable">Έλεγχος ενημερώσεων</string>
+    <string name="pref_update_enable_desc">Έλεγχος για ενημερώσεις recovery κάθε μέρα</string>
+    <string name="pref_update_limited">Επιτρέπονται περιορισμένες συνδέσεις</string>
+    <string name="pref_update_limited_desc">Επιτρέπεται ο έλεγχος ενημερώσεων σε περιορισμένες συνδέσεις</string>
+    <string name="pref_update_beta">Εγκατάσταση beta εκδόσεων</string>
+    <string name="pref_update_auto">Λήψη και εγκατάσταση ενημερώσεων</string>
+    <string name="pref_update_auto_desc">Όλες οι κατεβασμένες ενημερώσεις θα κατέβουν και θα εγκατασταθούν χωρίς προτροπή. Θα πρέπει ακόμα να επανεκκινήσετε σε ανάκαμψη για να ολοκληρώσετε την εγκατάσταση.</string>
+    <string name="pref_update_beta_desc">Η εφαρμογή θα εγκαταστήσει όλες τις τελευταίες διαθέσιμες εκδόσεις, συμπεριλαμβανομένης της beta</string>
+    <string name="pref_style">Εμφάνιση</string>
+    <string name="pref_theme_system">Θέμα συστήματος</string>
+    <string name="pref_theme_system_desc">Χρήση προεπιλεγμένου θέματος συστήματος</string>
+    <string name="pref_theme_dark">Χρήση σκοτεινού θέματος</string>
+    <string name="pref_theme_dark_desc">Χρήση σκοτεινού θέματος αντί για φωτεινού θέματος</string>
+    <string name="pref_device">Αλλαγή συσκευής</string>
+    <string name="pref_pm">Λείπουν δικαιώματα</string>
+    <string name="pref_pm_desc">Η εφαρμογή OrangeFox χρειάζεται δικαιώματα για λήψη και εγκατάσταση ενημερώσεων.\nΠατήστε εδώ για να εκχωρήσετε δικαιώματα αποθήκευσης και Root.</string>
+    <string name="pref_about">Πληροφορίες</string>
+    <string name="pref_about_desc">Συγγραφείς, άδειες, σύνδεσμοι</string>
+    <string name="about_me">Κύριος προγραμματιστής και σχεδιαστής</string>
+    <string name="about_yan">Δημιουργός API, OrangeFox επικεφαλής</string>
+    <string name="about_sub">Εφαρμογή για το OrangeFox Recovery</string>
+    <string name="about_news">Νέα</string>
+    <string name="about_support">Υποστηριζόμενο</string>
+    <string name="about_app_tg">Ομάδα Εφαρμογών</string>
+    <string name="about_web">Ιστοσελίδα</string>
+    <string name="about_beta">Υποστήριξη Beta</string>
+    <string name="about_oos">Άδειες Ανοιχτού Κώδικα</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">Telegram Του Συντηρητή</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">Δωρεά στο OrangeFox</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">Βοηθήστε μας να βελτιώσουμε το recovery</string>
+    <string name="annoy_crowdin" comment="annoy_crowdin&#10;&#10;Help message on top of the screen in main activity">Θέλετε να δείτε την εφαρμογή στη γλώσσα σας;</string>
+    <string name="annoy_crowdin_desc" comment="annoy_crowdin_desc&#10;&#10;Help message on top of the screen in main activity">Βοηθήστε μας να μεταφράσουμε την εφαρμογή στο Crow din</string>
+    <string name="annoy_support" comment="annoy_support&#10;&#10;Help message on top of the screen in main activity">Το recovery δεν λειτουργεί;</string>
+    <string name="annoy_support_desc" comment="annoy_support_desc&#10;&#10;Help message on top of the screen in main activity">Κάντε μια ερώτηση στην ομάδα Telegram</string>
+    <!-- Context -->
+    <string name="annoy_upd">Ενεργοποίηση αυτόματων ενημερώσεων</string>
+    <string name="annoy_upd_desc">Η εφαρμογή θα εγκαταστήσει όλες τις ενημερώσεις αυτόματα στο παρασκήνιο</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">Λείπει κάποια αρχεία</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">Πρέπει να επανεγκαταστήσετε το recovery για να έχετε όλες τις λειτουργίες</string>
+    <string name="pref_annoy_enable">Εμφάνιση μηνυμάτων βοήθειας</string>
+    <string name="pref_annoy_enable_desc">Εμφάνιση χρήσιμων μηνυμάτων πλαισίου</string>
+    <string name="script_empty">Ανάκτηση Script</string>
+    <string name="script_empty_desc">Εύκολη εγκατάσταση, δημιουργία αντιγράφων ασφαλείας και σβήσιμο.\n
+        Χρειάζεστε ακόμα την εγκατάσταση του Orange Fox, όλες οι ενέργειες θα εκτελεστούν μέσα στο recovery.</string>
+    <string name="script_backup_name">Όνομα Αντιγράφου Ασφαλείας</string>
+    <string name="script_add_title">Προσθήκη ενέργειας</string>
+    <string name="script_create">Δημιουργία Script</string>
+    <string name="script_zip">Εγκατάσταση</string>
+    <string name="script_zip_select">Επιλέξτε ZIP</string>
+    <string name="script_backup">Αντίγραφα Ασφαλείας</string>
+    <string name="script_wipe">Εκκαθάριση</string>
+    <string name="script_created">Το script δημιουργήθηκε. Επανεκκίνηση για να το εκτελέσετε.</string>
+    <string name="script_err_rom">Σβήσατε το σύστημα αλλά δεν εγκαταστήσατε ROM.</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">Το script είναι κενό.</string>
+    <string name="ignore">Παράβλεψη</string>
+    <string name="script_add_umount">Προσθήκη ενέργειας αποπροσάρτησης</string>
+    <string name="script_add_mount">Προσθήκη ενέργειας προσάρτησης</string>
+    <string name="script_add_rw">Προσθήκη ενέργειας επαναπροσάρτησης R/W</string>
+    <string name="script_cmd_text">Εντολή</string>
+    <string name="script_mkdir_text">Όνομα Καταλόγου</string>
+    <string name="script_print_text">Κείμενο</string>
+    <string name="script_var_text">Μεταβλητή</string>
+    <string name="script_var_val">Τιμή</string>
+    <string name="script_decrypt_text">Κωδικός</string>
+    <string name="script_decrypt_pattern">Μοτίβο</string>
+    <string name="script_decrypt">Αποκρυπτογράφηση</string>
+    <string name="script_restore" comment="script_restore&#10;&#10;Restore action in scripts action list. It's used, when user loads custom OpenRecoveryScript">Επαναφορά</string>
+    <string name="script_mount">Προσάρτηση</string>
+    <string name="script_umount">Αποπροσάρτηση</string>
+    <string name="script_rw">Επαναπροσάρτηση R/W</string>
+    <string name="script_reboot">Επανεκκινήση</string>
+    <string name="script_etc">Κλπ</string>
+    <string name="script_mkdir">Δημιουργία φακέλου</string>
+    <string name="script_cmd">Εκτέλεση εντολής shell</string>
+    <string name="script_set">Ορισμός μεταβλητής</string>
+    <string name="script_print">Εκτύπωση κειμένου</string>
+    <string name="script_print_mounts" comment="script_print_mounts&#10;&#10;Action in scripts action list. It's used, when user loads custom OpenRecoveryScript">Εκτύπωση προσαρτημάτων</string>
+    <string name="script_fixperms">Διόρθωση αδειών SELinux</string>
+    <string name="script_sideload">Έναρξη Sideload</string>
+    <string name="script_no_params">&lt; Καμία παράμετρος &gt;</string>
+    <string name="partition">Τομέας</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">Εκκαθάριση Όλων</string>
+    <string name="reboot_recovery">Επανεκκίνηση Recovery</string>
+    <string name="reboot_bootloader">Επανεκκίνηση Bootloader</string>
+    <string name="unknown">Άγνωστο</string>
+    <string name="backup_optimize">Συμπίεση αντιγράφου ασφαλείας</string>
+    <string name="backup_digest">Παράλειψη δημιουργίας σύνοψης</string>
+    <string name="err_changelog" comment="err_changelog&#10;&#10;Appears instead of changelog of app">Αδυναμία φόρτωσης αρχείου αλλαγών</string>
+    <string name="update_changelog">Αλλαγές Εφαρμογών</string>
+    <string name="update_install" comment="update_install&#10;&#10;Floating action button on changelog page">Εγκατάσταση Ενημέρωσης Εφαρμογής</string>
+    <string name="update_msg" comment="update_msg&#10;&#10;Help message on top of the screen in main activity">Νέα ενημέρωση της εφαρμογής είναι διαθέσιμη</string>
+    <string name="update_msg_desc" comment="update_msg_desc&#10;&#10;Help message on top of the screen in main activity">Πατήστε εδώ για εμφάνιση αλλαγών</string>
+    <string name="update_installed_vers" comment="update_installed_vers&#10;&#10;Appears at the top of changelog">Εγκατεστημένη έκδοση: %1$s\n\n%2$s</string>
+    <string name="MIUI_dark_mode" comment="MIUI_dark_mode&#10;&#10;Help message on top of the screen in main activity">Η εφαρμογή δεν φαίνεται όπως έχει προβλεφθεί</string>
+    <string name="MIUI_dark_mode_desc" comment="MIUI_dark_mode_desc&#10;&#10;Special dialog for MIUI.">Το MIUI αντιστρέφει τα χρώματα του OrangeFox App.\n\nΓια να το απενεργοποιήσετε πρέπει να:\n· Μεταβείτε στις Ρυθμίσεις Οθόνης\n· Βρείτε σκοτεινές ρυθμίσεις λειτουργίας\n· πατήστε \"Μεμονωμένες Εφαρμογές\"\n· Αποεπιλέξτε την εφαρμογή OrangeFox</string>
+    <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">Πατήστε εδώ για να λάβετε περισσότερες πληροφορίες</string>
+    <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">Μεταβείτε στις ρυθμίσεις</string>
+    <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">Δείξε Μου Πώς</string>
+    <string name="log_activity">Αρχείο καταγραφής</string>
+    <string name="log_type_normal">Αρχείο καταγραφής</string>
+    <string name="log_type_zip">Συμπιεσμένο αρχείο καταγραφής</string>
+    <string name="log_type_install">Αρχείο καταγραφής εγκατάστασης</string>
+    <string name="log_type_postinstall">Αρχείο καταγραφής μετά την εγκατάσταση</string>
+    <string name="log_type_last">Τελευταίο αρχείο καταγραφής</string>
+    <string name="log_empty">Δεν βρέθηκαν αρχεία καταγραφής</string>
+    <string name="log_grantpm">Πατήστε εδώ για να δείτε τα αρχεία καταγραφής</string>
+    <string name="btn_continue">Συνέχεια</string>
+    <string name="log_share">Αποστολή αρχείου καταγραφής</string>
+    <string name="log_share_text">Αποστολή αρχείων καταγραφής απευθείας στους προγραμματιστές χρησιμοποιώντας ομάδες τοθ telegram:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nΕπίσης, μπορείτε να στείλετε προσωπικό μήνυμα στο συντηρητή.</string>
+    <string name="feedback">Βοήθεια &amp; Σχόλια</string>
+    <string name="translated_by" comment="translated_by&#10;&#10;Appears in about page. You DO NOT need write your nickname after 'by'!">Μεταφράστηκε από</string>
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+    <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">Έχετε πολύ παλιά έκδοση εφαρμογής</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">Παρακαλούμε κατεβάστε νέα εφαρμογή από app.orangefox.tech</string>
+</resources>

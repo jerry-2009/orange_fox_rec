@@ -12,11 +12,11 @@
     <string name="err_no_pm_storage">கோப்பு சேமிப்பின் (Storage) அனுமதி வழங்கப்படவில்லை</string>
     <string name="err_check_pm_inernet">கோப்பு சேமிப்பின் அனுமதியை அல்லது இணைப்பை சரிபார்க்கவும் (storage)</string>
     <string name="setup">அனுமதி</string>
-    <string name="err_no_pm_root">நீங்கள் root சேவையை அனுமதிக்கவில்லை.\nroot சேவையை magisk managerல் அனுமதியுங்கள்</string>
-    <string name="err_file_notfound">கோப்பு காணவில்லை</string>
-    <string name="err_file_format">தவறான கோப்பு வடிவம்</string>
-    <string name="err_file_delete">கோப்பை அழிக்க முடியாது</string>
-    <string name="err_logs_delete">Logs-ஐ அழிக்க முடியாது</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">நீங்கள் root சேவையை அனுமதிக்கவில்லை.\nroot சேவையை magisk managerல் அனுமதியுங்கள்</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">கோப்பு காணவில்லை</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">தவறான கோப்பு வடிவம்</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">கோப்பை அழிக்க முடியாது</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">Logs-ஐ அழிக்க முடியாது</string>
     <string name="err_logs_deleted">அழிப்பதற்கு எந்த logகளும் இல்லை</string>
     <string name="delete_ors">Script அழி</string>
     <string name="deleted_ors">Script வெற்றிகரமாக அழிக்கப்பட்டது</string>
@@ -48,23 +48,23 @@
     <string name="dev_maintainer">நிர்வாகி</string>
     <string name="dev_status">நிலை</string>
     <string name="dev_maintained">ஆதரவுடன் உள்ளது</string>
-    <string name="dev_activity">சாதனத்தை தேர்வு செய்</string>
-    <string name="size_mb">%dMB</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">சாதனத்தை தேர்வு செய்</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%dMB</string>
     <string name="err_card_no_internet">இனையசேவை இல்லை</string>
-    <string name="err_card_error">சிறு தவறாகிவிட்டது</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">சிறு தவறாகிவிட்டது</string>
     <string name="err_card_try_again">மீண்டும் முயற்சிக்கவும்</string>
     <string name="guess_top">உங்களுடைய சாதனம்</string>
     <string name="guess_bottom">இந்த சாதனத்திற்கு நாங்கள் ஆதரவளிப்பது போல தெரிகின்றது!\n இந்த சாதனமா?</string>
-    <string name="guess_fail">எங்களால கண்டறிய முடியவில்லை. இது ஆதரவு இல்லாமல் கூட இருக்கலாம்.</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">எங்களால கண்டறிய முடியவில்லை. இது ஆதரவு இல்லாமல் கூட இருக்கலாம்.</string>
     <string name="guess_correct">ஆமாம், அது சரி</string>
     <string name="guess_wrong">இல்லை, இது தவறு</string>
-    <string name="sel_activity">சாதனத்தை தேர்வு செய்</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">சாதனத்தை தேர்வு செய்</string>
     <string name="inst_warn">தானாகவ Install செய்ய ஏற்கனவே install செய்யப்பட்ட recovery (TWRP, ORANGE FOX அதுபோல.) &amp; Root அனுமதி தேவை. பதிவிறக்கிய பின்பு உங்களுடைய சாதனத்தை recoveryக்கு reboot செய்யவும்.</string>
     <string name="inst_file_found">இந்த பதிப்பு ஏற்கனவே உங்களுடைய சாதனத்தில் பதிவிறக்கப்பட்டுள்ளது. இந்த பதிப்பை என்ன செய்ய நினைக்கிறிங்கனு தேர்ந்தெடுங்க.</string>
     <string name="inst_install">பதிவிறக்கு மற்றும் நிறுவு</string>
     <string name="inst_download">பதிவிறக்கினால் மட்டும் போதும்</string>
     <string name="inst_cancel">ரத்துசெய்</string>
-    <string name="inst_progress">%d MB of %d MB</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%d MB of %d MB</string>
     <string name="inst_downloaded">%1$s பதிவிறக்கப்பட்டது</string>
     <string name="inst_bg_download">பதிவிறக்கம் ஆரம்பித்தது.\n பதிவிறக்கத்தை கண்காணிக்க notification-ஐ பார்க்கவும்.</string>
     <string name="ex_install_local">நிறுவு</string>
@@ -73,12 +73,12 @@
     <string name="bnav_install">நிறுவு</string>
     <string name="bnav_scripts">Scripts</string>
     <string name="bnav_logs">Logs</string>
-    <string name="notif_ch_update">புதுப்பிற்கான தகவல்</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">புதுப்பிற்கான தகவல்</string>
     <string name="install">நிறுவு</string>
     <string name="reboot">மறுதொடக்கம்</string>
-    <string name="notify_pending_reboot">OrangeFoxஐ நிறுவ சாதனத்தை மறுதொடக்கம் செய்க %1$s</string>
-    <string name="notify_pending_reboot_sub">பதிவிறக்கியதை %1$sக்கு புதுப்பி.\nRecoveryக்கு மறுதொடக்கம் செய்து நிறைவு செய்க.</string>
-    <string name="md5_check">MD5...ஐ சரிபாக்கிறது</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">OrangeFoxஐ நிறுவ சாதனத்தை மறுதொடக்கம் செய்க %1$s</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">பதிவிறக்கியதை %1$sக்கு புதுப்பி.\nRecoveryக்கு மறுதொடக்கம் செய்து நிறைவு செய்க.</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">MD5...ஐ சரிபாக்கிறது</string>
     <string name="activity_settings">அமைப்புகள்</string>
     <string name="pref_update">Recoveryகான புதுபிப்புகள்</string>
     <string name="pref_update_enable">புதுப்பிப்பை சரிபார்</string>
@@ -105,14 +105,14 @@
     <string name="about_web">இணையதளம்</string>
     <string name="about_beta">முற்பதிப்புக்கான குழு</string>
     <string name="about_oos">திறந்த வெளி உரிமம்</string>
-    <string name="dev_telegram">நிர்வாகியின் டெலிகிராம் குழு</string>
-    <string name="annoy_opcol">OrangeFoxகாக நன்கொடை வழங்க</string>
-    <string name="annoy_opcol_desc">Recoveryஐ மேம்படுத்த எங்களுக்கு உதவுங்கள்</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">நிர்வாகியின் டெலிகிராம் குழு</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">OrangeFoxகாக நன்கொடை வழங்க</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">Recoveryஐ மேம்படுத்த எங்களுக்கு உதவுங்கள்</string>
     <!-- Context -->
     <string name="annoy_upd">தானாகவே புதுப்பிப்பதை அனுமதி</string>
     <string name="annoy_upd_desc">அனைத்து புதுப்பிப்புகளையும் செயலி backgroundல் install செய்துவிடும்</string>
-    <string name="annoy_foxfiles">சில கோப்புகள் காணவில்லை</string>
-    <string name="annoy_foxfiles_desc">அனைத்து செயல்பாடுகளையும் பயன்படுத்த recoveryஐ மீண்டும் நிறுவவும்</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">சில கோப்புகள் காணவில்லை</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">அனைத்து செயல்பாடுகளையும் பயன்படுத்த recoveryஐ மீண்டும் நிறுவவும்</string>
     <string name="pref_annoy_enable">உதவிக்கான மெசேஜ்களை காட்டு</string>
     <string name="pref_annoy_enable_desc">உதவிகரமான context மெசேஜ்களை காட்டு</string>
     <string name="script_empty">Recovery Scripts</string>
@@ -123,7 +123,7 @@
     <string name="script_wipe">அழி</string>
     <string name="script_created">Script உருவாக்கப்பட்டது. இதனை செயல்படுத்த மறுதுவக்கம் செய்யவும்.</string>
     <string name="script_err_rom">நீங்கள் systemஐ அழித்துள்ளீர்கள் ஆனால் எந்த ROM யும் நிறுவவில்லை.</string>
-    <string name="script_err_nothing">Scriptல் எதுவும் இல்லை.</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">Scriptல் எதுவும் இல்லை.</string>
     <string name="ignore">கடந்து செல்</string>
     <string name="script_add_umount">Unmount செய்வதை சேர்</string>
     <string name="script_add_mount">Mount செய்வதை சேர்</string>
@@ -133,11 +133,11 @@
     <string name="script_reboot">மறுதொடக்கம்</string>
     <string name="script_etc">மேலும்</string>
     <string name="script_mkdir">பாதையை உருவாக்கு</string>
-    <string name="clear_all">அனைத்தையும் அழி</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">அனைத்தையும் அழி</string>
     <string name="reboot_recovery">Recoveryக்கு மறுதொடங்கு</string>
     <string name="reboot_bootloader">Bootloaderக்கு மறுதொடங்கு</string>
     <string name="backup_optimize">பாதுகாப்பு பதிப்பை சுருக்கு</string>
     <string name="backup_digest">digest உருவாக்குதலை தவிர்</string>
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
-    <string name="very_old_version_desc">புது செயலியை app.orangefox.tech தளத்தில் இருந்து பதிவிறக்கவும்</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">புது செயலியை app.orangefox.tech தளத்தில் இருந்து பதிவிறக்கவும்</string>
 </resources>

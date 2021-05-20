@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="close">Закрити</string>
-    <string name="err_json">Не вдалося проаналізувати json</string>
+    <string name="err_json" comment="err_json">Не вдалося проаналізувати json</string>
     <string name="err_response">Сервер повернув неправильний код відповіді: %1$d</string>
     <string name="err_no_rel">На жаль, ми не можемо знайти цей реліз</string>
     <string name="err_no_rels">На жаль, ми не можемо знайти релізи для цього пристрою</string>
@@ -13,23 +13,23 @@
     <string name="err_no_pm_storage">Дозволу на зберігання даних не надано</string>
     <string name="err_check_pm_inernet">Перевіряти дозвіл на доступ до сховища або доступ до Інтернету</string>
     <string name="setup">Грант</string>
-    <string name="err_no_pm_root">Ви не надали права суперкористувача.\nНадати права суперкористувача за допомогою Magisk Manager</string>
-    <string name="err_md5_wrong">Реліз, який ви завантажили було пошкоджено. Будь-ласка, перезавантажте реліз знову.</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">Ви не надали права суперкористувача.\nНадати права суперкористувача за допомогою Magisk Manager</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">Реліз, який ви завантажили було пошкоджено. Будь-ласка, перезавантажте реліз знову.</string>
     <string name="err_md5_wrong_exists">Реліз було пошкоджено. Будь-ласка, перезавантажте реліз знову.</string>
-    <string name="help_android11_pm">Натисніть \"OrangeFox\", а потім натисніть \"Дозволити доступ до всіх файлів\"</string>
-    <string name="err_ors">Не вдалося створити файл OpenRecoveryScript. Будь ласка, перезавантажте його в рекавері та встановіть ZIP-файл вручну.\nРозташування файла — %1$s</string>
-    <string name="err_ors_short">Не вдалося створити файл OpenRecoveryScript</string>
-    <string name="err_service_running">Завантажується інша версія</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">Натисніть \"OrangeFox\", а потім натисніть \"Дозволити доступ до всіх файлів\"</string>
+    <string name="err_ors" comment="err_ors&#10;&#10;Appears in snackbar or in notification">Не вдалося створити файл OpenRecoveryScript. Будь ласка, перезавантажте його в рекавері та встановіть ZIP-файл вручну.\nРозташування файла — %1$s</string>
+    <string name="err_ors_short" comment="err_ors_short&#10;&#10;Appears in snackbar or in notification">Не вдалося створити файл OpenRecoveryScript</string>
+    <string name="err_service_running" comment="err_service_running&#10;&#10;Appears in snackbar on main page">Завантажується інша версія</string>
     <string name="err_ise">Внутрішня помилка сервера</string>
-    <string name="err_filepicker">Файли з папки завантаження або недавні програми не підтримуються.</string>
-    <string name="err_file_notfound">Файл не знайдено</string>
-    <string name="err_file_format">Невірний формат файлу</string>
-    <string name="err_file_delete">Неможливо видалити файл</string>
-    <string name="err_logs_delete">Не вдалося видалити журнали</string>
+    <string name="err_filepicker" comment="err_filepicker&#10;&#10;Appears in snackbar on scripts page">Файли з папки завантаження або недавні програми не підтримуються.</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">Файл не знайдено</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">Невірний формат файлу</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">Неможливо видалити файл</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">Не вдалося видалити журнали</string>
     <string name="err_logs_deleted">Немає журналів для видалення</string>
-    <string name="err_ors_delete">Не вдалося видалити файл OpenRecoveryScript.\nНемає кореневого доступу.</string>
-    <string name="err_reboot_notify">Не вдалося перезавантажити.\nПеревірте рут доступ або перезавантажте вручну.</string>
-    <string name="err_ors_bad">Сценарій містить помилки</string>
+    <string name="err_ors_delete" comment="err_ors_delete&#10;&#10;Appears in snackbar on scripts page">Не вдалося видалити файл OpenRecoveryScript.\nНемає кореневого доступу.</string>
+    <string name="err_reboot_notify" comment="err_reboot_notify&#10;&#10;Appears in snackbar on scripts page">Не вдалося перезавантажити.\nПеревірте рут доступ або перезавантажте вручну.</string>
+    <string name="err_ors_bad" comment="err_ors_bad&#10;&#10;Appears in snackbar on scripts page">Сценарій містить помилки</string>
     <string name="parser_ok">Скрипт успішно проаналізований</string>
     <string name="parser_load">Завантажити скрипт</string>
     <string name="delete_ors">Видалити скрипт</string>
@@ -62,25 +62,25 @@
     <string name="dev_maintainer">Підтримка моделі</string>
     <string name="dev_status">Статус</string>
     <string name="dev_maintained">Підтримується</string>
-    <string name="dev_unmaintained">Не підтримується</string>
+    <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">Не підтримується</string>
     <string name="dev_patch">Патч</string>
-    <string name="dev_activity">Виберіть пристрій</string>
-    <string name="size_mb">%dМб</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">Виберіть пристрій</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%dМб</string>
     <string name="err_card_no_internet">Відсутнє підключення до Інтернету</string>
-    <string name="err_card_error">Сталася помилка</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">Сталася помилка</string>
     <string name="err_card_try_again">Спробуйте ще раз</string>
     <string name="guess_top">Ваш пристрій</string>
     <string name="guess_bottom">Схоже, ми офіційно підтримуємо цей пристрій!\nЦе ваш пристрій?</string>
-    <string name="guess_fail">Ми не можемо визначити її. Її не підтримується.</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">Ми не можемо визначити її. Її не підтримується.</string>
     <string name="guess_correct">Так, все вірно</string>
     <string name="guess_wrong">Ні, це помилка</string>
-    <string name="sel_activity">Виберіть пристрій</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">Виберіть пристрій</string>
     <string name="inst_warn">Автоматичне встановлення вимагає встановлення (TWRP, OrangeFox, і т.д.) та кореневого доступу. Вам потрібно перезавантажити пристрій після завершення завантаження.</string>
     <string name="inst_file_found">Цей реліз вже завантажений на ваш пристрій. Виберіть, що ви хочете зробити з цим релізом.</string>
     <string name="inst_install">Завантажити та встановити</string>
     <string name="inst_download">Завантажити лише</string>
     <string name="inst_cancel">Скасувати</string>
-    <string name="inst_progress">%d МБ з %d МБ</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%d МБ з %d МБ</string>
     <string name="inst_downloaded">Завантажено до %1$s</string>
     <string name="inst_bg_download">Розпочато завантаження.\nПеревірте сповіщення, щоб відстежувати процес завантаження.</string>
     <string name="ex_install_local">Інсталювати</string>
@@ -89,27 +89,27 @@
     <string name="bnav_install">Інсталювати</string>
     <string name="bnav_scripts">Скрипти</string>
     <string name="bnav_logs">Логи</string>
-    <string name="bnav_backups">Резервні копії</string>
-    <string name="notif_ch_update">Оновити сповіщення</string>
-    <string name="notif_ch_update_desc">Сповіщення про нові релізи, що знайдені в фоновому режимі</string>
-    <string name="notif_ch_download">Хід завантаження</string>
-    <string name="notif_ch_download_status">Завантажити результат</string>
-    <string name="notif_ch_download_desc">Показує прогрес завантаження релізу, який завантажується у додатку</string>
-    <string name="notif_ch_download_status_desc">Показує результат завантаження</string>
-    <string name="notif_new_ver">Доступна нова версія OrangeFox</string>
-    <string name="notif_new_ver_sub">Версія %1$s %2$s доступна для завантаження та установки.\nНатисніть \"Встановити\" для встановлення цього оновлення.</string>
+    <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">Резервні копії</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Оновити сповіщення</string>
+    <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Сповіщення про нові релізи, що знайдені в фоновому режимі</string>
+    <string name="notif_ch_download" comment="notif_ch_download&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Хід завантаження</string>
+    <string name="notif_ch_download_status" comment="notif_ch_download_status&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Завантажити результат</string>
+    <string name="notif_ch_download_desc" comment="notif_ch_download_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Показує прогрес завантаження релізу, який завантажується у додатку</string>
+    <string name="notif_ch_download_status_desc" comment="notif_ch_download_status_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Показує результат завантаження</string>
+    <string name="notif_new_ver" comment="notif_new_ver&#10;&#10;Notification">Доступна нова версія OrangeFox</string>
+    <string name="notif_new_ver_sub" comment="notif_new_ver_sub&#10;&#10;Notification.">Версія %1$s %2$s доступна для завантаження та установки.\nНатисніть \"Встановити\" для встановлення цього оновлення.</string>
     <string name="notif_download_complete">Завантаження %1$s завершене</string>
     <string name="notif_download_failed">Помилка завантаження %1$s</string>
     <string name="notif_downloading">Завантаження %1$s…</string>
-    <string name="notif_downloading_app">Завантаження оновлення додатка…</string>
-    <string name="notif_downloaded_app">Оновлення завантажено</string>
-    <string name="notif_download_failed_app">Не вдалося завантажити оновлення</string>
+    <string name="notif_downloading_app" comment="notif_downloading_app&#10;&#10;Notification.">Завантаження оновлення додатка…</string>
+    <string name="notif_downloaded_app" comment="notif_downloaded_app&#10;&#10;Notification.">Оновлення завантажено</string>
+    <string name="notif_download_failed_app" comment="notif_download_failed_app&#10;&#10;Notification.">Не вдалося завантажити оновлення</string>
     <string name="preparing">Підготовка…</string>
     <string name="install">Інсталювати</string>
     <string name="reboot">Reboot</string>
-    <string name="notify_pending_reboot">Перезавантажте для встановлення OrangeFox %1$s</string>
-    <string name="notify_pending_reboot_sub">Оновлення завантажено до %1$s.\nПерезавантаження у Recovery для завершення.</string>
-    <string name="md5_check">Перевірка MD5…</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">Перезавантажте для встановлення OrangeFox %1$s</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">Оновлення завантажено до %1$s.\nПерезавантаження у Recovery для завершення.</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">Перевірка MD5…</string>
     <string name="activity_settings">Налаштування</string>
     <string name="pref_update">Оновлення Recovery</string>
     <string name="pref_update_enable">Перевірити наявність оновлень</string>
@@ -139,18 +139,18 @@
     <string name="about_web">Вебсайт</string>
     <string name="about_beta">Підтримка</string>
     <string name="about_oos">Ліцензії з відкритим кодом</string>
-    <string name="dev_telegram">Телеграма судноплавства</string>
-    <string name="annoy_opcol">Пожертвувати OrangeFox</string>
-    <string name="annoy_opcol_desc">Допоможіть нам поліпшити наше відновлення</string>
-    <string name="annoy_crowdin">Ви хочете подивитися додаток вашою мовою?</string>
-    <string name="annoy_crowdin_desc">Допоможіть нам перекласти на Crowdin</string>
-    <string name="annoy_support">Recovery не працює?</string>
-    <string name="annoy_support_desc">Задати питання в Telegram групі</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">Телеграма судноплавства</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">Пожертвувати OrangeFox</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">Допоможіть нам поліпшити наше відновлення</string>
+    <string name="annoy_crowdin" comment="annoy_crowdin&#10;&#10;Help message on top of the screen in main activity">Ви хочете подивитися додаток вашою мовою?</string>
+    <string name="annoy_crowdin_desc" comment="annoy_crowdin_desc&#10;&#10;Help message on top of the screen in main activity">Допоможіть нам перекласти на Crowdin</string>
+    <string name="annoy_support" comment="annoy_support&#10;&#10;Help message on top of the screen in main activity">Recovery не працює?</string>
+    <string name="annoy_support_desc" comment="annoy_support_desc&#10;&#10;Help message on top of the screen in main activity">Задати питання в Telegram групі</string>
     <!-- Context -->
     <string name="annoy_upd">Увімкнути автоматичне оновлення</string>
     <string name="annoy_upd_desc">Додаток встановить всі оновлення автоматично у фоновому режимі</string>
-    <string name="annoy_foxfiles">Деякі файли відсутні</string>
-    <string name="annoy_foxfiles_desc">Вам необхідно перевстановити Recovery, щоб мати всі функції</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">Деякі файли відсутні</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">Вам необхідно перевстановити Recovery, щоб мати всі функції</string>
     <string name="pref_annoy_enable">Показати довідкові повідомлення</string>
     <string name="pref_annoy_enable_desc">Показувати корисні повідомлення контексту</string>
     <string name="script_empty">Скрипти відновлення</string>
@@ -165,7 +165,7 @@
     <string name="script_wipe">Очистити</string>
     <string name="script_created">Сценарій було створено. Перезавантажте його для запуску.</string>
     <string name="script_err_rom">Ви очистили систему, але не встановили ROM.</string>
-    <string name="script_err_nothing">Скрипт порожній.</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">Скрипт порожній.</string>
     <string name="ignore">Ігнорувати</string>
     <string name="script_add_umount">Додати дію розмонтування</string>
     <string name="script_add_mount">Додати дію монтування</string>
@@ -178,7 +178,7 @@
     <string name="script_decrypt_text">Пароль</string>
     <string name="script_decrypt_pattern">Графічний ключ</string>
     <string name="script_decrypt">Дешифрувати</string>
-    <string name="script_restore">Відновити</string>
+    <string name="script_restore" comment="script_restore&#10;&#10;Restore action in scripts action list. It's used, when user loads custom OpenRecoveryScript">Відновити</string>
     <string name="script_mount">Монтувати</string>
     <string name="script_umount">Розмонтувати</string>
     <string name="script_rw">Повторно замінити R/W</string>
@@ -188,28 +188,28 @@
     <string name="script_cmd">Виконати команду термінала</string>
     <string name="script_set">Встановити змінну</string>
     <string name="script_print">Друкувати текст</string>
-    <string name="script_print_mounts">Друк монтування</string>
+    <string name="script_print_mounts" comment="script_print_mounts&#10;&#10;Action in scripts action list. It's used, when user loads custom OpenRecoveryScript">Друк монтування</string>
     <string name="script_fixperms">Виправити права доступу SELinux</string>
     <string name="script_sideload">Почати Sideload</string>
     <string name="script_no_params">&lt; Немає параметрів &gt;</string>
     <string name="partition">Розділ</string>
-    <string name="clear_all">Очистити все</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">Очистити все</string>
     <string name="reboot_recovery">Перезавантажити рекавері</string>
     <string name="reboot_bootloader">Перезавантажити в Bootloader</string>
     <string name="unknown">Не вказано</string>
     <string name="backup_optimize">Стиснути резервне копіювання</string>
     <string name="backup_digest">Пропустити створення індикації</string>
-    <string name="err_changelog">Неможливо завантажити список змін</string>
+    <string name="err_changelog" comment="err_changelog&#10;&#10;Appears instead of changelog of app">Неможливо завантажити список змін</string>
     <string name="update_changelog">Список змін додатку</string>
-    <string name="update_install">Встановити оновлення програми</string>
-    <string name="update_msg">Нове оновлення доступне</string>
-    <string name="update_msg_desc">Натисніть тут для перегляду змін</string>
-    <string name="update_installed_vers">Встановлена версія: %1$s\n\n%2$s</string>
-    <string name="MIUI_dark_mode">Додаток не виглядає як призначений</string>
-    <string name="MIUI_dark_mode_desc">MIUI інвертує кольори додатку OrangeFox.\n\nДля вимкнення цього, вам потрібно:\n· Виберіть щоб переглянути налаштування\n· Знайти темний режим\n· Торкніться \"Індивідуальні програми\"\n· Скасувати перевірку додатка OrangeFox</string>
-    <string name="MIUI_dark_mode_tap">Натисніть тут, щоб отримати більше інформації</string>
-    <string name="go_settings">Перейти до налаштувань</string>
-    <string name="show_me">Показати мені як</string>
+    <string name="update_install" comment="update_install&#10;&#10;Floating action button on changelog page">Встановити оновлення програми</string>
+    <string name="update_msg" comment="update_msg&#10;&#10;Help message on top of the screen in main activity">Нове оновлення доступне</string>
+    <string name="update_msg_desc" comment="update_msg_desc&#10;&#10;Help message on top of the screen in main activity">Натисніть тут для перегляду змін</string>
+    <string name="update_installed_vers" comment="update_installed_vers&#10;&#10;Appears at the top of changelog">Встановлена версія: %1$s\n\n%2$s</string>
+    <string name="MIUI_dark_mode" comment="MIUI_dark_mode&#10;&#10;Help message on top of the screen in main activity">Додаток не виглядає як призначений</string>
+    <string name="MIUI_dark_mode_desc" comment="MIUI_dark_mode_desc&#10;&#10;Special dialog for MIUI.">MIUI інвертує кольори додатку OrangeFox.\n\nДля вимкнення цього, вам потрібно:\n· Виберіть щоб переглянути налаштування\n· Знайти темний режим\n· Торкніться \"Індивідуальні програми\"\n· Скасувати перевірку додатка OrangeFox</string>
+    <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">Натисніть тут, щоб отримати більше інформації</string>
+    <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">Перейти до налаштувань</string>
+    <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">Показати мені як</string>
     <string name="log_activity">Логотип</string>
     <string name="log_type_normal">Логотип</string>
     <string name="log_type_zip">Стиснутий журнал</string>
@@ -223,6 +223,6 @@
     <string name="log_share_text">Надсилайте журнали безпосередньо розробникам, використовуючи групи телеграм:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nтакож ви можете надіслати приватне повідомлення супроводжуючому фонду.</string>
     <string name="feedback">Допомога &amp; Зворотній зв\'язок</string>
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
-    <string name="very_old_version">У вас дуже стара версія додатка</string>
-    <string name="very_old_version_desc">Будь ласка, завантажте новий додаток з app.orangefox.tech</string>
+    <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">У вас дуже стара версія додатка</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">Будь ласка, завантажте новий додаток з app.orangefox.tech</string>
 </resources>

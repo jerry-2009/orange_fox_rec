@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">أغلق</string>
+    <string name="err_no_internet">جهازك غير متصل بالإنترنت. تحقق من اتصالك بالإنترنت وحاول مرة أخرى</string>
+    <string name="err_no_internet_short">تحقق من اتصالك بالانترنت وحاول مرة أخرى</string>
+    <string name="err_dev_not_selected">أنت لم تقم باختيار جهازك</string>
+    <string name="err_no_pm_storage">أنت لم تقم بالموافقة على إذن الوصول للذاكرة/التخزين</string>
+    <string name="err_check_pm_inernet">تأكد من الموافقة على إذن الوصول للذاكرة أو اتصالك بالانترنت</string>
+    <string name="setup">سماح</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">أنت لم تسمح باستخدام صلاحيات الروت. قم بالسماح باستخدامها عن طريق Magisk Manager</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">الإصدار الذي قمت بتحميله تالف. رجاء ، حمله مرة أخرى.</string>
+    <string name="err_md5_wrong_exists">الاصدار الذي قمت بتحميله تالف. رجاء حمله مرة أخرى.</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">اضغط على OrangeFox ثم اضغط على السماح بالوصول لكل الملفات</string>
+    <!-- Context -->
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+</resources>

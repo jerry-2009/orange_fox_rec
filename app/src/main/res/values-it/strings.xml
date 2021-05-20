@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">Chiudi</string>
+    <string name="err_json" comment="err_json">Impossibile analizzare il json</string>
+    <string name="err_response">Il server ha restituito un codice di risposta sbagliato: %1$d</string>
+    <string name="err_no_rel">Siamo spiacenti, non riusciamo a trovare questa versione</string>
+    <string name="err_no_rels">Siamo spiacenti, non è possibile trovare rilasci per questo dispositivo</string>
+    <string name="err_no_device">Dispositivo non trovato</string>
+    <string name="err_no_ors">Script non trovato</string>
+    <string name="err_no_internet">Sembra che il tuo dispositivo non sia connesso a internet.\nControlla la connessione a Internet e riprova</string>
+    <string name="err_no_internet_short">Controlla la connessione e riprova</string>
+    <string name="err_dev_not_selected">Non hai selezionato il tuo dispositivo</string>
+    <string name="err_no_pm_storage">Permessi di archiviazione non concessi</string>
+    <string name="err_check_pm_inernet">Controlla i permessi di archiviazione o la connessione internet</string>
+    <string name="setup">Concedi</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">Non hai concesso i permessi root.\nConcedi i permessi root utilizzando Magisk Manager</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">La release che hai scaricato è stato danneggiato. Si prega di riscaricare la release di nuovo.</string>
+    <string name="err_md5_wrong_exists">La release che hai scaricato è stata danneggiata. Si prega di riscaricare la release di nuovo.</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">Tocca \"OrangeFox\", quindi tocca \"Consenti accesso per gestire tutti i file\"</string>
+    <!-- Context -->
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+</resources>

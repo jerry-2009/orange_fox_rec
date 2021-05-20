@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="close">Zamknij</string>
-    <string name="err_json">Nie można przeanalizować json</string>
+    <string name="err_json" comment="err_json">Nie można przeanalizować json</string>
     <string name="err_response">Serwer zwrócił błędny kod odpowiedzi: %1$d</string>
     <string name="err_no_rel">Przepraszamy, nie możemy znaleźć tego wydania</string>
     <string name="err_no_rels">Przepraszamy, nie możemy znaleźć wydań dla tego urządzenia</string>
@@ -13,23 +13,23 @@
     <string name="err_no_pm_storage">Nie przyznano uprawnień do pamięci</string>
     <string name="err_check_pm_inernet">Sprawdź uprawnienia do pamięci lub połączenie internetowe</string>
     <string name="setup">Przyznaj</string>
-    <string name="err_no_pm_root">Nie przyznano uprawnień roota.\nUdziel uprawnień roota za pomocą Menedżera Magisk</string>
-    <string name="err_md5_wrong">Wydanie, które pobrałeś zostało uszkodzone. Proszę pobrać wydanie ponownie.</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">Nie przyznano uprawnień roota.\nUdziel uprawnień roota za pomocą Menedżera Magisk</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">Wydanie, które pobrałeś zostało uszkodzone. Proszę pobrać wydanie ponownie.</string>
     <string name="err_md5_wrong_exists">Wydanie zostało uszkodzone. Proszę pobrać wydanie ponownie.</string>
-    <string name="help_android11_pm">Naciśnij \"OrangeFox\", a następnie naciśnij \"Zezwól na zarządzanie wszystkimi plikami\"</string>
-    <string name="err_ors">Nie można utworzyć pliku OpenRecoveryScript. Uruchom ponownie urządzenie do recovery i zainstaluj plik ZIP ręcznie.\nLokalizacja pliku to %1$s</string>
-    <string name="err_ors_short">Nie można utworzyć pliku OpenRecoveryScript</string>
-    <string name="err_service_running">Inne wydanie jest pobierane</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">Naciśnij \"OrangeFox\", a następnie naciśnij \"Zezwól na zarządzanie wszystkimi plikami\"</string>
+    <string name="err_ors" comment="err_ors&#10;&#10;Appears in snackbar or in notification">Nie można utworzyć pliku OpenRecoveryScript. Uruchom ponownie urządzenie do recovery i zainstaluj plik ZIP ręcznie.\nLokalizacja pliku to %1$s</string>
+    <string name="err_ors_short" comment="err_ors_short&#10;&#10;Appears in snackbar or in notification">Nie można utworzyć pliku OpenRecoveryScript</string>
+    <string name="err_service_running" comment="err_service_running&#10;&#10;Appears in snackbar on main page">Inne wydanie jest pobierane</string>
     <string name="err_ise">Wewnętrzny błąd serwera</string>
-    <string name="err_filepicker">Pliki z folderu download lub folderu ostatnich aplikacji nie są obsługiwane.</string>
-    <string name="err_file_notfound">Nie znaleziono pliku</string>
-    <string name="err_file_format">Nieprawidłowy format pliku</string>
-    <string name="err_file_delete">Nie można usunąć pliku</string>
-    <string name="err_logs_delete">Nie można usunąć logów</string>
+    <string name="err_filepicker" comment="err_filepicker&#10;&#10;Appears in snackbar on scripts page">Pliki z folderu download lub folderu ostatnich aplikacji nie są obsługiwane.</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">Nie znaleziono pliku</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">Nieprawidłowy format pliku</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">Nie można usunąć pliku</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">Nie można usunąć logów</string>
     <string name="err_logs_deleted">Brak logów do usunięcia</string>
-    <string name="err_ors_delete">Nie można usunąć pliku OpenRecoveryScript.\nBrak dostępu do roota.</string>
-    <string name="err_reboot_notify">Nie można uruchomić ponownie.\nSprawdź dostęp do roota lub uruchom ponownie ręcznie.</string>
-    <string name="err_ors_bad">Skrypt zawiera błędy</string>
+    <string name="err_ors_delete" comment="err_ors_delete&#10;&#10;Appears in snackbar on scripts page">Nie można usunąć pliku OpenRecoveryScript.\nBrak dostępu do roota.</string>
+    <string name="err_reboot_notify" comment="err_reboot_notify&#10;&#10;Appears in snackbar on scripts page">Nie można uruchomić ponownie.\nSprawdź dostęp do roota lub uruchom ponownie ręcznie.</string>
+    <string name="err_ors_bad" comment="err_ors_bad&#10;&#10;Appears in snackbar on scripts page">Skrypt zawiera błędy</string>
     <string name="parser_ok">Pomyślnie przeanalizowano skrypt</string>
     <string name="parser_load">Załaduj skrypt</string>
     <string name="delete_ors">Usuń skrypt</string>
@@ -62,25 +62,25 @@
     <string name="dev_maintainer">Opiekun</string>
     <string name="dev_status">Status</string>
     <string name="dev_maintained">Wspierany</string>
-    <string name="dev_unmaintained">Niewspierany</string>
+    <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">Niewspierany</string>
     <string name="dev_patch">Łatka</string>
-    <string name="dev_activity">Wybierz urządzenie</string>
-    <string name="size_mb">%dMB</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">Wybierz urządzenie</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%dMB</string>
     <string name="err_card_no_internet">Brak połączenia z Internetem</string>
-    <string name="err_card_error">Wystąpił błąd</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">Wystąpił błąd</string>
     <string name="err_card_try_again">Spróbuj ponownie</string>
     <string name="guess_top">Twoje urządzenie to</string>
     <string name="guess_bottom">Wygląda na to, że oficjalnie wspieramy to urządzenie!\nCzy jest to twoje urządzenie?</string>
-    <string name="guess_fail">Nie możemy go zidentyfikować. Może nie być obsługiwany.</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">Nie możemy go zidentyfikować. Może nie być obsługiwany.</string>
     <string name="guess_correct">Tak, to jest poprawne</string>
     <string name="guess_wrong">Nie, to błąd</string>
-    <string name="sel_activity">Wybierz urządzenie</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">Wybierz urządzenie</string>
     <string name="inst_warn">Automatyczna instalacja wymaga zainstalowanego recovery (TWRP, OrangeFox, itp.) i dostępu do roota. Po zakończeniu pobierania, musisz uruchomić urządzenie ponownie do recovery.</string>
     <string name="inst_file_found">To wydanie jest już pobrane na twoim urządzeniu. Wybierz co chcesz zrobić z tym wydaniem.</string>
     <string name="inst_install">Pobierz i zainstaluj</string>
     <string name="inst_download">Tylko pobierz</string>
     <string name="inst_cancel">Anuluj</string>
-    <string name="inst_progress">%d MB z %d MB</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%d MB z %d MB</string>
     <string name="inst_downloaded">Pobrano do %1$s</string>
     <string name="inst_bg_download">Pobieranie rozpoczęte.\nSprawdź powiadomienia, aby śledzić postęp pobierania.</string>
     <string name="ex_install_local">Zainstaluj</string>
@@ -89,27 +89,27 @@
     <string name="bnav_install">Zainstaluj</string>
     <string name="bnav_scripts">Skrypty</string>
     <string name="bnav_logs">Logi</string>
-    <string name="bnav_backups">Kopie zapasowe</string>
-    <string name="notif_ch_update">Aktualizuj powiadomienia</string>
-    <string name="notif_ch_update_desc">Powiadomienia o nowych wydaniach znalezionych w tle</string>
-    <string name="notif_ch_download">Postęp pobierania</string>
-    <string name="notif_ch_download_status">Wynik pobierania</string>
-    <string name="notif_ch_download_desc">Pokazuje postęp pobierania wydania, które pobierają w aplikacji</string>
-    <string name="notif_ch_download_status_desc">Pokazuje wynik pobrania</string>
-    <string name="notif_new_ver">Dostępne jest nowe wydanie OrangeFox</string>
-    <string name="notif_new_ver_sub">Wersja %1$s %2$s jest dostępna do pobrania i instalacji.\nNaciśnij \"Zainstaluj\", aby zainstalować tę aktualizację.</string>
+    <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">Kopie zapasowe</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Aktualizuj powiadomienia</string>
+    <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Powiadomienia o nowych wydaniach znalezionych w tle</string>
+    <string name="notif_ch_download" comment="notif_ch_download&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Postęp pobierania</string>
+    <string name="notif_ch_download_status" comment="notif_ch_download_status&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Wynik pobierania</string>
+    <string name="notif_ch_download_desc" comment="notif_ch_download_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Pokazuje postęp pobierania wydania, które pobierają w aplikacji</string>
+    <string name="notif_ch_download_status_desc" comment="notif_ch_download_status_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">Pokazuje wynik pobrania</string>
+    <string name="notif_new_ver" comment="notif_new_ver&#10;&#10;Notification">Dostępne jest nowe wydanie OrangeFox</string>
+    <string name="notif_new_ver_sub" comment="notif_new_ver_sub&#10;&#10;Notification.">Wersja %1$s %2$s jest dostępna do pobrania i instalacji.\nNaciśnij \"Zainstaluj\", aby zainstalować tę aktualizację.</string>
     <string name="notif_download_complete">Pobieranie %1$s zakończone</string>
     <string name="notif_download_failed">Pobieranie %1$s nie powiodło się</string>
     <string name="notif_downloading">Pobieranie %1$s…</string>
-    <string name="notif_downloading_app">Pobieranie aktualizacji aplikacji…</string>
-    <string name="notif_downloaded_app">Pobrano aktualizację aplikacji</string>
-    <string name="notif_download_failed_app">Nie udało się pobrać aktualizacji aplikacji</string>
+    <string name="notif_downloading_app" comment="notif_downloading_app&#10;&#10;Notification.">Pobieranie aktualizacji aplikacji…</string>
+    <string name="notif_downloaded_app" comment="notif_downloaded_app&#10;&#10;Notification.">Pobrano aktualizację aplikacji</string>
+    <string name="notif_download_failed_app" comment="notif_download_failed_app&#10;&#10;Notification.">Nie udało się pobrać aktualizacji aplikacji</string>
     <string name="preparing">Przygotowywanie…</string>
     <string name="install">Zainstaluj</string>
     <string name="reboot">Uruchom ponownie</string>
-    <string name="notify_pending_reboot">Uruchom ponownie aby zainstalować OrangeFox %1$s</string>
-    <string name="notify_pending_reboot_sub">Aktualizacja pobrana do %1$s.\nUruchom ponownie do recovery aby zakończyć instalację.</string>
-    <string name="md5_check">Sprawdzanie MD5…</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">Uruchom ponownie aby zainstalować OrangeFox %1$s</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">Aktualizacja pobrana do %1$s.\nUruchom ponownie do recovery aby zakończyć instalację.</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">Sprawdzanie MD5…</string>
     <string name="activity_settings">Ustawienia</string>
     <string name="pref_update">Aktualizacje recovery</string>
     <string name="pref_update_enable">Sprawdź aktualizacje</string>
@@ -139,18 +139,18 @@
     <string name="about_web">Strona internetowa</string>
     <string name="about_beta">Wsparcie dla wydań beta</string>
     <string name="about_oos">Licencje Open Source</string>
-    <string name="dev_telegram">Telegram Opiekuna</string>
-    <string name="annoy_opcol">Wesprzyj OrangeFox</string>
-    <string name="annoy_opcol_desc">Pomóż nam poprawić nasze recovery</string>
-    <string name="annoy_crowdin">Chcesz zobaczyć aplikację w swoim języku?</string>
-    <string name="annoy_crowdin_desc">Pomóż nam przetłumaczyć aplikację na Crowdin</string>
-    <string name="annoy_support">Recovery nie działa?</string>
-    <string name="annoy_support_desc">Zadaj pytanie w grupie Telegram</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">Telegram Opiekuna</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">Wesprzyj OrangeFox</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">Pomóż nam poprawić nasze recovery</string>
+    <string name="annoy_crowdin" comment="annoy_crowdin&#10;&#10;Help message on top of the screen in main activity">Chcesz zobaczyć aplikację w swoim języku?</string>
+    <string name="annoy_crowdin_desc" comment="annoy_crowdin_desc&#10;&#10;Help message on top of the screen in main activity">Pomóż nam przetłumaczyć aplikację na Crowdin</string>
+    <string name="annoy_support" comment="annoy_support&#10;&#10;Help message on top of the screen in main activity">Recovery nie działa?</string>
+    <string name="annoy_support_desc" comment="annoy_support_desc&#10;&#10;Help message on top of the screen in main activity">Zadaj pytanie w grupie Telegram</string>
     <!-- Context -->
     <string name="annoy_upd">Włącz automatyczne aktualizacje</string>
     <string name="annoy_upd_desc">Aplikacja automatycznie zainstaluje wszystkie aktualizacje w tle</string>
-    <string name="annoy_foxfiles">Brakuje niektórych plików</string>
-    <string name="annoy_foxfiles_desc">Musisz zainstalować ponownie recovery aby mieć wszystkie funkcje</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">Brakuje niektórych plików</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">Musisz zainstalować ponownie recovery aby mieć wszystkie funkcje</string>
     <string name="pref_annoy_enable">Pokazuj pomocne wiadomości</string>
     <string name="pref_annoy_enable_desc">Pokaż pomocne wiadomości kontekstowe</string>
     <string name="script_empty">Skrypty Recovery</string>
@@ -165,7 +165,7 @@
     <string name="script_wipe">Usuń</string>
     <string name="script_created">Skrypt został utworzony. Uruchom ponownie aby go wykonać.</string>
     <string name="script_err_rom">Usunąłeś system, ale nie zainstalowałeś ROMu.</string>
-    <string name="script_err_nothing">Skrypt jest pusty.</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">Skrypt jest pusty.</string>
     <string name="ignore">Zignoruj</string>
     <string name="script_add_umount">Dodaj akcję odmontowania</string>
     <string name="script_add_mount">Dodaj akcję montowania</string>
@@ -178,7 +178,7 @@
     <string name="script_decrypt_text">Hasło</string>
     <string name="script_decrypt_pattern">Wzór</string>
     <string name="script_decrypt">Odszyfruj</string>
-    <string name="script_restore">Przywróć</string>
+    <string name="script_restore" comment="script_restore&#10;&#10;Restore action in scripts action list. It's used, when user loads custom OpenRecoveryScript">Przywróć</string>
     <string name="script_mount">Zamontuj</string>
     <string name="script_umount">Odmontuj</string>
     <string name="script_rw">Ponownie zamontuj R/W</string>
@@ -188,28 +188,28 @@
     <string name="script_cmd">Wykonaj polecenie powłoki</string>
     <string name="script_set">Ustaw zmienną</string>
     <string name="script_print">Wydrukuj tekst</string>
-    <string name="script_print_mounts">Wydrukuj zamontowane</string>
+    <string name="script_print_mounts" comment="script_print_mounts&#10;&#10;Action in scripts action list. It's used, when user loads custom OpenRecoveryScript">Wydrukuj zamontowane</string>
     <string name="script_fixperms">Napraw uprawnienia SELinux</string>
     <string name="script_sideload">Uruchom Sideload</string>
     <string name="script_no_params">&lt; Brak parametrów &gt;</string>
     <string name="partition">Partycja</string>
-    <string name="clear_all">Wyczyść wszystko</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">Wyczyść wszystko</string>
     <string name="reboot_recovery">Uruchom ponownie do Recovery</string>
     <string name="reboot_bootloader">Uruchom ponownie do Bootloader\'u</string>
     <string name="unknown">Nieznany</string>
     <string name="backup_optimize">Kompresuj kopię zapasową</string>
     <string name="backup_digest">Pomiń tworzenie skrótu</string>
-    <string name="err_changelog">Nie można załadować listy zmian</string>
+    <string name="err_changelog" comment="err_changelog&#10;&#10;Appears instead of changelog of app">Nie można załadować listy zmian</string>
     <string name="update_changelog">Lista zmian aplikacji</string>
-    <string name="update_install">Zainstaluj aktualizację aplikacji</string>
-    <string name="update_msg">Dostępna jest aktualizacja aplikacji</string>
-    <string name="update_msg_desc">Dotknij tutaj, aby wyświetlić listę zmian</string>
-    <string name="update_installed_vers">Zainstalowana wersja: %1$s\n\n%2$s</string>
-    <string name="MIUI_dark_mode">Aplikacja nie wygląda zgodnie z zamierzeniami</string>
-    <string name="MIUI_dark_mode_desc">MIUI odwraca kolory aplikacji OrangeFox.\n\nAby to wyłączyć, musisz\n· Przejdź do ustawień wyświetlania\n· Znajdź ustawienia trybu ciemnego\n· Dotknij \"Indywidualne aplikacje\"\n· OrangeFox App</string>
-    <string name="MIUI_dark_mode_tap">Dotknij tutaj, aby uzyskać więcej informacji</string>
-    <string name="go_settings">Przejdź do ustawień</string>
-    <string name="show_me">Pokaż mi jak</string>
+    <string name="update_install" comment="update_install&#10;&#10;Floating action button on changelog page">Zainstaluj aktualizację aplikacji</string>
+    <string name="update_msg" comment="update_msg&#10;&#10;Help message on top of the screen in main activity">Dostępna jest aktualizacja aplikacji</string>
+    <string name="update_msg_desc" comment="update_msg_desc&#10;&#10;Help message on top of the screen in main activity">Dotknij tutaj, aby wyświetlić listę zmian</string>
+    <string name="update_installed_vers" comment="update_installed_vers&#10;&#10;Appears at the top of changelog">Zainstalowana wersja: %1$s\n\n%2$s</string>
+    <string name="MIUI_dark_mode" comment="MIUI_dark_mode&#10;&#10;Help message on top of the screen in main activity">Aplikacja nie wygląda zgodnie z zamierzeniami</string>
+    <string name="MIUI_dark_mode_desc" comment="MIUI_dark_mode_desc&#10;&#10;Special dialog for MIUI.">MIUI odwraca kolory aplikacji OrangeFox.\n\nAby to wyłączyć, musisz\n· Przejdź do ustawień wyświetlania\n· Znajdź ustawienia trybu ciemnego\n· Dotknij \"Indywidualne aplikacje\"\n· OrangeFox App</string>
+    <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">Dotknij tutaj, aby uzyskać więcej informacji</string>
+    <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">Przejdź do ustawień</string>
+    <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">Pokaż mi jak</string>
     <string name="log_activity">Logi</string>
     <string name="log_type_normal">Logi</string>
     <string name="log_type_zip">Skompresowany log</string>
@@ -223,6 +223,6 @@
     <string name="log_share_text">Wyślij logi bezpośrednio do deweloperów za pomocą grup na Telegramie:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nMożesz również wysłać prywatną wiadomość do opiekuna.</string>
     <string name="feedback">Pomoc &amp; Opinia</string>
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
-    <string name="very_old_version">Posiadasz bardzo starą wersję aplikacji</string>
-    <string name="very_old_version_desc">Pobierz nową aplikację z app.orangefox.tech</string>
+    <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">Posiadasz bardzo starą wersję aplikacji</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">Pobierz nową aplikację z app.orangefox.tech</string>
 </resources>

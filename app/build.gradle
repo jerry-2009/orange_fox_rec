@@ -17,7 +17,7 @@ android {
         targetSdkVersion 30
         versionCode 7
         versionName "1.5"
-        resConfigs "en", "ru", "zh-rCN", "zh-rTW", "fr", "de", "pl", "pt", "pt-rBR", "es", "ta", "uk", "ur-rIN"
+        resConfigs "en", "ru", "ar", "zh-rCN", "zh-rTW", "fr", "de", "el", "he", "it", "pl", "pt", "pt-rBR", "es", "ta", "th", "uk", "ur-rIN", "ur"
     }
 
     buildTypes {

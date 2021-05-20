@@ -50,22 +50,13 @@ Magisk Manager کے ذریعے روٹ کی اجازت دیں</string>
     <string name="rel_last">سب سے نئی ریلیز</string>
     <string name="rel_current">انسٹال کردہ ریلیز</string>
     <string name="rel_size">Taille du fichier</string>
-    <string name="rel_vers">Version</string>
     <string name="rel_type">بلڈ کی قسم</string>
     <string name="rel_name">Nom du fichier</string>
-    <string name="rel_date">Date</string>
-    <string name="rel_stable">Stable</string>
-    <string name="rel_beta">Beta</string>
     <string name="rel_installthis">اِس ریلیز کو انسٹال کریں</string>
-    <string name="rel_info">Info</string>
     <string name="rel_changes">Nouveautés</string>
-    <string name="rel_notes">Notes</string>
-    <string name="rel_bugs">Bugs</string>
     <string name="dev_info">Info de l\'appareil</string>
-    <string name="dev_model">Model</string>
     <string name="dev_code">Nom de code</string>
     <string name="dev_maintainer">برقرار رکھنے والا</string>
-    <string name="dev_status">Status</string>
     <string name="dev_maintained">Supporté</string>
     <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">Non supporté</string>
     <string name="dev_patch">پیچ</string>
@@ -94,7 +85,6 @@ Magisk Manager کے ذریعے روٹ کی اجازت دیں</string>
     <string name="ex_delete">ڈیوائس سے ڈیلیٹ کر دئیں</string>
     <string name="bnav_install">انسٹال کریں</string>
     <string name="bnav_scripts">اسکرپٹس</string>
-    <string name="bnav_logs">Logs</string>
     <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">بیک اپس</string>
     <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">نوٹیفکیشنز کو اپڈیٹ کریں</string>
     <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">نئی ریلیزز کے بارے میں نوٹیفکیشنز جو پس منظر میں ملے تھے</string>
@@ -215,8 +205,6 @@ Magisk Manager کے ذریعے روٹ کی اجازت دیں</string>
     <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">زیادہ معلومات کے لیئے یہاں ٹیپ کریں</string>
     <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">سیٹنگز میں جائیں</string>
     <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">مجھے دکھائیں کے کیسے</string>
-    <string name="log_activity">Log</string>
-    <string name="log_type_normal">Log</string>
     <string name="log_type_zip">Compressed Log</string>
     <string name="log_type_install">انسٹال کرنے کا Log</string>
     <string name="log_type_postinstall">انسٹال کے باد کا log</string>
@@ -230,4 +218,6 @@ Magisk Manager کے ذریعے روٹ کی اجازت دیں</string>
     <!-- TODO: Remove when Yan will move apk to orangefox server -->
     <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">آپ کی ایپ کا ورژن بہت پرانا ہے</string>
     <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">براہِ مہربانی app.orangefox.tech سے نئی ایپ ڈاؤنلوڈ کریں</string>
+<string name="about_translate">@string/translated_by</string>
+<string name="about_translate_nick">MLZ94, Yilliee</string>
 </resources>

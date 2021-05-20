@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">סגור</string>
+    <string name="err_json" comment="err_json">לא ניתן לגשת לקובץ json</string>
+    <string name="err_response">השרת החזיר קוד תגובה שגוי: %1$d</string>
+    <string name="err_no_rel">מצטערים, אך אין ביכולתנו למצוא את הגרסה הזו</string>
+    <string name="err_no_rels">מצטערים, אך לא מצאנו גרסאות למכשיר הזה</string>
+    <string name="err_no_device">המכשיר לא נמצא</string>
+    <string name="err_no_ors">סקריפט לא נמצא</string>
+    <string name="err_no_internet">נראה שהמכשיר שלך לא מחובר לרשת.\nבדוק את חיבור הרשת ונסה שנית</string>
+    <string name="err_no_internet_short">בדוק את חיבור הרשת ונסה שנית</string>
+    <string name="err_dev_not_selected">לא בחרת את המכשיר שלך</string>
+    <string name="err_no_pm_storage">לא הוענקו הרשאות אחסון</string>
+    <string name="err_check_pm_inernet">בדוק את הרשאות האחסון או את חיבור הרשת</string>
+    <string name="setup">הענק גישה</string>
+    <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">לא הענקת גישת שורש.\nהענק גישת root על ידי שימוש במנהל של Magisk</string>
+    <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">הגרסה שהורדת פגומה. אנא, הורד את הגרסה בשנית.</string>
+    <string name="err_md5_wrong_exists">הגרסה פגומה. אנא, הורד את הגרסה בשנית.</string>
+    <string name="help_android11_pm" comment="help_android11_pm&#10;&#10;Appears in snackbar on main page">הקש על \"OrangeFox\" ולאחר מכן על \"הענק גישה לניהול כל הקבצים\"</string>
+    <string name="err_ors" comment="err_ors&#10;&#10;Appears in snackbar or in notification">לא ניתן היה ליצור קובץ פעולות של OrangeFox ריקוברי. אנא היכנסו למצב ריקוברי והתקן את קובץ הזיפ.\nמיקום הקובץ הוא %1$s</string>
+    <string name="err_ors_short" comment="err_ors_short&#10;&#10;Appears in snackbar or in notification">לא ניתן היה ליצור קובץ פעולות של OrangeFox ריקוברי</string>
+    <string name="err_service_running" comment="err_service_running&#10;&#10;Appears in snackbar on main page">מהדורה נוספת הורדה</string>
+    <string name="err_ise">שגיאת שרת פנימית</string>
+    <string name="err_filepicker" comment="err_filepicker&#10;&#10;Appears in snackbar on scripts page">אין תמיכה בקבצים מתיקיית ההורדה או מתיקיית האחרונים.</string>
+    <string name="err_file_notfound" comment="err_file_notfound&#10;&#10;Appears in snackbar on scripts page">הקובץ לא נמצא</string>
+    <string name="err_file_format" comment="err_file_format&#10;&#10;Appears in snackbar on logs page">פורמט קובץ שגוי</string>
+    <string name="err_file_delete" comment="err_file_delete&#10;&#10;Appears in snackbar on logs page">לא ניתן למחוק את הקובץ</string>
+    <string name="err_logs_delete" comment="err_logs_delete&#10;&#10;Appears in snackbar on logs page">לא ניתן למחוק יומני שינויים</string>
+    <string name="err_logs_deleted">אין יומני שינויים למחיקה</string>
+    <string name="err_ors_delete" comment="err_ors_delete&#10;&#10;Appears in snackbar on scripts page">לא ניתן היה למחוק את קובץ הפעולות של OrangeFox ריקוברי.\nאין גישה ל־Root.</string>
+    <string name="err_reboot_notify" comment="err_reboot_notify&#10;&#10;Appears in snackbar on scripts page">לא ניתן לבצע אתחול מחדש.\nבדוק גישת Root או אתחל מחדש ידנית.</string>
+    <string name="err_ors_bad" comment="err_ors_bad&#10;&#10;Appears in snackbar on scripts page">הפעולה מכילה שגיאות</string>
+    <string name="parser_ok">ניתוח הפעולה עבר בהצלחה</string>
+    <string name="parser_load">טען פעולה</string>
+    <string name="delete_ors">מחק פעולה</string>
+    <string name="deleted_ors">הפעולה נמחקה בהצלחה</string>
+    <string name="install_latest">התקן את %1$s %2$s</string>
+    <string name="share">שתף</string>
+    <string name="delete">מחק</string>
+    <string name="delete_logs">מחק את כל יומני השינויים</string>
+    <string name="rels_activity">גרסאות</string>
+    <string name="rel_activity">מידע על הגרסה</string>
+    <string name="rel_button">הצג מידע</string>
+    <string name="rel_more">כל הגרסאות</string>
+    <string name="rel_last">גרסה אחרונה</string>
+    <string name="rel_current">גרסה מותקנת</string>
+    <string name="rel_size">גודל הקובץ</string>
+    <string name="rel_commit">קוד בסיס</string>
+    <string name="rel_vers">מספר גרסה</string>
+    <string name="rel_type">מצב הגרסה</string>
+    <string name="rel_name">שם הקובץ</string>
+    <string name="rel_date">תאריך</string>
+    <string name="rel_stable">יציבה</string>
+    <string name="rel_beta">בטא</string>
+    <string name="rel_installthis">התקן גרסה זו</string>
+    <string name="rel_info">מידע</string>
+    <string name="rel_changes">יומן שינויים</string>
+    <string name="rel_notes">הערות</string>
+    <string name="rel_bugs">תקלות</string>
+    <string name="dev_info">מידע המכשיר</string>
+    <string name="dev_model">דגם</string>
+    <string name="dev_code">שם קוד</string>
+    <string name="dev_maintainer">מתחזק</string>
+    <string name="dev_status">מעמד</string>
+    <string name="dev_maintained">נתמך</string>
+    <string name="dev_unmaintained" comment="dev_unmaintained&#10;&#10;Appears instead of 'Supported' on main page and in device info">לא נתמך</string>
+    <string name="dev_patch">טלאי</string>
+    <string name="dev_activity" comment="dev_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">בחר מכשיר</string>
+    <string name="size_mb" comment="size_mb&#10;&#10;Size in megabytes. Don't touch '%d'">%d מ\"ב</string>
+    <string name="err_card_no_internet">אין חיבור לרשת</string>
+    <string name="err_card_error" comment="err_card_error&#10;&#10;Card title on main screen or if error has occured in activity">אירעה שגיאה</string>
+    <string name="err_card_try_again">נסה שנית</string>
+    <string name="guess_top">מכשירך הוא</string>
+    <string name="guess_bottom">נראה שאנחנו תומכים במכשיר הזה רשמית!\nזה המכשיר שלך?</string>
+    <string name="guess_fail" comment="guess_fail&#10;&#10;Appears in dialog on first start">אנחנו לא מצליחים לזהות את המכשיר. ייתכן שהוא לא נתמך.</string>
+    <string name="guess_correct">כן, זה נכון</string>
+    <string name="guess_wrong">לא, זאת טעות</string>
+    <string name="sel_activity" comment="sel_activity&#10;&#10;Device selector activity name. Not used now (replaced with search bar)">בחר מכשיר</string>
+    <string name="inst_warn">התקנה אוטומטית מצריכה ריקוברי מותקן (TWRP, OrangeFox וכו\') וגישת Root. אתה צריך להכניס את המכשיר לריקוברי אחרי שההורדה מסתיימת.</string>
+    <string name="inst_file_found">המהדורה הזו כבר הורדה למכשירך. בחר מה ברצונך לעשות איתה.</string>
+    <string name="inst_install">הורדה והתקנה</string>
+    <string name="inst_download">הורדה בלבד</string>
+    <string name="inst_cancel">ביטול</string>
+    <string name="inst_progress" comment="inst_progress&#10;&#10;Progress in notification when downloading something. Don't forget to change 'of' or replace it with '/'">%1$d מ\"ב מתוך %2$d מ\"ב</string>
+    <string name="inst_downloaded">הורד ל: %1$s</string>
+    <string name="inst_bg_download">ההורדה החלה.\nבדוק את ההתראות כדי לעקוב אחר התקדמות ההורדה.</string>
+    <string name="ex_install_local">התקנה</string>
+    <string name="ex_redownload">הורד מחדש</string>
+    <string name="ex_delete">מחק מהמכשיר</string>
+    <string name="bnav_install">התקן</string>
+    <string name="bnav_scripts">פעולות</string>
+    <string name="bnav_logs">יומנים</string>
+    <string name="bnav_backups" comment="bnav_backups&#10;&#10;Unused page in main activity">גיבויים</string>
+    <string name="notif_ch_update" comment="notif_ch_update&#10;&#10;Appears in Android settings when you're changing notification channel settings.">התראות על עדכונים</string>
+    <string name="notif_ch_update_desc" comment="notif_ch_update_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">התראות על מהדורות חדשות שנמצאו ברקע</string>
+    <string name="notif_ch_download" comment="notif_ch_download&#10;&#10;Appears in Android settings when you're changing notification channel settings.">התקדמות ההורדה</string>
+    <string name="notif_ch_download_status" comment="notif_ch_download_status&#10;&#10;Appears in Android settings when you're changing notification channel settings.">תוצאת ההורדה</string>
+    <string name="notif_ch_download_desc" comment="notif_ch_download_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">מציג את התקדמות ההורדה</string>
+    <string name="notif_ch_download_status_desc" comment="notif_ch_download_status_desc&#10;&#10;Appears in Android settings when you're changing notification channel settings.">מציג את תוצאת ההורדה</string>
+    <string name="notif_new_ver" comment="notif_new_ver&#10;&#10;Notification">מהדורה חדשה של OrangeFox זמינה</string>
+    <string name="notif_new_ver_sub" comment="notif_new_ver_sub&#10;&#10;Notification.">גרסה %1$s %2$s זמינה להורדה ולהתקנה.\nלחץ \"התקן\" כדי להתקינה.</string>
+    <string name="notif_download_complete">ההורדה של %1$s הושלמה</string>
+    <string name="notif_download_failed">ההורדה של %1$s נכשלה</string>
+    <string name="notif_downloading">מוריד את %1$s…</string>
+    <string name="notif_downloading_app" comment="notif_downloading_app&#10;&#10;Notification.">מוריד עדכון לאפליקציה…</string>
+    <string name="notif_downloaded_app" comment="notif_downloaded_app&#10;&#10;Notification.">עדכון האפליקציה הורד</string>
+    <string name="notif_download_failed_app" comment="notif_download_failed_app&#10;&#10;Notification.">נכשל בהורדת עדכון האפליקציה</string>
+    <string name="preparing">מתכונן…</string>
+    <string name="install">התקן</string>
+    <string name="reboot">הפעלה מחדש</string>
+    <string name="notify_pending_reboot" comment="notify_pending_reboot&#10;&#10;Notification.">הפעל מחדש כדי להתקין את גרסה %1$s של OrangeFox</string>
+    <string name="notify_pending_reboot_sub" comment="notify_pending_reboot_sub&#10;&#10;Notification.">העדכון הורד ל־%1$s.\nהפעל מחדש למצב שחזור כדי לסיים את ההתקנה.</string>
+    <string name="md5_check" comment="md5_check&#10;&#10;Notification.">בודק MD5…</string>
+    <string name="activity_settings">הגדרות</string>
+    <string name="pref_update">עדכוני הריקוברי</string>
+    <string name="pref_update_enable">בדוק אחר עדכונים</string>
+    <string name="pref_update_enable_desc">בדוק אחר עדכונים לריקוברי כל יום</string>
+    <string name="pref_update_limited">אפשר חיבורים מוגבלים</string>
+    <string name="pref_update_limited_desc">אפשר לבדוק אחר עדכונים גם בחיבורים מוגבלים</string>
+    <string name="pref_update_beta">התקן גרסאות בטא</string>
+    <string name="pref_update_auto">הורד והתקן עדכונים</string>
+    <string name="pref_update_auto_desc">כל העדכונים שהורדו יורדו ויותקנו ללא דיחוי. אתה עדיין צריך לאתחל מחדש לריקוברי כדי להשלים את ההתקנה.</string>
+    <string name="pref_update_beta_desc">האפליקציה תתקין את כל הגרסאות הזמינות האחרונות, כולל גרסאות בטא</string>
+    <string name="pref_style">מראה</string>
+    <string name="pref_theme_system">ערכת הנושא של המערכת</string>
+    <string name="pref_theme_system_desc">השתמש בערכת הנושא ברירת מחדל של המערכת</string>
+    <string name="pref_theme_dark">השתמש בערכת נושא כהה</string>
+    <string name="pref_theme_dark_desc">השתמש בערכת נושא כהה על פני הבהירה</string>
+    <string name="pref_device">שנה מכשיר</string>
+    <string name="pref_pm">חסרות הרשאות</string>
+    <string name="pref_pm_desc">האפליקציה זקוקה להרשאות כדי להוריד ולהתקין עדכונים.\nלחץ כאן כדי להעניק לה הרשאות לאחסון ול־Root.</string>
+    <string name="pref_about">אודות</string>
+    <string name="pref_about_desc">מחברים, רישיונות, קישורים</string>
+    <string name="about_me">מפתח ראשי ומעצב</string>
+    <string name="about_yan">יוצר ה־API, המנהיג של OrangeFox</string>
+    <string name="about_sub">אפליקציה לריקוברי של OrangeFox</string>
+    <string name="about_news">חדשות</string>
+    <string name="about_support">תמיכה</string>
+    <string name="about_app_tg">קבוצת האפליקציה</string>
+    <string name="about_web">אתר</string>
+    <string name="about_beta">תמיכה בבטא</string>
+    <string name="about_oos">רישיונות קוד פתוח</string>
+    <string name="dev_telegram" comment="dev_telegram&#10;&#10;Not used. Was in Device info">הטלגרם של המתחזקים</string>
+    <string name="annoy_opcol" comment="annoy_opcol&#10;&#10;Help message on top of the screen in main activity">תרמו ל־OrangeFox</string>
+    <string name="annoy_opcol_desc" comment="annoy_opcol_desc&#10;&#10;Help message on top of the screen in main activity">עזרו לנו לשפר את הריקוברי שלנו</string>
+    <string name="annoy_crowdin" comment="annoy_crowdin&#10;&#10;Help message on top of the screen in main activity">אתם רוצים לראות את האפליקציה בשפה שלכם?</string>
+    <string name="annoy_crowdin_desc" comment="annoy_crowdin_desc&#10;&#10;Help message on top of the screen in main activity">עזרו לנו לתרגם אותה בעזרת Crowdin</string>
+    <string name="annoy_support" comment="annoy_support&#10;&#10;Help message on top of the screen in main activity">הריקוברי לא עובד?</string>
+    <string name="annoy_support_desc" comment="annoy_support_desc&#10;&#10;Help message on top of the screen in main activity">מוזמנים לשאול אותנו בקבוצת הטלגרם</string>
+    <!-- Context -->
+    <string name="annoy_upd">אפשר עדכונים אוטומטיים</string>
+    <string name="annoy_upd_desc">האפליקציה תתקין את כל העדכונים באופן אוטומטי ברקע</string>
+    <string name="annoy_foxfiles" comment="annoy_foxfiles&#10;&#10;Help message on top of the screen in main activity">חלק מהקבצים חסרים</string>
+    <string name="annoy_foxfiles_desc" comment="annoy_foxfiles_desc&#10;&#10;Help message on top of the screen in main activity">עליך להתקין מחדש את הריקוברי כדי לקבל את כל הפונקציות</string>
+    <string name="pref_annoy_enable">הצג הודעות עזרה</string>
+    <string name="pref_annoy_enable_desc">הצג הודעות בעלות הקשר מועיל</string>
+    <string name="script_empty">פעולות הריקוברי</string>
+    <string name="script_empty_desc">התקנה, גיבוי ומחיקה קלים.\n
+        אתם עדיין צריכים ש־OrangeFox יהיה מותקן. כל הפעולות יבוצעו רק בו.</string>
+    <string name="script_backup_name">שם הגיבוי</string>
+    <string name="script_add_title">הוסף פעולה</string>
+    <string name="script_create">צור פעולה</string>
+    <string name="script_zip">התקנה</string>
+    <string name="script_zip_select">בחר קובץ זיפ</string>
+    <string name="script_backup">גיבוי</string>
+    <string name="script_wipe">מחיקה</string>
+    <string name="script_created">הפעולה נוצרה. אתחל מחדש כדי לבצע את הפעולה.</string>
+    <string name="script_err_rom">מחקת את המערכת אבל לא התקנת שום מערכת במקום.</string>
+    <string name="script_err_nothing" comment="script_err_nothing&#10;&#10;Appears in snackbar on scripts page">הפעולה ריקה.</string>
+    <string name="ignore">התעלם</string>
+    <string name="script_add_umount">הוסף פעולת ביטול מחיצה</string>
+    <string name="script_add_mount">הוסף פעולת מחיצה</string>
+    <string name="script_add_rw">הוסף פעולת מחיצה מחדש ק/כ</string>
+    <string name="script_cmd_text">פקודה</string>
+    <string name="script_mkdir_text">שם הספרייה</string>
+    <string name="script_print_text">טקסט</string>
+    <string name="script_var_text">משתנה</string>
+    <string name="script_var_val">ערך</string>
+    <string name="script_decrypt_text">סיסמה</string>
+    <string name="script_decrypt_pattern">תבנית</string>
+    <string name="script_decrypt">פענוח</string>
+    <string name="script_restore" comment="script_restore&#10;&#10;Restore action in scripts action list. It's used, when user loads custom OpenRecoveryScript">שחזור</string>
+    <string name="script_mount">מחיצה</string>
+    <string name="script_umount">בטל מחיצה</string>
+    <string name="script_rw">מחיצה מחדש ק/כ</string>
+    <string name="script_reboot">הפעלה מחדש</string>
+    <string name="script_etc">עוד</string>
+    <string name="script_mkdir">צור תיקייה</string>
+    <string name="script_cmd">בצע פקודת shell</string>
+    <string name="script_set">הגדר משתנה</string>
+    <string name="script_print">הדפס טקסט</string>
+    <string name="script_print_mounts" comment="script_print_mounts&#10;&#10;Action in scripts action list. It's used, when user loads custom OpenRecoveryScript">הדפס מחיצות</string>
+    <string name="script_fixperms">תקן הרשאות SELinux</string>
+    <string name="script_sideload">התחל העברת קבצים</string>
+    <string name="script_no_params">&lt; אין פרמטרים &gt;</string>
+    <string name="partition">מחיצות</string>
+    <string name="clear_all" comment="clear_all&#10;&#10;Description of trash can icon on scripts page">נקה הכול</string>
+    <string name="reboot_recovery">היכנס לריקוברי</string>
+    <string name="reboot_bootloader">היכנס לבוטלואדר</string>
+    <string name="unknown">לא ידוע</string>
+    <string name="backup_optimize">דחוס גיבוי</string>
+    <string name="backup_digest">דלג על יצירת מאגר</string>
+    <string name="err_changelog" comment="err_changelog&#10;&#10;Appears instead of changelog of app">לא ניתן לטעון את רשימת השינויים</string>
+    <string name="update_changelog">הוסף יומן שינויים</string>
+    <string name="update_install" comment="update_install&#10;&#10;Floating action button on changelog page">התקן עדכון לאפליקציה</string>
+    <string name="update_msg" comment="update_msg&#10;&#10;Help message on top of the screen in main activity">עדכון חדש לאפליקציה זמין</string>
+    <string name="update_msg_desc" comment="update_msg_desc&#10;&#10;Help message on top of the screen in main activity">הקש כאן כדי להציג רשימת שינויים</string>
+    <string name="update_installed_vers" comment="update_installed_vers&#10;&#10;Appears at the top of changelog">גרסה מותקנת: %1$s\n\n%2$s</string>
+    <string name="MIUI_dark_mode" comment="MIUI_dark_mode&#10;&#10;Help message on top of the screen in main activity">האפליקציה לא נראית כמתוכננת</string>
+    <string name="MIUI_dark_mode_desc" comment="MIUI_dark_mode_desc&#10;&#10;Special dialog for MIUI.">MIUI הופכת צבעים של אפליקציית OrangeFox.\n\n כדי להשבית את זה יש לגשת ל:\n הגדרות תצוגה\n מציאת הגדרות מצב כהה\n בחירה ב\"אפליקציות בודדות\"\n ביטול הבחירה באפליקציית OrangeFox</string>
+    <string name="MIUI_dark_mode_tap" comment="MIUI_dark_mode_tap&#10;&#10;Help message on top of the screen in main activity">הקש כאן לקבלת מידע נוסף</string>
+    <string name="go_settings" comment="go_settings&#10;&#10;Button of special dialog for MIUI.">גש להגדרות</string>
+    <string name="show_me" comment="show_me&#10;&#10;Button of special dialog for MIUI.">הראה לי איך</string>
+    <string name="log_activity">יומן</string>
+    <string name="log_type_normal">יומן</string>
+    <string name="log_type_zip">יומן דחוס</string>
+    <string name="log_type_install">יומן התקנה</string>
+    <string name="log_type_postinstall">יומן לפני התקנה</string>
+    <string name="log_type_last">יומן אחרון</string>
+    <string name="log_empty">לא נמצאו יומנים</string>
+    <string name="log_grantpm">הקש כאן כדי להציג יומנים</string>
+    <string name="btn_continue">המשך</string>
+    <string name="log_share">שלח יומן</string>
+    <string name="log_share_text">ניתן לשלוח תיעודים ישירות למפתחים באמצעות קבוצות הטלגרם:\n\nhttps://t.me/OrangeFoxChat\nhttps://t.me/OrangeFoxBeta\n\nבאפשרותם גם לשלוח הודעה פרטית למתחזק שלכם.</string>
+    <string name="feedback">עזרה ומשוב</string>
+    <string name="translated_by" comment="translated_by&#10;&#10;Appears in about page. You DO NOT need write your nickname after 'by'!">תורגם על־ידי</string>
+    <!-- TODO: Remove when Yan will move apk to orangefox server -->
+    <string name="very_old_version" comment="very_old_version&#10;&#10;Help message on top of the screen in main activity">גרסת האפליקציה שבידך ישנה מאוד</string>
+    <string name="very_old_version_desc" comment="very_old_version_desc&#10;&#10;Help message on top of the screen in main activity">אנא הורד את האפליקציה החדשה מהכתובת app.orangefox.tech</string>
+</resources>
