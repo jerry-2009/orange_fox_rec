@@ -151,6 +151,12 @@
     <string name="pref_theme_dark">Use dark theme</string>
     <string name="pref_theme_dark_desc">Use dark theme instead of light theme</string>
     <string name="pref_device">Change device</string>
+    <string name="pref_mirror">Mirror</string>
+    <string name="pref_mirror_desc">Some mirrors may be unavailable for certain releases</string>
+
+    <string name="mirror_dl">Netherlands</string>
+    <string name="mirror_hk">Hong Kong</string>
+    <string name="mirror_de">Germany</string>
 
     <string name="pref_pm">Missing permissions</string>
     <string name="pref_pm_desc">OrangeFox App needs permissions to download and install updates.\nTap here to grant Storage and Root permissions.</string>

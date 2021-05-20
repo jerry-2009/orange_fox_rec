@@ -77,4 +77,14 @@
         <item />
         <item>@string/script_var_text</item>
     </string-array>
+    <string-array name="mirrors">
+        <item>@string/mirror_dl</item>
+        <item>@string/mirror_hk</item>
+        <item>@string/mirror_de</item>
+    </string-array>
+    <string-array name="mirrors_opts">
+        <item>DL</item>
+        <item>HK</item>
+        <item>DE</item>
+    </string-array>
 </resources>

@@ -21,6 +21,11 @@
             app:icon="@drawable/ic_device"
             app:key="change_device" />
 
+        <Preference
+            app:title="@string/pref_mirror"
+            app:icon="@drawable/ic_round_public_24"
+            app:key="pref_mirror" />
+
         <SwitchPreferenceCompat
             app:key="pref_updates_enable"
             app:title="@string/pref_update_enable"

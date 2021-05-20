@@ -294,7 +294,7 @@ public class InstallFragment extends Fragment {
 
             final String name = release.getString("filename");
             final String version = release.getString("version");
-            final String url = release.getJSONObject("mirrors").getString("DL");
+            final String url = Tools.getUrlMirror(prefs, release.getJSONObject("mirrors"));
             final String stringBuildType = Tools.getBuildType(getActivity(), release);
             final String md5 = release.getString("md5");
 

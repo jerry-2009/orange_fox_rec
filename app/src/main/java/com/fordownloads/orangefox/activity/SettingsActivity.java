@@ -5,11 +5,16 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -27,10 +32,16 @@ import com.fordownloads.orangefox.consts;
 import com.fordownloads.orangefox.pref;
 import com.fordownloads.orangefox.utils.Install;
 import com.fordownloads.orangefox.utils.Tools;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thefuntasty.hauler.HaulerView;
 import com.topjohnwu.superuser.Shell;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
@@ -62,9 +73,9 @@ public class SettingsActivity extends AppCompatActivity {
             ab.setTitle(R.string.activity_settings);
             float originalElevation = myToolbar.getElevation();
 
-            ((HaulerView)findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
+            ((HaulerView) findViewById(R.id.haulerView)).setOnDragActivityListener((offset, v1) -> {
                 if (offset <= 15 && offset >= -15) {
-                    myToolbar.setElevation(originalElevation-(Math.abs(offset)/15*originalElevation));
+                    myToolbar.setElevation(originalElevation - (Math.abs(offset) / 15 * originalElevation));
                     myToolbar.setAlpha(1);
                 } else if (offset >= -50 && offset <= 50) {
                     myToolbar.setAlpha(1 - ((Math.abs(offset) - 25) / 25));
@@ -75,14 +86,14 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
-            findViewById(R.id.feedback).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/OrangeFoxApp")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK)));
+            findViewById(R.id.feedback).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/OrangeFoxApp")).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)));
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        JobScheduler mScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
+        JobScheduler mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         prefs.edit().putBoolean(pref.UPDATES_ENABLE, mScheduler.getPendingJob(consts.SCHEDULER_JOB_ID) != null).apply();
 
-        ((HaulerView)findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
+        ((HaulerView) findViewById(R.id.haulerView)).setOnDragDismissedListener(v -> finish());
     }
 
     @Override
@@ -99,7 +110,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
-        Preference _device, _system, _dark, _upd_1, _upd_2, _upd_3, _upd, _pm;
+        Preference _device, _system, _dark, _upd_1, _upd_2, _upd_3, _upd, _pm, _mirror;
+        SharedPreferences prefs;
 
         @Override
         public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
@@ -113,21 +125,60 @@ public class SettingsActivity extends AppCompatActivity {
         public RecyclerView onCreateRecyclerView(LayoutInflater inflater, ViewGroup parent,
                                                  Bundle savedInstanceState) {
             RecyclerView r = super.onCreateRecyclerView(inflater, parent, savedInstanceState);
-            r.setPadding(0,0,0,216);
+            r.setPadding(0, 0, 0, 216);
             return r;
         }
 
-        public void updateTogglesState(boolean state) {
+        private void updateTogglesState(boolean state) {
             _upd_1.setVisible(state);
             _upd_2.setVisible(state);
             _upd_3.setVisible(state);
         }
 
+        private void prefSelectDialog(Preference pr, String def, int sub, int list, int list_opts) {
+            Resources res = getResources();
+            String[] array = res.getStringArray(list);
+            List<String> array_opts = Arrays.asList(res.getStringArray(list_opts));
+
+            pr.setSummary(array[array_opts.indexOf(prefs.getString(pr.getKey(), def))]);
+
+            pr.setOnPreferenceClickListener((p) -> {
+                String current = prefs.getString(pr.getKey(), def);
+                View sheetView = getLayoutInflater().inflate(R.layout.dialog_listbox, null);
+                ListView listView = sheetView.findViewById(R.id.listView);
+
+                BottomSheetDialog dialog = Tools.initBottomSheet(requireActivity(), sheetView);
+                ((TextView) sheetView.findViewById(R.id.title)).setText(pr.getTitle());
+                ((TextView) sheetView.findViewById(R.id.subtitle)).setText(sub);
+
+                listView.setAdapter(new ArrayAdapter<String>(requireContext(), R.layout.list_radio, array) {
+                    @Override
+                    public View getView(int pos, View convertView, ViewGroup parent) {
+                        View v = convertView;
+                        if (v == null) v = getLayoutInflater().inflate(R.layout.list_radio, null);
+                        RadioButton r = v.findViewById(R.id.title);
+                        r.setText(array[pos]);
+                        r.setChecked(array_opts.get(pos).equals(current));
+                        r.setOnClickListener(view -> {
+                            prefs.edit().putString(pr.getKey(), array_opts.get(pos)).apply();
+                            pr.setSummary(array[pos]);
+                            dialog.dismiss();
+                        });
+                        return v;
+                    }
+                });
+
+                dialog.show();
+                sheetView.animate().setInterpolator(consts.intr).setDuration(800).translationY(0);
+                return true;
+            });
+        }
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity());
-            JobScheduler mScheduler = (JobScheduler)requireActivity().getSystemService(JOB_SCHEDULER_SERVICE);
+            prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+            JobScheduler mScheduler = (JobScheduler) requireActivity().getSystemService(JOB_SCHEDULER_SERVICE);
             _device = findPreference("change_device");
             _system = findPreference(pref.THEME_SYSTEM);
             _dark = findPreference(pref.THEME_DARK);
@@ -136,6 +187,7 @@ public class SettingsActivity extends AppCompatActivity {
             _upd_3 = findPreference(pref.UPDATES_BETA);
             _upd = findPreference(pref.UPDATES_ENABLE);
             _pm = findPreference("pm");
+            _mirror = findPreference(pref.MIRROR);
 
             _dark.setVisible(!prefs.getBoolean(pref.THEME_SYSTEM, true));
             updateTogglesState(prefs.getBoolean(pref.UPDATES_ENABLE, false));
@@ -173,14 +225,16 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
             });
 
+            prefSelectDialog(_mirror, "DL", R.string.pref_mirror_desc, R.array.mirrors, R.array.mirrors_opts);
+
             _upd.setOnPreferenceChangeListener((p, val) -> {
-                if ((boolean)val && !Shell.rootAccess()) {
+                if ((boolean) val && !Shell.rootAccess()) {
                     _pm.setVisible(true);
                     _upd.setEnabled(false);
                     return false;
                 }
                 mScheduler.cancelAll();
-                if ((boolean)val) {
+                if ((boolean) val) {
                     if (jobSchedule(prefs, mScheduler))
                         updateTogglesState(true);
                     else

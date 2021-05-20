@@ -22,6 +22,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -220,7 +221,7 @@ public class RecyclerActivity extends AppCompatActivity {
             final String md5 = release.getString("md5");
             final String name = release.getString("filename");
             final String version = release.getString("version");
-            final String url = release.getJSONObject("mirrors").getString("DL");
+            final String url = Tools.getUrlMirror(PreferenceManager.getDefaultSharedPreferences(this), release.getJSONObject("mirrors"));
             final String stringBuildType = Tools.getBuildType(this, release);
 
             items.add(new RecyclerItems(getString(R.string.rel_type), stringBuildType, R.drawable.ic_outline_build_24));

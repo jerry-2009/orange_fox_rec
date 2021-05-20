@@ -83,7 +83,7 @@ public class API {
                     Tools.getBuildType(context, release));
             Intent instIntent = new Intent(context, DownloadService.class)
                     .putExtra("version", release.getString("version"))
-                    .putExtra("url", release.getJSONObject("mirrors").getString("DL"))
+                    .putExtra("url", Tools.getUrlMirror(prefs, release.getJSONObject("mirrors")))
                     .putExtra("md5", release.getString("md5"))
                     .putExtra("name", release.getString("filename"))
                     .putExtra("install", true);

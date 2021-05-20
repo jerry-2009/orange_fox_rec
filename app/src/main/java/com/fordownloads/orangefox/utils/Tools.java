@@ -13,6 +13,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -252,5 +253,12 @@ public class Tools {
             row.addView(tv);
             table.addView(row);
         }
+    }
+
+    public static String getUrlMirror(SharedPreferences prefs, JSONObject mirrors) throws JSONException {
+        String mirror = prefs.getString(pref.MIRROR, "DL");
+        String ret = mirrors.has(mirror) ? mirrors.getString(mirror) : mirrors.getString(mirrors.keys().next());
+        Log.e("OFA: Mirror ", ret.substring(8, 10) + "/" + mirror);
+        return ret;
     }
 }
