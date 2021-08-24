@@ -13,7 +13,7 @@
     <string name="err_dev_not_selected">你没有选择你的设备</string>
     <string name="err_no_pm_storage">未授予存储权限</string>
     <string name="err_check_pm_inernet">检查存储权限或internet连接</string>
-    <string name="setup">格兰特</string>
+    <string name="setup">设置</string>
     <string name="err_no_pm_root" comment="err_no_pm_root&#10;Appears in snackbar on main page">你没有授予root权限。
 使用Magisk管理器授予根权限</string>
     <string name="err_md5_wrong" comment="err_md5_wrong&#10;&#10;Appears in snackbar on main page">您下载的版本已损坏。请重新下载释放。</string>
